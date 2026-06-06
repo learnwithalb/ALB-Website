@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { ArrowRight, CheckCircle, Globe, Star } from "lucide-react";
 import { AnimateOnView, StaggerContainer, StaggerItem } from "@/components/shared/AnimateOnView";
 import { languages } from "@/lib/constants";
+import { CountryBadge } from "@/lib/icons";
 
 const features = [
   "CEFR-aligned curriculum (A1 to C1)",
@@ -267,13 +268,12 @@ export default function CoursesPage() {
                         }}
                       >
                         <div className="flex flex-col gap-2">
-                          {/* Large flag */}
+                          {/* Country badge */}
                           <motion.div
-                            className="text-[60px] leading-none"
                             animate={{ y: [0, -6, 0] }}
                             transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
                           >
-                            {lang.flag}
+                            <CountryBadge code={lang.flagCode} color={lang.color} size="lg" />
                           </motion.div>
                           {lang.tag && (
                             <span

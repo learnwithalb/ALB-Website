@@ -27,7 +27,7 @@ export const languages = [
   {
     code: "fr",
     name: "French",
-    flag: "🇫🇷",
+    flagCode: "FR",
     tagline: "Open Europe, speak with elegance",
     href: "/courses/french",
     color: "#003087",
@@ -37,7 +37,7 @@ export const languages = [
   {
     code: "de",
     name: "German",
-    flag: "🇩🇪",
+    flagCode: "DE",
     tagline: "The language of precision & opportunity",
     href: "/courses/german",
     color: "#DD0000",
@@ -47,7 +47,7 @@ export const languages = [
   {
     code: "es",
     name: "Spanish",
-    flag: "🇪🇸",
+    flagCode: "ES",
     tagline: "20+ countries, 1 vibrant language",
     href: "/courses/spanish",
     color: "#AA151B",
@@ -57,7 +57,7 @@ export const languages = [
   {
     code: "jp",
     name: "Japanese",
-    flag: "🇯🇵",
+    flagCode: "JP",
     tagline: "Unlock the world's 3rd largest economy",
     href: "/courses/japanese",
     color: "#BC002D",
@@ -67,7 +67,7 @@ export const languages = [
   {
     code: "kr",
     name: "Korean",
-    flag: "🇰🇷",
+    flagCode: "KR",
     tagline: "Ride the Hallyu wave",
     href: "/courses/korean",
     color: "#003478",
@@ -77,7 +77,7 @@ export const languages = [
   {
     code: "en",
     name: "IELTS / English",
-    flag: "🇬🇧",
+    flagCode: "EN",
     tagline: "Your passport to global education",
     href: "/courses/ielts",
     color: "#012169",
@@ -187,32 +187,32 @@ export const faqs = [
 
 export const whyAlbPoints = [
   {
-    icon: "🎯",
+    icon: "target",
     title: "Goal-First Curriculum",
     desc: "We reverse-engineer your goal — visa, study abroad, job, travel — and build a learning path backwards from there.",
   },
   {
-    icon: "👩‍🏫",
+    icon: "teacher",
     title: "Native & Expert Faculty",
     desc: "Teach with a mix of native-speaker authenticity and India-context pedagogy. Zero compromise on quality.",
   },
   {
-    icon: "📊",
+    icon: "chart",
     title: "Progress Tracking",
     desc: "Monthly assessments, speaking simulations, and a digital progress dashboard so you always know where you stand.",
   },
   {
-    icon: "🤝",
+    icon: "handshake",
     title: "Community & Support",
     desc: "Private Discord/WhatsApp communities, language exchange partners, and alumni networks spanning 30+ countries.",
   },
   {
-    icon: "🏆",
+    icon: "trophy",
     title: "Proven Results",
     desc: "95%+ of our learners achieve their stated goal within the promised timeframe. Verified. Not just claimed.",
   },
   {
-    icon: "♻️",
+    icon: "infinite",
     title: "Lifetime Access",
     desc: "Re-take any module, attend refresher sessions, and access updated content — forever. Your investment compounds.",
   },
@@ -223,37 +223,37 @@ export const beyondModules = [
     title: "Public Speaking Mastery",
     desc: "Command the room — from 5-person meetings to 500-seat auditoriums.",
     duration: "8 weeks",
-    icon: "🎤",
+    icon: "mic",
   },
   {
     title: "Business Communication",
     desc: "Write sharper emails, lead better meetings, negotiate with clarity.",
     duration: "6 weeks",
-    icon: "💼",
+    icon: "work",
   },
   {
     title: "Personality Development",
     desc: "Build executive presence, emotional intelligence, and authentic confidence.",
     duration: "10 weeks",
-    icon: "✨",
+    icon: "sparkle",
   },
   {
     title: "Leadership Presence",
     desc: "Inspire teams, handle conflict, and communicate vision at every level.",
     duration: "8 weeks",
-    icon: "🌟",
+    icon: "stars",
   },
   {
     title: "Interview Mastery",
     desc: "Crack any interview — MNCs, MBA admissions, visa panels, scholarships.",
     duration: "4 weeks",
-    icon: "🎯",
+    icon: "target",
   },
   {
     title: "Cross-Cultural Communication",
     desc: "Navigate global workplaces and social contexts with ease and empathy.",
     duration: "6 weeks",
-    icon: "🌍",
+    icon: "globe",
   },
 ] as const;
 
@@ -261,21 +261,21 @@ export const partnerTypes = [
   {
     title: "School & College Partners",
     desc: "Bring ALB's language and soft skills programmes to your campus. Custom curriculum, certified instruction.",
-    icon: "🏫",
+    icon: "institution",
   },
   {
     title: "Corporate Training Partners",
     desc: "Upskill your workforce with bespoke language and communication training for global-facing teams.",
-    icon: "🏢",
+    icon: "business",
   },
   {
     title: "Study Abroad Consultants",
     desc: "Refer clients preparing for language exams or needing language confidence for admission interviews.",
-    icon: "✈️",
+    icon: "flight",
   },
   {
     title: "Referral Partners",
     desc: "Earn competitive commissions for every successful enrolment you bring to ALB.",
-    icon: "🤝",
+    icon: "handshake",
   },
 ] as const;

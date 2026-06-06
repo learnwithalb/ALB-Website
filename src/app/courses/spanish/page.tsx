@@ -1,70 +1,295 @@
-import type { Metadata } from "next";
+"use client";
+
+import { useRef } from "react";
 import Link from "next/link";
-import { ArrowRight, CheckCircle } from "lucide-react";
+import { motion, useInView } from "framer-motion";
+import { ArrowRight, CheckCircle, Clock, Users, Star } from "lucide-react";
 import { AnimateOnView, StaggerContainer, StaggerItem } from "@/components/shared/AnimateOnView";
+import { MuiIcon, CountryBadge } from "@/lib/icons";
 
-export const metadata: Metadata = {
-  title: "Spanish Language Course | DELE Preparation",
-  description: "Learn Spanish from A1 to B2 at ALB. DELE exam prep, Latin American culture, and vibrant conversation classes.",
-};
-
-const highlights = [
-  "DELE exam preparation (A1–B2)",
-  "Both Castilian and Latin American Spanish",
-  "21 countries, 500M+ speakers",
-  "Spanish for travel, business & culture",
-  "Native-speaker conversation sessions",
-  "Cultural immersion every class",
+const levels = [
+  { code: "A1", name: "Beginner", duration: "3 months", desc: "Greetings, introductions, numbers, colours. Start speaking from day one." },
+  { code: "A2", name: "Elementary", duration: "3 months", desc: "Travel, shopping, daily life. Handle simple conversations with confidence." },
+  { code: "B1", name: "Intermediate", duration: "4 months", desc: "Express opinions, tell stories, describe experiences. DELE B1 preparation." },
+  { code: "B2", name: "Upper Intermediate", duration: "5 months", desc: "Work and study in Spanish-speaking countries. Advanced grammar and debate." },
 ];
+
+const whySpanish = [
+  { icon: "globe",   title: "500M+ Speakers",    desc: "The world's second most spoken language by native speakers — connecting you to 20+ countries." },
+  { icon: "trophy",  title: "Career Advantage",  desc: "Spanish proficiency is among the highest-valued language skills for multinational companies." },
+  { icon: "theater", title: "Vibrant Culture",   desc: "Flamenco, telenovelas, Cervantes, García Márquez — the richest Spanish-speaking cultural universe." },
+  { icon: "waves",   title: "Travel Everywhere", desc: "Spain, Mexico, Argentina, Colombia, Peru — one language opens an entire continent." },
+  { icon: "tv",      title: "Content Paradise",  desc: "Netflix originals, music, cinema — Spanish content is everywhere. Learning feels like entertainment." },
+  { icon: "article", title: "DELE Certification", desc: "Instituto Cervantes' official exam — recognised by governments, universities, and employers worldwide." },
+];
+
+const regions = [
+  { region: "Spain",     flagCode: "ES", cities: "Madrid, Barcelona, Seville", accent: "Castilian" },
+  { region: "Mexico",    flagCode: "MX", cities: "Mexico City, Guadalajara",   accent: "Latin American" },
+  { region: "Argentina", flagCode: "AR", cities: "Buenos Aires, Córdoba",      accent: "Rioplatense" },
+  { region: "Colombia",  flagCode: "CO", cities: "Bogotá, Medellín",           accent: "Neutral accent" },
+];
+
+const examInfo = [
+  { exam: "DELE A1/A2", use: "Basic recognition, tourism visas" },
+  { exam: "DELE B1", use: "Spain student visa, most work scenarios" },
+  { exam: "DELE B2", use: "University admission, professional use" },
+  { exam: "DELE C1/C2", use: "Academic and professional excellence" },
+];
+
+function AnimatedBar({ rate }: { rate: number }) {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true });
+  return (
+    <div ref={ref} className="h-2 bg-white/10 rounded-full overflow-hidden">
+      <motion.div
+        className="h-full bg-gradient-to-r from-[#ef4444] to-[#f97316] rounded-full"
+        initial={{ width: 0 }}
+        animate={inView ? { width: `${rate}%` } : { width: 0 }}
+        transition={{ duration: 1.2, ease: "easeOut", delay: 0.2 }}
+      />
+    </div>
+  );
+}
 
 export default function SpanishPage() {
   return (
     <>
+      {/* Hero */}
       <section className="relative bg-[#060c1a] pt-28 pb-20 overflow-hidden">
-        <div className="absolute top-0 right-0 w-[500px] h-[500px] rounded-full bg-[#AA151B]/15 blur-[100px] pointer-events-none" />
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute -top-40 right-0 w-[600px] h-[600px] rounded-full bg-[#dc2626]/12 blur-[120px]" />
+          <div className="absolute bottom-0 left-0 w-[400px] h-[400px] rounded-full bg-[#f97316]/8 blur-[80px]" />
+        </div>
         <div className="container-max px-5 md:px-8 relative z-10">
-          <AnimateOnView>
-            <Link href="/courses" className="text-white/50 text-sm hover:text-white transition-colors mb-5 inline-block">← All Courses</Link>
-            <div className="flex items-center gap-3 mb-4">
-              <span className="text-5xl">🇪🇸</span>
-              <span className="eyebrow-pill-outline text-sm">Rising Fast</span>
-            </div>
-            <h1 className="text-4xl md:text-5xl font-black text-white leading-tight max-w-2xl">
-              Spanish Language
-              <span className="gradient-text"> Programme</span>
-            </h1>
-            <p className="mt-4 text-xl text-white/60 max-w-xl leading-relaxed">
-              One language. Twenty countries. Infinite possibilities. Spanish is the
-              world&apos;s second most spoken language — and the most joyful to learn.
-            </p>
-            <div className="mt-8 flex flex-wrap gap-3">
-              <a href="https://wa.me/919876543210" target="_blank" rel="noopener noreferrer" className="btn-primary">Enroll Now <ArrowRight size={16} /></a>
-              <Link href="/courses" className="btn-outline">All Languages</Link>
-            </div>
-          </AnimateOnView>
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <AnimateOnView>
+              <Link href="/courses" className="inline-flex items-center gap-1.5 text-white/50 text-sm hover:text-white transition-colors mb-5">
+                ← All Courses
+              </Link>
+              <div className="flex items-center gap-3 mb-4">
+                <motion.span
+                  className="inline-block"
+                  animate={{ y: [0, -10, 0] }}
+                  transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut" }}
+                >
+                  <CountryBadge code="ES" color="#ef4444" size="lg" />
+                </motion.span>
+                <span className="eyebrow-pill-outline text-sm">Most Accessible</span>
+              </div>
+              <h1 className="text-4xl md:text-5xl font-black text-white leading-tight">
+                Spanish Language
+                <span className="gradient-text"> Programme</span>
+              </h1>
+              <p className="mt-4 text-xl text-white/60 leading-relaxed">
+                20+ countries. 500M speakers. The world&apos;s most vibrant language — and one of the fastest to learn.
+              </p>
+              <div className="mt-8 flex flex-wrap gap-4">
+                <a href="https://wa.me/919876543210" target="_blank" rel="noopener noreferrer" className="btn-primary">
+                  Enroll Now <ArrowRight size={16} />
+                </a>
+                <Link href="/courses" className="btn-outline">All Languages</Link>
+              </div>
+            </AnimateOnView>
+
+            <AnimateOnView direction="left" className="hidden lg:block">
+              <div className="grid grid-cols-2 gap-3">
+                {[
+                  { stat: "500M+", label: "Native speakers" },
+                  { stat: "20+", label: "Countries" },
+                  { stat: "#2", label: "Most spoken natively" },
+                  { stat: "A2", label: "Fastest path to B1" },
+                ].map((w, i) => (
+                  <motion.div
+                    key={w.label}
+                    className="card-dark rounded-2xl p-6 text-center"
+                    animate={{ y: [0, -8, 0] }}
+                    transition={{ duration: 3 + i * 0.4, repeat: Infinity, ease: "easeInOut", delay: i * 0.3 }}
+                  >
+                    <div className="text-3xl font-black text-[#ef4444]">{w.stat}</div>
+                    <div className="text-white/50 text-sm mt-1">{w.label}</div>
+                  </motion.div>
+                ))}
+              </div>
+            </AnimateOnView>
+          </div>
         </div>
       </section>
 
+      {/* Quick facts bar */}
+      <section style={{ background: "#dc2626" }}>
+        <div className="container-max">
+          <div className="grid grid-cols-2 md:grid-cols-4">
+            {[
+              { icon: <Clock size={18} />, label: "Duration", value: "3–14 months" },
+              { icon: <Users size={18} />, label: "Batch Size", value: "Max 12" },
+              { icon: <Star size={18} />, label: "Rating", value: "4.8 / 5" },
+              { icon: <CheckCircle size={18} />, label: "Levels", value: "A1 to B2" },
+            ].map((f, i) => (
+              <div key={i} className="py-6 px-5 text-center border-r border-white/15 last:border-r-0">
+                <div className="flex justify-center text-white mb-1">{f.icon}</div>
+                <div className="text-white/50 text-xs font-semibold uppercase tracking-wider">{f.label}</div>
+                <div className="text-white font-black text-xl mt-0.5">{f.value}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Why Spanish */}
       <section className="section-padding bg-[#060c1a]">
         <div className="container-max">
-          <AnimateOnView className="text-center mb-10">
-            <span className="eyebrow">Programme Highlights</span>
-            <h2 className="text-3xl font-black text-white mt-2">Hola, <span className="gradient-text">mundo.</span></h2>
+          <AnimateOnView className="text-center mb-12">
+            <span className="eyebrow">Why Spanish?</span>
+            <h2 className="text-3xl md:text-4xl font-black text-white mt-2">
+              One language.{" "}
+              <span className="gradient-text">Infinite horizons.</span>
+            </h2>
           </AnimateOnView>
-          <StaggerContainer className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4" staggerDelay={0.07}>
-            {highlights.map((h) => (
-              <StaggerItem key={h}>
-                <div className="flex items-start gap-3 card-dark rounded-xl p-4">
-                  <CheckCircle size={16} className="text-[#22C55E] mt-0.5 flex-shrink-0" />
-                  <span className="text-sm text-white/55">{h}</span>
-                </div>
+          <StaggerContainer className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5" staggerDelay={0.08}>
+            {whySpanish.map((item, i) => (
+              <StaggerItem key={item.title}>
+                <motion.div className="card-dark rounded-2xl p-6 h-full" whileHover={{ y: -4 }}>
+                  <motion.div
+                    className="mb-3 inline-block"
+                    animate={{ y: [0, -6, 0] }}
+                    transition={{ duration: 3 + i * 0.3, repeat: Infinity, ease: "easeInOut", delay: i * 0.2 }}
+                  >
+                    <MuiIcon name={item.icon} size={36} style={{ color: "#ef4444" }} />
+                  </motion.div>
+                  <h3 className="font-bold text-white">{item.title}</h3>
+                  <p className="text-sm text-white/40 mt-2 leading-relaxed">{item.desc}</p>
+                </motion.div>
               </StaggerItem>
             ))}
           </StaggerContainer>
-          <AnimateOnView className="text-center mt-10">
-            <a href="https://wa.me/919876543210" target="_blank" rel="noopener noreferrer" className="btn-primary">
-              Book Free Counselling <ArrowRight size={16} />
-            </a>
+        </div>
+      </section>
+
+      {/* Levels */}
+      <section className="section-padding bg-[#04080f]">
+        <div className="container-max">
+          <AnimateOnView className="text-center mb-12">
+            <span className="eyebrow">Course Levels</span>
+            <h2 className="text-3xl font-black text-white mt-2">
+              A1 to B2 — <span className="gradient-text">DELE-aligned.</span>
+            </h2>
+          </AnimateOnView>
+          <div className="space-y-4">
+            {levels.map((level, i) => (
+              <AnimateOnView key={level.code} delay={i * 0.07}>
+                <motion.div className="card-dark rounded-2xl p-6 flex flex-col sm:flex-row sm:items-center gap-5" whileHover={{ x: 4 }}>
+                  <div className="flex-shrink-0">
+                    <div className="w-16 h-16 rounded-xl flex flex-col items-center justify-center" style={{ background: "rgba(220,38,38,0.1)", border: "1px solid rgba(220,38,38,0.2)" }}>
+                      <span className="font-black text-lg leading-none" style={{ color: "#ef4444" }}>{level.code}</span>
+                      <span className="text-white/30 text-xs">{level.name}</span>
+                    </div>
+                  </div>
+                  <div className="flex-1">
+                    <p className="text-white/60 leading-relaxed text-sm">{level.desc}</p>
+                  </div>
+                  <div className="flex-shrink-0">
+                    <p className="text-white/40 text-xs">{level.duration}</p>
+                  </div>
+                </motion.div>
+              </AnimateOnView>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Spanish-speaking world */}
+      <section className="section-padding bg-[#060c1a]">
+        <div className="container-max">
+          <AnimateOnView className="text-center mb-10">
+            <span className="eyebrow">The Spanish-Speaking World</span>
+            <h2 className="text-3xl font-black text-white mt-2">
+              One language.{" "}
+              <span className="gradient-text">Many accents. Many worlds.</span>
+            </h2>
+            <p className="text-white/45 mt-3 max-w-xl mx-auto text-sm">We teach both Castilian Spanish (Spain) and Latin American Spanish, exposing you to the full spectrum of accents and dialects.</p>
+          </AnimateOnView>
+          <StaggerContainer className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4" staggerDelay={0.08}>
+            {regions.map((r) => (
+              <StaggerItem key={r.region}>
+                <motion.div className="glass rounded-2xl p-6 text-center" whileHover={{ y: -4 }}>
+                  <div className="flex justify-center mb-3">
+                    <CountryBadge code={r.flagCode} color="#ef4444" size="lg" />
+                  </div>
+                  <h3 className="font-bold text-white">{r.region}</h3>
+                  <p className="text-xs text-white/40 mt-1">{r.cities}</p>
+                  <div className="mt-3 text-xs font-semibold text-[#ef4444]">{r.accent}</div>
+                </motion.div>
+              </StaggerItem>
+            ))}
+          </StaggerContainer>
+        </div>
+      </section>
+
+      {/* DELE exam */}
+      <section className="section-padding bg-[#04080f]">
+        <div className="container-max">
+          <div className="grid lg:grid-cols-2 gap-12 items-start">
+            <AnimateOnView direction="right">
+              <span className="eyebrow-pill-outline">Exam Preparation</span>
+              <h2 className="text-3xl font-black text-white mt-4">
+                DELE Certification
+              </h2>
+              <p className="mt-4 text-white/60 leading-relaxed">
+                The DELE (Diplomas de Español como Lengua Extranjera) by Instituto Cervantes is the gold standard for Spanish certification — recognised globally.
+              </p>
+              <div className="mt-6 space-y-3">
+                {examInfo.map((d) => (
+                  <div key={d.exam} className="glass rounded-xl px-4 py-3">
+                    <span className="font-bold text-sm" style={{ color: "#ef4444" }}>{d.exam}</span>
+                    <span className="text-white/50 text-sm ml-2">— {d.use}</span>
+                  </div>
+                ))}
+              </div>
+            </AnimateOnView>
+            <AnimateOnView direction="left">
+              <div className="card-dark rounded-3xl p-8">
+                <h3 className="text-white font-bold text-xl mb-6">Our DELE Pass Rate</h3>
+                {[
+                  { exam: "DELE A1/A2", rate: 98 },
+                  { exam: "DELE B1", rate: 95 },
+                  { exam: "DELE B2", rate: 90 },
+                ].map((s) => (
+                  <div key={s.exam} className="mb-5 last:mb-0">
+                    <div className="flex justify-between mb-2">
+                      <span className="text-white/70 text-sm">{s.exam}</span>
+                      <span className="font-bold text-sm" style={{ color: "#ef4444" }}>{s.rate}%</span>
+                    </div>
+                    <AnimatedBar rate={s.rate} />
+                  </div>
+                ))}
+              </div>
+            </AnimateOnView>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="section-padding bg-[#04080f] relative overflow-hidden">
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[250px] rounded-full blur-[80px]" style={{ background: "rgba(220,38,38,0.08)" }} />
+        </div>
+        <div className="container-max text-center relative z-10">
+          <AnimateOnView>
+            <motion.div className="text-5xl mb-4 inline-block" animate={{ y: [0, -10, 0] }} transition={{ duration: 3, repeat: Infinity }}>🇪🇸</motion.div>
+            <h2 className="text-3xl md:text-4xl font-black text-white">
+              ¿Listo para empezar?{" "}
+              <span className="gradient-text">Ready to begin?</span>
+            </h2>
+            <p className="mt-4 text-white/60 max-w-lg mx-auto">
+              Start your Spanish journey with a free placement call. A1 to B2 — we&apos;ll get you there.
+            </p>
+            <div className="mt-8 flex flex-wrap justify-center gap-4">
+              <a href="https://wa.me/919876543210" target="_blank" rel="noopener noreferrer" className="btn-primary text-lg px-8 py-4">
+                Start Spanish Today <ArrowRight size={18} />
+              </a>
+              <Link href="/courses" className="btn-outline text-lg px-8 py-4">View All Languages</Link>
+            </div>
           </AnimateOnView>
         </div>
       </section>

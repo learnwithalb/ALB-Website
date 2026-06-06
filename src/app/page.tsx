@@ -9,6 +9,7 @@ import {
 } from "lucide-react";
 import { AnimateOnView, StaggerContainer, StaggerItem } from "@/components/shared/AnimateOnView";
 import { languages, testimonials, faqs, whyAlbPoints } from "@/lib/constants";
+import { MuiIcon } from "@/lib/icons";
 
 /* ───────────────────────────────────────────────
    Language Network Visualization
@@ -25,8 +26,8 @@ const ORBIT_CONFIG = [
     dash: "",
     trackColor: "#2b6aff",
     tags: [
-      { name: "French",  flag: "🇫🇷", start: 0,   glow: "#4c8aff" },
-      { name: "Korean",  flag: "🇰🇷", start: 180, glow: "#22C55E" },
+      { name: "French",  flagCode: "FR", start: 0,   glow: "#4c8aff" },
+      { name: "Korean",  flagCode: "KR", start: 180, glow: "#22C55E" },
     ],
   },
   {
@@ -36,8 +37,8 @@ const ORBIT_CONFIG = [
     dash: "7 14",
     trackColor: "#22C55E",
     tags: [
-      { name: "German",  flag: "🇩🇪", start: 90,  glow: "#7aaaff" },
-      { name: "Spanish", flag: "🇪🇸", start: 270, glow: "#4ade80" },
+      { name: "German",  flagCode: "DE", start: 90,  glow: "#7aaaff" },
+      { name: "Spanish", flagCode: "ES", start: 270, glow: "#4ade80" },
     ],
   },
   {
@@ -47,8 +48,8 @@ const ORBIT_CONFIG = [
     dash: "3 9",
     trackColor: "#2b6aff",
     tags: [
-      { name: "Japanese", flag: "🇯🇵", start: 45,  glow: "#4c8aff" },
-      { name: "IELTS",    flag: "🇬🇧", start: 225, glow: "#22C55E" },
+      { name: "Japanese", flagCode: "JP", start: 45,  glow: "#4c8aff" },
+      { name: "IELTS",    flagCode: "EN", start: 225, glow: "#22C55E" },
     ],
   },
 ];
@@ -68,35 +69,49 @@ const BG_NODES = [
   { cx: 518, cy: 155, r: 1,   fill: "#22C55E", op: 0.3 },
 ];
 
+const SPOKE_LINES = [0, 60, 120, 180, 240, 300].map((angle) => {
+  const rad = (angle * Math.PI) / 180;
+  return {
+    angle,
+    x2: Math.round((270 + 220 * Math.cos(rad)) * 1e6) / 1e6,
+    y2: Math.round((270 + 220 * Math.sin(rad)) * 1e6) / 1e6,
+  };
+});
+
 /* ───────────────────────────────────────────────
    Spinning wireframe globe for the network hub.
    Longitude lines are morphed every frame via
    direct SVG DOM writes — no React state updates.
 ─────────────────────────────────────────────── */
+const _R   = 72;
+const _CX  = 82;
+const _CY  = 82;
+const _NUM = 8;
+
+const LAT_LINES = [-55, -33, -11, 11, 33, 55].map((deg) => {
+  const rad = (deg * Math.PI) / 180;
+  const rx  = Math.round(_R * Math.cos(rad) * 1e6) / 1e6;
+  const y   = Math.round((_CY + _R * Math.sin(rad)) * 1e6) / 1e6;
+  return { deg, rx, ry: Math.round(rx * 0.27 * 1e6) / 1e6, y };
+}).filter((l) => l.rx >= 2);
+
+const INIT_LONS = Array.from({ length: _NUM }, (_, i) => {
+  const rad = (i * Math.PI) / _NUM;
+  return Math.round(Math.abs(_R * Math.cos(rad)) * 1e6) / 1e6;
+});
+
 function HubGlobe() {
   const lonRef = useRef<SVGGElement>(null);
   const elapsed = useRef(0);
-
-  const R   = 72;
-  const CX  = 82;
-  const CY  = 82;
-  const NUM = 8;
-
-  const latAngles = [-55, -33, -11, 11, 33, 55];
-
-  const initLons = Array.from({ length: NUM }, (_, i) => {
-    const rad = ((i * 180) / NUM * Math.PI) / 180;
-    return Math.abs(R * Math.cos(rad));
-  });
 
   useAnimationFrame((_, delta) => {
     elapsed.current += delta;
     const rotDeg = (elapsed.current * (360 / 14000)) % 360;
     if (!lonRef.current) return;
     lonRef.current.querySelectorAll("ellipse").forEach((el, i) => {
-      const base   = (i * 180) / NUM;
+      const base   = (i * 180) / _NUM;
       const curRad = ((base + rotDeg) * Math.PI) / 180;
-      const rx     = Math.max(Math.abs(R * Math.cos(curRad)), 0.2);
+      const rx     = Math.max(Math.abs(_R * Math.cos(curRad)), 0.2);
       const front  = Math.sin(curRad) >= 0;
       el.setAttribute("rx", String(rx));
       el.setAttribute("stroke-opacity", front ? "0.48" : "0.12");
@@ -120,55 +135,48 @@ function HubGlobe() {
           <stop offset="100%" stopColor="#fff" stopOpacity="0" />
         </radialGradient>
         <clipPath id="hgClip">
-          <circle cx={CX} cy={CY} r={R} />
+          <circle cx={_CX} cy={_CY} r={_R} />
         </clipPath>
       </defs>
 
       {/* atmosphere halo */}
-      <circle cx={CX} cy={CY} r={R + 10} fill="url(#hgAtmo)" />
+      <circle cx={_CX} cy={_CY} r={_R + 10} fill="url(#hgAtmo)" />
 
       {/* sphere body */}
-      <circle cx={CX} cy={CY} r={R} fill="url(#hgSphere)" />
+      <circle cx={_CX} cy={_CY} r={_R} fill="url(#hgSphere)" />
 
-      {/* latitude lines – static */}
+      {/* latitude lines – pre-computed, no SSR mismatch */}
       <g clipPath="url(#hgClip)" fill="none">
-        {latAngles.map((deg, i) => {
-          const rad = (deg * Math.PI) / 180;
-          const y   = CY + R * Math.sin(rad);
-          const rx  = R * Math.cos(rad);
-          if (rx < 2) return null;
-          const eq  = deg === 0;
-          return (
-            <ellipse
-              key={i}
-              cx={CX} cy={y}
-              rx={rx} ry={rx * 0.27}
-              stroke="#7aaaff"
-              strokeWidth={eq ? "1" : "0.7"}
-              strokeOpacity={eq ? "0.55" : "0.32"}
-            />
-          );
-        })}
+        {LAT_LINES.map((l) => (
+          <ellipse
+            key={l.deg}
+            cx={_CX} cy={l.y}
+            rx={l.rx} ry={l.ry}
+            stroke="#7aaaff"
+            strokeWidth="0.7"
+            strokeOpacity="0.32"
+          />
+        ))}
       </g>
 
       {/* longitude lines – animated via DOM ref */}
       <g ref={lonRef} clipPath="url(#hgClip)" fill="none">
-        {initLons.map((rx, i) => (
+        {INIT_LONS.map((rx, i) => (
           <ellipse
             key={i}
-            cx={CX} cy={CY}
-            rx={rx} ry={R}
+            cx={_CX} cy={_CY}
+            rx={rx} ry={_R}
             stroke="#7aaaff" strokeWidth="0.7" strokeOpacity="0.35"
           />
         ))}
       </g>
 
       {/* specular highlight */}
-      <circle cx={CX} cy={CY} r={R} fill="url(#hgHi)" />
+      <circle cx={_CX} cy={_CY} r={_R} fill="url(#hgHi)" />
 
       {/* edge ring */}
       <circle
-        cx={CX} cy={CY} r={R}
+        cx={_CX} cy={_CY} r={_R}
         fill="none" stroke="#4c8aff" strokeWidth="1.5" strokeOpacity="0.55"
       />
     </svg>
@@ -205,18 +213,14 @@ function LanguageNetwork() {
             strokeDasharray={o.dash || undefined}
           />
         ))}
-        {[0, 60, 120, 180, 240, 300].map((angle) => {
-          const rad = (angle * Math.PI) / 180;
-          return (
-            <line
-              key={angle}
-              x1="270" y1="270"
-              x2={270 + 220 * Math.cos(rad)}
-              y2={270 + 220 * Math.sin(rad)}
-              stroke="#2b6aff" strokeWidth="0.3" strokeOpacity="0.08"
-            />
-          );
-        })}
+        {SPOKE_LINES.map((s) => (
+          <line
+            key={s.angle}
+            x1="270" y1="270"
+            x2={s.x2} y2={s.y2}
+            stroke="#2b6aff" strokeWidth="0.3" strokeOpacity="0.08"
+          />
+        ))}
         {BG_NODES.map((n, i) => (
           <circle key={i} cx={n.cx} cy={n.cy} r={n.r} fill={n.fill} opacity={n.op} />
         ))}
@@ -260,7 +264,7 @@ function LanguageNetwork() {
                     pointerEvents: "none",
                   }}
                 >
-                  <span style={{ fontSize: "13px", lineHeight: 1 }}>{tag.flag}</span>
+                  <span style={{ fontSize: "10px", fontWeight: 900, color: tag.glow, letterSpacing: "0.05em" }}>{tag.flagCode}</span>
                   <span style={{ color: "rgba(255,255,255,0.88)", fontSize: "10.5px", fontWeight: 700, letterSpacing: "0.03em" }}>
                     {tag.name}
                   </span>
@@ -491,7 +495,7 @@ export default function HomePage() {
           <div className="marquee-inner gap-8">
             {[...languages, ...languages].map((lang, i) => (
               <span key={i} className="flex items-center gap-2 text-white/30 text-sm font-semibold px-6">
-                <span className="text-xl">{lang.flag}</span>
+                <span className="text-xs font-black uppercase opacity-60">{lang.flagCode}</span>
                 {lang.name}
               </span>
             ))}
@@ -520,7 +524,10 @@ export default function HomePage() {
               <StaggerItem key={lang.code}>
                 <Link href={lang.href} className="card-dark-hover rounded-2xl p-6 flex flex-col group block">
                   <div className="flex items-start justify-between mb-4">
-                    <span className="text-4xl">{lang.flag}</span>
+                    <span
+                      className="text-xs font-black uppercase px-2.5 py-1.5 rounded-lg"
+                      style={{ background: `${lang.color}22`, color: lang.color }}
+                    >{lang.flagCode}</span>
                     {lang.tag && (
                       <span className="text-[10px] font-bold uppercase tracking-wider glass-blue text-[#7aaaff] px-2.5 py-1 rounded-full">
                         {lang.tag}
@@ -600,16 +607,18 @@ export default function HomePage() {
 
           <StaggerContainer className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-10 text-left" staggerDelay={0.07}>
             {[
-              { icon: "🎤", title: "Public Speaking",          desc: "Command any room — from 5-person meetings to 500-seat stages." },
-              { icon: "💼", title: "Business Communication",   desc: "Write sharper emails, lead better meetings, negotiate with clarity." },
-              { icon: "✨", title: "Personality Development",  desc: "Executive presence, EQ, and authentic confidence — built systematically." },
-              { icon: "🌟", title: "Leadership Presence",      desc: "Inspire teams and communicate vision at every level." },
-              { icon: "🎯", title: "Interview Mastery",        desc: "Crack MNC, MBA, visa, and scholarship interviews with confidence." },
-              { icon: "🌍", title: "Cross-Cultural Comm.",     desc: "Navigate global workplaces and cultures with ease and empathy." },
+              { icon: "mic",     title: "Public Speaking",         desc: "Command any room — from 5-person meetings to 500-seat stages." },
+              { icon: "work",    title: "Business Communication",  desc: "Write sharper emails, lead better meetings, negotiate with clarity." },
+              { icon: "sparkle", title: "Personality Development", desc: "Executive presence, EQ, and authentic confidence — built systematically." },
+              { icon: "stars",   title: "Leadership Presence",     desc: "Inspire teams and communicate vision at every level." },
+              { icon: "target",  title: "Interview Mastery",       desc: "Crack MNC, MBA, visa, and scholarship interviews with confidence." },
+              { icon: "globe",   title: "Cross-Cultural Comm.",    desc: "Navigate global workplaces and cultures with ease and empathy." },
             ].map((m) => (
               <StaggerItem key={m.title}>
                 <div className="card-dark rounded-2xl p-5 hover:border-[rgba(34,197,94,0.2)] transition-colors">
-                  <div className="text-3xl mb-3">{m.icon}</div>
+                  <div className="mb-3">
+                    <MuiIcon name={m.icon} size={28} style={{ color: "#22C55E" }} />
+                  </div>
                   <h3 className="text-white font-bold text-base">{m.title}</h3>
                   <p className="text-white/40 text-xs mt-1.5 leading-relaxed">{m.desc}</p>
                 </div>
@@ -687,15 +696,17 @@ export default function HomePage() {
 
           <StaggerContainer className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4" staggerDelay={0.09}>
             {[
-              { n: "01", icon: "🗣️", title: "Free Counselling", desc: "Tell us your goal and timeline. We map the perfect learning path." },
-              { n: "02", icon: "📋", title: "Placement Test",    desc: "Quick diagnostic to confirm your exact starting level." },
-              { n: "03", icon: "📚", title: "Start Learning",    desc: "Live classes, cultural immersion, regular feedback every week." },
-              { n: "04", icon: "🏆", title: "Achieve Your Goal", desc: "Exam pass, visa approved, job landed. We celebrate every win." },
+              { n: "01", icon: "chat",    title: "Free Counselling", desc: "Tell us your goal and timeline. We map the perfect learning path." },
+              { n: "02", icon: "article", title: "Placement Test",   desc: "Quick diagnostic to confirm your exact starting level." },
+              { n: "03", icon: "book",    title: "Start Learning",   desc: "Live classes, cultural immersion, regular feedback every week." },
+              { n: "04", icon: "trophy",  title: "Achieve Your Goal", desc: "Exam pass, visa approved, job landed. We celebrate every win." },
             ].map((s) => (
               <StaggerItem key={s.n}>
                 <div className="card-dark rounded-2xl p-6 text-center relative overflow-hidden">
                   <span className="absolute top-3 right-4 text-5xl font-black text-white/4 select-none">{s.n}</span>
-                  <div className="text-3xl mb-4">{s.icon}</div>
+                  <div className="mb-4 flex justify-center">
+                    <MuiIcon name={s.icon} size={28} style={{ color: "#22C55E" }} />
+                  </div>
                   <h3 className="font-bold text-white text-base">{s.title}</h3>
                   <p className="text-white/40 text-xs mt-2 leading-relaxed">{s.desc}</p>
                 </div>

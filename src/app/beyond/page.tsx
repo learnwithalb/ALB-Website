@@ -4,26 +4,27 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowRight, Star, CheckCircle } from "lucide-react";
 import { AnimateOnView, StaggerContainer, StaggerItem } from "@/components/shared/AnimateOnView";
+import { MuiIcon } from "@/lib/icons";
 
 const skillCards = [
-  { icon: "🎤", label: "Public Speaking", top: "5%", left: "55%", duration: 3.2, delay: 0 },
-  { icon: "💼", label: "Business Comm", top: "22%", left: "72%", duration: 4.1, delay: 0.5 },
-  { icon: "✨", label: "Personality", top: "48%", left: "80%", duration: 3.7, delay: 1.0 },
-  { icon: "🌟", label: "Leadership", top: "68%", left: "62%", duration: 4.5, delay: 0.3 },
-  { icon: "🎯", label: "Interview", top: "60%", left: "38%", duration: 3.4, delay: 1.4 },
-  { icon: "🌍", label: "Cross-Cultural", top: "30%", left: "42%", duration: 4.8, delay: 0.8 },
+  { icon: "mic",    label: "Public Speaking", top: "5%",  left: "55%", duration: 3.2, delay: 0 },
+  { icon: "work",   label: "Business Comm",   top: "22%", left: "72%", duration: 4.1, delay: 0.5 },
+  { icon: "sparkle",label: "Personality",     top: "48%", left: "80%", duration: 3.7, delay: 1.0 },
+  { icon: "stars",  label: "Leadership",      top: "68%", left: "62%", duration: 4.5, delay: 0.3 },
+  { icon: "target", label: "Interview",       top: "60%", left: "38%", duration: 3.4, delay: 1.4 },
+  { icon: "globe",  label: "Cross-Cultural",  top: "30%", left: "42%", duration: 4.8, delay: 0.8 },
 ];
 
 const whoItsFor = [
-  { icon: "💼", title: "Working Professionals", desc: "Preparing for global roles, promotions, or MNC interviews where communication is the differentiator.", color: "#2b6aff" },
-  { icon: "🎓", title: "Students & Graduates", desc: "Applying for top MBA programmes, international universities, or their first corporate role.", color: "#22C55E" },
-  { icon: "🌐", title: "Language Learners", desc: "ALB language students who want the full package — fluency AND confidence AND presence.", color: "#2b6aff" },
-  { icon: "🏢", title: "Corporate Teams", desc: "Organisations that need their client-facing teams to communicate with global polish.", color: "#22C55E" },
+  { icon: "work",     title: "Working Professionals", desc: "Preparing for global roles, promotions, or MNC interviews where communication is the differentiator.", color: "#2b6aff" },
+  { icon: "school",   title: "Students & Graduates",  desc: "Applying for top MBA programmes, international universities, or their first corporate role.", color: "#22C55E" },
+  { icon: "language", title: "Language Learners",     desc: "ALB language students who want the full package — fluency AND confidence AND presence.", color: "#2b6aff" },
+  { icon: "business", title: "Corporate Teams",       desc: "Organisations that need their client-facing teams to communicate with global polish.", color: "#22C55E" },
 ];
 
 const moduleDetails = [
   {
-    icon: "🎤",
+    icon: "mic",
     title: "Public Speaking Mastery",
     duration: "8 weeks · 16 sessions",
     price: "₹14,999",
@@ -37,7 +38,7 @@ const moduleDetails = [
     ],
   },
   {
-    icon: "💼",
+    icon: "work",
     title: "Business Communication",
     duration: "6 weeks · 12 sessions",
     price: "₹11,999",
@@ -51,7 +52,7 @@ const moduleDetails = [
     ],
   },
   {
-    icon: "✨",
+    icon: "sparkle",
     title: "Personality Development",
     duration: "10 weeks · 20 sessions",
     price: "₹17,999",
@@ -65,7 +66,7 @@ const moduleDetails = [
     ],
   },
   {
-    icon: "🌟",
+    icon: "stars",
     title: "Leadership Presence",
     duration: "8 weeks · 16 sessions",
     price: "₹15,999",
@@ -79,7 +80,7 @@ const moduleDetails = [
     ],
   },
   {
-    icon: "🎯",
+    icon: "target",
     title: "Interview Mastery",
     duration: "4 weeks · 8 sessions",
     price: "₹8,999",
@@ -93,7 +94,7 @@ const moduleDetails = [
     ],
   },
   {
-    icon: "🌍",
+    icon: "globe",
     title: "Cross-Cultural Communication",
     duration: "6 weeks · 12 sessions",
     price: "₹11,999",
@@ -164,7 +165,7 @@ export default function BeyondPage() {
                     ease: "easeInOut",
                   }}
                 >
-                  <span className="text-2xl">{card.icon}</span>
+                  <MuiIcon name={card.icon} size={22} style={{ color: "#4c8aff" }} />
                   <span className="text-sm font-bold text-white whitespace-nowrap">{card.label}</span>
                 </motion.div>
               ))}
@@ -195,7 +196,7 @@ export default function BeyondPage() {
                   whileHover={{ scale: 1.03 }}
                   transition={{ type: "spring", stiffness: 300, damping: 20 }}
                 >
-                  <div className="text-4xl mb-3">{item.icon}</div>
+                  <div className="mb-3 flex justify-center"><MuiIcon name={item.icon} size={36} style={{ color: item.color }} /></div>
                   <h3 className="font-bold text-white text-base">{item.title}</h3>
                   <p className="text-xs text-white/40 mt-2 leading-relaxed">{item.desc}</p>
                   {/* Bottom colour line that expands on hover */}
@@ -243,7 +244,7 @@ export default function BeyondPage() {
                   />
 
                   <div className="p-6 flex flex-col flex-1">
-                    <div className="text-4xl mb-4">{mod.icon}</div>
+                    <div className="mb-4"><MuiIcon name={mod.icon} size={36} style={{ color: "#22C55E" }} /></div>
                     <h3 className="text-xl font-black text-white">{mod.title}</h3>
                     <p className="text-xs text-white/35 font-semibold mt-1 tracking-wide uppercase">
                       {mod.duration}

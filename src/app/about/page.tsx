@@ -6,6 +6,7 @@ import { motion, useInView } from "framer-motion";
 import { ArrowRight, Heart, Target, Eye, Star, Globe } from "lucide-react";
 import { AnimateOnView, StaggerContainer, StaggerItem } from "@/components/shared/AnimateOnView";
 import { stats } from "@/lib/constants";
+import { MuiIcon } from "@/lib/icons";
 
 const milestones = [
   { year: "2012", title: "Founded in Mumbai", desc: "Started with 12 students and a dream to bridge the language gap for Indian learners going global." },
@@ -17,12 +18,12 @@ const milestones = [
 ];
 
 const values = [
-  { icon: "🎯", title: "Goal-First Always", desc: "Every decision we make — curriculum, faculty, scheduling — is reverse-engineered from your specific goal." },
-  { icon: "🤝", title: "Student-Centred Care", desc: "We remember your name, your goal, and your story. ALB is a community, not a factory." },
-  { icon: "🔬", title: "Academic Rigour", desc: "CEFR-aligned curriculum, expert faculty, and structured assessments — zero compromise on quality." },
-  { icon: "🌍", title: "Cultural Immersion", desc: "Language is a window into culture. We teach both — with genuine passion and lived experience." },
-  { icon: "📈", title: "Transparent Progress", desc: "Monthly reports, speaking simulations, and honest assessments. You always know exactly where you stand." },
-  { icon: "♾️", title: "Lifetime Partnership", desc: "Your ALB relationship doesn't end when the course does. Alumni get perpetual access, community, and support." },
+  { icon: "target",   title: "Goal-First Always", desc: "Every decision we make — curriculum, faculty, scheduling — is reverse-engineered from your specific goal." },
+  { icon: "handshake", title: "Student-Centred Care", desc: "We remember your name, your goal, and your story. ALB is a community, not a factory." },
+  { icon: "science",  title: "Academic Rigour", desc: "CEFR-aligned curriculum, expert faculty, and structured assessments — zero compromise on quality." },
+  { icon: "globe",    title: "Cultural Immersion", desc: "Language is a window into culture. We teach both — with genuine passion and lived experience." },
+  { icon: "trending", title: "Transparent Progress", desc: "Monthly reports, speaking simulations, and honest assessments. You always know exactly where you stand." },
+  { icon: "infinite", title: "Lifetime Partnership", desc: "Your ALB relationship doesn't end when the course does. Alumni get perpetual access, community, and support." },
 ];
 
 const team = [
@@ -35,16 +36,16 @@ const team = [
 ];
 
 const credentials = [
-  { icon: "🏛️", title: "DELF/DALF Prep Centre", body: "Official preparation partner for French government certification exams." },
-  { icon: "🎓", title: "Goethe-Institut Aligned", body: "German curriculum aligned with Goethe-Institut standards and examination." },
-  { icon: "🌐", title: "CEFR Framework", body: "All language programmes follow the Common European Framework of Reference." },
-  { icon: "⭐", title: "4.9/5 Learner Rating", body: "Verified ratings from 5,000+ alumni across Google, Facebook and direct surveys." },
+  { icon: "institution", title: "DELF/DALF Prep Centre", body: "Official preparation partner for French government certification exams." },
+  { icon: "school",      title: "Goethe-Institut Aligned", body: "German curriculum aligned with Goethe-Institut standards and examination." },
+  { icon: "language",    title: "CEFR Framework", body: "All language programmes follow the Common European Framework of Reference." },
+  { icon: "star",        title: "4.9/5 Learner Rating", body: "Verified ratings from 5,000+ alumni across Google, Facebook and direct surveys." },
 ];
 
 const heroCards = [
-  { label: "5000+", sublabel: "Learners", icon: "🎓", delay: 0, duration: 3.2, yRange: [0, -18, 0] },
-  { label: "95%", sublabel: "Success Rate", icon: "🏆", delay: 0.6, duration: 3.8, yRange: [0, -14, 0] },
-  { label: "12+", sublabel: "Years", icon: "⭐", delay: 1.1, duration: 4.2, yRange: [0, -20, 0] },
+  { label: "5000+", sublabel: "Learners",     icon: "school", delay: 0,   duration: 3.2, yRange: [0, -18, 0] },
+  { label: "95%",   sublabel: "Success Rate", icon: "trophy", delay: 0.6, duration: 3.8, yRange: [0, -14, 0] },
+  { label: "12+",   sublabel: "Years",        icon: "star",   delay: 1.1, duration: 4.2, yRange: [0, -20, 0] },
 ];
 
 function StatCard({ stat, index }: { stat: typeof stats[number]; index: number }) {
@@ -152,10 +153,10 @@ export default function AboutPage() {
                   }}
                 >
                   <div
-                    className="w-12 h-12 rounded-xl flex items-center justify-center text-2xl flex-shrink-0"
+                    className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0"
                     style={{ background: "rgba(34,197,94,0.15)", border: "1px solid rgba(34,197,94,0.2)" }}
                   >
-                    {card.icon}
+                    <MuiIcon name={card.icon} size={22} style={{ color: "#22C55E" }} />
                   </div>
                   <div>
                     <div className="text-3xl font-black text-white leading-none">{card.label}</div>
@@ -373,13 +374,14 @@ export default function AboutPage() {
                     boxShadow: "0 20px 60px rgba(34,197,94,0.1)",
                   }}
                 >
-                  {/* Floating emoji icon */}
+                  {/* Floating icon */}
                   <motion.div
-                    className="text-4xl mb-4 inline-block"
+                    className="mb-4 inline-flex items-center justify-center w-12 h-12 rounded-xl"
+                    style={{ background: "rgba(34,197,94,0.12)", border: "1px solid rgba(34,197,94,0.2)" }}
                     animate={{ y: [0, -6, 0] }}
-                    transition={{ duration: 3 + Math.random() * 1.5, repeat: Infinity, ease: "easeInOut" }}
+                    transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut" }}
                   >
-                    {v.icon}
+                    <MuiIcon name={v.icon} size={22} style={{ color: "#22C55E" }} />
                   </motion.div>
                   <h3 className="font-bold text-white text-lg">{v.title}</h3>
                   <p className="text-sm text-white/45 mt-2 leading-relaxed">{v.desc}</p>
@@ -462,11 +464,12 @@ export default function AboutPage() {
                   style={{ transition: "border-color 0.25s, box-shadow 0.25s" }}
                 >
                   <motion.div
-                    className="text-4xl mb-3 inline-block"
+                    className="mb-3 inline-flex items-center justify-center w-12 h-12 rounded-xl"
+                    style={{ background: "rgba(43,106,255,0.12)", border: "1px solid rgba(43,106,255,0.2)" }}
                     animate={{ y: [0, -5, 0] }}
                     transition={{ duration: 3.5 + i * 0.4, repeat: Infinity, ease: "easeInOut", delay: i * 0.5 }}
                   >
-                    {c.icon}
+                    <MuiIcon name={c.icon} size={22} style={{ color: "#4c8aff" }} />
                   </motion.div>
                   <h3 className="text-white font-bold text-base">{c.title}</h3>
                   <p className="text-white/50 text-sm mt-2 leading-relaxed">{c.body}</p>
