@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { ArrowRight, Star, CheckCircle } from "lucide-react";
 import { AnimateOnView, StaggerContainer, StaggerItem } from "@/components/shared/AnimateOnView";
 import { MuiIcon } from "@/lib/icons";
+import { useBooking } from "@/components/shared/BookingContext";
 
 const skillCards = [
   { icon: "mic",    label: "Public Speaking", top: "5%",  left: "55%", duration: 3.2, delay: 0 },
@@ -110,6 +111,7 @@ const moduleDetails = [
 ];
 
 export default function BeyondPage() {
+  const { openModal } = useBooking();
   return (
     <>
       {/* ── Hero ── */}
@@ -139,14 +141,9 @@ export default function BeyondPage() {
                   Explore Modules
                   <ArrowRight size={16} />
                 </Link>
-                <a
-                  href="https://wa.me/919876543210"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn-outline"
-                >
+                <button onClick={() => openModal("+Beyond (Soft Skills)")} className="btn-outline">
                   Book Free Counselling
-                </a>
+                </button>
               </div>
             </AnimateOnView>
 
@@ -381,15 +378,13 @@ export default function BeyondPage() {
               Free 30-minute counselling · No commitment · Expert guidance
             </p>
             <div className="mt-8 flex flex-wrap justify-center gap-4">
-              <a
-                href="https://wa.me/919876543210"
-                target="_blank"
-                rel="noopener noreferrer"
+              <button
+                onClick={() => openModal("+Beyond (Soft Skills)")}
                 className="btn-primary text-lg px-8 py-4"
               >
                 Book Free Session
                 <ArrowRight size={18} />
-              </a>
+              </button>
               <Link href="/courses" className="btn-outline text-lg px-8 py-4">
                 See Language Courses
               </Link>

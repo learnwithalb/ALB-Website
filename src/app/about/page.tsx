@@ -7,6 +7,8 @@ import { ArrowRight, Heart, Target, Eye, Star, Globe } from "lucide-react";
 import { AnimateOnView, StaggerContainer, StaggerItem } from "@/components/shared/AnimateOnView";
 import { stats } from "@/lib/constants";
 import { MuiIcon } from "@/lib/icons";
+import { CountUp } from "@/components/shared/CountUp";
+import { useBooking } from "@/components/shared/BookingContext";
 
 const milestones = [
   { year: "2012", title: "Founded in Mumbai", desc: "Started with 12 students and a dream to bridge the language gap for Indian learners going global." },
@@ -73,7 +75,9 @@ function StatCard({ stat, index }: { stat: typeof stats[number]; index: number }
         animate={isInView ? { scaleX: [0, 1, 0], opacity: [0, 1, 0] } : { scaleX: 0, opacity: 0 }}
         transition={{ duration: 1.8, ease: "easeInOut", delay: index * 0.15 + 0.3, repeat: Infinity, repeatDelay: 3 }}
       />
-      <div className="text-4xl font-black text-white mb-1">{stat.value}</div>
+      <div className="text-4xl font-black text-white mb-1">
+        <CountUp value={stat.value} duration={2000} />
+      </div>
       <div className="text-sm text-white/50 font-semibold">{stat.label}</div>
       {/* Subtle glow dot */}
       <motion.div
@@ -86,6 +90,7 @@ function StatCard({ stat, index }: { stat: typeof stats[number]; index: number }
 }
 
 export default function AboutPage() {
+  const { openModal } = useBooking();
   return (
     <>
       {/* ─── HERO ─── */}
@@ -124,9 +129,9 @@ export default function AboutPage() {
                     Explore Courses
                     <ArrowRight size={16} />
                   </Link>
-                  <Link href="/contact" className="btn-outline">
+                  <button onClick={() => openModal()} className="btn-outline">
                     Book a Call
-                  </Link>
+                  </button>
                 </div>
               </AnimateOnView>
             </div>
@@ -159,7 +164,9 @@ export default function AboutPage() {
                     <MuiIcon name={card.icon} size={22} style={{ color: "#22C55E" }} />
                   </div>
                   <div>
-                    <div className="text-3xl font-black text-white leading-none">{card.label}</div>
+                    <div className="text-3xl font-black text-white leading-none">
+                      <CountUp value={card.label} duration={1800} />
+                    </div>
                     <div className="text-sm text-white/50 mt-0.5 font-medium">{card.sublabel}</div>
                   </div>
                   {/* Pulsing green dot */}
@@ -528,9 +535,9 @@ export default function AboutPage() {
                     Browse Courses
                     <ArrowRight size={16} />
                   </Link>
-                  <Link href="/contact" className="btn-outline">
+                  <button onClick={() => openModal()} className="btn-outline">
                     Book a Free Call
-                  </Link>
+                  </button>
                 </div>
 
                 {/* Social proof micro row */}

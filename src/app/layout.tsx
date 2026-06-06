@@ -4,6 +4,8 @@ import "@/styles/globals.css";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { LenisProvider } from "@/components/shared/LenisProvider";
+import { BookingProvider } from "@/components/shared/BookingContext";
+import { BookingModal } from "@/components/shared/BookingModal";
 
 const plusJakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
@@ -39,11 +41,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className={`${plusJakarta.variable} ${cormorant.variable}`}>
       <body className="font-sans antialiased">
-        <LenisProvider>
-          <Navbar />
-          <main>{children}</main>
-          <Footer />
-        </LenisProvider>
+        <BookingProvider>
+          <LenisProvider>
+            <Navbar />
+            <main>{children}</main>
+            <Footer />
+          </LenisProvider>
+          <BookingModal />
+        </BookingProvider>
       </body>
     </html>
   );

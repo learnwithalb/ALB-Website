@@ -6,6 +6,8 @@ import { ArrowRight, CheckCircle, Globe, Star } from "lucide-react";
 import { AnimateOnView, StaggerContainer, StaggerItem } from "@/components/shared/AnimateOnView";
 import { languages } from "@/lib/constants";
 import { CountryBadge } from "@/lib/icons";
+import { CountUp } from "@/components/shared/CountUp";
+import { useBooking } from "@/components/shared/BookingContext";
 
 const features = [
   "CEFR-aligned curriculum (A1 to C1)",
@@ -126,6 +128,7 @@ function WeekScheduleCard() {
 }
 
 export default function CoursesPage() {
+  const { openModal } = useBooking();
   return (
     <>
       {/* ─── HERO ─── */}
@@ -385,10 +388,10 @@ export default function CoursesPage() {
               </div>
 
               <div className="mt-8">
-                <Link href="/contact" className="btn-primary">
+                <button onClick={() => openModal()} className="btn-primary">
                   Book Free Counselling
                   <ArrowRight size={16} />
-                </Link>
+                </button>
               </div>
             </AnimateOnView>
 
@@ -428,7 +431,9 @@ export default function CoursesPage() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: i * 0.08 }}
               >
-                <div className="text-2xl font-black text-white">{s.value}</div>
+                <div className="text-2xl font-black text-white">
+                  <CountUp value={s.value} duration={1800} />
+                </div>
                 <div className="text-xs text-white/40 font-semibold mt-0.5">{s.label}</div>
               </motion.div>
             ))}
@@ -491,16 +496,14 @@ export default function CoursesPage() {
                   you choose based on your goals, timeline, and interests.
                 </p>
                 <div className="mt-8 flex flex-wrap justify-center gap-4">
-                  <a
-                    href="https://wa.me/919876543210"
-                    target="_blank"
-                    rel="noopener noreferrer"
+                  <button
+                    onClick={() => openModal()}
                     className="btn-primary"
                     style={{ fontSize: "1rem", padding: "0.9375rem 2rem" }}
                   >
                     Book Free Counselling
                     <ArrowRight size={18} />
-                  </a>
+                  </button>
                   <Link href="/about" className="btn-outline">
                     Learn About ALB
                   </Link>

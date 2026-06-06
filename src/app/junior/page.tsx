@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { ArrowRight, Star, CheckCircle } from "lucide-react";
 import { AnimateOnView, StaggerContainer, StaggerItem } from "@/components/shared/AnimateOnView";
 import { MuiIcon } from "@/lib/icons";
+import { useBooking } from "@/components/shared/BookingContext";
 
 const FLOATING_ICONS = [
   { icon: "globe",  top: "12%", left: "8%",   size: 40, dur: 3.2, color: "#4c8aff" },
@@ -62,6 +63,7 @@ const faqs = [
 ];
 
 export default function JuniorPage() {
+  const { openModal } = useBooking();
   return (
     <>
       {/* Hero */}
@@ -100,9 +102,9 @@ export default function JuniorPage() {
                 <Link href="/courses" className="btn-primary">
                   Enroll Your Child <ArrowRight size={16} />
                 </Link>
-                <a href="https://wa.me/919876543210" target="_blank" rel="noopener noreferrer" className="btn-outline">
+                <button onClick={() => openModal("ALB Junior (Ages 6–16)")} className="btn-outline">
                   Book Free Trial
-                </a>
+                </button>
               </div>
             </AnimateOnView>
 
@@ -325,9 +327,9 @@ export default function JuniorPage() {
               First trial class is completely free — no commitment.
             </p>
             <div className="mt-8 flex flex-wrap justify-center gap-4">
-              <a href="https://wa.me/919876543210" target="_blank" rel="noopener noreferrer" className="btn-primary">
+              <button onClick={() => openModal("ALB Junior (Ages 6–16)")} className="btn-primary">
                 Book Free Trial Class <ArrowRight size={16} />
-              </a>
+              </button>
               <Link href="/courses" className="btn-outline">
                 View All Junior Courses
               </Link>

@@ -10,6 +10,8 @@ import {
 import { AnimateOnView, StaggerContainer, StaggerItem } from "@/components/shared/AnimateOnView";
 import { languages, testimonials, faqs, whyAlbPoints } from "@/lib/constants";
 import { MuiIcon } from "@/lib/icons";
+import { CountUp } from "@/components/shared/CountUp";
+import { useBooking } from "@/components/shared/BookingContext";
 
 /* ───────────────────────────────────────────────
    Language Network Visualization
@@ -344,6 +346,7 @@ const STAT_CARDS = [
 
 /* ─────────────────────────── Page ─────────────────────────── */
 export default function HomePage() {
+  const { openModal } = useBooking();
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
   return (
@@ -405,14 +408,12 @@ export default function HomePage() {
                 <Link href="/courses" className="btn-white text-sm px-7 py-3.5 font-bold rounded-full flex items-center gap-2">
                   Explore Courses <ArrowRight size={14} />
                 </Link>
-                <a
-                  href="https://wa.me/919876543210"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <button
+                  onClick={() => openModal()}
                   className="btn-outline text-sm px-7 py-3.5 rounded-full flex items-center gap-2"
                 >
                   Book Free Session <ArrowRight size={14} />
-                </a>
+                </button>
               </motion.div>
 
               <motion.p
@@ -472,7 +473,9 @@ export default function HomePage() {
                   <s.Icon size={20} style={{ color: s.iconColor }} />
                 </div>
                 <div>
-                  <div className="text-2xl md:text-3xl font-black text-white">{s.value}</div>
+                  <div className="text-2xl md:text-3xl font-black text-white">
+                    <CountUp value={s.value} duration={2000} />
+                  </div>
                   <div className="text-white/40 text-xs mt-0.5 leading-snug">{s.label}</div>
                 </div>
                 <div className="h-0.5 w-8 rounded-full mt-auto" style={{ background: s.lineColor }} />
@@ -782,9 +785,9 @@ export default function HomePage() {
               <Link href="/courses" className="btn-white text-base px-8 py-4 flex items-center gap-2">
                 Explore All Courses <ArrowRight size={16} />
               </Link>
-              <a href="https://wa.me/919876543210" target="_blank" rel="noopener noreferrer" className="btn-outline text-base px-8 py-4">
+              <button onClick={() => openModal()} className="btn-outline text-base px-8 py-4">
                 Book Free Call
-              </a>
+              </button>
             </div>
             <div className="mt-10 flex flex-wrap justify-center gap-8 text-white/30 text-sm">
               {["5000+ Learners", "95% Goal Rate", "6 Languages", "12+ Years"].map((item) => (
