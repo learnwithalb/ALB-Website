@@ -581,3 +581,89 @@
   ::-webkit-scrollbar-thumb { background: #9bb2ff; border-radius: 4px; }
   ::-webkit-scrollbar-thumb:hover { background: #6d8bff; }
 }
+
+/* ═══════════════════════════════════════════════════════
+   Button loop + hover animations (site-wide)
+   ═══════════════════════════════════════════════════════ */
+@layer components {
+
+  /* ── keyframes ── */
+
+  /* periodic light streak that sweeps then waits */
+  @keyframes btn-streak {
+    0%   { left: -130%; }
+    14%  { left: 170%; }
+    100% { left: 170%; }
+  }
+
+  /* slow flowing gradient */
+  @keyframes gradient-pan {
+    0%   { background-position: 0% 50%; }
+    50%  { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  /* breathing glow — royal */
+  @keyframes glow-royal {
+    0%, 100% { box-shadow: 0 4px 16px rgba(59,91,219,0.32); }
+    50%      { box-shadow: 0 8px 30px rgba(59,91,219,0.55), 0 0 0 4px rgba(59,91,219,0.08); }
+  }
+
+  /* breathing glow — white (for dark sections) */
+  @keyframes glow-white {
+    0%, 100% { box-shadow: 0 4px 16px rgba(16,23,51,0.12); }
+    50%      { box-shadow: 0 8px 28px rgba(16,23,51,0.20), 0 0 0 4px rgba(255,255,255,0.14); }
+  }
+
+  /* gentle outline shimmer */
+  @keyframes border-pulse {
+    0%, 100% { border-color: rgba(59,91,219,0.35); box-shadow: 0 0 0 0 rgba(59,91,219,0); }
+    50%      { border-color: rgba(59,91,219,0.7);  box-shadow: 0 6px 18px rgba(59,91,219,0.12); }
+  }
+  @keyframes border-pulse-light {
+    0%, 100% { border-color: rgba(255,255,255,0.28); }
+    50%      { border-color: rgba(255,255,255,0.6); }
+  }
+
+  /* ── PRIMARY / BLUE: flowing gradient + breathing glow + looping streak ── */
+  .btn-primary, .btn-blue {
+    background-size: 220% 220%;
+    animation: glow-royal 3s ease-in-out infinite, gradient-pan 7s ease infinite;
+  }
+  .btn-primary::before, .btn-blue::before {
+    animation: btn-streak 4.5s ease-in-out 1.2s infinite;
+  }
+  /* on hover hand control back to the existing hover styles */
+  .btn-primary:hover, .btn-blue:hover { animation: none; }
+
+  /* ── WHITE ── */
+  .btn-white { animation: glow-white 3.4s ease-in-out infinite; }
+  .btn-white::before { animation: btn-streak 5s ease-in-out 1.6s infinite; }
+  .btn-white:hover { animation: none; }
+
+  /* ── OUTLINE variants: soft border pulse ── */
+  .btn-outline, .btn-outline-blue { animation: border-pulse 3.2s ease-in-out infinite; }
+  .btn-outline:hover, .btn-outline-blue:hover { animation: none; }
+  .btn-outline-light { animation: border-pulse-light 3.2s ease-in-out infinite; }
+  .btn-outline-light:hover { animation: none; }
+
+  /* ── arrow / icon nudge on hover for every button ── */
+  .btn-primary svg, .btn-blue svg, .btn-white svg,
+  .btn-outline svg, .btn-outline-light svg, .btn-outline-blue svg {
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  .btn-primary:hover svg, .btn-blue:hover svg, .btn-white:hover svg,
+  .btn-outline:hover svg, .btn-outline-light:hover svg, .btn-outline-blue:hover svg {
+    transform: translateX(4px);
+  }
+
+  /* ── accessibility: honour reduced-motion ── */
+  @media (prefers-reduced-motion: reduce) {
+    .btn-primary, .btn-blue, .btn-white,
+    .btn-outline, .btn-outline-blue, .btn-outline-light,
+    .btn-primary::before, .btn-blue::before, .btn-white::before {
+      animation: none !important;
+    }
+  }
+}
+
