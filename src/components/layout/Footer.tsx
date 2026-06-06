@@ -6,20 +6,21 @@ export function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="bg-[#04080f] text-white/50 border-t border-white/5">
+    <footer className="sec-dark text-white/55 relative overflow-hidden">
+
+      {/* decorative grid + blobs */}
+      <div className="absolute inset-0 grid-dots-light opacity-40 pointer-events-none" />
+      <div className="blob blob-sky w-[420px] h-[420px] -top-24 -right-24 pointer-events-none" />
 
       {/* CTA Banner */}
-      <div className="relative overflow-hidden border-b border-white/5">
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-[200px] rounded-full bg-[#2b6aff]/12 blur-[60px]" />
-        </div>
+      <div className="relative overflow-hidden border-b border-white/10">
         <div className="container-max px-5 md:px-8 py-12 flex flex-col md:flex-row items-center justify-between gap-6 relative z-10">
           <div>
-            <p className="eyebrow-pill-blue mb-2">Ready to start?</p>
+            <p className="eyebrow-pill-light mb-2">Ready to start?</p>
             <h3 className="text-2xl md:text-3xl font-black text-white">
               Begin your language journey today.
             </h3>
-            <p className="mt-1 text-white/35 text-sm">
+            <p className="mt-1 text-white/45 text-sm">
               Free counselling session · No commitment required
             </p>
           </div>
@@ -31,7 +32,7 @@ export function Footer() {
               href={siteConfig.socials.whatsapp}
               target="_blank"
               rel="noopener noreferrer"
-              className="btn-outline whitespace-nowrap"
+              className="btn-outline-light whitespace-nowrap"
             >
               WhatsApp Us
             </a>
@@ -40,35 +41,35 @@ export function Footer() {
       </div>
 
       {/* Main Footer */}
-      <div className="container-max px-5 md:px-8 pt-14 pb-8">
+      <div className="container-max px-5 md:px-8 pt-14 pb-8 relative z-10">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
 
           {/* Brand */}
           <div className="lg:col-span-1">
             <Link href="/" className="inline-flex items-center gap-2.5 mb-4">
-              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#22C55E] to-[#4ade80] flex items-center justify-center">
-                <span className="text-[#060c1a] font-black text-xs">ALB</span>
+              <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-[#5f80f5] to-[#3b5bdb] flex items-center justify-center shadow-lg">
+                <span className="text-white font-black text-xs">ALB</span>
               </div>
               <div>
                 <div className="text-white font-bold text-sm leading-tight">Academy of Languages</div>
-                <div className="text-[#22C55E] font-semibold text-xs">& Beyond</div>
+                <div className="text-royal-200 font-semibold text-xs">&amp; Beyond</div>
               </div>
             </Link>
-            <p className="text-xs leading-relaxed mb-5">
-              India&apos;s premier language & soft skills academy, empowering
+            <p className="text-xs leading-relaxed mb-5 text-white/45">
+              India&apos;s premier language &amp; soft skills academy, empowering
               ambitious learners to go global since 2012.
             </p>
             <div className="space-y-2 text-xs">
               <a href={`mailto:${siteConfig.email}`} className="flex items-center gap-2 hover:text-white transition-colors">
-                <Mail size={12} className="text-[#2b6aff] flex-shrink-0" />
+                <Mail size={12} className="text-sky-400 flex-shrink-0" />
                 {siteConfig.email}
               </a>
               <a href={`tel:${siteConfig.phone.replace(/\s/g, "")}`} className="flex items-center gap-2 hover:text-white transition-colors">
-                <Phone size={12} className="text-[#2b6aff] flex-shrink-0" />
+                <Phone size={12} className="text-sky-400 flex-shrink-0" />
                 {siteConfig.phone}
               </a>
               <p className="flex items-center gap-2">
-                <MapPin size={12} className="text-[#2b6aff] flex-shrink-0" />
+                <MapPin size={12} className="text-sky-400 flex-shrink-0" />
                 {siteConfig.address}
               </p>
             </div>
@@ -84,7 +85,7 @@ export function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={label}
-                  className="w-8 h-8 rounded-full border border-white/10 flex items-center justify-center text-[9px] font-black hover:border-[#2b6aff] hover:text-[#4c8aff] transition-all"
+                  className="w-8 h-8 rounded-full border border-white/15 flex items-center justify-center text-[9px] font-black hover:border-sky-400 hover:text-sky-300 hover:bg-white/5 transition-all"
                 >
                   {label}
                 </a>
@@ -105,7 +106,7 @@ export function Footer() {
                 { label: "IELTS / English", href: "/courses/ielts" },
               ].map(item => (
                 <li key={item.href}>
-                  <Link href={item.href} className="text-xs hover:text-white transition-colors inline-block">
+                  <Link href={item.href} className="text-xs text-white/50 hover:text-white transition-colors inline-block">
                     {item.label}
                   </Link>
                 </li>
@@ -119,7 +120,7 @@ export function Footer() {
             <ul className="space-y-2.5">
               {beyondModules.slice(0, 6).map(m => (
                 <li key={m.title}>
-                  <Link href="/beyond" className="text-xs hover:text-white transition-colors inline-block">
+                  <Link href="/beyond" className="text-xs text-white/50 hover:text-white transition-colors inline-block">
                     {m.title}
                   </Link>
                 </li>
@@ -140,7 +141,7 @@ export function Footer() {
                 { label: "Terms & Conditions", href: "/terms" },
               ].map(item => (
                 <li key={item.href}>
-                  <Link href={item.href} className="text-xs hover:text-white transition-colors inline-block">
+                  <Link href={item.href} className="text-xs text-white/50 hover:text-white transition-colors inline-block">
                     {item.label}
                   </Link>
                 </li>
@@ -150,8 +151,8 @@ export function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div className="border-t border-white/5 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-[11px] text-white/25">
-          <p>© {year} Academy of Languages & Beyond. All rights reserved.</p>
+        <div className="border-t border-white/10 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-[11px] text-white/35">
+          <p>© {year} Academy of Languages &amp; Beyond. All rights reserved.</p>
           <p>Made with ❤️ in India · Go Global. Speak Fluent. Lead Bold.</p>
         </div>
       </div>

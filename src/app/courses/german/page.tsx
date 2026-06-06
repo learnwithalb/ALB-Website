@@ -42,9 +42,9 @@ function AnimatedBar({ rate }: { rate: number }) {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true });
   return (
-    <div ref={ref} className="h-2 bg-white/10 rounded-full overflow-hidden">
+    <div ref={ref} className="h-2 bg-royal-100 rounded-full overflow-hidden">
       <motion.div
-        className="h-full bg-gradient-to-r from-[#2b6aff] to-[#7aaaff] rounded-full"
+        className="h-full bg-gradient-to-r from-[#3b5bdb] to-[#38bdf8] rounded-full"
         initial={{ width: 0 }}
         animate={inView ? { width: `${rate}%` } : { width: 0 }}
         transition={{ duration: 1.2, ease: "easeOut", delay: 0.2 }}
@@ -57,15 +57,14 @@ export default function GermanPage() {
   return (
     <>
       {/* Hero */}
-      <section className="relative bg-[#060c1a] pt-28 pb-20 overflow-hidden">
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute -top-40 right-0 w-[600px] h-[600px] rounded-full bg-[#DD0000]/12 blur-[120px]" />
-          <div className="absolute bottom-0 left-0 w-[400px] h-[400px] rounded-full bg-[#2b6aff]/8 blur-[80px]" />
-        </div>
+      <section className="relative hero-light pt-28 pb-20 overflow-hidden">
+        <div className="absolute inset-0 grid-lines pointer-events-none opacity-70" />
+        <div className="blob blob-royal w-[560px] h-[560px] -top-40 right-0 pointer-events-none" />
+        <div className="blob blob-sky w-[380px] h-[380px] bottom-0 left-0 pointer-events-none" />
         <div className="container-max px-5 md:px-8 relative z-10">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <AnimateOnView>
-              <Link href="/courses" className="inline-flex items-center gap-1.5 text-white/50 text-sm hover:text-white transition-colors mb-5">
+              <Link href="/courses" className="inline-flex items-center gap-1.5 text-muted text-sm hover:text-royal-700 transition-colors mb-5">
                 ← All Courses
               </Link>
               <div className="flex items-center gap-3 mb-4">
@@ -74,15 +73,15 @@ export default function GermanPage() {
                   animate={{ y: [0, -10, 0] }}
                   transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut" }}
                 >
-                  <CountryBadge code="DE" color="#2b6aff" size="lg" />
+                  <CountryBadge code="DE" color="#3b5bdb" size="lg" />
                 </motion.span>
                 <span className="eyebrow-pill-outline text-sm">High Demand</span>
               </div>
-              <h1 className="text-4xl md:text-5xl font-black text-white leading-tight">
+              <h1 className="text-4xl md:text-5xl font-black text-ink leading-tight">
                 German Language
                 <span className="gradient-text-blue"> Programme</span>
               </h1>
-              <p className="mt-4 text-xl text-white/60 leading-relaxed">
+              <p className="mt-4 text-xl text-body leading-relaxed">
                 The language of precision, opportunity, and Europe&apos;s largest economy. From A1 to C1, Goethe-aligned.
               </p>
               <div className="mt-8 flex flex-wrap gap-4">
@@ -103,12 +102,12 @@ export default function GermanPage() {
                 ].map((w, i) => (
                   <motion.div
                     key={w.label}
-                    className="card-dark rounded-2xl p-6 text-center"
+                    className="card rounded-2xl p-6 text-center"
                     animate={{ y: [0, -8, 0] }}
                     transition={{ duration: 3 + i * 0.4, repeat: Infinity, ease: "easeInOut", delay: i * 0.3 }}
                   >
-                    <div className="text-3xl font-black text-[#4c8aff]">{w.stat}</div>
-                    <div className="text-white/50 text-sm mt-1">{w.label}</div>
+                    <div className="text-3xl font-black gradient-text-blue">{w.stat}</div>
+                    <div className="text-muted text-sm mt-1">{w.label}</div>
                   </motion.div>
                 ))}
               </div>
@@ -117,8 +116,8 @@ export default function GermanPage() {
         </div>
       </section>
 
-      {/* Quick facts */}
-      <section className="bg-[#2b6aff]">
+      {/* Quick facts (royal band) */}
+      <section className="sec-dark">
         <div className="container-max">
           <div className="grid grid-cols-2 md:grid-cols-4">
             {[
@@ -127,8 +126,8 @@ export default function GermanPage() {
               { icon: <Star size={18} />, label: "Rating", value: "4.9 / 5" },
               { icon: <CheckCircle size={18} />, label: "Levels", value: "A1 to C1" },
             ].map((f, i) => (
-              <div key={i} className="py-6 px-5 text-center border-r border-white/15 last:border-r-0">
-                <div className="flex justify-center text-white mb-1">{f.icon}</div>
+              <div key={i} className="py-6 px-5 text-center border-r border-white/12 last:border-r-0">
+                <div className="flex justify-center text-sky-300 mb-1">{f.icon}</div>
                 <div className="text-white/50 text-xs font-semibold uppercase tracking-wider">{f.label}</div>
                 <div className="text-white font-black text-xl mt-0.5">{f.value}</div>
               </div>
@@ -138,11 +137,12 @@ export default function GermanPage() {
       </section>
 
       {/* Why German */}
-      <section className="section-padding bg-[#060c1a]">
-        <div className="container-max">
+      <section className="section-padding sec-light relative overflow-hidden">
+        <div className="blob blob-sky w-[420px] h-[420px] top-0 right-[-8%] opacity-50 pointer-events-none" />
+        <div className="container-max relative z-10">
           <AnimateOnView className="text-center mb-12">
             <span className="eyebrow">Why German?</span>
-            <h2 className="text-3xl md:text-4xl font-black text-white mt-2">
+            <h2 className="text-3xl md:text-4xl font-black text-ink mt-2">
               Guten Tag to{" "}
               <span className="gradient-text">global opportunities.</span>
             </h2>
@@ -150,17 +150,17 @@ export default function GermanPage() {
           <StaggerContainer className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5" staggerDelay={0.08}>
             {whyGerman.map((item, i) => (
               <StaggerItem key={item.title}>
-                <motion.div className="card-dark rounded-2xl p-6 h-full" whileHover={{ y: -4 }}>
+                <div className="card-feature rounded-2xl p-6 h-full">
                   <motion.div
-                    className="mb-3 inline-block"
+                    className="w-12 h-12 rounded-xl bg-royal-50 flex items-center justify-center mb-3"
                     animate={{ y: [0, -6, 0] }}
                     transition={{ duration: 3 + i * 0.3, repeat: Infinity, ease: "easeInOut", delay: i * 0.2 }}
                   >
-                    <MuiIcon name={item.icon} size={36} style={{ color: "#2b6aff" }} />
+                    <MuiIcon name={item.icon} size={26} style={{ color: "#3b5bdb" }} />
                   </motion.div>
-                  <h3 className="font-bold text-white">{item.title}</h3>
-                  <p className="text-sm text-white/40 mt-2 leading-relaxed">{item.desc}</p>
-                </motion.div>
+                  <h3 className="font-bold text-ink">{item.title}</h3>
+                  <p className="text-sm text-muted mt-2 leading-relaxed">{item.desc}</p>
+                </div>
               </StaggerItem>
             ))}
           </StaggerContainer>
@@ -168,29 +168,30 @@ export default function GermanPage() {
       </section>
 
       {/* Levels */}
-      <section className="section-padding bg-[#04080f]">
-        <div className="container-max">
+      <section className="section-padding sec-mist relative overflow-hidden">
+        <div className="blob blob-royal w-[400px] h-[400px] bottom-0 left-[-8%] opacity-50 pointer-events-none" />
+        <div className="container-max relative z-10">
           <AnimateOnView className="text-center mb-12">
             <span className="eyebrow">Course Levels</span>
-            <h2 className="text-3xl font-black text-white mt-2">
+            <h2 className="text-3xl font-black text-ink mt-2">
               A1 to C1 — <span className="gradient-text-blue">Goethe-aligned.</span>
             </h2>
           </AnimateOnView>
           <div className="space-y-4">
             {levels.map((level, i) => (
               <AnimateOnView key={level.code} delay={i * 0.07}>
-                <motion.div className="card-dark rounded-2xl p-6 flex flex-col sm:flex-row sm:items-center gap-5" whileHover={{ x: 4 }}>
+                <motion.div className="card-hover rounded-2xl p-6 flex flex-col sm:flex-row sm:items-center gap-5" whileHover={{ x: 4 }}>
                   <div className="flex-shrink-0">
-                    <div className="w-16 h-16 rounded-xl bg-[#2b6aff]/10 border border-[#2b6aff]/20 flex flex-col items-center justify-center">
-                      <span className="text-[#4c8aff] font-black text-lg leading-none">{level.code}</span>
-                      <span className="text-white/30 text-xs">{level.name}</span>
+                    <div className="w-16 h-16 rounded-xl bg-royal-50 border border-royal-100 flex flex-col items-center justify-center">
+                      <span className="text-royal-600 font-black text-lg leading-none">{level.code}</span>
+                      <span className="text-muted text-xs">{level.name}</span>
                     </div>
                   </div>
                   <div className="flex-1">
-                    <p className="text-white/60 leading-relaxed text-sm">{level.desc}</p>
+                    <p className="text-body leading-relaxed text-sm">{level.desc}</p>
                   </div>
                   <div className="flex-shrink-0 text-right">
-                    <p className="text-white/40 text-xs">{level.duration}</p>
+                    <p className="text-body text-xs font-semibold">{level.duration}</p>
                   </div>
                 </motion.div>
               </AnimateOnView>
@@ -200,35 +201,35 @@ export default function GermanPage() {
       </section>
 
       {/* Exam prep + rates */}
-      <section className="section-padding bg-[#060c1a]">
+      <section className="section-padding sec-light">
         <div className="container-max">
           <div className="grid lg:grid-cols-2 gap-12 items-start">
             <AnimateOnView direction="right">
               <span className="eyebrow-pill-blue">Exam Preparation</span>
-              <h2 className="text-3xl font-black text-white mt-4">
+              <h2 className="text-3xl font-black text-ink mt-4">
                 Goethe & TestDaF <span className="gradient-text-blue">Certification</span>
               </h2>
-              <p className="mt-4 text-white/60 leading-relaxed">
+              <p className="mt-4 text-body leading-relaxed">
                 Goethe-Institut certifications are accepted by German consulates, universities, and employers worldwide. Every ALB German batch includes mock exams and exam coaching.
               </p>
               <div className="mt-6 space-y-3">
                 {examInfo.map((d) => (
-                  <div key={d.exam} className="glass-blue rounded-xl px-4 py-3">
-                    <span className="text-[#4c8aff] font-bold text-sm">{d.exam}</span>
-                    <span className="text-white/50 text-sm ml-2">— {d.use}</span>
+                  <div key={d.exam} className="bg-royal-50 border border-royal-100 rounded-xl px-4 py-3">
+                    <span className="text-royal-700 font-bold text-sm">{d.exam}</span>
+                    <span className="text-body text-sm ml-2">— {d.use}</span>
                   </div>
                 ))}
               </div>
             </AnimateOnView>
 
             <AnimateOnView direction="left">
-              <div className="card-dark rounded-3xl p-8">
-                <h3 className="text-white font-bold text-xl mb-6">Our Goethe Pass Rate</h3>
+              <div className="card rounded-3xl p-8">
+                <h3 className="text-ink font-bold text-xl mb-6">Our Goethe Pass Rate</h3>
                 {successRates.map((s) => (
                   <div key={s.exam} className="mb-5 last:mb-0">
                     <div className="flex justify-between mb-2">
-                      <span className="text-white/70 text-sm">{s.exam}</span>
-                      <span className="text-[#4c8aff] font-bold text-sm">{s.rate}%</span>
+                      <span className="text-body text-sm">{s.exam}</span>
+                      <span className="text-royal-600 font-bold text-sm">{s.rate}%</span>
                     </div>
                     <AnimatedBar rate={s.rate} />
                   </div>
@@ -240,11 +241,12 @@ export default function GermanPage() {
       </section>
 
       {/* Study in Germany */}
-      <section className="section-padding bg-[#04080f]">
-        <div className="container-max">
+      <section className="section-padding sec-mist relative overflow-hidden">
+        <div className="blob blob-sky w-[420px] h-[420px] top-0 left-[-8%] opacity-50 pointer-events-none" />
+        <div className="container-max relative z-10">
           <AnimateOnView className="text-center mb-10">
             <span className="eyebrow">Your Path to Germany</span>
-            <h2 className="text-3xl font-black text-white mt-2">
+            <h2 className="text-3xl font-black text-ink mt-2">
               Study, Work &{" "}
               <span className="gradient-text-blue">Live in Germany</span>
             </h2>
@@ -254,18 +256,20 @@ export default function GermanPage() {
               { icon: "school",   title: "Student Visa",    level: "A2–B1 required", desc: "Enrol in German universities, most with €0 tuition. Goethe B1 is the minimum." },
               { icon: "work",     title: "Job Seeker Visa", level: "B1–B2 required", desc: "6 months to find employment in Germany. B2 proficiency greatly improves chances." },
               { icon: "hospital", title: "Healthcare Visa", level: "B2–C1 required", desc: "Germany is actively recruiting nurses, doctors, and paramedics from India. B2 is mandatory." },
-            ].map((card, i) => (
+            ].map((card) => (
               <StaggerItem key={card.title}>
                 <motion.div
-                  className="glass rounded-2xl p-7 text-center h-full"
-                  whileHover={{ y: -4, borderColor: "rgba(76,138,255,0.4)" }}
+                  className="card-hover rounded-2xl p-7 text-center h-full"
+                  whileHover={{ y: -4 }}
                 >
                   <div className="mb-4 flex justify-center">
-                    <MuiIcon name={card.icon} size={36} style={{ color: "#4c8aff" }} />
+                    <div className="w-12 h-12 rounded-xl bg-royal-50 flex items-center justify-center">
+                      <MuiIcon name={card.icon} size={26} style={{ color: "#3b5bdb" }} />
+                    </div>
                   </div>
-                  <h3 className="font-bold text-white text-lg">{card.title}</h3>
-                  <div className="inline-block text-xs font-bold text-[#4c8aff] bg-[#2b6aff]/10 px-3 py-1 rounded-full mt-2 mb-3">{card.level}</div>
-                  <p className="text-sm text-white/40 leading-relaxed">{card.desc}</p>
+                  <h3 className="font-bold text-ink text-lg">{card.title}</h3>
+                  <div className="inline-block text-xs font-bold text-royal-700 bg-royal-50 border border-royal-100 px-3 py-1 rounded-full mt-2 mb-3">{card.level}</div>
+                  <p className="text-sm text-muted leading-relaxed">{card.desc}</p>
                 </motion.div>
               </StaggerItem>
             ))}
@@ -273,26 +277,25 @@ export default function GermanPage() {
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="section-padding bg-[#04080f] relative overflow-hidden">
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[250px] rounded-full bg-[#2b6aff]/8 blur-[80px]" />
-        </div>
+      {/* CTA (dark anchor) */}
+      <section className="section-padding sec-dark relative overflow-hidden">
+        <div className="absolute inset-0 grid-dots-light opacity-30 pointer-events-none" />
+        <div className="blob blob-royal w-[500px] h-[300px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none" />
         <div className="container-max text-center relative z-10">
           <AnimateOnView>
             <motion.div className="text-5xl mb-4 inline-block" animate={{ y: [0, -10, 0] }} transition={{ duration: 3, repeat: Infinity }}>🇩🇪</motion.div>
             <h2 className="text-3xl md:text-4xl font-black text-white">
               Bereit anzufangen?{" "}
-              <span className="gradient-text-blue">Ready to begin?</span>
+              <span className="gradient-text-light">Ready to begin?</span>
             </h2>
-            <p className="mt-4 text-white/60 max-w-lg mx-auto">
+            <p className="mt-4 text-white/55 max-w-lg mx-auto">
               Book a free German placement call and we&apos;ll design the right path to your Germany goal.
             </p>
             <div className="mt-8 flex flex-wrap justify-center gap-4">
-              <a href="https://wa.me/919876543210" target="_blank" rel="noopener noreferrer" className="btn-primary text-lg px-8 py-4">
+              <a href="https://wa.me/919876543210" target="_blank" rel="noopener noreferrer" className="btn-white text-lg px-8 py-4">
                 Start German Today <ArrowRight size={18} />
               </a>
-              <Link href="/courses" className="btn-outline text-lg px-8 py-4">View All Languages</Link>
+              <Link href="/courses" className="btn-outline-light text-lg px-8 py-4">View All Languages</Link>
             </div>
           </AnimateOnView>
         </div>

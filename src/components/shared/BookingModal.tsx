@@ -106,7 +106,7 @@ export function BookingModal() {
     "focus:outline-none focus:ring-2 transition-all duration-200 " +
     (errors[k]
       ? "border-red-400 focus:ring-red-200"
-      : "border-gray-200 focus:ring-[#22C55E]/30 focus:border-[#22C55E]");
+      : "border-gray-200 focus:ring-[#3b5bdb]/30 focus:border-[#3b5bdb]");
 
   return (
     <AnimatePresence>
@@ -129,7 +129,7 @@ export function BookingModal() {
             <div
               className="hidden md:flex flex-col justify-between w-[42%] p-8 relative overflow-hidden"
               style={{
-                background: "linear-gradient(145deg, #0d1a2e 0%, #112a20 60%, #0a2018 100%)",
+                background: "linear-gradient(150deg, #1b2a63 0%, #141f4d 55%, #0f1840 100%)",
               }}
             >
               {/* Decorative wave / glow at bottom */}
@@ -137,7 +137,7 @@ export function BookingModal() {
                 className="absolute bottom-0 left-0 right-0 h-48 pointer-events-none"
                 style={{
                   background:
-                    "radial-gradient(ellipse 160% 80% at 50% 120%, rgba(34,197,94,0.18) 0%, transparent 70%)",
+                    "radial-gradient(ellipse 160% 80% at 50% 120%, rgba(56,189,248,0.22) 0%, transparent 70%)",
                 }}
               />
               {/* Subtle grid lines */}
@@ -151,19 +151,19 @@ export function BookingModal() {
 
               <div className="relative z-10">
                 {/* Badge */}
-                <span className="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-widest text-[#22C55E] bg-[#22C55E]/12 border border-[#22C55E]/20 px-3 py-1.5 rounded-full mb-7">
+                <span className="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-widest text-[#3b5bdb] bg-[#3b5bdb]/12 border border-[#3b5bdb]/20 px-3 py-1.5 rounded-full mb-7">
                   ✦ Free · No Commitment
                 </span>
 
                 {/* Calendar icon */}
-                <div className="w-14 h-14 rounded-2xl bg-[#22C55E]/10 border border-[#22C55E]/20 flex items-center justify-center mb-6">
-                  <CalendarCheck size={26} className="text-[#22C55E]" />
+                <div className="w-14 h-14 rounded-2xl bg-[#3b5bdb]/10 border border-[#3b5bdb]/20 flex items-center justify-center mb-6">
+                  <CalendarCheck size={26} className="text-[#3b5bdb]" />
                 </div>
 
                 {/* Heading */}
                 <h2 className="text-2xl font-black text-white leading-snug mb-3">
                   Book your{" "}
-                  <span className="text-[#22C55E]">free<br />counselling</span>
+                  <span className="text-[#3b5bdb]">free<br />counselling</span>
                   <br />session
                 </h2>
                 <p className="text-white/45 text-sm leading-relaxed">
@@ -175,8 +175,8 @@ export function BookingModal() {
               <div className="relative z-10 mt-8 space-y-4">
                 {BENEFITS.map(({ icon: Icon, title, desc }) => (
                   <div key={title} className="flex items-start gap-3">
-                    <div className="w-8 h-8 rounded-full bg-[#22C55E]/12 border border-[#22C55E]/25 flex items-center justify-center flex-shrink-0 mt-0.5">
-                      <Icon size={14} className="text-[#22C55E]" />
+                    <div className="w-8 h-8 rounded-full bg-[#3b5bdb]/12 border border-[#3b5bdb]/25 flex items-center justify-center flex-shrink-0 mt-0.5">
+                      <Icon size={14} className="text-[#3b5bdb]" />
                     </div>
                     <div>
                       <p className="text-white text-sm font-semibold">{title}</p>
@@ -212,9 +212,9 @@ export function BookingModal() {
                       <motion.div
                         animate={{ scale: [0.8, 1.15, 1], opacity: [0, 1, 1] }}
                         transition={{ duration: 0.5 }}
-                        className="w-20 h-20 rounded-full bg-[#22C55E]/10 border border-[#22C55E]/30 flex items-center justify-center mb-6"
+                        className="w-20 h-20 rounded-full bg-[#3b5bdb]/10 border border-[#3b5bdb]/30 flex items-center justify-center mb-6"
                       >
-                        <CheckCircle size={40} className="text-[#22C55E]" />
+                        <CheckCircle size={40} className="text-[#3b5bdb]" />
                       </motion.div>
                       <h3 className="text-2xl font-black text-gray-900 mb-2">You&apos;re booked in!</h3>
                       <p className="text-gray-500 text-sm leading-relaxed max-w-xs mb-8">
@@ -223,7 +223,7 @@ export function BookingModal() {
                       <a
                         href="https://wa.me/919876543210"
                         target="_blank" rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2 bg-[#22C55E] hover:bg-[#16a34a] text-white font-bold text-sm px-6 py-3 rounded-full transition-colors"
+                        className="inline-flex items-center gap-2 bg-[#3b5bdb] hover:bg-[#2f49c0] text-white font-bold text-sm px-6 py-3 rounded-full transition-colors"
                       >
                         Message us on WhatsApp <ArrowRight size={15} />
                       </a>
@@ -239,11 +239,11 @@ export function BookingModal() {
 
                       {/* Mobile-only heading */}
                       <div className="md:hidden mb-5">
-                        <span className="text-[10px] font-bold uppercase tracking-widest text-[#22C55E] bg-[#22C55E]/10 px-3 py-1 rounded-full">
+                        <span className="text-[10px] font-bold uppercase tracking-widest text-[#3b5bdb] bg-[#3b5bdb]/10 px-3 py-1 rounded-full">
                           Free · No Commitment
                         </span>
                         <h2 className="text-xl font-black text-gray-900 mt-2">
-                          Book your free <span className="text-[#22C55E]">counselling session</span>
+                          Book your free <span className="text-[#3b5bdb]">counselling session</span>
                         </h2>
                       </div>
 
@@ -328,8 +328,8 @@ export function BookingModal() {
                         </div>
 
                         {/* Privacy box */}
-                        <div className="flex items-center gap-3 bg-[#f0fdf4] border border-[#bbf7d0] rounded-xl px-4 py-3">
-                          <Lock size={14} className="text-[#22C55E] flex-shrink-0" />
+                        <div className="flex items-center gap-3 bg-[#eef2ff] border border-[#c2d2ff] rounded-xl px-4 py-3">
+                          <Lock size={14} className="text-[#3b5bdb] flex-shrink-0" />
                           <div>
                             <p className="text-sm font-semibold text-gray-700">Your details are never shared.</p>
                             <p className="text-xs text-gray-500">We hate spam too.</p>
@@ -342,7 +342,7 @@ export function BookingModal() {
                           disabled={loading}
                           whileHover={{ scale: loading ? 1 : 1.015 }}
                           whileTap={{ scale: loading ? 1 : 0.985 }}
-                          className="w-full flex items-center justify-center gap-2 bg-[#22C55E] hover:bg-[#16a34a] disabled:bg-[#22C55E]/60 text-white font-bold text-base rounded-2xl py-4 transition-colors duration-200"
+                          className="w-full flex items-center justify-center gap-2 bg-[#3b5bdb] hover:bg-[#2f49c0] disabled:bg-[#3b5bdb]/60 text-white font-bold text-base rounded-2xl py-4 transition-colors duration-200"
                         >
                           {loading ? (
                             <>

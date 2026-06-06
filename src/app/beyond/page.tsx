@@ -17,10 +17,10 @@ const skillCards = [
 ];
 
 const whoItsFor = [
-  { icon: "work",     title: "Working Professionals", desc: "Preparing for global roles, promotions, or MNC interviews where communication is the differentiator.", color: "#2b6aff" },
-  { icon: "school",   title: "Students & Graduates",  desc: "Applying for top MBA programmes, international universities, or their first corporate role.", color: "#22C55E" },
-  { icon: "language", title: "Language Learners",     desc: "ALB language students who want the full package — fluency AND confidence AND presence.", color: "#2b6aff" },
-  { icon: "business", title: "Corporate Teams",       desc: "Organisations that need their client-facing teams to communicate with global polish.", color: "#22C55E" },
+  { icon: "work",     title: "Working Professionals", desc: "Preparing for global roles, promotions, or MNC interviews where communication is the differentiator.", color: "#3b5bdb" },
+  { icon: "school",   title: "Students & Graduates",  desc: "Applying for top MBA programmes, international universities, or their first corporate role.", color: "#0ea5e9" },
+  { icon: "language", title: "Language Learners",     desc: "ALB language students who want the full package — fluency AND confidence AND presence.", color: "#3b5bdb" },
+  { icon: "business", title: "Corporate Teams",       desc: "Organisations that need their client-facing teams to communicate with global polish.", color: "#0ea5e9" },
 ];
 
 const moduleDetails = [
@@ -29,7 +29,7 @@ const moduleDetails = [
     title: "Public Speaking Mastery",
     duration: "8 weeks · 16 sessions",
     price: "₹14,999",
-    bar: "from-[#22C55E] to-[#4ade80]",
+    bar: "from-[#3b5bdb] to-[#6d8bff]",
     highlights: [
       "Eliminate stage fright in first 2 weeks",
       "Impromptu speaking & structured presentations",
@@ -43,7 +43,7 @@ const moduleDetails = [
     title: "Business Communication",
     duration: "6 weeks · 12 sessions",
     price: "₹11,999",
-    bar: "from-[#2b6aff] to-[#7aaaff]",
+    bar: "from-[#0ea5e9] to-[#38bdf8]",
     highlights: [
       "Email and report writing masterclass",
       "Meeting facilitation and agenda-setting",
@@ -57,7 +57,7 @@ const moduleDetails = [
     title: "Personality Development",
     duration: "10 weeks · 20 sessions",
     price: "₹17,999",
-    bar: "from-[#22C55E] to-[#4ade80]",
+    bar: "from-[#3b5bdb] to-[#6d8bff]",
     highlights: [
       "Emotional intelligence & self-awareness",
       "First impression and personal brand building",
@@ -71,7 +71,7 @@ const moduleDetails = [
     title: "Leadership Presence",
     duration: "8 weeks · 16 sessions",
     price: "₹15,999",
-    bar: "from-[#2b6aff] to-[#7aaaff]",
+    bar: "from-[#0ea5e9] to-[#38bdf8]",
     highlights: [
       "Leadership communication styles",
       "Conflict resolution",
@@ -85,7 +85,7 @@ const moduleDetails = [
     title: "Interview Mastery",
     duration: "4 weeks · 8 sessions",
     price: "₹8,999",
-    bar: "from-[#22C55E] to-[#4ade80]",
+    bar: "from-[#3b5bdb] to-[#6d8bff]",
     highlights: [
       "Behavioural interview (STAR method)",
       "Case study and group discussion prep",
@@ -99,7 +99,7 @@ const moduleDetails = [
     title: "Cross-Cultural Communication",
     duration: "6 weeks · 12 sessions",
     price: "₹11,999",
-    bar: "from-[#2b6aff] to-[#7aaaff]",
+    bar: "from-[#0ea5e9] to-[#38bdf8]",
     highlights: [
       "High vs low context communication",
       "Working with global teams remotely",
@@ -115,24 +115,22 @@ export default function BeyondPage() {
   return (
     <>
       {/* ── Hero ── */}
-      <section className="relative min-h-[85vh] flex items-center bg-[#060c1a] overflow-hidden pt-28 pb-20">
-        {/* Background glows */}
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute -top-40 left-1/4 w-[600px] h-[600px] rounded-full bg-[#2b6aff]/10 blur-[120px]" />
-          <div className="absolute bottom-0 right-0 w-[400px] h-[400px] rounded-full bg-[#22C55E]/10 blur-[80px]" />
-        </div>
+      <section className="relative min-h-[85vh] flex items-center hero-light overflow-hidden pt-28 pb-20">
+        <div className="absolute inset-0 grid-lines pointer-events-none opacity-70" />
+        <div className="blob blob-royal w-[560px] h-[560px] -top-40 left-1/4 pointer-events-none" />
+        <div className="blob blob-sky w-[400px] h-[400px] bottom-0 right-0 pointer-events-none" />
 
         <div className="container-max px-5 md:px-8 relative z-10 w-full">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             {/* Left: copy */}
             <AnimateOnView>
               <span className="eyebrow-pill-outline">+Beyond Programmes</span>
-              <h1 className="text-4xl md:text-6xl font-black text-white mt-5 leading-tight">
+              <h1 className="text-4xl md:text-6xl font-black text-ink mt-5 leading-tight">
                 Language opens the door.
                 <br />
                 <span className="gradient-text">You own the room.</span>
               </h1>
-              <p className="mt-5 text-xl text-white/60 leading-relaxed max-w-lg">
+              <p className="mt-5 text-xl text-body leading-relaxed max-w-lg">
                 Our +Beyond wing transforms communication, leadership, and presence
                 — the skills that separate good professionals from exceptional ones.
               </p>
@@ -152,7 +150,7 @@ export default function BeyondPage() {
               {skillCards.map((card) => (
                 <motion.div
                   key={card.label}
-                  className="absolute glass-blue rounded-2xl px-5 py-4 flex items-center gap-3 border border-[#2b6aff]/30 shadow-lg shadow-[#2b6aff]/10 cursor-default select-none"
+                  className="absolute glass rounded-2xl px-5 py-4 flex items-center gap-3 border border-royal-200 cursor-default select-none"
                   style={{ top: card.top, left: card.left }}
                   animate={{ y: [0, -12, 0] }}
                   transition={{
@@ -162,24 +160,25 @@ export default function BeyondPage() {
                     ease: "easeInOut",
                   }}
                 >
-                  <MuiIcon name={card.icon} size={22} style={{ color: "#4c8aff" }} />
-                  <span className="text-sm font-bold text-white whitespace-nowrap">{card.label}</span>
+                  <MuiIcon name={card.icon} size={22} style={{ color: "#3b5bdb" }} />
+                  <span className="text-sm font-bold text-ink whitespace-nowrap">{card.label}</span>
                 </motion.div>
               ))}
-              {/* Centre decorative ring */}
-              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-36 h-36 rounded-full border border-white/8" />
-              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 rounded-full border border-white/4" />
+              {/* Centre decorative rings */}
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-36 h-36 rounded-full border border-royal-200/70" />
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 rounded-full border border-royal-100" />
             </div>
           </div>
         </div>
       </section>
 
       {/* ── Who It's For ── */}
-      <section className="section-padding bg-[#060c1a]">
-        <div className="container-max">
+      <section className="section-padding sec-light relative overflow-hidden">
+        <div className="blob blob-sky w-[420px] h-[420px] top-0 right-[-8%] opacity-50 pointer-events-none" />
+        <div className="container-max relative z-10">
           <AnimateOnView className="text-center mb-12">
             <span className="eyebrow">Who It&apos;s For</span>
-            <h2 className="text-3xl md:text-4xl font-black text-white mt-2">
+            <h2 className="text-3xl md:text-4xl font-black text-ink mt-2">
               Built for anyone who wants to
               <span className="gradient-text"> communicate at their best.</span>
             </h2>
@@ -189,14 +188,15 @@ export default function BeyondPage() {
             {whoItsFor.map((item) => (
               <StaggerItem key={item.title}>
                 <motion.div
-                  className="relative rounded-2xl bg-[#04080f] border border-white/6 p-6 text-center overflow-hidden group cursor-default"
+                  className="relative rounded-2xl card p-6 text-center overflow-hidden group cursor-default"
                   whileHover={{ scale: 1.03 }}
                   transition={{ type: "spring", stiffness: 300, damping: 20 }}
                 >
-                  <div className="mb-3 flex justify-center"><MuiIcon name={item.icon} size={36} style={{ color: item.color }} /></div>
-                  <h3 className="font-bold text-white text-base">{item.title}</h3>
-                  <p className="text-xs text-white/40 mt-2 leading-relaxed">{item.desc}</p>
-                  {/* Bottom colour line that expands on hover */}
+                  <div className="w-12 h-12 rounded-xl bg-royal-50 flex items-center justify-center mx-auto mb-3">
+                    <MuiIcon name={item.icon} size={26} style={{ color: item.color }} />
+                  </div>
+                  <h3 className="font-bold text-ink text-base">{item.title}</h3>
+                  <p className="text-xs text-muted mt-2 leading-relaxed">{item.desc}</p>
                   <motion.div
                     className="absolute bottom-0 left-0 h-[3px] rounded-b-2xl"
                     style={{ backgroundColor: item.color }}
@@ -212,15 +212,16 @@ export default function BeyondPage() {
       </section>
 
       {/* ── Modules ── */}
-      <section className="section-padding bg-[#04080f]" id="modules">
-        <div className="container-max">
+      <section className="section-padding sec-mist relative overflow-hidden" id="modules">
+        <div className="blob blob-royal w-[420px] h-[420px] bottom-0 left-[-8%] opacity-50 pointer-events-none" />
+        <div className="container-max relative z-10">
           <AnimateOnView className="text-center mb-12">
             <span className="eyebrow">Our Programmes</span>
-            <h2 className="text-3xl md:text-4xl font-black text-white mt-2">
+            <h2 className="text-3xl md:text-4xl font-black text-ink mt-2">
               Six paths. One destination:
               <span className="gradient-text"> your best self.</span>
             </h2>
-            <p className="mt-4 text-white/40 max-w-xl mx-auto">
+            <p className="mt-4 text-body max-w-xl mx-auto">
               Take a standalone module or bundle with any language course for an unbeatable combined rate.
             </p>
           </AnimateOnView>
@@ -229,35 +230,36 @@ export default function BeyondPage() {
             {moduleDetails.map((mod) => (
               <StaggerItem key={mod.title}>
                 <motion.div
-                  className="card-dark rounded-2xl overflow-hidden h-full flex flex-col"
+                  className="card rounded-2xl overflow-hidden h-full flex flex-col"
                   whileHover={{ y: -4 }}
                   transition={{ type: "spring", stiffness: 300, damping: 22 }}
                 >
-                  {/* Animated top colour bar */}
                   <motion.div
                     className={`h-1.5 w-full bg-gradient-to-r ${mod.bar}`}
-                    animate={{ opacity: [0.4, 0.85, 0.4] }}
+                    animate={{ opacity: [0.5, 1, 0.5] }}
                     transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
                   />
 
                   <div className="p-6 flex flex-col flex-1">
-                    <div className="mb-4"><MuiIcon name={mod.icon} size={36} style={{ color: "#22C55E" }} /></div>
-                    <h3 className="text-xl font-black text-white">{mod.title}</h3>
-                    <p className="text-xs text-white/35 font-semibold mt-1 tracking-wide uppercase">
+                    <div className="w-12 h-12 rounded-xl bg-royal-50 flex items-center justify-center mb-4">
+                      <MuiIcon name={mod.icon} size={26} style={{ color: "#3b5bdb" }} />
+                    </div>
+                    <h3 className="text-xl font-black text-ink">{mod.title}</h3>
+                    <p className="text-xs text-muted font-semibold mt-1 tracking-wide uppercase">
                       {mod.duration}
                     </p>
 
                     <ul className="mt-4 space-y-2 flex-1">
                       {mod.highlights.map((h) => (
-                        <li key={h} className="flex items-start gap-2 text-sm text-white/55">
-                          <CheckCircle size={13} className="text-[#22C55E] flex-shrink-0 mt-0.5" />
+                        <li key={h} className="flex items-start gap-2 text-sm text-body">
+                          <CheckCircle size={13} className="text-royal-500 flex-shrink-0 mt-0.5" />
                           {h}
                         </li>
                       ))}
                     </ul>
 
-                    <div className="mt-5 pt-5 border-t border-white/6 flex items-center justify-between">
-                      <span className="text-2xl font-black text-white">{mod.price}</span>
+                    <div className="mt-5 pt-5 border-t border-line flex items-center justify-between">
+                      <span className="text-2xl font-black text-ink">{mod.price}</span>
                       <a
                         href="https://wa.me/919876543210"
                         target="_blank"
@@ -275,30 +277,30 @@ export default function BeyondPage() {
         </div>
       </section>
 
-      {/* ── Bundle Offer ── */}
-      <section className="section-padding bg-[#04080f] relative overflow-hidden">
-        {/* Pulsing glow behind the card */}
+      {/* ── Bundle Offer (dark anchor) ── */}
+      <section className="section-padding sec-dark relative overflow-hidden">
+        <div className="absolute inset-0 grid-dots-light opacity-30 pointer-events-none" />
         <motion.div
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] rounded-full bg-[#22C55E]/15 blur-[80px] pointer-events-none"
+          className="blob blob-sky w-[600px] h-[300px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none"
           animate={{ scale: [1, 1.15, 1], opacity: [0.6, 1, 0.6] }}
           transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
         />
 
         <div className="container-max relative z-10">
           <AnimateOnView>
-            <div className="bg-[#060c1a] border border-white/8 rounded-3xl p-10 md:p-14 text-center max-w-4xl mx-auto shadow-2xl">
-              <span className="eyebrow-pill-outline">Best Value</span>
+            <div className="text-center max-w-4xl mx-auto">
+              <span className="eyebrow-pill-light">Best Value</span>
               <h2 className="text-3xl md:text-4xl font-black text-white mt-5">
                 Bundle your language + soft skills.
                 <br />
-                <span className="gradient-text">Save up to 30%.</span>
+                <span className="gradient-text-light">Save up to 30%.</span>
               </h2>
-              <p className="mt-5 text-white/60 max-w-xl mx-auto text-lg leading-relaxed">
+              <p className="mt-5 text-white/55 max-w-xl mx-auto text-lg leading-relaxed">
                 Every ALB language student gets a special bundled rate on any +Beyond module.
                 Because fluency and confidence should go hand in hand.
               </p>
               <div className="mt-8 flex flex-wrap justify-center gap-4">
-                <Link href="/courses" className="btn-primary">
+                <Link href="/courses" className="btn-white">
                   View Language Courses
                   <ArrowRight size={16} />
                 </Link>
@@ -306,7 +308,7 @@ export default function BeyondPage() {
                   href="https://wa.me/919876543210"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="btn-outline"
+                  className="btn-outline-light"
                 >
                   Ask About Bundles
                 </a>
@@ -317,11 +319,12 @@ export default function BeyondPage() {
       </section>
 
       {/* ── Testimonials ── */}
-      <section className="section-padding bg-[#060c1a]">
-        <div className="container-max">
+      <section className="section-padding sec-light relative overflow-hidden">
+        <div className="blob blob-royal w-[420px] h-[420px] top-0 left-[-8%] opacity-50 pointer-events-none" />
+        <div className="container-max relative z-10">
           <AnimateOnView className="text-center mb-12">
             <span className="eyebrow">Results That Speak</span>
-            <h2 className="text-3xl md:text-4xl font-black text-white mt-2">
+            <h2 className="text-3xl md:text-4xl font-black text-ink mt-2">
               From our <span className="gradient-text">alumni.</span>
             </h2>
           </AnimateOnView>
@@ -344,20 +347,20 @@ export default function BeyondPage() {
               },
             ].map((t, i) => (
               <AnimateOnView key={i} delay={i * 0.15}>
-                <div className="bg-[#04080f] border border-white/6 rounded-2xl p-8 h-full flex flex-col">
+                <div className="card rounded-2xl p-8 h-full flex flex-col">
                   <div className="flex gap-1 mb-4">
                     {[1, 2, 3, 4, 5].map((j) => (
-                      <Star key={j} size={14} className="text-[#22C55E] fill-[#22C55E]" />
+                      <Star key={j} size={14} className="text-amber-400 fill-amber-400" />
                     ))}
                   </div>
-                  <p className="text-white/65 leading-relaxed flex-1">&ldquo;{t.quote}&rdquo;</p>
+                  <p className="text-body leading-relaxed flex-1">&ldquo;{t.quote}&rdquo;</p>
                   <div className="flex items-center gap-3 mt-6">
-                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#22C55E] to-[#4ade80] flex items-center justify-center text-white font-black text-sm flex-shrink-0">
+                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#3b5bdb] to-[#6d8bff] flex items-center justify-center text-white font-black text-sm flex-shrink-0">
                       {t.avatar}
                     </div>
                     <div>
-                      <p className="font-bold text-white text-sm">{t.name}</p>
-                      <p className="text-white/35 text-xs">{t.role}</p>
+                      <p className="font-bold text-ink text-sm">{t.name}</p>
+                      <p className="text-muted text-xs">{t.role}</p>
                     </div>
                   </div>
                 </div>
@@ -367,25 +370,27 @@ export default function BeyondPage() {
         </div>
       </section>
 
-      {/* ── CTA ── */}
-      <section className="section-padding bg-[#060c1a]">
-        <div className="container-max text-center">
+      {/* ── CTA (dark anchor) ── */}
+      <section className="section-padding sec-dark relative overflow-hidden">
+        <div className="absolute inset-0 grid-dots-light opacity-30 pointer-events-none" />
+        <div className="blob blob-royal w-[600px] h-[320px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none" />
+        <div className="container-max text-center relative z-10">
           <AnimateOnView>
             <h2 className="text-3xl md:text-4xl font-black text-white">
               Ready to communicate like you mean it?
             </h2>
-            <p className="mt-4 text-white/60 max-w-lg mx-auto">
+            <p className="mt-4 text-white/55 max-w-lg mx-auto">
               Free 30-minute counselling · No commitment · Expert guidance
             </p>
             <div className="mt-8 flex flex-wrap justify-center gap-4">
               <button
                 onClick={() => openModal("+Beyond (Soft Skills)")}
-                className="btn-primary text-lg px-8 py-4"
+                className="btn-white text-lg px-8 py-4"
               >
                 Book Free Session
                 <ArrowRight size={18} />
               </button>
-              <Link href="/courses" className="btn-outline text-lg px-8 py-4">
+              <Link href="/courses" className="btn-outline-light text-lg px-8 py-4">
                 See Language Courses
               </Link>
             </div>

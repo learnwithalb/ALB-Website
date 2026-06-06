@@ -60,21 +60,23 @@ const sections = [
 export default function PrivacyPage() {
   return (
     <>
-      <section className="bg-[#060c1a] pt-28 pb-12">
-        <div className="container-max px-5 md:px-8">
+      <section className="hero-light pt-28 pb-12 relative overflow-hidden">
+        <div className="absolute inset-0 grid-lines pointer-events-none opacity-70" />
+        <div className="blob blob-sky w-[400px] h-[300px] top-0 right-0 pointer-events-none" />
+        <div className="container-max px-5 md:px-8 relative z-10">
           <AnimateOnView>
             <span className="eyebrow-pill-outline">Legal</span>
-            <h1 className="text-4xl md:text-5xl font-black text-white mt-4">Privacy Policy</h1>
-            <p className="mt-3 text-white/50">Last updated: June 2026</p>
+            <h1 className="text-4xl md:text-5xl font-black text-ink mt-4">Privacy Policy</h1>
+            <p className="mt-3 text-muted">Last updated: June 2026</p>
           </AnimateOnView>
         </div>
       </section>
 
-      <section className="section-padding bg-[#060c1a]">
+      <section className="section-padding sec-light">
         <div className="container-max">
           <div className="max-w-3xl mx-auto">
-            <AnimateOnView className="glass-blue border border-[#0a1628]/10 rounded-2xl p-5 mb-10">
-              <p className="text-white/60 text-sm leading-relaxed">
+            <AnimateOnView className="glass-blue rounded-2xl p-5 mb-10">
+              <p className="text-body text-sm leading-relaxed">
                 Your privacy matters to us. ALB is committed to being transparent about how we use your data
                 and to giving you control over your personal information.
               </p>
@@ -84,10 +86,10 @@ export default function PrivacyPage() {
               {sections.map((section, i) => (
                 <AnimateOnView key={section.title} delay={i * 0.03}>
                   <div>
-                    <h2 className="text-xl font-black text-white mb-3">{section.title}</h2>
-                    <p className="text-white/50 leading-relaxed">{section.content}</p>
+                    <h2 className="text-xl font-black text-ink mb-3">{section.title}</h2>
+                    <p className="text-body leading-relaxed">{section.content}</p>
                   </div>
-                  {i < sections.length - 1 && <div className="border-b border-white/5 mt-10" />}
+                  {i < sections.length - 1 && <div className="border-b border-line mt-10" />}
                 </AnimateOnView>
               ))}
             </div>

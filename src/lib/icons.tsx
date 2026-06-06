@@ -2,6 +2,7 @@
 // Pages import from here instead of using emoji strings.
 
 import React from "react";
+import Image from "next/image";
 import PublicIcon from "@mui/icons-material/Public";
 import RocketLaunchIcon from "@mui/icons-material/RocketLaunch";
 import TrackChangesIcon from "@mui/icons-material/TrackChanges";
@@ -137,7 +138,42 @@ export function MuiIcon({
   return <Comp style={{ fontSize: size, ...style }} className={className} />;
 }
 
-/** Styled country-code badge to replace flag emojis. */
+/* ─── Flag images (served from /public/flags) ─── */
+export const flagSrc: Record<string, string> = {
+  FR: "/flags/fr.png",
+  DE: "/flags/de.png",
+  ES: "/flags/es.png",
+  JP: "/flags/jp.png",
+  KR: "/flags/kr.png",
+  EN: "/flags/en.png",
+  GB: "/flags/en.png",
+};
+
+/** Small rounded flag image. Returns null if no flag exists for the code. */
+export function Flag({
+  code,
+  size = 24,
+  className = "",
+  rounded = "rounded-md",
+}: {
+  code: string;
+  size?: number;
+  className?: string;
+  rounded?: string;
+}) {
+  const src = flagSrc[code.toUpperCase()];
+  if (!src) return null;
+  return (
+    <span
+      className={`relative inline-block overflow-hidden flex-shrink-0 ${rounded} ${className}`}
+      style={{ width: size, height: size }}
+    >
+      <Image src={src} alt={`${code} flag`} fill sizes={`${size}px`} className="object-cover" />
+    </span>
+  );
+}
+
+/** Styled country flag badge — uses the real flag image, falls back to a coloured code chip. */
 export function CountryBadge({
   code,
   color,
@@ -147,13 +183,29 @@ export function CountryBadge({
   color?: string;
   size?: "sm" | "md" | "lg";
 }) {
-  const sizeMap = { sm: "2rem", md: "3.5rem", lg: "5rem" };
+  const pxMap = { sm: 32, md: 56, lg: 80 };
   const fontMap = { sm: "0.6rem", md: "0.75rem", lg: "1rem" };
-  const dim = sizeMap[size];
-  const fontSize = fontMap[size];
-  const bg = color ? `${color}22` : "rgba(255,255,255,0.08)";
-  const border = color ? `1px solid ${color}44` : "1px solid rgba(255,255,255,0.12)";
+  const dim = pxMap[size];
+  const src = flagSrc[code.toUpperCase()];
 
+  if (src) {
+    return (
+      <span
+        className="relative inline-block rounded-full overflow-hidden flex-shrink-0"
+        style={{
+          width: dim,
+          height: dim,
+          boxShadow: `0 4px 14px ${color ? `${color}33` : "rgba(16,23,51,0.12)"}, inset 0 0 0 1px rgba(16,23,51,0.08)`,
+        }}
+      >
+        <Image src={src} alt={`${code} flag`} fill sizes={`${dim}px`} className="object-cover" />
+      </span>
+    );
+  }
+
+  // Fallback: coloured code chip (regions without a flag asset)
+  const bg = color ? `${color}18` : "rgba(59,91,219,0.10)";
+  const border = color ? `1px solid ${color}44` : "1px solid rgba(59,91,219,0.22)";
   return (
     <div
       style={{
@@ -168,7 +220,7 @@ export function CountryBadge({
         flexShrink: 0,
       }}
     >
-      <span style={{ fontSize, fontWeight: 900, color: color ?? "#fff", letterSpacing: "0.05em" }}>
+      <span style={{ fontSize: fontMap[size], fontWeight: 900, color: color ?? "#3b5bdb", letterSpacing: "0.05em" }}>
         {code}
       </span>
     </div>

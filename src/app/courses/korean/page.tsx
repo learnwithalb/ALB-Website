@@ -30,14 +30,13 @@ const whyKorean = [
   { icon: "translate", title: "Fastest Script to Learn", desc: "Hangul, the Korean alphabet, is considered the world's most logical writing system. You can read it in a week." },
 ];
 
-function AnimatedBar({ rate, color = "#e11d48" }: { rate: number; color?: string }) {
+function AnimatedBar({ rate }: { rate: number }) {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true });
   return (
-    <div ref={ref} className="h-2 bg-white/10 rounded-full overflow-hidden">
+    <div ref={ref} className="h-2 bg-royal-100 rounded-full overflow-hidden">
       <motion.div
-        className="h-full rounded-full"
-        style={{ background: `linear-gradient(90deg, ${color}, ${color}88)` }}
+        className="h-full bg-gradient-to-r from-[#3b5bdb] to-[#6d8bff] rounded-full"
         initial={{ width: 0 }}
         animate={inView ? { width: `${rate}%` } : { width: 0 }}
         transition={{ duration: 1.2, ease: "easeOut", delay: 0.2 }}
@@ -50,15 +49,14 @@ export default function KoreanPage() {
   return (
     <>
       {/* Hero */}
-      <section className="relative bg-[#060c1a] pt-28 pb-20 overflow-hidden">
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute -top-40 right-0 w-[600px] h-[600px] rounded-full bg-[#e11d48]/12 blur-[120px]" />
-          <div className="absolute bottom-0 left-0 w-[400px] h-[400px] rounded-full bg-[#3b82f6]/8 blur-[80px]" />
-        </div>
+      <section className="relative hero-light pt-28 pb-20 overflow-hidden">
+        <div className="absolute inset-0 grid-lines pointer-events-none opacity-70" />
+        <div className="blob blob-royal w-[560px] h-[560px] -top-40 right-0 pointer-events-none" />
+        <div className="blob blob-sky w-[380px] h-[380px] bottom-0 left-0 pointer-events-none" />
         <div className="container-max px-5 md:px-8 relative z-10">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <AnimateOnView>
-              <Link href="/courses" className="inline-flex items-center gap-1.5 text-white/50 text-sm hover:text-white transition-colors mb-5">
+              <Link href="/courses" className="inline-flex items-center gap-1.5 text-muted text-sm hover:text-royal-700 transition-colors mb-5">
                 ← All Courses
               </Link>
               <div className="flex items-center gap-3 mb-4">
@@ -67,15 +65,15 @@ export default function KoreanPage() {
                   animate={{ y: [0, -10, 0] }}
                   transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut" }}
                 >
-                  <CountryBadge code="KR" color="#e11d48" size="lg" />
+                  <CountryBadge code="KR" color="#003478" size="lg" />
                 </motion.span>
                 <span className="eyebrow-pill-outline text-sm">Trending Fast</span>
               </div>
-              <h1 className="text-4xl md:text-5xl font-black text-white leading-tight">
+              <h1 className="text-4xl md:text-5xl font-black text-ink leading-tight">
                 Korean Language
                 <span className="gradient-text"> Programme</span>
               </h1>
-              <p className="mt-4 text-xl text-white/60 leading-relaxed">
+              <p className="mt-4 text-xl text-body leading-relaxed">
                 Ride the Hallyu wave. From Hangul mastery to TOPIK 2 — authentic Korean for culture, career, and beyond.
               </p>
               <div className="mt-8 flex flex-wrap gap-4">
@@ -96,12 +94,12 @@ export default function KoreanPage() {
                 ].map((w, i) => (
                   <motion.div
                     key={w.label}
-                    className="card-dark rounded-2xl p-6 text-center"
+                    className="card rounded-2xl p-6 text-center"
                     animate={{ y: [0, -8, 0] }}
                     transition={{ duration: 3 + i * 0.4, repeat: Infinity, ease: "easeInOut", delay: i * 0.3 }}
                   >
-                    <div className="text-3xl font-black text-[#e11d48]">{w.stat}</div>
-                    <div className="text-white/50 text-sm mt-1">{w.label}</div>
+                    <div className="text-3xl font-black gradient-text">{w.stat}</div>
+                    <div className="text-muted text-sm mt-1">{w.label}</div>
                   </motion.div>
                 ))}
               </div>
@@ -110,8 +108,8 @@ export default function KoreanPage() {
         </div>
       </section>
 
-      {/* Quick facts */}
-      <section style={{ background: "#e11d48" }}>
+      {/* Quick facts (royal band) */}
+      <section className="sec-dark">
         <div className="container-max">
           <div className="grid grid-cols-2 md:grid-cols-4">
             {[
@@ -120,8 +118,8 @@ export default function KoreanPage() {
               { icon: <Star size={18} />, label: "Rating", value: "4.9 / 5" },
               { icon: <CheckCircle size={18} />, label: "Levels", value: "Beg. to TOPIK 6" },
             ].map((f, i) => (
-              <div key={i} className="py-6 px-5 text-center border-r border-white/15 last:border-r-0">
-                <div className="flex justify-center text-white mb-1">{f.icon}</div>
+              <div key={i} className="py-6 px-5 text-center border-r border-white/12 last:border-r-0">
+                <div className="flex justify-center text-sky-300 mb-1">{f.icon}</div>
                 <div className="text-white/50 text-xs font-semibold uppercase tracking-wider">{f.label}</div>
                 <div className="text-white font-black text-xl mt-0.5">{f.value}</div>
               </div>
@@ -131,11 +129,12 @@ export default function KoreanPage() {
       </section>
 
       {/* K-Culture cards */}
-      <section className="section-padding bg-[#060c1a]">
-        <div className="container-max">
+      <section className="section-padding sec-light relative overflow-hidden">
+        <div className="blob blob-sky w-[420px] h-[420px] top-0 right-[-8%] opacity-50 pointer-events-none" />
+        <div className="container-max relative z-10">
           <AnimateOnView className="text-center mb-12">
             <span className="eyebrow">K-Culture Connection</span>
-            <h2 className="text-3xl font-black text-white mt-2">
+            <h2 className="text-3xl font-black text-ink mt-2">
               Learn Korean through{" "}
               <span className="gradient-text">what you already love.</span>
             </h2>
@@ -144,18 +143,18 @@ export default function KoreanPage() {
             {kCultureCards.map((card, i) => (
               <StaggerItem key={card.title}>
                 <motion.div
-                  className="card-dark rounded-2xl p-6 text-center h-full"
-                  whileHover={{ y: -6, borderColor: "rgba(225,29,72,0.3)" }}
+                  className="card-feature rounded-2xl p-6 text-center h-full"
+                  whileHover={{ y: -6 }}
                 >
                   <motion.div
-                    className="mb-4 inline-block"
+                    className="w-12 h-12 rounded-xl bg-royal-50 flex items-center justify-center mx-auto mb-4"
                     animate={{ y: [0, -8, 0] }}
                     transition={{ duration: 3 + i * 0.4, repeat: Infinity, ease: "easeInOut", delay: i * 0.3 }}
                   >
-                    <MuiIcon name={card.icon} size={36} style={{ color: "#e11d48" }} />
+                    <MuiIcon name={card.icon} size={26} style={{ color: "#3b5bdb" }} />
                   </motion.div>
-                  <h3 className="font-bold text-white text-base">{card.title}</h3>
-                  <p className="text-sm text-white/40 mt-2 leading-relaxed">{card.desc}</p>
+                  <h3 className="font-bold text-ink text-base">{card.title}</h3>
+                  <p className="text-sm text-muted mt-2 leading-relaxed">{card.desc}</p>
                 </motion.div>
               </StaggerItem>
             ))}
@@ -164,29 +163,30 @@ export default function KoreanPage() {
       </section>
 
       {/* Levels */}
-      <section className="section-padding bg-[#04080f]">
-        <div className="container-max">
+      <section className="section-padding sec-mist relative overflow-hidden">
+        <div className="blob blob-royal w-[400px] h-[400px] bottom-0 left-[-8%] opacity-50 pointer-events-none" />
+        <div className="container-max relative z-10">
           <AnimateOnView className="text-center mb-12">
             <span className="eyebrow">Course Levels</span>
-            <h2 className="text-3xl font-black text-white mt-2">
+            <h2 className="text-3xl font-black text-ink mt-2">
               Beginner to TOPIK 6 — <span className="gradient-text">We go the distance.</span>
             </h2>
           </AnimateOnView>
           <div className="space-y-4">
             {levels.map((level, i) => (
               <AnimateOnView key={level.code} delay={i * 0.07}>
-                <motion.div className="card-dark rounded-2xl p-6 flex flex-col sm:flex-row sm:items-center gap-5" whileHover={{ x: 4 }}>
+                <motion.div className="card-hover rounded-2xl p-6 flex flex-col sm:flex-row sm:items-center gap-5" whileHover={{ x: 4 }}>
                   <div className="flex-shrink-0">
-                    <div className="w-16 h-16 rounded-xl flex flex-col items-center justify-center" style={{ background: "rgba(225,29,72,0.1)", border: "1px solid rgba(225,29,72,0.2)" }}>
-                      <span className="font-black text-sm leading-none text-center" style={{ color: "#e11d48" }}>{level.code}</span>
-                      <span className="text-white/30 text-xs">{level.name}</span>
+                    <div className="w-16 h-16 rounded-xl bg-royal-50 border border-royal-100 flex flex-col items-center justify-center">
+                      <span className="font-black text-sm leading-none text-center text-royal-600">{level.code}</span>
+                      <span className="text-muted text-xs">{level.name}</span>
                     </div>
                   </div>
                   <div className="flex-1">
-                    <p className="text-white/60 leading-relaxed text-sm">{level.desc}</p>
+                    <p className="text-body leading-relaxed text-sm">{level.desc}</p>
                   </div>
                   <div className="flex-shrink-0">
-                    <p className="text-white/40 text-xs">{level.duration}</p>
+                    <p className="text-body text-xs font-semibold">{level.duration}</p>
                   </div>
                 </motion.div>
               </AnimateOnView>
@@ -196,11 +196,12 @@ export default function KoreanPage() {
       </section>
 
       {/* Why Korean */}
-      <section className="section-padding bg-[#060c1a]">
-        <div className="container-max">
+      <section className="section-padding sec-light relative overflow-hidden">
+        <div className="blob blob-sky w-[420px] h-[420px] top-0 left-[-8%] opacity-50 pointer-events-none" />
+        <div className="container-max relative z-10">
           <AnimateOnView className="text-center mb-12">
             <span className="eyebrow">Why Korean?</span>
-            <h2 className="text-3xl font-black text-white mt-2">
+            <h2 className="text-3xl font-black text-ink mt-2">
               More than K-pop.{" "}
               <span className="gradient-text">Real world value.</span>
             </h2>
@@ -208,17 +209,17 @@ export default function KoreanPage() {
           <StaggerContainer className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5" staggerDelay={0.08}>
             {whyKorean.map((item, i) => (
               <StaggerItem key={item.title}>
-                <motion.div className="card-dark rounded-2xl p-6 h-full" whileHover={{ y: -4 }}>
+                <div className="card-feature rounded-2xl p-6 h-full">
                   <motion.div
-                    className="mb-3 inline-block"
+                    className="w-12 h-12 rounded-xl bg-royal-50 flex items-center justify-center mb-3"
                     animate={{ y: [0, -6, 0] }}
                     transition={{ duration: 3 + i * 0.3, repeat: Infinity, ease: "easeInOut", delay: i * 0.2 }}
                   >
-                    <MuiIcon name={item.icon} size={36} style={{ color: "#e11d48" }} />
+                    <MuiIcon name={item.icon} size={26} style={{ color: "#3b5bdb" }} />
                   </motion.div>
-                  <h3 className="font-bold text-white">{item.title}</h3>
-                  <p className="text-sm text-white/40 mt-2 leading-relaxed">{item.desc}</p>
-                </motion.div>
+                  <h3 className="font-bold text-ink">{item.title}</h3>
+                  <p className="text-sm text-muted mt-2 leading-relaxed">{item.desc}</p>
+                </div>
               </StaggerItem>
             ))}
           </StaggerContainer>
@@ -226,12 +227,12 @@ export default function KoreanPage() {
       </section>
 
       {/* TOPIK pass rates */}
-      <section className="section-padding bg-[#04080f]">
+      <section className="section-padding sec-mist">
         <div className="container-max max-w-2xl mx-auto">
           <AnimateOnView className="text-center mb-8">
-            <h2 className="text-2xl font-black text-white">Our TOPIK Pass Rate</h2>
+            <h2 className="text-2xl font-black text-ink">Our TOPIK Pass Rate</h2>
           </AnimateOnView>
-          <div className="card-dark rounded-3xl p-8">
+          <div className="card rounded-3xl p-8">
             {[
               { exam: "TOPIK I (Level 1)", rate: 97 },
               { exam: "TOPIK I (Level 2)", rate: 94 },
@@ -240,8 +241,8 @@ export default function KoreanPage() {
             ].map((s) => (
               <div key={s.exam} className="mb-5 last:mb-0">
                 <div className="flex justify-between mb-2">
-                  <span className="text-white/70 text-sm">{s.exam}</span>
-                  <span className="font-bold text-sm" style={{ color: "#e11d48" }}>{s.rate}%</span>
+                  <span className="text-body text-sm">{s.exam}</span>
+                  <span className="font-bold text-sm text-royal-600">{s.rate}%</span>
                 </div>
                 <AnimatedBar rate={s.rate} />
               </div>
@@ -250,26 +251,25 @@ export default function KoreanPage() {
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="section-padding bg-[#04080f] relative overflow-hidden">
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[250px] rounded-full blur-[80px]" style={{ background: "rgba(225,29,72,0.08)" }} />
-        </div>
+      {/* CTA (dark anchor) */}
+      <section className="section-padding sec-dark relative overflow-hidden">
+        <div className="absolute inset-0 grid-dots-light opacity-30 pointer-events-none" />
+        <div className="blob blob-royal w-[500px] h-[300px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none" />
         <div className="container-max text-center relative z-10">
           <AnimateOnView>
             <motion.div className="text-5xl mb-4 inline-block" animate={{ y: [0, -10, 0] }} transition={{ duration: 3, repeat: Infinity }}>🇰🇷</motion.div>
             <h2 className="text-3xl md:text-4xl font-black text-white">
               시작해볼까요?{" "}
-              <span className="gradient-text">Shall we begin?</span>
+              <span className="gradient-text-light">Shall we begin?</span>
             </h2>
-            <p className="mt-4 text-white/60 max-w-lg mx-auto">
+            <p className="mt-4 text-white/55 max-w-lg mx-auto">
               From Hangul on day one to TOPIK 4 — your Korean journey starts with a free placement call.
             </p>
             <div className="mt-8 flex flex-wrap justify-center gap-4">
-              <a href="https://wa.me/919876543210" target="_blank" rel="noopener noreferrer" className="btn-primary text-lg px-8 py-4">
+              <a href="https://wa.me/919876543210" target="_blank" rel="noopener noreferrer" className="btn-white text-lg px-8 py-4">
                 Start Korean Today <ArrowRight size={18} />
               </a>
-              <Link href="/courses" className="btn-outline text-lg px-8 py-4">View All Languages</Link>
+              <Link href="/courses" className="btn-outline-light text-lg px-8 py-4">View All Languages</Link>
             </div>
           </AnimateOnView>
         </div>

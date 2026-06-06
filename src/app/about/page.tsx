@@ -29,12 +29,12 @@ const values = [
 ];
 
 const team = [
-  { name: "Ananya Krishnan", role: "Founder & Lead French Faculty", initials: "AK", bio: "Master's in French Literature from Alliance Française. 14 years of teaching experience across Mumbai and Paris.", colorFrom: "#0a1628", colorTo: "#162d5a", accent: "#4c8aff" },
-  { name: "Vikram Desai", role: "Head of +Beyond Programmes", initials: "VD", bio: "Former McKinsey consultant and TEDx speaker. Certified executive coach with 10+ years in corporate training.", colorFrom: "#071a0d", colorTo: "#0d3018", accent: "#22C55E" },
-  { name: "Priya Narayanan", role: "German Language Expert", initials: "PN", bio: "Goethe-Institut certified. Lived in Berlin for 6 years. Specialises in DAAD scholarship preparation.", colorFrom: "#1a0d07", colorTo: "#302010", accent: "#f97316" },
-  { name: "Carlos Mendes", role: "Spanish & Latin American Culture", initials: "CM", bio: "Native speaker from São Paulo. MA in Hispanic Studies. Teaches with infectious enthusiasm and cultural depth.", colorFrom: "#1a0715", colorTo: "#30102a", accent: "#e879f9" },
-  { name: "Yuki Tanaka", role: "Japanese Language Faculty", initials: "YT", bio: "Native Japanese speaker. Certified JLPT examiner. 8 years teaching Japanese to Indian learners.", colorFrom: "#1a0707", colorTo: "#300f0f", accent: "#f43f5e" },
-  { name: "Rohan Pillai", role: "IELTS & Academic English", initials: "RP", bio: "British Council certified IELTS trainer. 95% of his students score 7.0+ in their first attempt.", colorFrom: "#07141a", colorTo: "#0f2430", accent: "#7aaaff" },
+  { name: "Ananya Krishnan", role: "Founder & Lead French Faculty", initials: "AK", bio: "Master's in French Literature from Alliance Française. 14 years of teaching experience across Mumbai and Paris.", colorFrom: "#3b5bdb", colorTo: "#2f49c0", accent: "#3b5bdb" },
+  { name: "Vikram Desai", role: "Head of +Beyond Programmes", initials: "VD", bio: "Former McKinsey consultant and TEDx speaker. Certified executive coach with 10+ years in corporate training.", colorFrom: "#0ea5e9", colorTo: "#0284c7", accent: "#0ea5e9" },
+  { name: "Priya Narayanan", role: "German Language Expert", initials: "PN", bio: "Goethe-Institut certified. Lived in Berlin for 6 years. Specialises in DAAD scholarship preparation.", colorFrom: "#6d8bff", colorTo: "#3b5bdb", accent: "#6d8bff" },
+  { name: "Carlos Mendes", role: "Spanish & Latin American Culture", initials: "CM", bio: "Native speaker from São Paulo. MA in Hispanic Studies. Teaches with infectious enthusiasm and cultural depth.", colorFrom: "#2f49c0", colorTo: "#1b2a63", accent: "#2f49c0" },
+  { name: "Yuki Tanaka", role: "Japanese Language Faculty", initials: "YT", bio: "Native Japanese speaker. Certified JLPT examiner. 8 years teaching Japanese to Indian learners.", colorFrom: "#0ea5e9", colorTo: "#2f49c0", accent: "#0284c7" },
+  { name: "Rohan Pillai", role: "IELTS & Academic English", initials: "RP", bio: "British Council certified IELTS trainer. 95% of his students score 7.0+ in their first attempt.", colorFrom: "#3b5bdb", colorTo: "#6d8bff", accent: "#3b5bdb" },
 ];
 
 const credentials = [
@@ -60,28 +60,21 @@ function StatCard({ stat, index }: { stat: typeof stats[number]; index: number }
       initial={{ opacity: 0, y: 32 }}
       animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 32 }}
       transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: index * 0.1 }}
-      className="relative flex flex-col items-center text-center p-8 rounded-2xl overflow-hidden"
-      style={{
-        background: "rgba(13,23,41,0.7)",
-        border: "1px solid rgba(255,255,255,0.07)",
-        backdropFilter: "blur(12px)",
-      }}
+      className="card relative flex flex-col items-center text-center p-8 rounded-2xl overflow-hidden"
     >
-      {/* Animated glowing underline sweep */}
       <motion.div
         className="absolute bottom-0 left-0 h-[2px]"
-        style={{ width: "100%", transformOrigin: "left center", background: "linear-gradient(90deg, transparent, #22C55E, transparent)" }}
+        style={{ width: "100%", transformOrigin: "left center", background: "linear-gradient(90deg, transparent, #3b5bdb, transparent)" }}
         initial={{ scaleX: 0, opacity: 0 }}
         animate={isInView ? { scaleX: [0, 1, 0], opacity: [0, 1, 0] } : { scaleX: 0, opacity: 0 }}
         transition={{ duration: 1.8, ease: "easeInOut", delay: index * 0.15 + 0.3, repeat: Infinity, repeatDelay: 3 }}
       />
-      <div className="text-4xl font-black text-white mb-1">
+      <div className="text-4xl font-black gradient-text mb-1">
         <CountUp value={stat.value} duration={2000} />
       </div>
-      <div className="text-sm text-white/50 font-semibold">{stat.label}</div>
-      {/* Subtle glow dot */}
+      <div className="text-sm text-muted font-semibold">{stat.label}</div>
       <motion.div
-        className="absolute top-3 right-3 w-2 h-2 rounded-full bg-[#22C55E]"
+        className="absolute top-3 right-3 w-2 h-2 rounded-full bg-royal-500"
         animate={{ opacity: [0.3, 1, 0.3], scale: [0.8, 1.2, 0.8] }}
         transition={{ duration: 2.5, repeat: Infinity, delay: index * 0.4 }}
       />
@@ -94,18 +87,10 @@ export default function AboutPage() {
   return (
     <>
       {/* ─── HERO ─── */}
-      <section className="relative min-h-screen flex items-center bg-[#060c1a] overflow-hidden pt-24 pb-16">
-        {/* Background glows */}
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-0 left-1/4 w-[600px] h-[600px] rounded-full bg-[#2b6aff]/12 blur-[120px]" />
-          <div className="absolute bottom-0 right-0 w-[400px] h-[400px] rounded-full bg-[#22C55E]/8 blur-[100px]" />
-          <motion.div
-            className="absolute top-1/2 left-1/2 w-[800px] h-[800px] rounded-full -translate-x-1/2 -translate-y-1/2"
-            style={{ background: "radial-gradient(circle, rgba(43,106,255,0.06) 0%, transparent 70%)" }}
-            animate={{ scale: [1, 1.08, 1] }}
-            transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-          />
-        </div>
+      <section className="relative min-h-screen flex items-center hero-light overflow-hidden pt-24 pb-16">
+        <div className="absolute inset-0 grid-lines pointer-events-none opacity-70" />
+        <div className="blob blob-royal w-[560px] h-[560px] top-0 left-1/4 pointer-events-none" />
+        <div className="blob blob-sky w-[400px] h-[400px] bottom-0 right-0 pointer-events-none" />
 
         <div className="container-max px-5 md:px-8 relative z-10 w-full">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
@@ -113,13 +98,13 @@ export default function AboutPage() {
             <div>
               <AnimateOnView>
                 <span className="eyebrow-pill-outline">Our Story</span>
-                <h1 className="text-5xl md:text-6xl lg:text-7xl font-black text-white mt-4 leading-[1.0] tracking-tight">
+                <h1 className="text-5xl md:text-6xl lg:text-7xl font-black text-ink mt-4 leading-[1.0] tracking-tight">
                   We exist to turn{" "}
                   <span className="gradient-text">ambition</span>
                   <br />
                   into opportunity.
                 </h1>
-                <p className="mt-6 text-xl text-white/55 max-w-xl leading-relaxed">
+                <p className="mt-6 text-xl text-body max-w-xl leading-relaxed">
                   Academy of Languages &amp; Beyond was born from a simple belief: every
                   Indian learner who dares to go global deserves world-class preparation
                   — in language, confidence, presence, and communication.
@@ -136,7 +121,7 @@ export default function AboutPage() {
               </AnimateOnView>
             </div>
 
-            {/* Right: floating glass cards */}
+            {/* Right: floating cards */}
             <div className="hidden lg:flex flex-col items-end gap-5 pr-4">
               {heroCards.map((card, i) => (
                 <motion.div
@@ -148,30 +133,20 @@ export default function AboutPage() {
                     ease: "easeInOut",
                     delay: card.delay,
                   }}
-                  className="glass rounded-2xl px-7 py-5 flex items-center gap-5"
-                  style={{
-                    background: "rgba(255,255,255,0.05)",
-                    border: "1px solid rgba(255,255,255,0.10)",
-                    backdropFilter: "blur(20px)",
-                    boxShadow: "0 8px 32px rgba(0,0,0,0.25)",
-                    minWidth: 200,
-                  }}
+                  className="card rounded-2xl px-7 py-5 flex items-center gap-5"
+                  style={{ minWidth: 200 }}
                 >
-                  <div
-                    className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0"
-                    style={{ background: "rgba(34,197,94,0.15)", border: "1px solid rgba(34,197,94,0.2)" }}
-                  >
-                    <MuiIcon name={card.icon} size={22} style={{ color: "#22C55E" }} />
+                  <div className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 bg-royal-50">
+                    <MuiIcon name={card.icon} size={22} style={{ color: "#3b5bdb" }} />
                   </div>
                   <div>
-                    <div className="text-3xl font-black text-white leading-none">
+                    <div className="text-3xl font-black text-ink leading-none">
                       <CountUp value={card.label} duration={1800} />
                     </div>
-                    <div className="text-sm text-white/50 mt-0.5 font-medium">{card.sublabel}</div>
+                    <div className="text-sm text-muted mt-0.5 font-medium">{card.sublabel}</div>
                   </div>
-                  {/* Pulsing green dot */}
                   <motion.div
-                    className="w-2.5 h-2.5 rounded-full bg-[#22C55E] ml-auto"
+                    className="w-2.5 h-2.5 rounded-full bg-sky-500 ml-auto"
                     animate={{ scale: [1, 1.5, 1], opacity: [1, 0.4, 1] }}
                     transition={{ duration: 2, repeat: Infinity, delay: i * 0.5 }}
                   />
@@ -181,13 +156,13 @@ export default function AboutPage() {
               {/* Decorative orbit ring */}
               <motion.div
                 className="absolute right-8 top-1/2 w-72 h-72 rounded-full pointer-events-none"
-                style={{ border: "1px solid rgba(43,106,255,0.12)", translateY: "-50%" }}
+                style={{ border: "1px solid rgba(59,91,219,0.18)", translateY: "-50%" }}
                 animate={{ rotate: 360 }}
                 transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
               >
                 <div
-                  className="w-3 h-3 rounded-full bg-[#2b6aff] absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2"
-                  style={{ boxShadow: "0 0 12px #2b6aff" }}
+                  className="w-3 h-3 rounded-full bg-royal-500 absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2"
+                  style={{ boxShadow: "0 0 12px #3b5bdb" }}
                 />
               </motion.div>
             </div>
@@ -196,7 +171,7 @@ export default function AboutPage() {
       </section>
 
       {/* ─── STATS BAR ─── */}
-      <section className="py-16 bg-[#04080f]">
+      <section className="py-16 sec-mist">
         <div className="container-max px-5 md:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {stats.map((s, i) => (
@@ -207,11 +182,12 @@ export default function AboutPage() {
       </section>
 
       {/* ─── MISSION & VISION ─── */}
-      <section className="section-padding bg-[#060c1a]">
-        <div className="container-max px-5 md:px-8">
+      <section className="section-padding sec-light relative overflow-hidden">
+        <div className="blob blob-sky w-[420px] h-[420px] top-0 right-[-8%] opacity-50 pointer-events-none" />
+        <div className="container-max px-5 md:px-8 relative z-10">
           <AnimateOnView className="text-center mb-14">
             <span className="eyebrow">Who We Are</span>
-            <h2 className="text-3xl md:text-4xl font-black text-white mt-2">
+            <h2 className="text-3xl md:text-4xl font-black text-ink mt-2">
               Purpose-built for{" "}
               <span className="gradient-text-blue">global ambition</span>
             </h2>
@@ -220,37 +196,29 @@ export default function AboutPage() {
           <div className="grid md:grid-cols-2 gap-6">
             {/* Mission — animated gradient border */}
             <AnimateOnView direction="right">
-              <div className="relative rounded-3xl p-px overflow-hidden h-full">
-                {/* Spinning gradient border */}
+              <div className="relative rounded-3xl p-px overflow-hidden h-full shadow-[0_8px_30px_rgba(16,23,51,0.08)]">
                 <motion.div
                   className="absolute inset-0 rounded-3xl"
                   style={{
-                    background: "conic-gradient(from 0deg, #22C55E, #4c8aff, #22C55E)",
-                    opacity: 0.6,
+                    background: "conic-gradient(from 0deg, #3b5bdb, #38bdf8, #3b5bdb)",
+                    opacity: 0.85,
                   }}
                   animate={{ rotate: 360 }}
                   transition={{ duration: 6, repeat: Infinity, ease: "linear" }}
                 />
-                <div
-                  className="relative rounded-3xl p-8 h-full"
-                  style={{ background: "#060c1a" }}
-                >
-                  <div
-                    className="w-12 h-12 rounded-2xl flex items-center justify-center mb-5"
-                    style={{ background: "rgba(34,197,94,0.15)", border: "1px solid rgba(34,197,94,0.25)" }}
-                  >
-                    <Target size={22} className="text-[#22C55E]" />
+                <div className="relative rounded-3xl p-8 h-full bg-white">
+                  <div className="w-12 h-12 rounded-2xl flex items-center justify-center mb-5 bg-royal-50 border border-royal-100">
+                    <Target size={22} className="text-royal-500" />
                   </div>
                   <div className="flex items-center gap-2 mb-4">
-                    <h2 className="text-2xl font-black text-white">Our Mission</h2>
-                    {/* Pulsing green dot */}
+                    <h2 className="text-2xl font-black text-ink">Our Mission</h2>
                     <motion.div
-                      className="w-2.5 h-2.5 rounded-full bg-[#22C55E]"
+                      className="w-2.5 h-2.5 rounded-full bg-royal-500"
                       animate={{ scale: [1, 1.6, 1], opacity: [1, 0.3, 1] }}
                       transition={{ duration: 2, repeat: Infinity }}
                     />
                   </div>
-                  <p className="text-white/60 leading-relaxed text-lg">
+                  <p className="text-body leading-relaxed text-lg">
                     To empower every ambitious Indian learner with the language fluency,
                     communication confidence, and global mindset they need to thrive on
                     the world stage — delivered through expert teaching, cultural
@@ -262,27 +230,17 @@ export default function AboutPage() {
 
             {/* Vision */}
             <AnimateOnView direction="left">
-              <div
-                className="rounded-3xl p-8 h-full"
-                style={{
-                  background: "rgba(13,23,41,0.7)",
-                  border: "1px solid rgba(43,106,255,0.18)",
-                  backdropFilter: "blur(12px)",
-                }}
-              >
-                <div
-                  className="w-12 h-12 rounded-2xl flex items-center justify-center mb-5"
-                  style={{ background: "rgba(43,106,255,0.12)", border: "1px solid rgba(43,106,255,0.25)" }}
-                >
-                  <Eye size={22} className="text-[#4c8aff]" />
+              <div className="card rounded-3xl p-8 h-full">
+                <div className="w-12 h-12 rounded-2xl flex items-center justify-center mb-5 bg-sky-500/10 border border-sky-500/20">
+                  <Eye size={22} className="text-sky-500" />
                 </div>
-                <h2 className="text-2xl font-black text-white mb-4">Our Vision</h2>
-                <p className="text-white/60 leading-relaxed text-lg">
+                <h2 className="text-2xl font-black text-ink mb-4">Our Vision</h2>
+                <p className="text-body leading-relaxed text-lg">
                   A world where every Indian professional, student, and dreamer walks
                   into any global room — boardroom, campus, embassy, or street — with
                   the language and confidence to belong, connect, and lead.
                 </p>
-                <div className="mt-6 flex items-center gap-3 text-sm text-[#4c8aff] font-semibold">
+                <div className="mt-6 flex items-center gap-3 text-sm text-sky-600 font-semibold">
                   <Globe size={16} />
                   <span>30+ countries, one community</span>
                 </div>
@@ -293,56 +251,46 @@ export default function AboutPage() {
       </section>
 
       {/* ─── TIMELINE ─── */}
-      <section className="section-padding bg-[#04080f]">
-        <div className="container-max px-5 md:px-8">
+      <section className="section-padding sec-mist relative overflow-hidden">
+        <div className="blob blob-royal w-[420px] h-[420px] bottom-0 left-[-8%] opacity-50 pointer-events-none" />
+        <div className="container-max px-5 md:px-8 relative z-10">
           <AnimateOnView className="text-center mb-14">
             <span className="eyebrow">Our Journey</span>
-            <h2 className="text-3xl md:text-4xl font-black text-white mt-2">
+            <h2 className="text-3xl md:text-4xl font-black text-ink mt-2">
               12 years of{" "}
               <span className="gradient-text">transformation</span>
             </h2>
           </AnimateOnView>
 
           <div className="relative max-w-3xl mx-auto">
-            {/* Gradient timeline line */}
             <div
               className="absolute left-6 top-0 bottom-0 w-px"
-              style={{ background: "linear-gradient(to bottom, #22C55E 0%, rgba(34,197,94,0.3) 60%, transparent 100%)" }}
+              style={{ background: "linear-gradient(to bottom, #3b5bdb 0%, rgba(59,91,219,0.3) 60%, transparent 100%)" }}
             />
 
             <div className="space-y-8">
               {milestones.map((m, i) => (
                 <AnimateOnView key={i} delay={i * 0.08} direction="left">
                   <div className="pl-14 relative">
-                    {/* Pulsing node */}
                     <div className="absolute left-4 top-2 -translate-x-1/2">
                       <motion.div
-                        className="w-4 h-4 rounded-full bg-[#22C55E]"
+                        className="w-4 h-4 rounded-full bg-royal-500"
                         animate={{ scale: [1, 1.5, 1], opacity: [1, 0.5, 1] }}
                         transition={{ duration: 2.5, repeat: Infinity, delay: i * 0.3 }}
                       />
                       <motion.div
-                        className="absolute inset-0 rounded-full bg-[#22C55E]"
+                        className="absolute inset-0 rounded-full bg-royal-500"
                         animate={{ scale: [1, 2.5, 1], opacity: [0.4, 0, 0.4] }}
                         transition={{ duration: 2.5, repeat: Infinity, delay: i * 0.3 }}
                       />
                     </div>
 
-                    <div
-                      className="rounded-2xl p-5"
-                      style={{
-                        background: "rgba(13,23,41,0.6)",
-                        border: "1px solid rgba(255,255,255,0.06)",
-                      }}
-                    >
-                      <span
-                        className="text-xs font-black tracking-widest uppercase"
-                        style={{ color: "#22C55E" }}
-                      >
+                    <div className="card rounded-2xl p-5">
+                      <span className="text-xs font-black tracking-widest uppercase text-royal-600">
                         {m.year}
                       </span>
-                      <h3 className="text-lg font-bold text-white mt-1">{m.title}</h3>
-                      <p className="text-sm text-white/45 mt-2 leading-relaxed">{m.desc}</p>
+                      <h3 className="text-lg font-bold text-ink mt-1">{m.title}</h3>
+                      <p className="text-sm text-muted mt-2 leading-relaxed">{m.desc}</p>
                     </div>
                   </div>
                 </AnimateOnView>
@@ -353,11 +301,12 @@ export default function AboutPage() {
       </section>
 
       {/* ─── VALUES GRID ─── */}
-      <section className="section-padding bg-[#060c1a]">
-        <div className="container-max px-5 md:px-8">
+      <section className="section-padding sec-light relative overflow-hidden">
+        <div className="blob blob-sky w-[420px] h-[420px] top-0 left-[-8%] opacity-50 pointer-events-none" />
+        <div className="container-max px-5 md:px-8 relative z-10">
           <AnimateOnView className="text-center mb-12">
             <span className="eyebrow">What We Stand For</span>
-            <h2 className="text-3xl md:text-4xl font-black text-white mt-2">
+            <h2 className="text-3xl md:text-4xl font-black text-ink mt-2">
               Our values shape every class,
               <br />
               <span className="gradient-text">every conversation.</span>
@@ -367,32 +316,17 @@ export default function AboutPage() {
           <StaggerContainer className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5" staggerDelay={0.08}>
             {values.map((v) => (
               <StaggerItem key={v.title}>
-                <motion.div
-                  className="rounded-2xl p-6 h-full cursor-default group"
-                  style={{
-                    background: "rgba(13,23,41,0.7)",
-                    border: "1px solid rgba(255,255,255,0.07)",
-                    backdropFilter: "blur(12px)",
-                    transition: "border-color 0.25s, box-shadow 0.25s, transform 0.25s",
-                  }}
-                  whileHover={{
-                    y: -4,
-                    borderColor: "rgba(34,197,94,0.35)",
-                    boxShadow: "0 20px 60px rgba(34,197,94,0.1)",
-                  }}
-                >
-                  {/* Floating icon */}
+                <div className="card-feature rounded-2xl p-6 h-full cursor-default">
                   <motion.div
-                    className="mb-4 inline-flex items-center justify-center w-12 h-12 rounded-xl"
-                    style={{ background: "rgba(34,197,94,0.12)", border: "1px solid rgba(34,197,94,0.2)" }}
+                    className="mb-4 inline-flex items-center justify-center w-12 h-12 rounded-xl bg-royal-50"
                     animate={{ y: [0, -6, 0] }}
                     transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut" }}
                   >
-                    <MuiIcon name={v.icon} size={22} style={{ color: "#22C55E" }} />
+                    <MuiIcon name={v.icon} size={22} style={{ color: "#3b5bdb" }} />
                   </motion.div>
-                  <h3 className="font-bold text-white text-lg">{v.title}</h3>
-                  <p className="text-sm text-white/45 mt-2 leading-relaxed">{v.desc}</p>
-                </motion.div>
+                  <h3 className="font-bold text-ink text-lg">{v.title}</h3>
+                  <p className="text-sm text-muted mt-2 leading-relaxed">{v.desc}</p>
+                </div>
               </StaggerItem>
             ))}
           </StaggerContainer>
@@ -400,11 +334,12 @@ export default function AboutPage() {
       </section>
 
       {/* ─── TEAM GRID ─── */}
-      <section className="section-padding bg-[#04080f]">
-        <div className="container-max px-5 md:px-8">
+      <section className="section-padding sec-mist relative overflow-hidden">
+        <div className="blob blob-royal w-[420px] h-[420px] bottom-0 right-[-8%] opacity-50 pointer-events-none" />
+        <div className="container-max px-5 md:px-8 relative z-10">
           <AnimateOnView className="text-center mb-12">
             <span className="eyebrow">Our Faculty</span>
-            <h2 className="text-3xl md:text-4xl font-black text-white mt-2">
+            <h2 className="text-3xl md:text-4xl font-black text-ink mt-2">
               Meet the experts behind
               <span className="gradient-text"> your transformation.</span>
             </h2>
@@ -414,33 +349,25 @@ export default function AboutPage() {
             {team.map((member) => (
               <StaggerItem key={member.name}>
                 <motion.div
-                  className="rounded-2xl p-6 group cursor-default"
-                  style={{
-                    background: "rgba(13,23,41,0.7)",
-                    border: "1px solid rgba(255,255,255,0.07)",
-                    backdropFilter: "blur(12px)",
-                    transition: "border-color 0.3s, box-shadow 0.3s, transform 0.3s",
-                  }}
+                  className="card rounded-2xl p-6 group cursor-default"
                   whileHover={{
                     y: -4,
-                    borderColor: member.accent + "55",
-                    boxShadow: `0 20px 60px ${member.accent}20`,
+                    boxShadow: `0 24px 60px ${member.accent}22`,
                   }}
+                  transition={{ type: "spring", stiffness: 300, damping: 22 }}
                 >
-                  {/* Gradient avatar */}
                   <div
                     className="w-16 h-16 rounded-2xl flex items-center justify-center text-white font-black text-xl mb-4"
                     style={{
                       background: `linear-gradient(135deg, ${member.colorFrom} 0%, ${member.colorTo} 100%)`,
-                      border: `1px solid ${member.accent}30`,
-                      boxShadow: `0 4px 20px ${member.accent}15`,
+                      boxShadow: `0 8px 20px ${member.accent}30`,
                     }}
                   >
-                    <span style={{ color: member.accent }}>{member.initials}</span>
+                    {member.initials}
                   </div>
-                  <h3 className="font-bold text-white text-lg leading-tight">{member.name}</h3>
+                  <h3 className="font-bold text-ink text-lg leading-tight">{member.name}</h3>
                   <p className="text-sm font-semibold mt-1" style={{ color: member.accent }}>{member.role}</p>
-                  <p className="text-sm text-white/40 mt-3 leading-relaxed">{member.bio}</p>
+                  <p className="text-sm text-muted mt-3 leading-relaxed">{member.bio}</p>
                 </motion.div>
               </StaggerItem>
             ))}
@@ -449,11 +376,12 @@ export default function AboutPage() {
       </section>
 
       {/* ─── CREDENTIALS ─── */}
-      <section className="section-padding bg-[#060c1a]">
-        <div className="container-max px-5 md:px-8 text-center">
+      <section className="section-padding sec-light relative overflow-hidden">
+        <div className="blob blob-sky w-[420px] h-[420px] top-0 right-[-6%] opacity-50 pointer-events-none" />
+        <div className="container-max px-5 md:px-8 text-center relative z-10">
           <AnimateOnView>
             <span className="eyebrow-pill-outline">Recognition</span>
-            <h2 className="text-3xl md:text-4xl font-black text-white mt-4">
+            <h2 className="text-3xl md:text-4xl font-black text-ink mt-4">
               Trusted. Accredited. Proven.
             </h2>
           </AnimateOnView>
@@ -461,55 +389,35 @@ export default function AboutPage() {
           <StaggerContainer className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 mt-10" staggerDelay={0.08}>
             {credentials.map((c, i) => (
               <StaggerItem key={c.title}>
-                <motion.div
-                  className="glass rounded-2xl p-6 text-left h-full"
-                  whileHover={{
-                    y: -3,
-                    boxShadow: "0 16px 48px rgba(43,106,255,0.12)",
-                    borderColor: "rgba(43,106,255,0.3)",
-                  }}
-                  style={{ transition: "border-color 0.25s, box-shadow 0.25s" }}
-                >
+                <div className="card-feature rounded-2xl p-6 text-left h-full">
                   <motion.div
-                    className="mb-3 inline-flex items-center justify-center w-12 h-12 rounded-xl"
-                    style={{ background: "rgba(43,106,255,0.12)", border: "1px solid rgba(43,106,255,0.2)" }}
+                    className="mb-3 inline-flex items-center justify-center w-12 h-12 rounded-xl bg-royal-50"
                     animate={{ y: [0, -5, 0] }}
                     transition={{ duration: 3.5 + i * 0.4, repeat: Infinity, ease: "easeInOut", delay: i * 0.5 }}
                   >
-                    <MuiIcon name={c.icon} size={22} style={{ color: "#4c8aff" }} />
+                    <MuiIcon name={c.icon} size={22} style={{ color: "#3b5bdb" }} />
                   </motion.div>
-                  <h3 className="text-white font-bold text-base">{c.title}</h3>
-                  <p className="text-white/50 text-sm mt-2 leading-relaxed">{c.body}</p>
-                </motion.div>
+                  <h3 className="text-ink font-bold text-base">{c.title}</h3>
+                  <p className="text-muted text-sm mt-2 leading-relaxed">{c.body}</p>
+                </div>
               </StaggerItem>
             ))}
           </StaggerContainer>
         </div>
       </section>
 
-      {/* ─── CTA ─── */}
-      <section className="section-padding bg-[#04080f]">
+      {/* ─── CTA (dark anchor) ─── */}
+      <section className="section-padding sec-light">
         <div className="container-max px-5 md:px-8">
           <AnimateOnView>
-            <div
-              className="rounded-3xl p-10 md:p-16 text-center relative overflow-hidden"
-              style={{
-                background: "linear-gradient(135deg, rgba(13,23,41,0.95) 0%, rgba(7,16,32,0.95) 100%)",
-                border: "1px solid rgba(43,106,255,0.15)",
-              }}
-            >
-              {/* Glow blobs */}
-              <div className="absolute top-0 right-0 w-80 h-80 rounded-full bg-[#22C55E]/10 blur-[80px] pointer-events-none" />
-              <div className="absolute bottom-0 left-0 w-60 h-60 rounded-full bg-[#2b6aff]/10 blur-[80px] pointer-events-none" />
+            <div className="sec-dark rounded-3xl p-10 md:p-16 text-center relative overflow-hidden">
+              <div className="absolute inset-0 grid-dots-light opacity-30 pointer-events-none" />
+              <div className="blob blob-sky w-80 h-80 top-0 right-0 pointer-events-none" />
+              <div className="blob blob-royal w-60 h-60 bottom-0 left-0 pointer-events-none" />
 
-              {/* Rotating ring decoration */}
               <motion.div
                 className="absolute top-1/2 left-1/2 w-96 h-96 rounded-full pointer-events-none"
-                style={{
-                  border: "1px solid rgba(34,197,94,0.08)",
-                  translateX: "-50%",
-                  translateY: "-50%",
-                }}
+                style={{ border: "1px solid rgba(255,255,255,0.10)", translateX: "-50%", translateY: "-50%" }}
                 animate={{ rotate: 360 }}
                 transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
               />
@@ -520,40 +428,39 @@ export default function AboutPage() {
                   transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
                   className="inline-block mb-5"
                 >
-                  <Heart size={36} className="text-[#22C55E] mx-auto" />
+                  <Heart size={36} className="text-sky-300 mx-auto" />
                 </motion.div>
                 <h2 className="text-3xl md:text-5xl font-black text-white leading-tight">
                   Ready to become
                   <br />
-                  <span className="gradient-text">part of our story?</span>
+                  <span className="gradient-text-light">part of our story?</span>
                 </h2>
                 <p className="mt-5 text-white/55 max-w-lg mx-auto text-lg">
                   Book a free counselling call and let&apos;s design the perfect learning path for your goals.
                 </p>
                 <div className="mt-9 flex flex-wrap justify-center gap-4">
-                  <Link href="/courses" className="btn-primary">
+                  <Link href="/courses" className="btn-white">
                     Browse Courses
                     <ArrowRight size={16} />
                   </Link>
-                  <button onClick={() => openModal()} className="btn-outline">
+                  <button onClick={() => openModal()} className="btn-outline-light">
                     Book a Free Call
                   </button>
                 </div>
 
-                {/* Social proof micro row */}
-                <div className="mt-8 flex items-center justify-center gap-2 text-white/40 text-sm">
+                <div className="mt-8 flex items-center justify-center gap-2 text-white/55 text-sm">
                   <div className="flex -space-x-2">
                     {["AK", "VM", "SP", "RJ"].map((init) => (
                       <div
                         key={init}
-                        className="w-7 h-7 rounded-full bg-gradient-to-br from-[#0d1729] to-[#162d5a] border border-white/10 flex items-center justify-center text-[9px] font-bold text-white/60"
+                        className="w-7 h-7 rounded-full bg-gradient-to-br from-[#3b5bdb] to-[#2f49c0] border border-white/20 flex items-center justify-center text-[9px] font-bold text-white"
                       >
                         {init}
                       </div>
                     ))}
                   </div>
                   <span>Join 5,000+ learners already on their journey</span>
-                  <Star size={12} className="text-[#22C55E]" fill="#22C55E" />
+                  <Star size={12} className="text-amber-400" fill="#fbbf24" />
                 </div>
               </div>
             </div>
