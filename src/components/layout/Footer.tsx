@@ -103,7 +103,7 @@ export function Footer() {
                 { label: "Spanish",       href: "/courses/spanish" },
                 { label: "Japanese",      href: "/courses/japanese" },
                 { label: "Korean",        href: "/courses/korean" },
-                { label: "IELTS / English", href: "/courses/ielts" },
+                { label: "English", href: "/courses/ielts" },
               ].map(item => (
                 <li key={item.href}>
                   <Link href={item.href} className="text-xs text-white/50 hover:text-white transition-colors inline-block">

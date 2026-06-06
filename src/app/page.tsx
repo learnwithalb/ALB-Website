@@ -6,12 +6,11 @@ import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   ArrowRight, Star, CheckCircle, ChevronDown,
-  Shield, Users, Target, Award, Globe,
+  Users, Globe, Video, MessageCircle, Sparkles,
 } from "lucide-react";
 import { AnimateOnView, StaggerContainer, StaggerItem } from "@/components/shared/AnimateOnView";
-import { languages, testimonials, faqs, whyAlbPoints } from "@/lib/constants";
-import { MuiIcon, Flag } from "@/lib/icons";
-import { CountUp } from "@/components/shared/CountUp";
+import { languages, testimonials, faqs } from "@/lib/constants";
+import { MuiIcon, Flag, flagSrc } from "@/lib/icons";
 import { useBooking } from "@/components/shared/BookingContext";
 
 /* ───────────────────────────────────────────────
@@ -254,10 +253,70 @@ function LanguageNetwork() {
 
 /* ─────────────────────────── Stat Cards ─────────────────────────── */
 const STAT_CARDS = [
-  { value: "5000+", label: "Learners Transformed", Icon: Users,  iconColor: "#3b5bdb", lineColor: "#3b5bdb" },
-  { value: "95%",   label: "Goal Achievement Rate", Icon: Target, iconColor: "#0ea5e9", lineColor: "#0ea5e9" },
-  { value: "12+",   label: "Years of Excellence",   Icon: Award,  iconColor: "#6d8bff", lineColor: "#6d8bff" },
-  { value: "6",     label: "Languages Offered",     Icon: Globe,  iconColor: "#3b5bdb", lineColor: "#3b5bdb" },
+  { title: "Live-Interactive Sessions", desc: "Real-time classes, never recordings",  Icon: Video,         iconColor: "#3b5bdb", lineColor: "#3b5bdb" },
+  { title: "Small Cohorts",             desc: "Max 12 learners per batch",             Icon: Users,         iconColor: "#0ea5e9", lineColor: "#0ea5e9" },
+  { title: "24×7 Doubt Support",        desc: "Help whenever you need it",             Icon: MessageCircle, iconColor: "#6d8bff", lineColor: "#6d8bff" },
+  { title: "Soft-Skills Included",      desc: "Confidence & communication built in",   Icon: Sparkles,      iconColor: "#3b5bdb", lineColor: "#3b5bdb" },
+];
+
+/* Exams each programme prepares you for */
+const PREPARES: Record<string, string> = {
+  fr: "DELF · DALF · TEF Canada · TCF Canada",
+  de: "Goethe · TELC · TestDaF · DSH",
+  es: "DELE · SIELE",
+  jp: "JLPT (N5–N2)",
+  kr: "TOPIK I & II",
+  en: "IELTS · PTE · TOEFL",
+};
+
+/* Programmes not yet open for enrolment */
+const COMING_SOON = ["es", "jp", "kr"];
+
+/* Goal-based learning tracks */
+const TRACKS = [
+  {
+    title: "Immigration Track",
+    badge: "Immigration",
+    icon: "flight",
+    ideal: "Canada PR · France & Germany immigration · Work visas",
+    different: "Visa interview simulations, official document vocabulary, and embassy communication in your target language.",
+    exams: ["TEF Canada", "TCF Canada", "IELTS", "Goethe"],
+  },
+  {
+    title: "Academic Track",
+    badge: "Academic",
+    icon: "school",
+    ideal: "Study abroad · University admissions · Scholarship applications",
+    different: "Academic writing, university interview prep, and Sciences Po / TU Munich-style presentation formats.",
+    exams: ["DELF B2", "DALF", "Goethe B2", "IELTS Academic"],
+  },
+  {
+    title: "Career Track",
+    badge: "Career",
+    icon: "work",
+    ideal: "MNC jobs · Client-facing roles · Professional communication",
+    different: "Boardroom-ready speaking, email writing in the target language, and negotiation vocabulary.",
+    exams: ["Business Comm", "Presentations", "Interview Skills", "IELTS General"],
+  },
+  {
+    title: "Sprint Track",
+    badge: "Sprint",
+    icon: "rocket",
+    ideal: "Tight deadlines — visa filing, university intake, job change or relocation.",
+    different: "An intensive schedule with more live classes per week, daily speaking practice, and tight progress checks.",
+    exams: ["TEF / TCF Canada", "DELF / Goethe", "IELTS (Acad. & Gen.)"],
+  },
+];
+
+/* hexagon clip-path for journey nodes */
+const HEX = "polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)";
+
+/* Step-by-step learner journey */
+const JOURNEY = [
+  { n: "01", icon: "target",   title: "Choose Your Goal",      desc: "Immigration · Academic · Career. Pick the track that matches your destination." },
+  { n: "02", icon: "book",     title: "Select Your Programme", desc: "A standard 36-week path, or an intensive 14–16 week pathway for hard deadlines." },
+  { n: "03", icon: "computer", title: "Learn & Practice",      desc: "3 live classes a week · AI speaking portal · bi-weekly assessments · soft-skills sessions." },
+  { n: "04", icon: "trophy",   title: "Get Certified",         desc: "ALB Level Certificate · international exam readiness · CEFR-aligned credentials." },
 ];
 
 /* ─────────────────────────── Page ─────────────────────────── */
@@ -284,7 +343,7 @@ export default function HomePage() {
               <motion.div initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
                 <span className="inline-flex items-center gap-2 glass-light text-royal-100 text-xs font-semibold px-4 py-1.5 rounded-full mb-6 tracking-wide">
                   <Globe size={11} />
-                  India&apos;s Premier Language &amp; Soft Skills Academy
+                  India&apos;s first language + Soft Skills Academy
                   <span className="w-1.5 h-1.5 rounded-full bg-sky-400 animate-pulse" />
                 </span>
               </motion.div>
@@ -295,9 +354,9 @@ export default function HomePage() {
                 transition={{ duration: 0.7, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
                 className="text-4xl sm:text-5xl xl:text-[3.6rem] font-black text-white leading-[1.05] tracking-tight"
               >
-                Go Global. Speak Fluent.
+                Helping you
                 <br />
-                <span className="gradient-text-light">Lead Bold.</span>
+                <span className="gradient-text-light">Speak, Connect &amp; Belong</span>
               </motion.h1>
 
               <motion.p
@@ -306,8 +365,8 @@ export default function HomePage() {
                 transition={{ duration: 0.6, delay: 0.22 }}
                 className="mt-5 text-base md:text-lg text-white/55 max-w-lg leading-relaxed"
               >
-                French, German, Spanish, Japanese, Korean &amp; IELTS — plus world-class
-                soft skills that turn ambitious Indian learners into confident global citizens.
+                From learning a language to living it. Master the language and
+                build the confidence to thrive in every conversation.
               </motion.p>
 
               <motion.div
@@ -323,19 +382,23 @@ export default function HomePage() {
                   onClick={() => openModal()}
                   className="btn-outline-light text-sm px-7 py-3.5 rounded-full flex items-center gap-2"
                 >
-                  Book Free Session <ArrowRight size={14} />
+                  Book a Free Demo <ArrowRight size={14} />
                 </button>
               </motion.div>
 
-              <motion.p
+              <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.46 }}
-                className="mt-4 text-white/40 text-xs flex items-center gap-2"
+                className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-1.5 text-white/50 text-xs"
               >
-                <Shield size={10} />
-                Free counselling · No commitment · Expert guidance
-              </motion.p>
+                {["DELF · DALF", "TEF · TCF Canada", "Goethe · TestDaF", "IELTS · PTE · TOEFL"].map((e) => (
+                  <span key={e} className="flex items-center gap-1.5">
+                    <CheckCircle size={11} className="text-sky-400" />
+                    {e}
+                  </span>
+                ))}
+              </motion.div>
 
               <motion.div
                 initial={{ opacity: 0 }}
@@ -379,16 +442,11 @@ export default function HomePage() {
             className="grid grid-cols-2 md:grid-cols-4 gap-3 mt-14"
           >
             {STAT_CARDS.map((s) => (
-              <div key={s.value} className="card-dark-hover rounded-2xl p-5 flex flex-col gap-3 overflow-hidden">
+              <div key={s.title} className="card-dark-hover rounded-2xl p-5 flex flex-col gap-3 overflow-hidden">
                 <div className="w-11 h-11 rounded-xl flex items-center justify-center" style={{ background: `${s.iconColor}26` }}>
                   <s.Icon size={20} style={{ color: s.iconColor === "#3b5bdb" ? "#9bb2ff" : s.iconColor }} />
                 </div>
-                <div>
-                  <div className="text-2xl md:text-3xl font-black text-white">
-                    <CountUp value={s.value} duration={2000} />
-                  </div>
-                  <div className="text-white/50 text-xs mt-0.5 leading-snug">{s.label}</div>
-                </div>
+                <div className="text-lg md:text-xl font-black text-white leading-tight">{s.title}</div>
                 <div className="h-0.5 w-8 rounded-full mt-auto" style={{ background: s.lineColor }} />
               </div>
             ))}
@@ -417,6 +475,91 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* ══════════════════════ PROBLEM → SOLUTION ══════════════════════ */}
+      <section className="section-padding sec-light relative overflow-hidden">
+        <div className="absolute inset-0 grid-lines pointer-events-none opacity-60" />
+        <div className="blob blob-sky w-[420px] h-[420px] top-0 left-[-8%] opacity-40 pointer-events-none" />
+        <div className="container-max relative z-10">
+
+          {/* ── centered header ── */}
+          <AnimateOnView className="text-center max-w-2xl mx-auto mb-12">
+            <div className="flex items-center justify-center gap-3 mb-4">
+              <span className="h-px w-8 bg-royal-300" />
+              <span className="text-xs font-bold uppercase tracking-[0.22em] text-royal-600">The Real Problem</span>
+              <span className="h-px w-8 bg-royal-300" />
+            </div>
+            <h2 className="text-3xl md:text-5xl font-black text-ink leading-[1.12]">
+              Language fluency alone{" "}
+              <span className="gradient-text">won&apos;t get you there.</span>
+            </h2>
+            <p className="mt-5 text-body text-base md:text-lg leading-relaxed">
+              Most institutes teach grammar, test vocabulary, and hand you a certificate — but
+              never prepare you for a visa interview, a university panel, or a salary negotiation.
+              That gap between being <strong className="text-ink font-bold">fluent</strong> and being{" "}
+              <strong className="text-ink font-bold">effective</strong> is exactly what ALB was built to close.
+            </p>
+          </AnimateOnView>
+
+          {/* ── three problem cards ── */}
+          <StaggerContainer className="grid md:grid-cols-3 gap-6" staggerDelay={0.1}>
+            {[
+              { tag: "Problem 01", title: "Froze in the interview", quote: "I passed my DELF but froze in the visa interview." },
+              { tag: "Problem 02", title: "Band 7, still stuck", quote: "My IELTS band is 7 but I can't hold a professional conversation." },
+              { tag: "Problem 03", title: "Years in, still hesitant", quote: "I learned French for 2 years but couldn't introduce myself confidently." },
+            ].map((c, i) => (
+              <StaggerItem key={c.title}>
+                <div className="card-feature rounded-2xl p-7 flex flex-col h-full min-h-[330px]">
+                  <span className="text-[11px] font-bold uppercase tracking-widest text-rose-500">{c.tag}</span>
+                  <h3 className="mt-2 text-xl font-black text-ink leading-snug">{c.title}</h3>
+                  <p className="mt-3 text-muted text-sm leading-relaxed italic">&ldquo;{c.quote}&rdquo;</p>
+
+                  {/* decorative visual */}
+                  <div className="mt-auto pt-8">
+                    {i === 0 && (
+                      <svg viewBox="0 0 240 80" className="w-full h-20" fill="none" preserveAspectRatio="none">
+                        <polyline points="6,54 46,42 86,20 126,26 166,54 234,68" stroke="#3b5bdb" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+                        <circle cx="86" cy="20" r="4" fill="#3b5bdb" />
+                        <circle cx="234" cy="68" r="5" fill="#f43f5e" />
+                      </svg>
+                    )}
+                    {i === 1 && (
+                      <svg viewBox="0 0 240 80" className="w-full h-20">
+                        {[30, 46, 62, 42, 54, 32, 20, 14, 18, 10].map((h, idx) => (
+                          <rect key={idx} x={idx * 24 + 6} y={72 - h} width="11" height={h} rx="3" fill={idx < 5 ? "#3b5bdb" : "#cdd9f7"} />
+                        ))}
+                      </svg>
+                    )}
+                    {i === 2 && (
+                      <svg viewBox="0 0 240 80" className="w-full h-20" fill="none">
+                        <line x1="16" y1="40" x2="224" y2="40" stroke="#dbe6ff" strokeWidth="2" strokeDasharray="2 9" strokeLinecap="round" />
+                        {[16, 68, 120, 172, 224].map((x, idx) => (
+                          <circle key={idx} cx={x} cy="40" r={idx === 4 ? 7 : 6} fill={idx < 4 ? "#3b5bdb" : "#ffffff"} stroke={idx === 4 ? "#9bb2ff" : "none"} strokeWidth="2" />
+                        ))}
+                      </svg>
+                    )}
+                  </div>
+                </div>
+              </StaggerItem>
+            ))}
+          </StaggerContainer>
+
+          {/* ── solution CTA bar ── */}
+          <AnimateOnView className="mt-6">
+            <div className="sec-dark rounded-2xl px-6 md:px-10 py-6 flex flex-col md:flex-row items-center justify-between gap-5 relative overflow-hidden">
+              <div className="absolute inset-0 grid-dots-light opacity-25 pointer-events-none" />
+              <p className="relative z-10 text-white/80 text-center md:text-left text-sm md:text-base leading-relaxed max-w-2xl">
+                <strong className="text-white font-bold">At ALB, soft skills aren&apos;t an add-on.</strong> They&apos;re woven into
+                every programme from day one — so you don&apos;t just learn the language, you own the room in it.
+              </p>
+              <button onClick={() => openModal()} className="btn-white relative z-10 whitespace-nowrap flex-shrink-0">
+                Book a Free Demo <ArrowRight size={15} />
+              </button>
+            </div>
+          </AnimateOnView>
+
+        </div>
+      </section>
+
       {/* ══════════════════════ LANGUAGE CARDS ══════════════════════ */}
       <section className="section-padding sec-mist relative overflow-hidden">
         <div className="blob blob-royal w-[400px] h-[400px] top-0 right-[-8%] opacity-60 pointer-events-none" />
@@ -434,30 +577,140 @@ export default function HomePage() {
             </p>
           </AnimateOnView>
 
-          <StaggerContainer className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4" staggerDelay={0.07}>
-            {languages.map((lang) => (
-              <StaggerItem key={lang.code}>
-                <Link href={lang.href} className="card-feature rounded-2xl p-6 flex flex-col group block h-full">
-                  <div className="flex items-start justify-between mb-4">
-                    <Flag code={lang.flagCode} size={40} rounded="rounded-lg" />
-                    {lang.tag && (
-                      <span className="text-[10px] font-bold uppercase tracking-wider glass-blue text-royal-700 px-2.5 py-1 rounded-full">
-                        {lang.tag}
-                      </span>
+          <StaggerContainer className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6" staggerDelay={0.07}>
+            {[...languages]
+              .sort((a, b) => Number(COMING_SOON.includes(a.code)) - Number(COMING_SOON.includes(b.code)))
+              .map((lang) => {
+                const comingSoon = COMING_SOON.includes(lang.code);
+
+                const card = (
+                  <>
+                    {/* dark royal header */}
+                    <div
+                      className="relative flex items-end justify-between px-6 pt-16 pb-5 min-h-[150px] overflow-hidden"
+                      style={{ background: "linear-gradient(135deg, #16276b 0%, #2f49c0 100%)" }}
+                    >
+                      {/* faded flag watermark */}
+                      <div className="absolute inset-0 opacity-[0.18] pointer-events-none">
+                        <Image src={flagSrc[lang.flagCode]} alt="" fill sizes="380px" className="object-cover" />
+                      </div>
+                      {/* gradient wash to keep text legible */}
+                      <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(135deg, rgba(22,39,107,0.55) 0%, rgba(47,73,192,0.45) 100%)" }} />
+                      <div className="absolute inset-0 grid-dots-light opacity-25 pointer-events-none" />
+                      <h3 className="relative z-10 font-display text-3xl font-semibold text-white tracking-wide leading-none">{lang.name}</h3>
+                      <Flag code={lang.flagCode} size={30} rounded="rounded-md" className="relative z-10 shadow-md" />
+                    </div>
+
+                    {/* white body */}
+                    <div className="p-6 bg-white">
+                      <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-muted">Levels</p>
+                      <div className="flex flex-wrap gap-1.5 mt-2">
+                        {lang.levels.map((l) => (
+                          <span key={l} className="text-[11px] font-semibold bg-royal-50 text-royal-700 px-2.5 py-1 rounded-full">{l}</span>
+                        ))}
+                      </div>
+
+                      <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-muted mt-5">Prepares For</p>
+                      <p className="text-sm text-body mt-1.5">{PREPARES[lang.code] ?? lang.tagline}</p>
+
+                      {!comingSoon && (
+                        <div className="flex items-center gap-1.5 mt-5 text-royal-600 font-bold text-sm">
+                          View program
+                          <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+                        </div>
+                      )}
+                    </div>
+                  </>
+                );
+
+                return (
+                  <StaggerItem key={lang.code}>
+                    {comingSoon ? (
+                      <div className="card relative h-full rounded-2xl overflow-hidden cursor-default select-none">
+                        {card}
+                        {/* coming-soon overlay */}
+                        <div className="absolute inset-0 bg-ink/45 backdrop-blur-[2px] flex items-center justify-center">
+                          <span className="px-4 py-2 rounded-full bg-white text-royal-700 font-bold text-sm shadow-lg flex items-center gap-2">
+                            <span className="w-2 h-2 rounded-full bg-sky-500 animate-pulse" />
+                            Coming Soon
+                          </span>
+                        </div>
+                      </div>
+                    ) : (
+                      <Link href={lang.href} className="card-hover group block h-full rounded-2xl overflow-hidden">
+                        {card}
+                      </Link>
                     )}
+                  </StaggerItem>
+                );
+              })}
+          </StaggerContainer>
+        </div>
+      </section>
+
+      {/* ══════════════════════ TRACKS (dark anchor) ══════════════════════ */}
+      <section className="section-padding sec-dark relative overflow-hidden">
+        <div
+          className="absolute inset-0 pointer-events-none opacity-[0.07]"
+          style={{
+            backgroundImage:
+              "linear-gradient(rgba(255,255,255,1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,1) 1px, transparent 1px)",
+            backgroundSize: "56px 56px",
+          }}
+        />
+        <div className="blob blob-sky w-[460px] h-[460px] top-0 right-[-8%] pointer-events-none" />
+        <div className="container-max relative z-10">
+          <AnimateOnView className="text-center max-w-2xl mx-auto mb-12">
+            <div className="flex items-center justify-center gap-3 mb-4">
+              <span className="h-px w-8 bg-white/25" />
+              <span className="text-xs font-bold uppercase tracking-[0.22em] text-sky-300">Choose Your Track</span>
+              <span className="h-px w-8 bg-white/25" />
+            </div>
+            <h2 className="text-3xl md:text-5xl font-black text-white leading-[1.12]">
+              A track built around{" "}
+              <span className="gradient-text-light">your goal.</span>
+            </h2>
+            <p className="mt-5 text-white/60 text-base md:text-lg leading-relaxed">
+              Immigrating, studying abroad, advancing your career, or racing a deadline —
+              every programme is shaped around the outcome you actually need.
+            </p>
+          </AnimateOnView>
+
+          <StaggerContainer className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5" staggerDelay={0.09}>
+            {TRACKS.map((t, i) => (
+              <StaggerItem key={t.title}>
+                <div className="group/track h-full rounded-3xl p-7 relative overflow-hidden flex flex-col bg-white shadow-[0_18px_50px_rgba(0,0,0,0.3)] transition-transform duration-300 hover:-translate-y-1.5">
+                  {/* gradient top edge */}
+                  <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#3b5bdb] to-[#38bdf8]" />
+                  <div className="absolute -top-5 -right-5 opacity-[0.06] pointer-events-none">
+                    <MuiIcon name={t.icon} size={130} style={{ color: "#3b5bdb" }} />
                   </div>
-                  <h3 className="text-lg font-black text-ink">{lang.name}</h3>
-                  <p className="text-body text-sm mt-1.5 leading-relaxed">{lang.tagline}</p>
-                  <div className="flex flex-wrap gap-1.5 mt-4">
-                    {lang.levels.map((l) => (
-                      <span key={l} className="text-[11px] font-semibold bg-royal-50 text-royal-700 px-2 py-0.5 rounded-full">{l}</span>
+
+                  <span className="relative z-10 inline-flex w-fit items-center gap-1.5 bg-royal-50 border border-royal-100 rounded-full px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-royal-700">
+                    <MuiIcon name={t.icon} size={13} style={{ color: "#3b5bdb" }} />
+                    Track {i + 1}
+                  </span>
+
+                  <h3 className="relative z-10 text-2xl font-black text-ink mt-5 leading-tight">{t.title}</h3>
+
+                  <p className="relative z-10 text-xs text-muted mt-3 leading-relaxed">
+                    <span className="font-bold text-ink">Ideal for:</span> {t.ideal}
+                  </p>
+                  <p className="relative z-10 text-sm text-body mt-3 leading-relaxed">{t.different}</p>
+
+                  <div className="relative z-10 flex flex-wrap gap-1.5 mt-5">
+                    {t.exams.map((e) => (
+                      <span key={e} className="text-[11px] font-semibold bg-royal-50 border border-royal-100 rounded-lg px-2.5 py-1 text-royal-700">
+                        {e}
+                      </span>
                     ))}
                   </div>
-                  <div className="flex items-center gap-1 mt-5 text-royal-600 font-bold text-sm">
-                    View Programme
-                    <ArrowRight size={13} className="group-hover:translate-x-1 transition-transform" />
-                  </div>
-                </Link>
+
+                  <Link href="/courses" className="relative z-10 mt-auto pt-6 inline-flex items-center gap-1.5 text-royal-600 font-bold text-sm">
+                    Explore track
+                    <ArrowRight size={14} className="group-hover/track:translate-x-1 transition-transform" />
+                  </Link>
+                </div>
               </StaggerItem>
             ))}
           </StaggerContainer>
@@ -466,39 +719,136 @@ export default function HomePage() {
 
       {/* ══════════════════════ WHY ALB ══════════════════════ */}
       <section className="section-padding sec-light relative overflow-hidden">
-        <div className="blob blob-sky w-[460px] h-[460px] top-0 right-0 opacity-50 pointer-events-none" />
+        <div className="blob blob-sky w-[460px] h-[460px] top-0 right-0 opacity-40 pointer-events-none" />
+        <div className="blob blob-royal w-[380px] h-[380px] bottom-0 left-[-6%] opacity-30 pointer-events-none" />
         <div className="container-max relative z-10">
-          <div className="grid lg:grid-cols-2 gap-14 items-center">
-            <AnimateOnView direction="right">
-              <span className="eyebrow-pill-outline">Why Choose ALB</span>
-              <h2 className="text-3xl md:text-4xl font-black text-ink mt-1 leading-tight">
-                Not just a class.
-                <br />
-                <span className="gradient-text-blue">A complete transformation.</span>
-              </h2>
-              <p className="mt-4 text-body leading-relaxed">
-                12+ years perfecting a methodology that works for Indian learners —
-                goal-first, immersive, and built around your timeline.
-              </p>
-              <Link href="/about" className="btn-outline mt-8 inline-flex">
-                Learn About Us <ArrowRight size={15} />
-              </Link>
-            </AnimateOnView>
 
-            <StaggerContainer className="grid sm:grid-cols-2 gap-3" staggerDelay={0.07}>
-              {whyAlbPoints.map((pt) => (
-                <StaggerItem key={pt.title}>
-                  <div className="card-hover rounded-2xl p-5 h-full">
-                    <div className="w-10 h-10 rounded-xl bg-royal-50 flex items-center justify-center mb-3">
-                      <MuiIcon name={pt.icon} size={20} style={{ color: "#3b5bdb" }} />
-                    </div>
-                    <h3 className="font-bold text-ink text-sm">{pt.title}</h3>
-                    <p className="text-muted text-xs mt-1.5 leading-relaxed">{pt.desc}</p>
+          {/* header */}
+          <AnimateOnView className="text-center max-w-2xl mx-auto mb-12">
+            <span className="eyebrow-pill-blue">Why Choose ALB</span>
+            <h2 className="text-3xl md:text-5xl font-black text-ink mt-1 leading-[1.12]">
+              Not just a class.{" "}
+              <span className="gradient-text">A complete transformation.</span>
+            </h2>
+            <p className="mt-5 text-body text-base md:text-lg leading-relaxed">
+              A methodology honed for Indian learners — outcome-driven, immersive, and
+              designed to take you straight to the result that matters most to you.
+            </p>
+          </AnimateOnView>
+
+          {/* bento grid */}
+          <StaggerContainer className="grid lg:grid-cols-3 gap-4 md:gap-5" staggerDelay={0.08}>
+
+            {/* Live interactive — wide */}
+            <StaggerItem className="lg:col-span-2">
+              <div className="card-hover rounded-2xl p-7 h-full flex flex-col sm:flex-row sm:items-center gap-6 overflow-hidden">
+                <div className="flex-1">
+                  <div className="w-11 h-11 rounded-xl bg-royal-50 flex items-center justify-center mb-3">
+                    <MuiIcon name="chat" size={22} style={{ color: "#3b5bdb" }} />
                   </div>
-                </StaggerItem>
-              ))}
-            </StaggerContainer>
-          </div>
+                  <h3 className="text-lg font-black text-ink">Live interactive learning</h3>
+                  <p className="text-muted text-sm mt-1.5 leading-relaxed">
+                    3 live sessions a week with a qualified mentor, plus regular speaking practice — never pre-recorded.
+                  </p>
+                </div>
+                {/* session-activity bars */}
+                <div className="flex items-end gap-1.5 h-24 sm:w-48 flex-shrink-0">
+                  {[44, 68, 54, 84, 50, 74, 38, 62, 80, 46].map((h, idx) => (
+                    <motion.span
+                      key={idx}
+                      className="flex-1 rounded-full"
+                      style={{ height: `${h}%`, background: idx % 3 === 1 ? "#0ea5e9" : "#c2d2ff", transformOrigin: "bottom" }}
+                      animate={idx % 3 === 1 ? { scaleY: [1, 0.7, 1], opacity: [1, 0.7, 1] } : {}}
+                      transition={idx % 3 === 1 ? { duration: 2.2, repeat: Infinity, delay: idx * 0.2, ease: "easeInOut" } : {}}
+                    />
+                  ))}
+                </div>
+              </div>
+            </StaggerItem>
+
+            {/* Small cohorts */}
+            <StaggerItem>
+              <div className="card-hover rounded-2xl p-7 h-full flex flex-col">
+                <div className="w-11 h-11 rounded-xl bg-royal-50 flex items-center justify-center mb-3">
+                  <MuiIcon name="people" size={22} style={{ color: "#3b5bdb" }} />
+                </div>
+                <h3 className="text-lg font-black text-ink">Small cohorts</h3>
+                <p className="text-muted text-sm mt-1.5 leading-relaxed">
+                  Real speaking time, real feedback — no hiding at the back of a 60-person class.
+                </p>
+                <div className="flex items-center -space-x-2 mt-auto pt-5">
+                  {["AR", "PK", "SN", "RM"].map((x) => (
+                    <div key={x} className="w-9 h-9 rounded-full border-2 border-white bg-gradient-to-br from-[#3b5bdb] to-[#6d8bff] flex items-center justify-center text-white font-black text-[10px]">{x}</div>
+                  ))}
+                  <div className="w-9 h-9 rounded-full border-2 border-white bg-royal-50 flex items-center justify-center text-royal-700 font-black text-[10px]">+8</div>
+                  <span className="text-xs text-muted font-semibold !ml-3">Max 12 / batch</span>
+                </div>
+              </div>
+            </StaggerItem>
+
+            {/* Goal-certified tracks */}
+            <StaggerItem>
+              <div className="card-hover rounded-2xl p-7 h-full">
+                <div className="w-11 h-11 rounded-xl bg-royal-50 flex items-center justify-center mb-3">
+                  <MuiIcon name="target" size={22} style={{ color: "#3b5bdb" }} />
+                </div>
+                <h3 className="text-lg font-black text-ink">Goal-certified tracks</h3>
+                <p className="text-muted text-sm mt-1.5 leading-relaxed">
+                  Immigration, Academic, or Career — your path shapes everything from enrolment day.
+                </p>
+              </div>
+            </StaggerItem>
+
+            {/* International exam prep */}
+            <StaggerItem>
+              <div className="card-hover rounded-2xl p-7 h-full">
+                <div className="w-11 h-11 rounded-xl bg-royal-50 flex items-center justify-center mb-3">
+                  <MuiIcon name="article" size={22} style={{ color: "#3b5bdb" }} />
+                </div>
+                <h3 className="text-lg font-black text-ink">International exam prep included</h3>
+                <p className="text-muted text-sm mt-1.5 leading-relaxed">
+                  DELF, IELTS &amp; Goethe prep built into the final two weeks. No bolt-on fees.
+                </p>
+              </div>
+            </StaggerItem>
+
+            {/* Soft skills */}
+            <StaggerItem>
+              <div className="card-hover rounded-2xl p-7 h-full">
+                <div className="w-11 h-11 rounded-xl bg-royal-50 flex items-center justify-center mb-3">
+                  <MuiIcon name="sparkle" size={22} style={{ color: "#3b5bdb" }} />
+                </div>
+                <h3 className="text-lg font-black text-ink">Soft skills in every batch</h3>
+                <p className="text-muted text-sm mt-1.5 leading-relaxed">
+                  Confidence, communication, and professional presence — not optional. Built in.
+                </p>
+              </div>
+            </StaggerItem>
+
+            {/* India-first pedagogy — full width */}
+            <StaggerItem className="lg:col-span-3">
+              <div className="card-hover rounded-2xl p-7 h-full flex flex-col md:flex-row md:items-center gap-7">
+                <div className="md:max-w-sm">
+                  <div className="w-11 h-11 rounded-xl bg-royal-50 flex items-center justify-center mb-3">
+                    <MuiIcon name="translate" size={22} style={{ color: "#3b5bdb" }} />
+                  </div>
+                  <h3 className="text-lg font-black text-ink">India-first pedagogy</h3>
+                  <p className="text-muted text-sm mt-1.5 leading-relaxed">
+                    Hindi cognates, India-relevant scenarios, and visa &amp; embassy vocabulary — not generic Western textbooks.
+                  </p>
+                </div>
+                <div className="flex-1 flex flex-wrap items-center gap-2 md:gap-3">
+                  {["Hindi cognates", "India-relevant scenarios", "Visa & embassy vocabulary", "Real interview prep"].map((c, idx, arr) => (
+                    <div key={c} className="flex items-center gap-2 md:gap-3">
+                      <span className="bg-royal-50 border border-royal-100 text-royal-700 px-3.5 py-2 rounded-xl text-xs font-semibold whitespace-nowrap">{c}</span>
+                      {idx < arr.length - 1 && <ArrowRight size={14} className="text-royal-300 hidden sm:block flex-shrink-0" />}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </StaggerItem>
+
+          </StaggerContainer>
         </div>
       </section>
 
@@ -602,35 +952,114 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ══════════════════════ HOW IT WORKS ══════════════════════ */}
+      {/* ══════════════════════ YOUR JOURNEY ══════════════════════ */}
       <section className="section-padding sec-light relative overflow-hidden">
-        <div className="container-max">
-          <AnimateOnView className="text-center mb-12">
-            <span className="eyebrow">The ALB Journey</span>
-            <h2 className="text-3xl md:text-4xl font-black text-ink mt-1">How it works</h2>
+        <div className="blob blob-sky w-[440px] h-[440px] top-10 right-[-8%] opacity-30 pointer-events-none" />
+        <div className="container-max relative z-10">
+          <AnimateOnView className="text-center max-w-2xl mx-auto mb-4">
+            <div className="flex items-center justify-center gap-3 mb-4">
+              <span className="h-px w-8 bg-royal-300" />
+              <span className="text-xs font-bold uppercase tracking-[0.22em] text-royal-600">The ALB Path</span>
+              <span className="h-px w-8 bg-royal-300" />
+            </div>
+            <h2 className="text-3xl md:text-5xl font-black text-ink leading-tight">
+              Your journey{" "}
+              <span className="gradient-text">with us<span className="text-sky-500">.</span></span>
+            </h2>
           </AnimateOnView>
 
-          <StaggerContainer className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 relative" staggerDelay={0.09}>
-            {[
-              { n: "01", icon: "chat",    title: "Free Counselling", desc: "Tell us your goal and timeline. We map the perfect learning path." },
-              { n: "02", icon: "article", title: "Placement Test",   desc: "Quick diagnostic to confirm your exact starting level." },
-              { n: "03", icon: "book",    title: "Start Learning",   desc: "Live classes, cultural immersion, regular feedback every week." },
-              { n: "04", icon: "trophy",  title: "Achieve Your Goal", desc: "Exam pass, visa approved, job landed. We celebrate every win." },
-            ].map((s) => (
-              <StaggerItem key={s.n}>
-                <div className="card-hover rounded-2xl p-6 text-center relative overflow-hidden h-full">
-                  <span className="absolute top-2 right-4 text-6xl font-black text-royal-50 select-none">{s.n}</span>
-                  <div className="mb-4 flex justify-center relative z-10">
-                    <div className="w-12 h-12 rounded-xl bg-royal-50 flex items-center justify-center">
-                      <MuiIcon name={s.icon} size={24} style={{ color: "#3b5bdb" }} />
+          <div className="relative mt-10">
+
+            {/* ── desktop: wave with nodes sitting on the curve ── */}
+            <div className="hidden lg:block relative" style={{ height: 500 }}>
+              <svg className="absolute inset-0 w-full h-full" viewBox="0 0 1200 500" fill="none" preserveAspectRatio="none" aria-hidden>
+                <defs>
+                  <linearGradient id="journeyGrad" x1="0" y1="0" x2="1200" y2="0" gradientUnits="userSpaceOnUse">
+                    <stop offset="0%" stopColor="#3b5bdb" />
+                    <stop offset="100%" stopColor="#38bdf8" />
+                  </linearGradient>
+                </defs>
+                <path
+                  d="M0,230 C75,170 110,170 150,170 C300,170 320,330 450,330 C600,330 620,170 750,170 C900,170 920,330 1050,330 C1120,330 1160,290 1200,290"
+                  stroke="#e6ebf5"
+                  strokeWidth="10"
+                  strokeLinecap="round"
+                />
+                <motion.path
+                  id="journeyLine"
+                  d="M0,230 C75,170 110,170 150,170 C300,170 320,330 450,330 C600,330 620,170 750,170 C900,170 920,330 1050,330 C1120,330 1160,290 1200,290"
+                  stroke="url(#journeyGrad)"
+                  strokeWidth="3"
+                  strokeLinecap="round"
+                  initial={{ pathLength: 0 }}
+                  whileInView={{ pathLength: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 1.8, ease: "easeInOut" }}
+                />
+                <circle r="7" fill="#0ea5e9" style={{ filter: "drop-shadow(0 0 7px rgba(14,165,233,0.9))" }}>
+                  <animateMotion dur="6s" repeatCount="indefinite">
+                    <mpath href="#journeyLine" />
+                  </animateMotion>
+                </circle>
+              </svg>
+
+              {JOURNEY.map((s, i) => {
+                const high = i % 2 === 0;
+                const y = high ? 170 : 330;
+                return (
+                  <div key={s.n} className="absolute inset-y-0" style={{ left: `${i * 25}%`, width: "25%" }}>
+                    {/* watermark number — under the icon (high) / above the icon (low) */}
+                    <span
+                      className="absolute left-1/2 -translate-x-1/2 text-[6.5rem] font-black text-royal-100 select-none leading-none pointer-events-none z-0"
+                      style={{ top: high ? y + 44 : y - 148 }}
+                    >
+                      {s.n}
+                    </span>
+
+                    {/* hexagon node centred on the curve */}
+                    <motion.div
+                      className="absolute left-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16"
+                      style={{ top: y }}
+                      initial={{ scale: 0, opacity: 0 }}
+                      whileInView={{ scale: 1, opacity: 1 }}
+                      viewport={{ once: true }}
+                      transition={{ type: "spring", stiffness: 260, damping: 16, delay: i * 0.12 + 0.35 }}
+                    >
+                      <div className="absolute inset-0 rounded-full bg-royal-400/30 blur-md" />
+                      <div className="absolute -inset-[2px]" style={{ background: "#c2d2ff", clipPath: HEX }} />
+                      <div className="absolute inset-0 bg-white flex items-center justify-center" style={{ clipPath: HEX }}>
+                        <MuiIcon name={s.icon} size={26} style={{ color: "#3b5bdb" }} />
+                      </div>
+                    </motion.div>
+
+                    {/* text above (high) or below (low) the node */}
+                    <div className="absolute left-0 right-0 px-3 text-center" style={high ? { bottom: 378 } : { top: 378 }}>
+                      <h3 className="font-black text-ink text-lg">{s.title}</h3>
+                      <p className="mt-2 text-muted text-sm leading-relaxed">{s.desc}</p>
                     </div>
                   </div>
-                  <h3 className="font-bold text-ink text-base relative z-10">{s.title}</h3>
-                  <p className="text-muted text-xs mt-2 leading-relaxed relative z-10">{s.desc}</p>
-                </div>
-              </StaggerItem>
-            ))}
-          </StaggerContainer>
+                );
+              })}
+            </div>
+
+            {/* ── mobile / tablet: stacked ── */}
+            <StaggerContainer className="lg:hidden grid sm:grid-cols-2 gap-x-6 gap-y-12 mt-2" staggerDelay={0.1}>
+              {JOURNEY.map((s) => (
+                <StaggerItem key={s.n} className="text-center relative">
+                  <span className="absolute left-1/2 -translate-x-1/2 -top-6 text-[5rem] font-black text-royal-50 select-none leading-none pointer-events-none">{s.n}</span>
+                  <div className="relative z-10 mx-auto w-16 h-16">
+                    <div className="absolute inset-0 rounded-full bg-royal-400/30 blur-md" />
+                    <div className="absolute -inset-[2px]" style={{ background: "#c2d2ff", clipPath: HEX }} />
+                    <div className="absolute inset-0 bg-white flex items-center justify-center" style={{ clipPath: HEX }}>
+                      <MuiIcon name={s.icon} size={26} style={{ color: "#3b5bdb" }} />
+                    </div>
+                  </div>
+                  <h3 className="relative z-10 mt-4 font-black text-ink text-lg">{s.title}</h3>
+                  <p className="relative z-10 mt-2 text-muted text-sm leading-relaxed max-w-[280px] mx-auto">{s.desc}</p>
+                </StaggerItem>
+              ))}
+            </StaggerContainer>
+          </div>
         </div>
       </section>
 

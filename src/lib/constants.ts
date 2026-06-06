@@ -18,9 +18,9 @@ export const siteConfig = {
 export const navItems = [
   { label: "Courses", href: "/courses" },
   { label: "+Beyond", href: "/beyond" },
+  { label: "Junior", href: "/junior" },
   { label: "Partner with ALB", href: "/partner" },
   { label: "About Us", href: "/about" },
-  { label: "Junior", href: "/junior" },
 ] as const;
 
 export const languages = [
@@ -76,7 +76,7 @@ export const languages = [
   },
   {
     code: "en",
-    name: "IELTS / English",
+    name: "English",
     flagCode: "EN",
     tagline: "Your passport to global education",
     href: "/courses/ielts",
