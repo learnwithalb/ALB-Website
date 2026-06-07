@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { ArrowRight, CheckCircle, Globe, Star } from "lucide-react";
+import { ArrowRight, CheckCircle, Star } from "lucide-react";
 import { AnimateOnView, StaggerContainer, StaggerItem } from "@/components/shared/AnimateOnView";
 import { languages } from "@/lib/constants";
 import { CountryBadge } from "@/lib/icons";
@@ -399,62 +399,6 @@ export default function CoursesPage() {
         </div>
       </section>
 
-      {/* ─── CTA (dark anchor) ─── */}
-      <section className="section-padding sec-light">
-        <div className="container-max px-5 md:px-8 text-center">
-          <AnimateOnView>
-            <div className="sec-dark rounded-3xl p-10 md:p-16 relative overflow-hidden">
-              <div className="absolute inset-0 grid-dots-light opacity-30 pointer-events-none" />
-              <div className="blob blob-sky w-80 h-80 top-0 right-0 pointer-events-none" />
-
-              <motion.div
-                className="absolute top-1/2 left-1/2 w-80 h-80 rounded-full pointer-events-none"
-                style={{ border: "1px solid rgba(255,255,255,0.10)", translateX: "-50%", translateY: "-50%" }}
-                animate={{ rotate: 360, scale: [1, 1.05, 1] }}
-                transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-              />
-              <motion.div
-                className="absolute top-1/2 left-1/2 w-56 h-56 rounded-full pointer-events-none"
-                style={{ border: "1px solid rgba(125,211,252,0.18)", translateX: "-50%", translateY: "-50%" }}
-                animate={{ rotate: -360 }}
-                transition={{ duration: 14, repeat: Infinity, ease: "linear" }}
-              />
-
-              <div className="relative z-10">
-                <motion.div
-                  animate={{ y: [0, -8, 0] }}
-                  transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-                  className="inline-block mb-5"
-                >
-                  <Globe size={40} className="text-sky-300 mx-auto" />
-                </motion.div>
-                <h2 className="text-3xl md:text-4xl font-black text-white leading-tight">
-                  Not sure which language
-                  <br />
-                  <span className="gradient-text-light">to start with?</span>
-                </h2>
-                <p className="mt-4 text-white/55 max-w-lg mx-auto text-lg">
-                  Book a free 30-minute counselling session. Our advisors will help
-                  you choose based on your goals, timeline, and interests.
-                </p>
-                <div className="mt-8 flex flex-wrap justify-center gap-4">
-                  <button
-                    onClick={() => openModal()}
-                    className="btn-white"
-                    style={{ fontSize: "1rem", padding: "0.9375rem 2rem" }}
-                  >
-                    Book Free Counselling
-                    <ArrowRight size={18} />
-                  </button>
-                  <Link href="/about" className="btn-outline-light">
-                    Learn About ALB
-                  </Link>
-                </div>
-              </div>
-            </div>
-          </AnimateOnView>
-        </div>
-      </section>
     </>
   );
 }

@@ -575,6 +575,18 @@
     100% { transform: translateX(-50%); }
   }
 
+  /* reviews infinite scroller */
+  .reviews-track {
+    display: flex;
+    gap: 1.25rem;
+    width: max-content;
+    animation: marquee 50s linear infinite;
+  }
+  .reviews-mask:hover .reviews-track { animation-play-state: paused; }
+  @media (prefers-reduced-motion: reduce) {
+    .reviews-track { animation: none; }
+  }
+
   /* ─────────────── Scrollbar ─────────────── */
   ::-webkit-scrollbar { width: 8px; }
   ::-webkit-scrollbar-track { background: #eef2ff; }

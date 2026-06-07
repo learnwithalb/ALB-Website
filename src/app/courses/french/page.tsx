@@ -286,29 +286,6 @@ export default function FrenchPage() {
         </div>
       </section>
 
-      {/* CTA (dark anchor) */}
-      <section className="section-padding sec-dark relative overflow-hidden">
-        <div className="absolute inset-0 grid-dots-light opacity-30 pointer-events-none" />
-        <div className="blob blob-royal w-[500px] h-[300px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none" />
-        <div className="container-max text-center relative z-10">
-          <AnimateOnView>
-            <motion.div className="text-5xl mb-4 inline-block" animate={{ y: [0, -10, 0] }} transition={{ duration: 3, repeat: Infinity }}>🇫🇷</motion.div>
-            <h2 className="text-3xl md:text-4xl font-black text-white">
-              Prêt à commencer?{" "}
-              <span className="gradient-text-light">Ready to begin?</span>
-            </h2>
-            <p className="mt-4 text-white/55 max-w-lg mx-auto">
-              Book a free French placement and counselling call — 30 minutes, no commitment, expert advice.
-            </p>
-            <div className="mt-8 flex flex-wrap justify-center gap-4">
-              <a href="https://wa.me/919876543210" target="_blank" rel="noopener noreferrer" className="btn-white text-lg px-8 py-4">
-                Start French Today <ArrowRight size={18} />
-              </a>
-              <Link href="/courses" className="btn-outline-light text-lg px-8 py-4">View All Languages</Link>
-            </div>
-          </AnimateOnView>
-        </div>
-      </section>
     </>
   );
 }

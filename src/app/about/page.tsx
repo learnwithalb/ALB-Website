@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import { ArrowRight, Heart, Target, Eye, Star, Globe } from "lucide-react";
+import { ArrowRight, Target, Eye, Globe } from "lucide-react";
 import { AnimateOnView, StaggerContainer, StaggerItem } from "@/components/shared/AnimateOnView";
 import { stats } from "@/lib/constants";
 import { MuiIcon } from "@/lib/icons";
@@ -272,7 +272,7 @@ export default function AboutPage() {
               {milestones.map((m, i) => (
                 <AnimateOnView key={i} delay={i * 0.08} direction="left">
                   <div className="pl-14 relative">
-                    <div className="absolute left-4 top-2 -translate-x-1/2">
+                    <div className="absolute left-6 top-2 -translate-x-1/2">
                       <motion.div
                         className="w-4 h-4 rounded-full bg-royal-500"
                         animate={{ scale: [1, 1.5, 1], opacity: [1, 0.5, 1] }}
@@ -406,67 +406,6 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* ─── CTA (dark anchor) ─── */}
-      <section className="section-padding sec-light">
-        <div className="container-max px-5 md:px-8">
-          <AnimateOnView>
-            <div className="sec-dark rounded-3xl p-10 md:p-16 text-center relative overflow-hidden">
-              <div className="absolute inset-0 grid-dots-light opacity-30 pointer-events-none" />
-              <div className="blob blob-sky w-80 h-80 top-0 right-0 pointer-events-none" />
-              <div className="blob blob-royal w-60 h-60 bottom-0 left-0 pointer-events-none" />
-
-              <motion.div
-                className="absolute top-1/2 left-1/2 w-96 h-96 rounded-full pointer-events-none"
-                style={{ border: "1px solid rgba(255,255,255,0.10)", translateX: "-50%", translateY: "-50%" }}
-                animate={{ rotate: 360 }}
-                transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
-              />
-
-              <div className="relative z-10">
-                <motion.div
-                  animate={{ scale: [1, 1.15, 1], rotate: [0, 5, 0, -5, 0] }}
-                  transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                  className="inline-block mb-5"
-                >
-                  <Heart size={36} className="text-sky-300 mx-auto" />
-                </motion.div>
-                <h2 className="text-3xl md:text-5xl font-black text-white leading-tight">
-                  Ready to become
-                  <br />
-                  <span className="gradient-text-light">part of our story?</span>
-                </h2>
-                <p className="mt-5 text-white/55 max-w-lg mx-auto text-lg">
-                  Book a free counselling call and let&apos;s design the perfect learning path for your goals.
-                </p>
-                <div className="mt-9 flex flex-wrap justify-center gap-4">
-                  <Link href="/courses" className="btn-white">
-                    Browse Courses
-                    <ArrowRight size={16} />
-                  </Link>
-                  <button onClick={() => openModal()} className="btn-outline-light">
-                    Book a Free Call
-                  </button>
-                </div>
-
-                <div className="mt-8 flex items-center justify-center gap-2 text-white/55 text-sm">
-                  <div className="flex -space-x-2">
-                    {["AK", "VM", "SP", "RJ"].map((init) => (
-                      <div
-                        key={init}
-                        className="w-7 h-7 rounded-full bg-gradient-to-br from-[#3b5bdb] to-[#2f49c0] border border-white/20 flex items-center justify-center text-[9px] font-bold text-white"
-                      >
-                        {init}
-                      </div>
-                    ))}
-                  </div>
-                  <span>Join 5,000+ learners already on their journey</span>
-                  <Star size={12} className="text-amber-400" fill="#fbbf24" />
-                </div>
-              </div>
-            </div>
-          </AnimateOnView>
-        </div>
-      </section>
     </>
   );
 }

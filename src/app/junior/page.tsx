@@ -310,30 +310,6 @@ export default function JuniorPage() {
         </div>
       </section>
 
-      {/* CTA (dark anchor) */}
-      <section className="section-padding sec-dark relative overflow-hidden">
-        <div className="absolute inset-0 grid-dots-light opacity-30 pointer-events-none" />
-        <div className="blob blob-royal w-[600px] h-[300px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none" />
-        <div className="container-max text-center relative z-10">
-          <AnimateOnView>
-            <h2 className="text-3xl md:text-4xl font-black text-white">
-              Give your child a head start that{" "}
-              <span className="gradient-text-light">lasts a lifetime.</span>
-            </h2>
-            <p className="mt-4 text-white/55 text-lg">
-              First trial class is completely free — no commitment.
-            </p>
-            <div className="mt-8 flex flex-wrap justify-center gap-4">
-              <button onClick={() => openModal("ALB Junior (Ages 6–16)")} className="btn-white">
-                Book Free Trial Class <ArrowRight size={16} />
-              </button>
-              <Link href="/courses" className="btn-outline-light">
-                View All Junior Courses
-              </Link>
-            </div>
-          </AnimateOnView>
-        </div>
-      </section>
     </>
   );
 }

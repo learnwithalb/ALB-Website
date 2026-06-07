@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, ChevronDown, ArrowRight } from "lucide-react";
@@ -49,9 +50,14 @@ export function Navbar() {
 
             {/* Logo */}
             <Link href="/" className="flex items-center gap-2.5 group">
-              <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-[#3b5bdb] to-[#2f49c0] flex items-center justify-center shadow-lg shadow-royal-500/30 group-hover:scale-105 group-hover:rotate-3 transition-transform">
-                <span className="text-white font-black text-xs tracking-tight">ALB</span>
-              </div>
+              <Image
+                src="/images/logo-v2.png"
+                alt="ALB"
+                width={955}
+                height={442}
+                priority
+                className="h-9 w-auto group-hover:scale-105 transition-transform"
+              />
               <div className="hidden sm:block">
                 <div className="text-ink font-bold text-sm leading-tight">Academy of Languages</div>
                 <div className="text-royal-500 font-semibold text-xs">&amp; Beyond</div>

@@ -370,33 +370,6 @@ export default function BeyondPage() {
         </div>
       </section>
 
-      {/* ── CTA (dark anchor) ── */}
-      <section className="section-padding sec-dark relative overflow-hidden">
-        <div className="absolute inset-0 grid-dots-light opacity-30 pointer-events-none" />
-        <div className="blob blob-royal w-[600px] h-[320px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none" />
-        <div className="container-max text-center relative z-10">
-          <AnimateOnView>
-            <h2 className="text-3xl md:text-4xl font-black text-white">
-              Ready to communicate like you mean it?
-            </h2>
-            <p className="mt-4 text-white/55 max-w-lg mx-auto">
-              Free 30-minute counselling · No commitment · Expert guidance
-            </p>
-            <div className="mt-8 flex flex-wrap justify-center gap-4">
-              <button
-                onClick={() => openModal("+Beyond (Soft Skills)")}
-                className="btn-white text-lg px-8 py-4"
-              >
-                Book Free Session
-                <ArrowRight size={18} />
-              </button>
-              <Link href="/courses" className="btn-outline-light text-lg px-8 py-4">
-                See Language Courses
-              </Link>
-            </div>
-          </AnimateOnView>
-        </div>
-      </section>
     </>
   );
 }

@@ -212,23 +212,6 @@ export default function BlogPage() {
         </div>
       </section>
 
-      {/* CTA (dark anchor) */}
-      <section className="section-padding sec-dark relative overflow-hidden">
-        <div className="absolute inset-0 grid-dots-light opacity-30 pointer-events-none" />
-        <div className="blob blob-royal w-[500px] h-[280px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none" />
-        <div className="container-max text-center relative z-10">
-          <AnimateOnView>
-            <h2 className="text-2xl md:text-3xl font-black text-white">
-              Ready to go from reader to{" "}
-              <span className="gradient-text-light">speaker?</span>
-            </h2>
-            <p className="mt-3 text-white/55">Explore our courses and start your language journey today.</p>
-            <Link href="/courses" className="btn-white mt-6 inline-flex">
-              Explore Courses <ArrowRight size={16} />
-            </Link>
-          </AnimateOnView>
-        </div>
-      </section>
     </>
   );
 }

@@ -5,7 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import {
-  ArrowRight, Star, CheckCircle, ChevronDown,
+  ArrowRight, Star, CheckCircle, ChevronDown, Shield,
   Users, Globe, Video, MessageCircle, Sparkles,
 } from "lucide-react";
 import { AnimateOnView, StaggerContainer, StaggerItem } from "@/components/shared/AnimateOnView";
@@ -259,6 +259,12 @@ const STAT_CARDS = [
   { title: "Soft-Skills Included",      desc: "Confidence & communication built in",   Icon: Sparkles,      iconColor: "#3b5bdb", lineColor: "#3b5bdb" },
 ];
 
+const statCardsV = { hidden: {}, visible: { transition: { staggerChildren: 0.12, delayChildren: 0.55 } } };
+const statCardV = {
+  hidden: { opacity: 0, y: 28 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] as const } },
+};
+
 /* Exams each programme prepares you for */
 const PREPARES: Record<string, string> = {
   fr: "DELF · DALF · TEF Canada · TCF Canada",
@@ -267,6 +273,13 @@ const PREPARES: Record<string, string> = {
   jp: "JLPT (N5–N2)",
   kr: "TOPIK I & II",
   en: "IELTS · PTE · TOEFL",
+};
+
+/* Cover photos for the language card headers */
+const COVER: Record<string, string> = {
+  fr: "/images/country/fr.png",
+  de: "/images/country/de.png",
+  en: "/images/country/en.png",
 };
 
 /* Programmes not yet open for enrolment */
@@ -436,20 +449,60 @@ export default function HomePage() {
 
           {/* ── Stat cards ── */}
           <motion.div
-            initial={{ opacity: 0, y: 36 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.58, ease: [0.22, 1, 0.36, 1] }}
-            className="grid grid-cols-2 md:grid-cols-4 gap-3 mt-14"
+            variants={statCardsV}
+            initial="hidden"
+            animate="visible"
+            className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 mt-14"
           >
-            {STAT_CARDS.map((s) => (
-              <div key={s.title} className="card-dark-hover rounded-2xl p-5 flex flex-col gap-3 overflow-hidden">
-                <div className="w-11 h-11 rounded-xl flex items-center justify-center" style={{ background: `${s.iconColor}26` }}>
-                  <s.Icon size={20} style={{ color: s.iconColor === "#3b5bdb" ? "#9bb2ff" : s.iconColor }} />
-                </div>
-                <div className="text-lg md:text-xl font-black text-white leading-tight">{s.title}</div>
-                <div className="h-0.5 w-8 rounded-full mt-auto" style={{ background: s.lineColor }} />
-              </div>
-            ))}
+            {STAT_CARDS.map((s, i) => {
+              const glow = s.iconColor === "#3b5bdb" ? "#9bb2ff" : s.iconColor;
+              return (
+                <motion.div
+                  key={s.title}
+                  variants={statCardV}
+                  whileHover={{ y: -6 }}
+                  transition={{ type: "spring", stiffness: 300, damping: 22 }}
+                  className="group relative rounded-2xl p-5 overflow-hidden flex flex-col gap-3"
+                  style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.12)", backdropFilter: "blur(12px)" }}
+                >
+                  {/* hover glow wash */}
+                  <div
+                    className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+                    style={{ background: `radial-gradient(120% 110% at 50% 0%, ${glow}26 0%, transparent 60%)` }}
+                  />
+                  {/* top sheen line */}
+                  <div className="absolute top-0 left-0 right-0 h-px" style={{ background: `linear-gradient(90deg, transparent, ${glow}66, transparent)` }} />
+
+                  {/* icon tile — floats + glow pulse */}
+                  <motion.div
+                    className="relative w-12 h-12 rounded-xl flex items-center justify-center"
+                    style={{ background: `${s.iconColor}26`, boxShadow: `inset 0 0 0 1px ${s.iconColor}33` }}
+                    animate={{ y: [0, -4, 0] }}
+                    transition={{ duration: 3 + i * 0.4, repeat: Infinity, ease: "easeInOut", delay: i * 0.3 }}
+                    whileHover={{ scale: 1.12, rotate: -6 }}
+                  >
+                    <motion.span
+                      className="absolute inset-0 rounded-xl"
+                      style={{ background: s.iconColor }}
+                      animate={{ opacity: [0, 0.28, 0], scale: [0.85, 1.35, 0.85] }}
+                      transition={{ duration: 2.6, repeat: Infinity, ease: "easeInOut", delay: i * 0.3 }}
+                    />
+                    <s.Icon size={20} style={{ color: glow }} className="relative z-10" />
+                  </motion.div>
+
+                  <div className="relative z-10 text-base md:text-lg font-black text-white leading-tight">{s.title}</div>
+
+                  {/* accent line — grows in, stretches on hover */}
+                  <motion.div
+                    className="relative z-10 h-1 rounded-full mt-auto group-hover:w-12 transition-all duration-300"
+                    style={{ background: `linear-gradient(90deg, ${glow}, transparent)` }}
+                    initial={{ width: 0 }}
+                    animate={{ width: 32 }}
+                    transition={{ delay: 0.8 + i * 0.12, duration: 0.6, ease: "easeOut" }}
+                  />
+                </motion.div>
+              );
+            })}
           </motion.div>
         </div>
 
@@ -513,27 +566,56 @@ export default function HomePage() {
                   <h3 className="mt-2 text-xl font-black text-ink leading-snug">{c.title}</h3>
                   <p className="mt-3 text-muted text-sm leading-relaxed italic">&ldquo;{c.quote}&rdquo;</p>
 
-                  {/* decorative visual */}
+                  {/* decorative visual — animates in on view */}
                   <div className="mt-auto pt-8">
                     {i === 0 && (
                       <svg viewBox="0 0 240 80" className="w-full h-20" fill="none" preserveAspectRatio="none">
-                        <polyline points="6,54 46,42 86,20 126,26 166,54 234,68" stroke="#3b5bdb" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-                        <circle cx="86" cy="20" r="4" fill="#3b5bdb" />
-                        <circle cx="234" cy="68" r="5" fill="#f43f5e" />
+                        <motion.polyline
+                          points="6,54 46,42 86,20 126,26 166,54 234,68"
+                          stroke="#3b5bdb" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"
+                          initial={{ pathLength: 0 }} whileInView={{ pathLength: 1 }} viewport={{ once: true }}
+                          transition={{ duration: 1.1, ease: "easeInOut" }}
+                        />
+                        <motion.circle cx="86" cy="20" r="4" fill="#3b5bdb"
+                          style={{ transformBox: "fill-box", transformOrigin: "center" }}
+                          initial={{ scale: 0 }} whileInView={{ scale: 1 }} viewport={{ once: true }}
+                          transition={{ delay: 0.6, type: "spring", stiffness: 320, damping: 16 }}
+                        />
+                        <motion.circle cx="234" cy="68" r="5" fill="#f43f5e"
+                          style={{ transformBox: "fill-box", transformOrigin: "center" }}
+                          initial={{ scale: 0 }} whileInView={{ scale: [0, 1.5, 1] }} viewport={{ once: true }}
+                          transition={{ delay: 1.05, duration: 0.4 }}
+                        />
                       </svg>
                     )}
                     {i === 1 && (
                       <svg viewBox="0 0 240 80" className="w-full h-20">
                         {[30, 46, 62, 42, 54, 32, 20, 14, 18, 10].map((h, idx) => (
-                          <rect key={idx} x={idx * 24 + 6} y={72 - h} width="11" height={h} rx="3" fill={idx < 5 ? "#3b5bdb" : "#cdd9f7"} />
+                          <motion.rect
+                            key={idx} x={idx * 24 + 6} y={72 - h} width="11" height={h} rx="3"
+                            fill={idx < 5 ? "#3b5bdb" : "#cdd9f7"}
+                            style={{ transformBox: "fill-box", transformOrigin: "bottom" }}
+                            initial={{ scaleY: 0 }} whileInView={{ scaleY: 1 }} viewport={{ once: true }}
+                            transition={{ duration: 0.5, delay: idx * 0.06, ease: "easeOut" }}
+                          />
                         ))}
                       </svg>
                     )}
                     {i === 2 && (
                       <svg viewBox="0 0 240 80" className="w-full h-20" fill="none">
-                        <line x1="16" y1="40" x2="224" y2="40" stroke="#dbe6ff" strokeWidth="2" strokeDasharray="2 9" strokeLinecap="round" />
+                        <motion.line
+                          x1="16" y1="40" x2="224" y2="40" stroke="#dbe6ff" strokeWidth="2" strokeDasharray="2 9" strokeLinecap="round"
+                          initial={{ pathLength: 0 }} whileInView={{ pathLength: 1 }} viewport={{ once: true }}
+                          transition={{ duration: 0.9, ease: "easeInOut" }}
+                        />
                         {[16, 68, 120, 172, 224].map((x, idx) => (
-                          <circle key={idx} cx={x} cy="40" r={idx === 4 ? 7 : 6} fill={idx < 4 ? "#3b5bdb" : "#ffffff"} stroke={idx === 4 ? "#9bb2ff" : "none"} strokeWidth="2" />
+                          <motion.circle
+                            key={idx} cx={x} cy="40" r={idx === 4 ? 7 : 6}
+                            fill={idx < 4 ? "#3b5bdb" : "#ffffff"} stroke={idx === 4 ? "#9bb2ff" : "none"} strokeWidth="2"
+                            style={{ transformBox: "fill-box", transformOrigin: "center" }}
+                            initial={{ scale: 0 }} whileInView={{ scale: 1 }} viewport={{ once: true }}
+                            transition={{ delay: 0.3 + idx * 0.12, type: "spring", stiffness: 320, damping: 16 }}
+                          />
                         ))}
                       </svg>
                     )}
@@ -582,6 +664,7 @@ export default function HomePage() {
               .sort((a, b) => Number(COMING_SOON.includes(a.code)) - Number(COMING_SOON.includes(b.code)))
               .map((lang) => {
                 const comingSoon = COMING_SOON.includes(lang.code);
+                const cover = COVER[lang.code];
 
                 const card = (
                   <>
@@ -590,13 +673,23 @@ export default function HomePage() {
                       className="relative flex items-end justify-between px-6 pt-16 pb-5 min-h-[150px] overflow-hidden"
                       style={{ background: "linear-gradient(135deg, #16276b 0%, #2f49c0 100%)" }}
                     >
-                      {/* faded flag watermark */}
-                      <div className="absolute inset-0 opacity-[0.18] pointer-events-none">
-                        <Image src={flagSrc[lang.flagCode]} alt="" fill sizes="380px" className="object-cover" />
-                      </div>
-                      {/* gradient wash to keep text legible */}
-                      <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(135deg, rgba(22,39,107,0.55) 0%, rgba(47,73,192,0.45) 100%)" }} />
-                      <div className="absolute inset-0 grid-dots-light opacity-25 pointer-events-none" />
+                      {cover ? (
+                        <>
+                          {/* country cover photo */}
+                          <Image src={cover} alt="" fill sizes="380px" className="object-cover" />
+                          {/* dark wash for legibility */}
+                          <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(to top, rgba(15,24,64,0.92) 0%, rgba(20,31,77,0.55) 50%, rgba(27,42,99,0.25) 100%)" }} />
+                        </>
+                      ) : (
+                        <>
+                          {/* faded flag watermark */}
+                          <div className="absolute inset-0 opacity-[0.18] pointer-events-none">
+                            <Image src={flagSrc[lang.flagCode]} alt="" fill sizes="380px" className="object-cover" />
+                          </div>
+                          <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(135deg, rgba(22,39,107,0.55) 0%, rgba(47,73,192,0.45) 100%)" }} />
+                        </>
+                      )}
+                      <div className="absolute inset-0 grid-dots-light opacity-20 pointer-events-none" />
                       <h3 className="relative z-10 font-display text-3xl font-semibold text-white tracking-wide leading-none">{lang.name}</h3>
                       <Flag code={lang.flagCode} size={30} rounded="rounded-md" className="relative z-10 shadow-md" />
                     </div>
@@ -872,20 +965,24 @@ export default function HomePage() {
 
           <StaggerContainer className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-10 text-left" staggerDelay={0.07}>
             {[
-              { icon: "mic",     title: "Public Speaking",         desc: "Command any room — from 5-person meetings to 500-seat stages." },
-              { icon: "work",    title: "Business Communication",  desc: "Write sharper emails, lead better meetings, negotiate with clarity." },
-              { icon: "sparkle", title: "Personality Development", desc: "Executive presence, EQ, and authentic confidence — built systematically." },
-              { icon: "stars",   title: "Leadership Presence",     desc: "Inspire teams and communicate vision at every level." },
-              { icon: "target",  title: "Interview Mastery",       desc: "Crack MNC, MBA, visa, and scholarship interviews with confidence." },
-              { icon: "globe",   title: "Cross-Cultural Comm.",    desc: "Navigate global workplaces and cultures with ease and empathy." },
-            ].map((m) => (
+              { icon: "mic",     title: "Public Speaking",         desc: "Command any room — from 5-person meetings to 500-seat stages.",         from: "#3b5bdb", to: "#6d8bff" },
+              { icon: "work",    title: "Business Communication",  desc: "Write sharper emails, lead better meetings, negotiate with clarity.",   from: "#7c3aed", to: "#a855f7" },
+              { icon: "sparkle", title: "Personality Development", desc: "Executive presence, EQ, and authentic confidence — built systematically.", from: "#0ea5e9", to: "#38bdf8" },
+              { icon: "stars",   title: "Leadership Presence",     desc: "Inspire teams and communicate vision at every level.",                  from: "#10b981", to: "#34d399" },
+              { icon: "target",  title: "Interview Mastery",       desc: "Crack MNC, MBA, visa, and scholarship interviews with confidence.",      from: "#f59e0b", to: "#fbbf24" },
+              { icon: "globe",   title: "Cross-Cultural Comm.",    desc: "Navigate global workplaces and cultures with ease and empathy.",         from: "#6d28d9", to: "#8b5cf6" },
+            ].map((m, i) => (
               <StaggerItem key={m.title}>
-                <div className="card-dark-hover rounded-2xl p-5 h-full">
-                  <div className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center mb-3">
-                    <MuiIcon name={m.icon} size={22} style={{ color: "#7dd3fc" }} />
+                <div className="card-dark-hover rounded-2xl p-6 h-full relative overflow-hidden">
+                  <span className="absolute top-3 right-5 text-5xl font-black text-white/[0.06] select-none leading-none pointer-events-none">{String(i + 1).padStart(2, "0")}</span>
+                  <div
+                    className="w-12 h-12 rounded-full flex items-center justify-center mb-4 relative z-10"
+                    style={{ background: `linear-gradient(135deg, ${m.from}, ${m.to})`, boxShadow: `0 6px 18px ${m.from}55` }}
+                  >
+                    <MuiIcon name={m.icon} size={22} style={{ color: "#ffffff" }} />
                   </div>
-                  <h3 className="text-white font-bold text-base">{m.title}</h3>
-                  <p className="text-white/50 text-xs mt-1.5 leading-relaxed">{m.desc}</p>
+                  <h3 className="text-white font-bold text-base relative z-10">{m.title}</h3>
+                  <p className="text-white/50 text-sm mt-1.5 leading-relaxed relative z-10">{m.desc}</p>
                 </div>
               </StaggerItem>
             ))}
@@ -895,6 +992,9 @@ export default function HomePage() {
             <Link href="/beyond" className="btn-white">
               Explore +Beyond <ArrowRight size={15} />
             </Link>
+            <p className="mt-4 text-white/40 text-xs flex items-center justify-center gap-1.5">
+              <Shield size={12} /> Standalone or bundled with any language course.
+            </p>
           </AnimateOnView>
         </div>
       </section>
@@ -909,46 +1009,142 @@ export default function HomePage() {
               Real results from <span className="gradient-text">real people.</span>
             </h2>
           </AnimateOnView>
+        </div>
 
-          <StaggerContainer className="grid md:grid-cols-3 gap-4" staggerDelay={0.08}>
-            {testimonials.slice(0, 3).map((t, i) => (
-              <StaggerItem key={i}>
-                <div className="card rounded-2xl p-6 h-full flex flex-col">
-                  <div className="flex gap-0.5 mb-4">
-                    {[1,2,3,4,5].map((j) => <Star key={j} size={12} className="text-amber-400 fill-amber-400" />)}
-                  </div>
-                  <p className="text-body text-sm leading-relaxed flex-1">&ldquo;{t.quote}&rdquo;</p>
-                  <div className="flex items-center gap-3 mt-5 pt-4 border-t border-line">
+        {/* infinite review marquee (pauses on hover) */}
+        <div className="reviews-mask relative z-10 -mx-5 md:-mx-8 lg:-mx-10 marquee-wrap [mask-image:linear-gradient(to_right,transparent,#000_5%,#000_95%,transparent)] [-webkit-mask-image:linear-gradient(to_right,transparent,#000_5%,#000_95%,transparent)]">
+          <div className="reviews-track py-2">
+            {[...testimonials, ...testimonials].map((t, i) => (
+              <div
+                key={i}
+                className="card relative overflow-hidden rounded-3xl p-7 md:p-8 flex flex-col shrink-0 w-[340px] sm:w-[430px] whitespace-normal"
+              >
+                <span className="absolute -bottom-10 right-3 font-display text-[9rem] leading-none text-royal-50 select-none pointer-events-none">&rdquo;</span>
+
+                {/* top: opening quote + author pill */}
+                <div className="relative z-10 flex items-start justify-between gap-3">
+                  <span className="font-display text-6xl leading-[0.6] text-royal-200 select-none">&ldquo;</span>
+                  <div className="inline-flex items-center gap-2.5 bg-royal-50 border border-royal-100 rounded-2xl pl-1.5 pr-4 py-1.5">
                     <div className="w-9 h-9 rounded-full bg-gradient-to-br from-[#3b5bdb] to-[#6d8bff] flex items-center justify-center text-white font-black text-xs flex-shrink-0">{t.avatar}</div>
-                    <div>
-                      <p className="font-bold text-ink text-sm">{t.name}</p>
-                      <p className="text-muted text-xs">{t.role}</p>
+                    <div className="min-w-0">
+                      <p className="text-ink font-bold text-sm leading-tight">{t.name}</p>
+                      <p className="text-muted text-xs leading-tight truncate max-w-[150px]">{t.course}</p>
                     </div>
                   </div>
                 </div>
-              </StaggerItem>
-            ))}
-          </StaggerContainer>
 
-          <StaggerContainer className="grid md:grid-cols-3 gap-4 mt-4" staggerDelay={0.08}>
-            {testimonials.slice(3).map((t, i) => (
-              <StaggerItem key={i}>
-                <div className="card rounded-2xl p-6 h-full flex flex-col">
-                  <div className="flex gap-0.5 mb-4">
-                    {[1,2,3,4,5].map((j) => <Star key={j} size={12} className="text-amber-400 fill-amber-400" />)}
-                  </div>
-                  <p className="text-body text-sm leading-relaxed flex-1">&ldquo;{t.quote}&rdquo;</p>
-                  <div className="flex items-center gap-3 mt-5 pt-4 border-t border-line">
-                    <div className="w-9 h-9 rounded-full bg-gradient-to-br from-[#0ea5e9] to-[#38bdf8] flex items-center justify-center text-white font-black text-xs flex-shrink-0">{t.avatar}</div>
-                    <div>
-                      <p className="font-bold text-ink text-sm">{t.name}</p>
-                      <p className="text-muted text-xs">{t.role}</p>
-                    </div>
-                  </div>
+                {/* quote */}
+                <p className="relative z-10 mt-5 text-ink text-base md:text-lg font-medium leading-relaxed flex-1">{t.quote}</p>
+
+                {/* divider */}
+                <div className="relative z-10 mt-6 h-0.5 w-16 rounded-full bg-royal-200" />
+
+                {/* stars */}
+                <div className="relative z-10 flex gap-1 mt-4">
+                  {[1, 2, 3, 4, 5].map((j) => <Star key={j} size={16} className="text-amber-400 fill-amber-400" />)}
                 </div>
-              </StaggerItem>
+              </div>
             ))}
-          </StaggerContainer>
+          </div>
+        </div>
+      </section>
+
+      {/* ══════════════════════ CREDENTIALS (dark anchor) ══════════════════════ */}
+      <section className="section-padding sec-dark relative overflow-hidden">
+        <div className="absolute inset-0 grid-dots-light opacity-25 pointer-events-none" />
+        <div className="blob blob-sky w-[480px] h-[480px] top-0 right-[-10%] pointer-events-none" />
+        <div className="blob blob-royal w-[420px] h-[420px] bottom-0 left-[-8%] pointer-events-none" />
+
+        <div className="container-max relative z-10">
+          <AnimateOnView className="text-center max-w-2xl mx-auto mb-12">
+            <span className="eyebrow-pill-light">What You Earn</span>
+            <h2 className="text-3xl md:text-5xl font-black text-white mt-1 leading-[1.12]">
+              Every level ends in{" "}
+              <span className="gradient-text-light">a credential.</span>
+            </h2>
+            <p className="mt-5 text-white/60 text-base md:text-lg leading-relaxed">
+              Unlike platforms that hand you streaks and badges, ALB issues verifiable,
+              CEFR-aligned certificates at the end of every module — while preparing you for
+              internationally recognised exams accepted by universities, embassies, and employers worldwide.
+            </p>
+          </AnimateOnView>
+
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-14 items-center">
+
+            {/* certificate visual */}
+            <AnimateOnView direction="left" className="lg:order-2">
+              <div className="relative">
+                <div className="blob blob-sky w-[420px] h-[320px] inset-0 m-auto pointer-events-none" />
+                <motion.div
+                  className="relative rounded-2xl overflow-hidden ring-1 ring-white/15 shadow-2xl"
+                  animate={{ y: [0, -10, 0] }}
+                  transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+                  whileHover={{ rotate: -1.5, scale: 1.02 }}
+                >
+                  <Image src="/images/certificate.png" alt="ALB Level Certificate" width={1492} height={1054} className="w-full h-auto" />
+                </motion.div>
+                {/* floating verified badge */}
+                <motion.div
+                  className="absolute -bottom-4 -right-3 bg-white rounded-2xl px-4 py-2.5 shadow-xl flex items-center gap-2"
+                  animate={{ y: [0, -6, 0] }}
+                  transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
+                >
+                  <CheckCircle className="text-royal-600" size={18} />
+                  <div>
+                    <p className="text-ink font-bold text-xs leading-tight">Verifiable</p>
+                    <p className="text-muted text-[10px] leading-tight">Shareable on LinkedIn</p>
+                  </div>
+                </motion.div>
+              </div>
+            </AnimateOnView>
+
+            {/* credential type cards */}
+            <AnimateOnView direction="right" className="space-y-4 lg:order-1">
+              <div className="card-dark-hover rounded-2xl p-6">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-11 h-11 rounded-xl bg-white/10 flex items-center justify-center">
+                    <MuiIcon name="grade" size={22} style={{ color: "#7dd3fc" }} />
+                  </div>
+                  <h3 className="text-white font-black text-lg">ALB Level Certificate</h3>
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  {["CEFR level", "Exam-readiness score", "Can-do statements"].map((c) => (
+                    <span key={c} className="text-xs font-semibold bg-white/10 border border-white/15 text-white/85 px-2.5 py-1 rounded-lg">{c}</span>
+                  ))}
+                </div>
+                <p className="text-white/55 text-sm mt-4 leading-relaxed">Verifiable and shareable on LinkedIn — proof of exactly what you can do.</p>
+              </div>
+
+              <div className="card-dark-hover rounded-2xl p-6">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-11 h-11 rounded-xl bg-white/10 flex items-center justify-center">
+                    <MuiIcon name="globe" size={22} style={{ color: "#9bb2ff" }} />
+                  </div>
+                  <h3 className="text-white font-black text-lg">International Exams</h3>
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  {["DELF", "DALF", "TEF Canada", "TCF Canada", "Goethe-Zertifikat", "TestDaF", "IELTS", "PTE", "TOEFL"].map((c) => (
+                    <span key={c} className="text-xs font-semibold bg-white/10 border border-white/15 text-white/85 px-2.5 py-1 rounded-lg">{c}</span>
+                  ))}
+                </div>
+                <p className="text-white/55 text-sm mt-4 leading-relaxed">Accepted by universities, embassies, and employers worldwide.</p>
+              </div>
+            </AnimateOnView>
+          </div>
+
+          {/* exam logo / trust strip */}
+          <AnimateOnView className="mt-14 text-center">
+            <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-white/40 mb-5">Prepares you for exams recognised worldwide</p>
+            <StaggerContainer className="flex flex-wrap justify-center gap-3" staggerDelay={0.05}>
+              {["DELF", "DALF", "TEF Canada", "TCF Canada", "Goethe-Institut", "TestDaF", "IELTS", "PTE", "TOEFL"].map((b) => (
+                <StaggerItem key={b}>
+                  <div className="glass-light rounded-xl px-4 py-2.5 text-white/85 font-bold text-sm tracking-wide hover:bg-white/15 transition-colors">
+                    {b}
+                  </div>
+                </StaggerItem>
+              ))}
+            </StaggerContainer>
+          </AnimateOnView>
         </div>
       </section>
 
@@ -1110,37 +1306,6 @@ export default function HomePage() {
               ))}
             </AnimateOnView>
           </div>
-        </div>
-      </section>
-
-      {/* ══════════════════════ FINAL CTA (dark anchor) ══════════════════════ */}
-      <section className="section-padding sec-dark relative overflow-hidden">
-        <div className="absolute inset-0 grid-dots-light opacity-30 pointer-events-none" />
-        <div className="blob blob-royal w-[700px] h-[400px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none" />
-        <div className="container-max relative z-10 text-center">
-          <AnimateOnView>
-            <span className="eyebrow-pill-light">Start Today</span>
-            <h2 className="text-3xl md:text-5xl font-black text-white mt-4 max-w-3xl mx-auto leading-tight">
-              Your global journey begins with a single conversation.
-            </h2>
-            <p className="mt-5 text-white/55 text-lg max-w-xl mx-auto">Free counselling · No commitment · Expert guidance</p>
-            <div className="mt-8 flex flex-wrap justify-center gap-4">
-              <Link href="/courses" className="btn-white text-base px-8 py-4 flex items-center gap-2">
-                Explore All Courses <ArrowRight size={16} />
-              </Link>
-              <button onClick={() => openModal()} className="btn-outline-light text-base px-8 py-4">
-                Book Free Call
-              </button>
-            </div>
-            <div className="mt-10 flex flex-wrap justify-center gap-8 text-white/55 text-sm">
-              {["5000+ Learners", "95% Goal Rate", "6 Languages", "12+ Years"].map((item) => (
-                <div key={item} className="flex items-center gap-2">
-                  <CheckCircle size={13} className="text-sky-300" />
-                  {item}
-                </div>
-              ))}
-            </div>
-          </AnimateOnView>
         </div>
       </section>
 

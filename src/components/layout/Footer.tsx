@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Mail, Phone, MapPin } from "lucide-react";
 import { siteConfig, beyondModules } from "@/lib/constants";
 
@@ -47,9 +48,7 @@ export function Footer() {
           {/* Brand */}
           <div className="lg:col-span-1">
             <Link href="/" className="inline-flex items-center gap-2.5 mb-4">
-              <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-[#5f80f5] to-[#3b5bdb] flex items-center justify-center shadow-lg">
-                <span className="text-white font-black text-xs">ALB</span>
-              </div>
+              <Image src="/images/logo-v2.png" alt="ALB" width={955} height={442} className="h-10 w-auto" />
               <div>
                 <div className="text-white font-bold text-sm leading-tight">Academy of Languages</div>
                 <div className="text-royal-200 font-semibold text-xs">&amp; Beyond</div>
