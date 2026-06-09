@@ -332,6 +332,14 @@ const JOURNEY = [
   { n: "04", icon: "trophy",   title: "Get Certified",         desc: "ALB Level Certificate · international exam readiness · CEFR-aligned credentials." },
 ];
 
+/* Faculty / mentors */
+const INSTRUCTORS = [
+  { name: "Ananya Krishnan", role: "Lead French Faculty",      cred: "DELF Examiner",    exp: "14+ yrs", rating: "4.9", students: "5000+", from: "#3b5bdb", to: "#2f49c0", initials: "AK" },
+  { name: "Priya Narayanan", role: "German Expert",            cred: "Goethe Certified", exp: "8+ yrs",  rating: "4.8", students: "3500+", from: "#6d8bff", to: "#3b5bdb", initials: "PN" },
+  { name: "Carlos Mendes",   role: "Spanish & Culture",        cred: "Native Speaker",   exp: "9+ yrs",  rating: "4.9", students: "4200+", from: "#0ea5e9", to: "#0284c7", initials: "CM" },
+  { name: "Rohan Pillai",    role: "IELTS & Academic English", cred: "British Council",  exp: "7+ yrs",  rating: "4.9", students: "6000+", from: "#0284c7", to: "#2f49c0", initials: "RP" },
+];
+
 /* ─────────────────────────── Page ─────────────────────────── */
 export default function HomePage() {
   const { openModal } = useBooking();
@@ -1046,6 +1054,86 @@ export default function HomePage() {
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* ══════════════════════ INSTRUCTORS ══════════════════════ */}
+      <section className="section-padding sec-light relative overflow-hidden">
+        {/* perspective floor grid */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none [perspective:700px]">
+          <div
+            className="absolute bottom-0 left-1/2 h-[72%] w-[220%] -translate-x-1/2 origin-bottom"
+            style={{
+              transform: "rotateX(64deg)",
+              backgroundImage:
+                "linear-gradient(to right, rgba(59,91,219,0.16) 1px, transparent 1px), linear-gradient(to bottom, rgba(59,91,219,0.16) 1px, transparent 1px)",
+              backgroundSize: "48px 48px",
+              maskImage: "linear-gradient(to top, rgba(0,0,0,0.85), transparent 70%)",
+              WebkitMaskImage: "linear-gradient(to top, rgba(0,0,0,0.85), transparent 70%)",
+            }}
+          />
+        </div>
+        <div className="blob blob-royal w-[440px] h-[440px] top-0 right-[-8%] opacity-40 pointer-events-none" />
+        <div className="blob blob-sky w-[380px] h-[380px] bottom-0 left-[-6%] opacity-30 pointer-events-none" />
+
+        <div className="container-max relative z-10">
+          <AnimateOnView className="text-center max-w-2xl mx-auto mb-12">
+            <div className="flex items-center justify-center gap-3 mb-4">
+              <span className="h-px w-8 bg-royal-300" />
+              <span className="text-xs font-bold uppercase tracking-[0.22em] text-royal-600">Meet the Team</span>
+              <span className="h-px w-8 bg-royal-300" />
+            </div>
+            <h2 className="text-3xl md:text-5xl font-black text-ink leading-[1.12]">
+              <span className="bg-royal-600 text-white rounded-xl px-2.5 py-0.5">Learn</span> from India&apos;s best mentors
+            </h2>
+            <p className="mt-5 text-body text-base md:text-lg leading-relaxed">
+              In today&apos;s competitive world, you need industry-relevant skills taught by certified,
+              exam-trained faculty who&apos;ve guided thousands to their goal.
+            </p>
+          </AnimateOnView>
+
+          <StaggerContainer className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5" staggerDelay={0.1}>
+            {INSTRUCTORS.map((m) => (
+              <StaggerItem key={m.name}>
+                <div className="group card-hover rounded-3xl overflow-hidden h-full">
+                  {/* avatar */}
+                  <div className="relative h-[230px] overflow-hidden" style={{ background: `linear-gradient(160deg, ${m.from}, ${m.to})` }}>
+                    <div className="absolute inset-0 grid-dots-light opacity-20 pointer-events-none" />
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <span className="text-white font-black text-7xl select-none drop-shadow-lg group-hover:scale-105 transition-transform">{m.initials}</span>
+                    </div>
+                    <span className="absolute top-3 left-3 bg-white/90 backdrop-blur-sm rounded-full px-3 py-1 text-[10px] font-bold text-ink shadow-sm">{m.cred}</span>
+                    <span className="absolute top-3 right-3 bg-white rounded-full px-2.5 py-1 text-[11px] font-bold text-ink flex items-center gap-1 shadow-sm">
+                      <Star size={11} className="text-amber-400 fill-amber-400" /> {m.rating}
+                    </span>
+                  </div>
+
+                  {/* info */}
+                  <div className="p-5">
+                    <div className="flex items-start justify-between gap-2">
+                      <div className="min-w-0">
+                        <h3 className="font-bold text-ink text-base leading-tight truncate">{m.name}</h3>
+                        <p className="text-muted text-xs mt-0.5 truncate">{m.role}</p>
+                      </div>
+                      <a href="#" aria-label="LinkedIn" className="w-8 h-8 rounded-lg bg-[#0a66c2] hover:bg-[#0a5bb0] transition-colors flex items-center justify-center text-white font-black text-xs flex-shrink-0">in</a>
+                    </div>
+
+                    {/* stat boxes */}
+                    <div className="mt-4 grid grid-cols-2 gap-2">
+                      <div className="rounded-xl bg-royal-50 px-3 py-2.5 text-center">
+                        <p className="text-sm font-black text-royal-700">{m.exp}</p>
+                        <p className="text-[10px] text-muted font-semibold uppercase tracking-wide mt-0.5">Experience</p>
+                      </div>
+                      <div className="rounded-xl bg-royal-50 px-3 py-2.5 text-center">
+                        <p className="text-sm font-black text-royal-700">{m.students}</p>
+                        <p className="text-[10px] text-muted font-semibold uppercase tracking-wide mt-0.5">Students Taught</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </StaggerItem>
+            ))}
+          </StaggerContainer>
         </div>
       </section>
 
