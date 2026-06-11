@@ -97,19 +97,28 @@ export function Footer() {
             <h4 className="text-white font-bold text-xs uppercase tracking-widest mb-4">Languages</h4>
             <ul className="space-y-2.5">
               {[
-                { label: "French",        href: "/courses/french" },
-                { label: "German",        href: "/courses/german" },
-                { label: "Spanish",       href: "/courses/spanish" },
-                { label: "Japanese",      href: "/courses/japanese" },
-                { label: "Korean",        href: "/courses/korean" },
-                { label: "English", href: "/courses/ielts" },
-              ].map(item => (
-                <li key={item.href}>
-                  <Link href={item.href} className="text-xs text-white/50 hover:text-white transition-colors inline-block">
-                    {item.label}
-                  </Link>
-                </li>
-              ))}
+                { label: "French",   href: "/courses/french",   soon: false },
+                { label: "German",   href: "/courses/german",   soon: false },
+                { label: "English",  href: "/courses/ielts",    soon: false },
+                { label: "Spanish",  href: "/courses/spanish",  soon: true },
+                { label: "Japanese", href: "/courses/japanese", soon: true },
+                { label: "Korean",   href: "/courses/korean",   soon: true },
+              ].map(item =>
+                item.soon ? (
+                  <li key={item.href}>
+                    <span className="inline-flex items-center gap-2 text-xs text-white/35 cursor-not-allowed select-none" aria-disabled="true">
+                      {item.label}
+                      <span className="text-[8.5px] font-black uppercase tracking-wider text-sky-300 border border-sky-300/30 px-1.5 py-0.5 rounded-full">Coming Soon</span>
+                    </span>
+                  </li>
+                ) : (
+                  <li key={item.href}>
+                    <Link href={item.href} className="text-xs text-white/50 hover:text-white transition-colors inline-block">
+                      {item.label}
+                    </Link>
+                  </li>
+                )
+              )}
             </ul>
           </div>
 

@@ -116,6 +116,12 @@ function WeekScheduleCard() {
 
 export default function CoursesPage() {
   const { openModal } = useBooking();
+
+  // available languages first, "coming soon" pushed to the bottom (stable order)
+  const orderedLanguages = [...languages].sort(
+    (a, b) => Number(a.comingSoon) - Number(b.comingSoon)
+  );
+
   return (
     <>
       {/* ─── HERO ─── */}
@@ -212,84 +218,100 @@ export default function CoursesPage() {
           </AnimateOnView>
 
           <StaggerContainer className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6" staggerDelay={0.08}>
-            {languages.map((lang) => {
+            {orderedLanguages.map((lang) => {
               const accent = getLangAccent(lang.code);
-              return (
-                <StaggerItem key={lang.code}>
-                  <Link href={lang.href} className="group block h-full">
-                    <motion.div
-                      className="flex flex-col h-full rounded-2xl overflow-hidden cursor-pointer bg-white"
-                      style={{
-                        border: `1px solid #e6ebf5`,
-                        borderLeft: `3px solid ${accent.border}`,
-                        boxShadow: "0 1px 2px rgba(16,23,51,0.04), 0 8px 24px rgba(16,23,51,0.06)",
-                      }}
-                      whileHover={{
-                        y: -5,
-                        boxShadow: `0 24px 60px ${accent.glow}, 0 0 0 1px ${accent.border}30`,
-                      }}
-                      transition={{ duration: 0.25 }}
-                    >
-                      {/* Card header */}
-                      <div
-                        className="p-7 flex items-start justify-between"
-                        style={{
-                          background: "linear-gradient(135deg, #f7f9ff 0%, #ffffff 100%)",
-                          borderBottom: `1px solid #eef2ff`,
-                        }}
+              const soon = lang.comingSoon;
+
+              const card = (
+                <motion.div
+                  className={`relative flex flex-col h-full rounded-2xl overflow-hidden bg-white ${soon ? "cursor-not-allowed" : "cursor-pointer"}`}
+                  style={{
+                    border: `1px solid #e6ebf5`,
+                    borderLeft: `3px solid ${accent.border}`,
+                    boxShadow: "0 1px 2px rgba(16,23,51,0.04), 0 8px 24px rgba(16,23,51,0.06)",
+                  }}
+                  whileHover={
+                    soon
+                      ? undefined
+                      : {
+                          y: -5,
+                          boxShadow: `0 24px 60px ${accent.glow}, 0 0 0 1px ${accent.border}30`,
+                        }
+                  }
+                  transition={{ duration: 0.25 }}
+                >
+                  {/* Coming soon overlay badge */}
+                  {soon && (
+                    <span className="absolute top-3 right-3 z-10 text-[10px] font-black uppercase tracking-wider px-2.5 py-1 rounded-full bg-ink/85 text-white shadow-sm">
+                      Coming Soon
+                    </span>
+                  )}
+
+                  {/* Card header */}
+                  <div
+                    className="p-7 flex items-start justify-between"
+                    style={{
+                      background: "linear-gradient(135deg, #f7f9ff 0%, #ffffff 100%)",
+                      borderBottom: `1px solid #eef2ff`,
+                    }}
+                  >
+                    <div className="flex flex-col gap-2">
+                      <motion.div
+                        className={soon ? "grayscale opacity-70" : ""}
+                        animate={soon ? undefined : { y: [0, -6, 0] }}
+                        transition={soon ? undefined : { duration: 4, repeat: Infinity, ease: "easeInOut" }}
                       >
-                        <div className="flex flex-col gap-2">
-                          <motion.div
-                            animate={{ y: [0, -6, 0] }}
-                            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                        <CountryBadge code={lang.flagCode} color={lang.color} size="lg" />
+                      </motion.div>
+                      {lang.tag && (
+                        <span
+                          className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full w-fit"
+                          style={{
+                            background: `${accent.border}14`,
+                            color: accent.soft,
+                            border: `1px solid ${accent.border}30`,
+                          }}
+                        >
+                          {lang.tag}
+                        </span>
+                      )}
+                    </div>
+                    <div className="text-right ml-4">
+                      <h3 className="text-2xl font-black text-ink">{lang.name}</h3>
+                      <p className="text-muted text-sm mt-1 max-w-[150px] leading-relaxed">
+                        {lang.tagline}
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Card body */}
+                  <div className="p-6 flex-1 flex flex-col">
+                    <div>
+                      <p className="text-[10px] font-bold uppercase tracking-widest text-muted mb-2">
+                        Levels Available
+                      </p>
+                      <div className="flex flex-wrap gap-1.5">
+                        {lang.levels.map((l) => (
+                          <span
+                            key={l}
+                            className="text-xs font-semibold px-2.5 py-1 rounded-full"
+                            style={{
+                              background: accent.levelBg,
+                              border: `1px solid ${accent.border}30`,
+                              color: accent.soft,
+                            }}
                           >
-                            <CountryBadge code={lang.flagCode} color={lang.color} size="lg" />
-                          </motion.div>
-                          {lang.tag && (
-                            <span
-                              className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full w-fit"
-                              style={{
-                                background: `${accent.border}14`,
-                                color: accent.soft,
-                                border: `1px solid ${accent.border}30`,
-                              }}
-                            >
-                              {lang.tag}
-                            </span>
-                          )}
-                        </div>
-                        <div className="text-right ml-4">
-                          <h3 className="text-2xl font-black text-ink">{lang.name}</h3>
-                          <p className="text-muted text-sm mt-1 max-w-[150px] leading-relaxed">
-                            {lang.tagline}
-                          </p>
-                        </div>
+                            {l}
+                          </span>
+                        ))}
                       </div>
+                    </div>
 
-                      {/* Card body */}
-                      <div className="p-6 flex-1 flex flex-col">
-                        <div>
-                          <p className="text-[10px] font-bold uppercase tracking-widest text-muted mb-2">
-                            Levels Available
-                          </p>
-                          <div className="flex flex-wrap gap-1.5">
-                            {lang.levels.map((l) => (
-                              <span
-                                key={l}
-                                className="text-xs font-semibold px-2.5 py-1 rounded-full"
-                                style={{
-                                  background: accent.levelBg,
-                                  border: `1px solid ${accent.border}30`,
-                                  color: accent.soft,
-                                }}
-                              >
-                                {l}
-                              </span>
-                            ))}
-                          </div>
-                        </div>
-
-                        <div className="mt-5 pt-4 flex items-center justify-between border-t border-line">
+                    <div className="mt-5 pt-4 flex items-center justify-between border-t border-line">
+                      {soon ? (
+                        <span className="text-sm text-muted font-semibold">Launching soon</span>
+                      ) : (
+                        <>
                           <span className="text-sm text-muted font-medium">View full programme</span>
                           <motion.div
                             className="w-8 h-8 rounded-full flex items-center justify-center"
@@ -298,10 +320,24 @@ export default function CoursesPage() {
                           >
                             <ArrowRight size={14} className="text-white" />
                           </motion.div>
-                        </div>
-                      </div>
-                    </motion.div>
-                  </Link>
+                        </>
+                      )}
+                    </div>
+                  </div>
+                </motion.div>
+              );
+
+              return (
+                <StaggerItem key={lang.code}>
+                  {soon ? (
+                    <div className="block h-full select-none" aria-disabled="true" title="Coming soon">
+                      {card}
+                    </div>
+                  ) : (
+                    <Link href={lang.href} className="group block h-full">
+                      {card}
+                    </Link>
+                  )}
                 </StaggerItem>
               );
             })}

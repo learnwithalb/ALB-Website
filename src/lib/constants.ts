@@ -33,6 +33,7 @@ export const languages = [
     color: "#003087",
     levels: ["A1", "A2", "B1", "B2", "C1"],
     tag: "Most Popular",
+    comingSoon: false,
   },
   {
     code: "de",
@@ -43,6 +44,7 @@ export const languages = [
     color: "#DD0000",
     levels: ["A1", "A2", "B1", "B2", "C1"],
     tag: "High Demand",
+    comingSoon: false,
   },
   {
     code: "es",
@@ -53,6 +55,7 @@ export const languages = [
     color: "#AA151B",
     levels: ["A1", "A2", "B1", "B2"],
     tag: "Rising Fast",
+    comingSoon: true,
   },
   {
     code: "jp",
@@ -63,6 +66,7 @@ export const languages = [
     color: "#BC002D",
     levels: ["N5", "N4", "N3", "N2"],
     tag: null,
+    comingSoon: true,
   },
   {
     code: "kr",
@@ -73,6 +77,7 @@ export const languages = [
     color: "#003478",
     levels: ["TOPIK 1", "TOPIK 2"],
     tag: null,
+    comingSoon: true,
   },
   {
     code: "en",
@@ -83,6 +88,7 @@ export const languages = [
     color: "#012169",
     levels: ["Foundation", "Academic", "General"],
     tag: "Exam-focused",
+    comingSoon: false,
   },
 ] as const;
 

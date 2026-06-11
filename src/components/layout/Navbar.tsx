@@ -16,6 +16,11 @@ export function Navbar() {
   const [mobileCoursesOpen, setMobileCoursesOpen] = useState(false);
   const pathname = usePathname();
 
+  // available languages first, "coming soon" pushed to the bottom (stable order)
+  const orderedLanguages = [...languages].sort(
+    (a, b) => Number(a.comingSoon) - Number(b.comingSoon)
+  );
+
   useEffect(() => {
     const handler = () => setScrolled(window.scrollY > 24);
     window.addEventListener("scroll", handler, { passive: true });
@@ -108,19 +113,34 @@ export function Navbar() {
                                 <span className="text-[10px] font-bold uppercase tracking-widest text-royal-400">CEFR-aligned</span>
                               </div>
                               <div className="grid grid-cols-2 gap-1">
-                                {languages.map((lang) => (
-                                  <Link
-                                    key={lang.code}
-                                    href={lang.href}
-                                    className="group flex items-start gap-3 rounded-xl p-3 hover:bg-royal-50 transition-colors"
-                                  >
-                                    <Flag code={lang.flagCode} size={36} rounded="rounded-lg" className="mt-0.5" />
-                                    <span className="min-w-0">
-                                      <span className="block text-sm font-bold text-ink leading-tight">{lang.name}</span>
-                                      <span className="block text-[11px] text-muted leading-snug truncate">{lang.tagline}</span>
-                                    </span>
-                                  </Link>
-                                ))}
+                                {orderedLanguages.map((lang) =>
+                                  lang.comingSoon ? (
+                                    <div
+                                      key={lang.code}
+                                      aria-disabled="true"
+                                      title="Coming soon"
+                                      className="relative flex items-start gap-3 rounded-xl p-3 cursor-not-allowed select-none opacity-70"
+                                    >
+                                      <Flag code={lang.flagCode} size={36} rounded="rounded-lg" className="mt-0.5 grayscale" />
+                                      <span className="min-w-0">
+                                        <span className="flex items-center gap-1.5 text-sm font-bold text-muted leading-tight">{lang.name}</span>
+                                        <span className="mt-1 inline-block text-[9px] font-black uppercase tracking-wider text-royal-500 bg-royal-50 border border-royal-100 px-1.5 py-0.5 rounded-full">Coming Soon</span>
+                                      </span>
+                                    </div>
+                                  ) : (
+                                    <Link
+                                      key={lang.code}
+                                      href={lang.href}
+                                      className="group flex items-start gap-3 rounded-xl p-3 hover:bg-royal-50 transition-colors"
+                                    >
+                                      <Flag code={lang.flagCode} size={36} rounded="rounded-lg" className="mt-0.5" />
+                                      <span className="min-w-0">
+                                        <span className="block text-sm font-bold text-ink leading-tight">{lang.name}</span>
+                                        <span className="block text-[11px] text-muted leading-snug truncate">{lang.tagline}</span>
+                                      </span>
+                                    </Link>
+                                  )
+                                )}
                               </div>
                               <Link
                                 href="/courses"
@@ -252,16 +272,28 @@ export function Navbar() {
                               className="overflow-hidden"
                             >
                               <div className="pl-3 pt-1 pb-1 space-y-0.5 border-l border-line ml-4">
-                                {languages.map((lang) => (
-                                  <Link
-                                    key={lang.code}
-                                    href={lang.href}
-                                    className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-body hover:text-royal-700 hover:bg-royal-50 transition-all"
-                                  >
-                                    <Flag code={lang.flagCode} size={28} rounded="rounded-md" />
-                                    {lang.name}
-                                  </Link>
-                                ))}
+                                {orderedLanguages.map((lang) =>
+                                  lang.comingSoon ? (
+                                    <div
+                                      key={lang.code}
+                                      aria-disabled="true"
+                                      className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-muted cursor-not-allowed select-none"
+                                    >
+                                      <Flag code={lang.flagCode} size={28} rounded="rounded-md" className="grayscale" />
+                                      {lang.name}
+                                      <span className="ml-auto text-[9px] font-black uppercase tracking-wider text-royal-500 bg-royal-50 border border-royal-100 px-1.5 py-0.5 rounded-full">Soon</span>
+                                    </div>
+                                  ) : (
+                                    <Link
+                                      key={lang.code}
+                                      href={lang.href}
+                                      className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-body hover:text-royal-700 hover:bg-royal-50 transition-all"
+                                    >
+                                      <Flag code={lang.flagCode} size={28} rounded="rounded-md" />
+                                      {lang.name}
+                                    </Link>
+                                  )
+                                )}
                               </div>
                             </motion.div>
                           )}
