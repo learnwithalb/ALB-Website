@@ -179,13 +179,13 @@ export function Navbar() {
                 href="/courses"
                 className="text-body hover:text-royal-700 text-sm font-medium transition-colors px-2"
               >
-                Sign In
+                Student Login
               </Link>
               <Link
                 href="/courses"
                 className="btn-primary text-sm px-5 py-2.5 rounded-full font-semibold"
               >
-                Get Started
+                Book a Free Demo
               </Link>
             </div>
 
@@ -327,7 +327,7 @@ export function Navbar() {
 
               <div className="px-5 pb-8 space-y-3">
                 <Link href="/courses" className="btn-primary w-full justify-center" onClick={() => setMobileOpen(false)}>
-                  Get Started
+                  Book a Free Demo
                 </Link>
                 <a href="https://wa.me/919876543210" target="_blank" rel="noopener noreferrer" className="btn-outline w-full justify-center">
                   WhatsApp Us

@@ -7,6 +7,7 @@ import { ArrowRight, CheckCircle, ChevronDown } from "lucide-react";
 import { AnimateOnView, StaggerContainer, StaggerItem } from "@/components/shared/AnimateOnView";
 import { CountUp } from "@/components/shared/CountUp";
 import { useBooking } from "@/components/shared/BookingContext";
+import { MuiIcon, Flag } from "@/lib/icons";
 
 /* ─────────────── data ─────────────── */
 
@@ -19,17 +20,17 @@ const SCIENCE_STATS = [
 ];
 
 const REASONS = [
-  { emoji: "🧠", edge: "Sharper Brain", stat: "Bilingual kids score higher on problem-solving, memory, and critical-thinking tests." },
-  { emoji: "🎓", edge: "Better Academic Performance", stat: "Bilingual students score roughly 140 more points on the SAT than monolingual peers." },
-  { emoji: "🌍", edge: "Global Career Advantage", stat: "French is spoken in 29 countries; German-speakers earn 20–30% more in EU jobs." },
-  { emoji: "🗣️", edge: "Native-Level Fluency", stat: "Children under 12 develop native-like accents. After 15, it's significantly harder." },
-  { emoji: "💪", edge: "Confidence & Growth Mindset", stat: "Making mistakes in a new language builds resilience — a skill that transfers to everything." },
+  { icon: "brain", edge: "Sharper Brain", stat: "Bilingual kids score higher on problem-solving, memory, and critical-thinking tests." },
+  { icon: "school", edge: "Better Academic Performance", stat: "Bilingual students score roughly 140 more points on the SAT than monolingual peers." },
+  { icon: "globe", edge: "Global Career Advantage", stat: "French is spoken in 29 countries; German-speakers earn 20–30% more in EU jobs." },
+  { icon: "mic", edge: "Native-Level Fluency", stat: "Children under 12 develop native-like accents. After 15, it's significantly harder." },
+  { icon: "rocket", edge: "Confidence & Growth Mindset", stat: "Making mistakes in a new language builds resilience — a skill that transfers to everything." },
 ];
 
 const COURSES = [
   {
     code: "ALB Junior — French",
-    flag: "🇫🇷",
+    flagCode: "FR",
     name: "French Junior",
     popular: false,
     tagline: "The world's most romantic language — and one of its most useful.",
@@ -42,11 +43,11 @@ const COURSES = [
       "Canada PR, study in France / Belgium, and an early academic advantage",
       "Absolute beginners welcome — zero prior knowledge needed",
     ],
-    bestFor: "A head start in board exams, the Canada immigration pathway, or simply a love for France 🗼",
+    bestFor: "A head start in board exams, the Canada immigration pathway, or simply a love for France.",
   },
   {
     code: "ALB Junior — English",
-    flag: "🇬🇧",
+    flagCode: "GB",
     name: "English Junior",
     popular: true,
     tagline: "They already know English. Now let's make them brilliant at it.",
@@ -59,11 +60,11 @@ const COURSES = [
       "Prepares for competitive schools, Model UN, debate, and interviews",
       "Foundation → Advanced track targets IELTS bands 5.5 through 7.5+",
     ],
-    bestFor: "International schools, abroad applications, competitive exams, or real everyday confidence 🌟",
+    bestFor: "International schools, abroad applications, competitive exams, or real everyday confidence.",
   },
   {
     code: "ALB Junior — German",
-    flag: "🇩🇪",
+    flagCode: "DE",
     name: "German Junior",
     popular: false,
     tagline: "Germany's economy is the 4th largest in the world. Your child could work in it.",
@@ -76,7 +77,7 @@ const COURSES = [
       "Opens doors to tuition-free university education in Germany",
       "Perfect for future engineering, medicine, or business students",
     ],
-    bestFor: "Ambitious, long-term thinkers → Germany, Austria, Switzerland, and the EU job market 🏆",
+    bestFor: "Ambitious, long-term thinkers → Germany, Austria, Switzerland, and the EU job market.",
   },
 ];
 
@@ -95,13 +96,14 @@ const FAQS = [
   { q: "How long does it take to get a DELF certificate?", a: "DELF A1 takes approximately 8 weeks to complete at ALB Junior (3 sessions per week). After completing the level, students are fully prepared to sit the official DELF exam. Most students reach A2 within one academic year, and B1 by their second year." },
 ];
 
-const FLOATERS = [
-  { e: "🇫🇷", top: "14%", left: "6%",  d: 3.4 },
-  { e: "🇩🇪", top: "22%", right: "9%", d: 4.2 },
-  { e: "✏️", bottom: "26%", left: "9%", d: 3.0 },
-  { e: "🌍", top: "55%", right: "5%", d: 3.8 },
-  { e: "🎓", bottom: "16%", right: "16%", d: 4.6 },
-  { e: "🇬🇧", top: "40%", left: "3%", d: 3.2 },
+type Floater = { kind: "flag" | "icon"; val: string; d: number; top?: string; bottom?: string; left?: string; right?: string };
+const FLOATERS: Floater[] = [
+  { kind: "flag", val: "FR", top: "14%", left: "6%",  d: 3.4 },
+  { kind: "flag", val: "DE", top: "22%", right: "9%", d: 4.2 },
+  { kind: "icon", val: "edit", bottom: "26%", left: "9%", d: 3.0 },
+  { kind: "icon", val: "globe", top: "55%", right: "5%", d: 3.8 },
+  { kind: "icon", val: "school", bottom: "16%", right: "16%", d: 4.6 },
+  { kind: "flag", val: "GB", top: "40%", left: "3%", d: 3.2 },
 ];
 
 /* ─────────────── page ─────────────── */
@@ -118,16 +120,28 @@ export default function JuniorPage() {
         <div className="blob blob-royal w-[520px] h-[460px] -top-24 left-1/4 pointer-events-none" />
         <div className="blob blob-sky w-[420px] h-[420px] bottom-0 right-[-6%] pointer-events-none" />
 
-        {/* floating emoji */}
+        {/* floating flag & icon chips */}
         {FLOATERS.map((f, i) => (
           <motion.div
             key={i}
-            className="absolute hidden md:block text-3xl select-none pointer-events-none"
-            style={{ top: f.top, left: (f as { left?: string }).left, right: (f as { right?: string }).right, bottom: (f as { bottom?: string }).bottom }}
-            animate={{ y: [0, -18, 0], rotate: [0, 6, -6, 0] }}
-            transition={{ duration: f.d, repeat: Infinity, ease: "easeInOut", delay: i * 0.3 }}
+            className="absolute hidden md:block select-none pointer-events-none"
+            style={{ top: f.top, left: f.left, right: f.right, bottom: f.bottom }}
+            initial={{ opacity: 0, scale: 0.5 }}
+            animate={{ opacity: 1, scale: 1, y: [0, -18, 0], rotate: [0, 6, -6, 0] }}
+            transition={{
+              opacity: { duration: 0.6, delay: 0.6 + i * 0.1 },
+              scale: { duration: 0.6, delay: 0.6 + i * 0.1, type: "spring", stiffness: 200 },
+              y: { duration: f.d, repeat: Infinity, ease: "easeInOut", delay: i * 0.3 },
+              rotate: { duration: f.d, repeat: Infinity, ease: "easeInOut", delay: i * 0.3 },
+            }}
           >
-            {f.e}
+            {f.kind === "flag" ? (
+              <Flag code={f.val} size={44} rounded="rounded-xl" className="shadow-lg shadow-royal-500/20 ring-1 ring-white/60" />
+            ) : (
+              <span className="w-12 h-12 rounded-2xl bg-white shadow-lg shadow-royal-500/15 border border-line flex items-center justify-center">
+                <MuiIcon name={f.val} size={24} style={{ color: "#3b5bdb" }} />
+              </span>
+            )}
           </motion.div>
         ))}
 
@@ -199,12 +213,14 @@ export default function JuniorPage() {
           <StaggerContainer className="grid md:grid-cols-3 gap-5" staggerDelay={0.1}>
             {/* tile 1 — graphic */}
             <StaggerItem>
-              <div className="relative h-full min-h-[230px] rounded-3xl overflow-hidden flex flex-col justify-end p-7 shadow-lg" style={{ background: "linear-gradient(155deg,#3b5bdb,#2f49c0)" }}>
+              <motion.div whileHover={{ y: -6 }} transition={{ type: "spring", stiffness: 300, damping: 22 }} className="relative h-full min-h-[230px] rounded-3xl overflow-hidden flex flex-col justify-end p-7 shadow-lg" style={{ background: "linear-gradient(155deg,#3b5bdb,#2f49c0)" }}>
                 <div className="absolute inset-0 grid-dots-light opacity-20 pointer-events-none" />
-                <motion.div className="absolute top-6 left-6 text-6xl" animate={{ y: [0, -10, 0] }} transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}>👦💻</motion.div>
+                <motion.div className="absolute top-6 left-6 w-16 h-16 rounded-2xl bg-white/15 backdrop-blur-sm border border-white/25 flex items-center justify-center" animate={{ y: [0, -10, 0] }} transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}>
+                  <MuiIcon name="computer" size={32} style={{ color: "#ffffff" }} />
+                </motion.div>
                 <p className="relative z-10 text-white font-bold text-lg">Live online classes</p>
                 <p className="relative z-10 text-white/60 text-sm mt-1">Real teachers, real-time — never pre-recorded.</p>
-              </div>
+              </motion.div>
             </StaggerItem>
 
             {/* tile 2 — quote */}
@@ -219,19 +235,21 @@ export default function JuniorPage() {
                   animate={{ y: [0, -5, 0] }}
                   transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
                 >
-                  🇫🇷 French A1 → 8 Weeks
+                  <Flag code="FR" size={16} rounded="rounded" /> French A1 → 8 Weeks
                 </motion.span>
               </div>
             </StaggerItem>
 
             {/* tile 3 — graphic */}
             <StaggerItem>
-              <div className="relative h-full min-h-[230px] rounded-3xl overflow-hidden flex flex-col justify-end p-7 shadow-lg" style={{ background: "linear-gradient(155deg,#0ea5e9,#0284c7)" }}>
+              <motion.div whileHover={{ y: -6 }} transition={{ type: "spring", stiffness: 300, damping: 22 }} className="relative h-full min-h-[230px] rounded-3xl overflow-hidden flex flex-col justify-end p-7 shadow-lg" style={{ background: "linear-gradient(155deg,#0ea5e9,#0284c7)" }}>
                 <div className="absolute inset-0 grid-dots-light opacity-20 pointer-events-none" />
-                <motion.div className="absolute top-6 right-6 text-6xl" animate={{ y: [0, -10, 0] }} transition={{ duration: 4.4, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}>👧✨</motion.div>
+                <motion.div className="absolute top-6 right-6 w-16 h-16 rounded-2xl bg-white/15 backdrop-blur-sm border border-white/25 flex items-center justify-center" animate={{ y: [0, -10, 0] }} transition={{ duration: 4.4, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}>
+                  <MuiIcon name="people" size={32} style={{ color: "#ffffff" }} />
+                </motion.div>
                 <p className="relative z-10 text-white font-bold text-lg">Small, joyful batches</p>
                 <p className="relative z-10 text-white/70 text-sm mt-1">Max 12 kids — everyone speaks, every class.</p>
-              </div>
+              </motion.div>
             </StaggerItem>
           </StaggerContainer>
 
@@ -269,7 +287,9 @@ export default function JuniorPage() {
                     {[0, 1, 2].map((i) => (
                       <motion.span key={i} className="absolute rounded-full border border-white/15" style={{ width: 56 + i * 36, height: 56 + i * 36 }} animate={{ scale: [1, 1.12, 1], opacity: [0.5, 0.15, 0.5] }} transition={{ duration: 3, repeat: Infinity, delay: i * 0.4, ease: "easeInOut" }} />
                     ))}
-                    <motion.div className="relative text-5xl" animate={{ y: [0, -8, 0] }} transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut" }}>🧠</motion.div>
+                    <motion.div className="relative flex items-center justify-center" animate={{ y: [0, -8, 0] }} transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut" }}>
+                      <MuiIcon name="brain" size={56} style={{ color: "#7dd3fc" }} />
+                    </motion.div>
                   </div>
                 </div>
                 <div className="grid grid-cols-3 gap-3">
@@ -302,13 +322,15 @@ export default function JuniorPage() {
           <StaggerContainer className="max-w-4xl mx-auto space-y-3" staggerDelay={0.1}>
             {REASONS.map((r, i) => (
               <StaggerItem key={r.edge}>
-                <motion.div whileHover={{ x: 6 }} className="card rounded-2xl p-5 md:p-6 flex items-center gap-5">
-                  <div className="flex-shrink-0 w-14 h-14 rounded-2xl bg-royal-50 flex items-center justify-center text-2xl">{r.emoji}</div>
+                <motion.div whileHover={{ x: 6 }} className="group card rounded-2xl p-5 md:p-6 flex items-center gap-5">
+                  <div className="flex-shrink-0 w-14 h-14 rounded-2xl bg-royal-50 flex items-center justify-center transition-all duration-300 group-hover:scale-110 group-hover:-rotate-6 group-hover:bg-royal-100">
+                    <MuiIcon name={r.icon} size={28} style={{ color: "#3b5bdb" }} />
+                  </div>
                   <div className="flex-1 min-w-0 grid md:grid-cols-[200px_1fr] gap-1 md:gap-5 md:items-center">
                     <h3 className="font-black text-ink text-base md:text-lg">{r.edge}</h3>
                     <p className="text-muted text-sm leading-relaxed">{r.stat}</p>
                   </div>
-                  <span className="hidden md:block flex-shrink-0 text-3xl font-black text-royal-50 select-none">{String(i + 1).padStart(2, "0")}</span>
+                  <span className="hidden md:block flex-shrink-0 text-3xl font-black text-royal-100 group-hover:text-royal-300 transition-colors select-none">{String(i + 1).padStart(2, "0")}</span>
                 </motion.div>
               </StaggerItem>
             ))}
@@ -341,7 +363,9 @@ export default function JuniorPage() {
                   {/* gradient header */}
                   <div className="relative px-6 pt-7 pb-6 overflow-hidden" style={{ background: `linear-gradient(150deg, ${c.from}, ${c.to})` }}>
                     <div className="absolute inset-0 grid-dots-light opacity-20 pointer-events-none" />
-                    <motion.div className="text-5xl relative z-10" animate={{ y: [0, -8, 0] }} transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}>{c.flag}</motion.div>
+                    <motion.div className="relative z-10 inline-flex" animate={{ y: [0, -8, 0] }} transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}>
+                      <Flag code={c.flagCode} size={56} rounded="rounded-2xl" className="shadow-xl ring-2 ring-white/40" />
+                    </motion.div>
                     <h3 className="relative z-10 text-2xl font-black text-white mt-3">{c.name}</h3>
                     <p className="relative z-10 text-white/75 text-sm mt-1.5 leading-relaxed">{c.tagline}</p>
                   </div>
@@ -390,20 +414,24 @@ export default function JuniorPage() {
 
           {/* age-split visual */}
           <AnimateOnView className="mt-8 grid sm:grid-cols-2 gap-5 max-w-4xl mx-auto">
-            <div className="card rounded-2xl p-6 flex items-center gap-4">
-              <div className="w-14 h-14 rounded-2xl bg-sky-500/10 flex items-center justify-center text-2xl flex-shrink-0">🧸</div>
+            <motion.div whileHover={{ y: -4 }} transition={{ type: "spring", stiffness: 300 }} className="group card rounded-2xl p-6 flex items-center gap-4">
+              <div className="w-14 h-14 rounded-2xl bg-sky-500/10 flex items-center justify-center flex-shrink-0 transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-6">
+                <MuiIcon name="gaming" size={28} style={{ color: "#0ea5e9" }} />
+              </div>
               <div>
                 <p className="font-black text-ink">Ages 6–10</p>
                 <p className="text-muted text-sm mt-0.5">Play-based, story-led — confidence &amp; vocabulary first.</p>
               </div>
-            </div>
-            <div className="card rounded-2xl p-6 flex items-center gap-4">
-              <div className="w-14 h-14 rounded-2xl bg-royal-50 flex items-center justify-center text-2xl flex-shrink-0">🎯</div>
+            </motion.div>
+            <motion.div whileHover={{ y: -4 }} transition={{ type: "spring", stiffness: 300 }} className="group card rounded-2xl p-6 flex items-center gap-4">
+              <div className="w-14 h-14 rounded-2xl bg-royal-50 flex items-center justify-center flex-shrink-0 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-6">
+                <MuiIcon name="target" size={28} style={{ color: "#3b5bdb" }} />
+              </div>
               <div>
                 <p className="font-black text-ink">Ages 11–16</p>
                 <p className="text-muted text-sm mt-0.5">Structured, exam-ready — DELF, Goethe &amp; IELTS aligned.</p>
               </div>
-            </div>
+            </motion.div>
           </AnimateOnView>
         </div>
       </section>
@@ -414,7 +442,9 @@ export default function JuniorPage() {
         <div className="blob blob-royal w-[640px] h-[360px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none" />
         <div className="container-max relative z-10 text-center">
           <AnimateOnView>
-            <motion.div className="text-5xl mb-4 inline-block" animate={{ rotate: [0, 12, -12, 0] }} transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}>🌍</motion.div>
+            <motion.div className="mb-4 inline-flex" animate={{ rotate: [0, 12, -12, 0], y: [0, -6, 0] }} transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}>
+              <MuiIcon name="globe" size={56} style={{ color: "#7dd3fc" }} />
+            </motion.div>
             <h2 className="text-3xl md:text-5xl font-black text-white max-w-3xl mx-auto leading-tight">
               Ready to say{" "}
               <span className="gradient-text-light">Bonjour, Hallo, or Hello</span>{" "}

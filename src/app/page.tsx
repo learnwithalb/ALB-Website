@@ -377,7 +377,7 @@ export default function HomePage() {
               >
                 Helping you
                 <br />
-                <span className="gradient-text-light">Speak, Connect &amp; Belong</span>
+                <span className="shimmer-text">Speak, Connect &amp; Belong</span>
               </motion.h1>
 
               <motion.p

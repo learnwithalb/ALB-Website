@@ -2,8 +2,9 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowRight, ArrowDown, CheckCircle, ChevronDown } from "lucide-react";
+import { ArrowRight, ArrowDown, CheckCircle, ChevronDown, Hourglass, Video, Clock, Gift, Sparkles } from "lucide-react";
 import { AnimateOnView, StaggerContainer, StaggerItem } from "@/components/shared/AnimateOnView";
 import { MuiIcon } from "@/lib/icons";
 import { CountUp } from "@/components/shared/CountUp";
@@ -11,7 +12,12 @@ import { useBooking } from "@/components/shared/BookingContext";
 
 /* ─────────────── data ─────────────── */
 
-const HERO_CHIPS = ["2 Weeks", "6 Live Sessions", "6 Hours", "₹0 Extra Cost"];
+const HERO_STATS = [
+  { Icon: Hourglass, label: "2 Weeks" },
+  { Icon: Video, label: "6 Live Sessions" },
+  { Icon: Clock, label: "6 Hours" },
+  { Icon: Gift, label: "₹0 Extra Cost" },
+];
 
 const STATS = [
   { value: "2",  label: "Weeks",             grad: "linear-gradient(135deg,#dde6ff,#c2d2ff)" },
@@ -76,114 +82,106 @@ export default function BeyondPage() {
   return (
     <>
       {/* ══════════════════ HERO ══════════════════ */}
-      <section className="relative min-h-[92vh] flex items-center hero-light overflow-hidden pt-28 pb-20">
-        <div className="absolute inset-0 grid-lines pointer-events-none opacity-70" />
-        <div className="blob blob-royal w-[520px] h-[420px] -top-32 left-1/4 pointer-events-none" />
-        <div className="blob blob-sky w-[400px] h-[400px] bottom-0 right-[-6%] pointer-events-none" />
+      <section className="relative sec-dark overflow-hidden pt-28 pb-16 min-h-[600px] md:min-h-[640px] lg:min-h-[720px] flex items-center">
+        {/* flat navy base */}
+        <div className="absolute inset-0 z-0" style={{ background: "#040b2a" }} />
+
+        {/* image — right side, blended into the navy */}
+        <div className="absolute inset-y-0 right-0 z-0 hidden lg:block w-[58%] overflow-hidden pointer-events-none">
+          <motion.div className="absolute inset-0" initial={{ scale: 1.08 }} animate={{ scale: 1 }} transition={{ duration: 1.6, ease: [0.22, 1, 0.36, 1] }}>
+            <Image
+              src="/images/hero-images/beyond.png"
+              alt="ALB +Beyond — Global Confidence Program"
+              fill
+              priority
+              sizes="(max-width: 1024px) 0px, 58vw"
+              className="object-cover object-center select-none"
+            />
+          </motion.div>
+          {/* fade the image's left edge into the navy base */}
+          <div className="absolute inset-0" style={{ background: "linear-gradient(90deg, #040b2a 0%, rgba(4,11,42,0.94) 16%, rgba(4,11,42,0.5) 40%, rgba(4,11,42,0.12) 68%, transparent 100%)" }} />
+        </div>
+        {/* top/bottom polish + purple glow lower-right */}
+        <div className="absolute inset-0 z-0 pointer-events-none" style={{ background: "linear-gradient(180deg, rgba(3,8,30,0.5) 0%, transparent 16%, transparent 88%, rgba(3,8,30,0.55) 100%), radial-gradient(ellipse 50% 50% at 80% 70%, rgba(124,58,237,0.22) 0%, transparent 60%)" }} />
 
         <div className="container-max px-5 md:px-8 relative z-10 w-full">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            {/* copy */}
-            <div>
-              <motion.div initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
-                <span className="eyebrow-pill-blue">Included Free with Every Language Program</span>
-              </motion.div>
-
-              <motion.h1
-                initial={{ opacity: 0, y: 28 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.7, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-                className="text-4xl md:text-6xl font-black text-ink leading-[1.05] tracking-tight"
-              >
-                Beyond Language.
-                <br />
-                <span className="gradient-text">Beyond Limits.</span>
-              </motion.h1>
-
-              <motion.p
-                initial={{ opacity: 0, y: 18 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.22 }}
-                className="mt-5 text-lg text-body max-w-xl leading-relaxed"
-              >
-                Most language schools teach you <em className="text-ink not-italic font-semibold">what</em> to say.
-                ALB teaches you <em className="text-ink not-italic font-semibold">how</em> to say it — with the confidence,
-                clarity, and professional presence that changes how the world receives you.
-              </motion.p>
-
-              {/* info chips */}
-              <motion.div
-                className="mt-7 flex flex-wrap gap-2.5"
-                initial="hidden"
-                animate="visible"
-                variants={{ visible: { transition: { staggerChildren: 0.08, delayChildren: 0.35 } } }}
-              >
-                {HERO_CHIPS.map((c) => (
-                  <motion.span
-                    key={c}
-                    variants={{ hidden: { opacity: 0, scale: 0.8, y: 10 }, visible: { opacity: 1, scale: 1, y: 0 } }}
-                    transition={{ type: "spring", stiffness: 400, damping: 20 }}
-                    className="flex items-center gap-1.5 bg-white border border-line shadow-sm rounded-full px-3.5 py-1.5 text-xs font-bold text-ink"
-                  >
-                    <CheckCircle size={12} className="text-royal-500" />
-                    {c}
-                  </motion.span>
-                ))}
-              </motion.div>
-
-              <motion.div
-                className="mt-8 flex flex-wrap items-center gap-4"
-                initial={{ opacity: 0, y: 14 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.7 }}
-              >
-                <Link href="#structure" className="btn-primary">
-                  Explore the Module <ArrowRight size={16} />
-                </Link>
-                <Link href="#structure" className="inline-flex items-center gap-1.5 text-royal-700 font-bold text-sm group">
-                  See the sessions
-                  <motion.span animate={{ y: [0, 4, 0] }} transition={{ duration: 1.5, repeat: Infinity }}>
-                    <ArrowDown size={15} />
-                  </motion.span>
-                </Link>
-              </motion.div>
-            </div>
-
-            {/* floating program card */}
-            <motion.div
-              className="hidden lg:block"
-              initial={{ opacity: 0, scale: 0.92, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+          <div className="max-w-2xl">
+            <motion.span
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.05] backdrop-blur-sm px-4 py-2 text-sm font-semibold text-white/85"
             >
-              <motion.div animate={{ y: [0, -12, 0] }} transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }} className="relative">
-                <div className="blob blob-royal absolute -inset-6 opacity-50" />
-                <div className="card rounded-3xl p-6 relative">
-                  <div className="flex items-center justify-between mb-4">
-                    <span className="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider text-royal-700 bg-royal-50 px-2.5 py-1 rounded-full">
-                      <span className="w-1.5 h-1.5 rounded-full bg-sky-500 animate-pulse" /> Live · Interactive
-                    </span>
-                    <span className="text-xs font-bold text-muted">2 Weeks</span>
-                  </div>
-                  <h3 className="font-display text-2xl font-semibold text-ink leading-tight">ALB Global Confidence Program</h3>
-                  <p className="text-muted text-xs mt-1">6 sessions · 6 hours · ₹0 extra</p>
-                  <div className="mt-5 space-y-2">
-                    {["Confidence Building", "Effective Communication", "Public Speaking", "Professional Communication", "Interview Skills", "Capstone Simulation"].map((s, i) => (
-                      <motion.div
-                        key={s}
-                        className="flex items-center gap-3 rounded-xl bg-royal-50/70 px-3 py-2"
-                        initial={{ opacity: 0, x: 20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: 0.7 + i * 0.1 }}
-                      >
-                        <span className="w-6 h-6 rounded-lg bg-white shadow-sm flex items-center justify-center text-[10px] font-black text-royal-600">{i + 1}</span>
-                        <span className="text-sm font-semibold text-ink">{s}</span>
-                        <CheckCircle size={15} className="text-royal-500 ml-auto" />
-                      </motion.div>
-                    ))}
-                  </div>
-                </div>
-              </motion.div>
+              <Sparkles size={15} className="text-sky-300" />
+              Included Free with Every Language Program
+            </motion.span>
+
+            <motion.h1
+              initial={{ opacity: 0, y: 26 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+              className="text-4xl sm:text-5xl xl:text-[3.6rem] font-black text-white leading-[1.05] tracking-tight mt-6"
+              style={{ textShadow: "0 6px 44px rgba(2,8,40,0.5)" }}
+            >
+              Beyond Language.
+              <br />
+              Beyond <span className="shimmer-text">Limits.</span>
+            </motion.h1>
+
+            <motion.p
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.22 }}
+              className="mt-5 text-base md:text-lg text-white/70 max-w-xl leading-relaxed"
+            >
+              Most language schools teach you <em className="text-white not-italic font-semibold">what</em> to say.
+              ALB teaches you <em className="text-white not-italic font-semibold">how</em> to say it — with the confidence,
+              clarity, and professional presence that changes how the world receives you.
+            </motion.p>
+
+            <motion.div
+              initial={{ opacity: 0, y: 14 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.6 }}
+              className="mt-8 flex flex-wrap items-center gap-5"
+            >
+              <button
+                onClick={() => openModal("ALB Global Confidence Program")}
+                className="inline-flex items-center gap-3 text-base pl-7 pr-3 py-2.5 rounded-full font-black text-white transition-transform hover:-translate-y-0.5"
+                style={{ background: "#3b5bdb", boxShadow: "0 0 30px rgba(59,91,219,0.45)" }}
+              >
+                Explore the Module
+                <span className="w-9 h-9 rounded-full bg-white flex items-center justify-center" style={{ color: "#3b5bdb" }}><ArrowRight size={16} /></span>
+              </button>
+              <Link href="#structure" className="inline-flex items-center gap-2 text-white/85 font-bold text-sm border-b border-white/30 pb-1 hover:text-white hover:border-white/60 transition-colors">
+                See the sessions
+                <motion.span animate={{ y: [0, 4, 0] }} transition={{ duration: 1.5, repeat: Infinity }}>
+                  <ArrowDown size={15} />
+                </motion.span>
+              </Link>
+            </motion.div>
+
+            {/* stat chips */}
+            <motion.div
+              className="mt-10 grid grid-cols-2 sm:grid-cols-4 gap-3"
+              initial="hidden"
+              animate="visible"
+              variants={{ visible: { transition: { staggerChildren: 0.08, delayChildren: 0.7 } } }}
+            >
+              {HERO_STATS.map(({ Icon, label }) => (
+                <motion.div
+                  key={label}
+                  variants={{ hidden: { opacity: 0, scale: 0.85, y: 10 }, visible: { opacity: 1, scale: 1, y: 0 } }}
+                  transition={{ type: "spring", stiffness: 380, damping: 22 }}
+                  whileHover={{ y: -3 }}
+                  className="flex items-center gap-2.5 rounded-2xl border border-white/10 bg-white/[0.05] backdrop-blur-sm px-3.5 py-3"
+                >
+                  <span className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0" style={{ background: "rgba(124,58,237,0.22)" }}>
+                    <Icon size={18} className="text-[#c4b5fd]" />
+                  </span>
+                  <span className="text-sm font-bold text-white/90 leading-tight">{label}</span>
+                </motion.div>
+              ))}
             </motion.div>
           </div>
         </div>

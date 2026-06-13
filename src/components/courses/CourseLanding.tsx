@@ -2,8 +2,9 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowRight, ArrowDown, CheckCircle, ChevronDown, ChevronRight, Download, Star, X } from "lucide-react";
+import { ArrowRight, ArrowDown, CheckCircle, ChevronDown, ChevronRight, Download, X, GraduationCap, Clock, Users, BookOpen, Trophy } from "lucide-react";
 import { AnimateOnView, StaggerContainer, StaggerItem } from "@/components/shared/AnimateOnView";
 import { CountUp } from "@/components/shared/CountUp";
 import { useBooking } from "@/components/shared/BookingContext";
@@ -16,6 +17,7 @@ export function CourseLanding({ data }: { data: CourseData }) {
   const a = data.accent;
   const al = data.al;
   const active = data.curriculum[mod];
+  const statIcons = [GraduationCap, Clock, Users, BookOpen, Trophy];
 
   const instructors = [
     { emoji: "🎓", role: `Lead ${data.lang} Language Mentor`, desc: "CEFR-aligned trainer focused on speaking confidence, grammar clarity, pronunciation correction, and structured progression across every level." },
@@ -26,12 +28,61 @@ export function CourseLanding({ data }: { data: CourseData }) {
   return (
     <>
       {/* ══════════ HERO ══════════ */}
-      <section className="relative sec-dark overflow-hidden pt-28 pb-16 min-h-[78vh] flex items-center">
-        <div className="absolute inset-0 grid-dots-light opacity-25 pointer-events-none" />
-        <div className="blob blob-royal w-[520px] h-[440px] -top-24 left-1/4 pointer-events-none" />
-        <div className="blob blob-sky w-[400px] h-[400px] bottom-0 right-[-6%] pointer-events-none" />
+      <section className="relative sec-dark overflow-hidden pt-28 pb-14 min-h-[560px] md:min-h-[620px] lg:min-h-[680px] flex items-center">
+        {!data.heroImage && <div className="absolute inset-0 grid-dots-light opacity-25 pointer-events-none" />}
+        {!data.heroImage && <div className="blob blob-royal w-[520px] h-[440px] -top-24 left-1/4 pointer-events-none" />}
+        {!data.heroImage && <div className="blob blob-sky w-[400px] h-[400px] bottom-0 right-[-6%] pointer-events-none" />}
+
+        {/* Hero image — full height on the right, blended into the navy */}
+        {data.heroImage && (
+          <>
+            {/* flat navy base so the image edge blends with no seam */}
+            <div
+              className="absolute inset-0 z-0"
+              style={{ background: "#030b35" }}
+            />
+            {/* royal glow upper-left for depth */}
+            <div
+              className="absolute inset-0 z-0 pointer-events-none"
+              style={{ background: "radial-gradient(ellipse 44% 42% at 55% 36%, rgba(18,93,255,0.22) 0%, transparent 65%)" }}
+            />
+            {/* image with a slow cinematic zoom-in reveal */}
+            <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+              <motion.div
+                className="absolute inset-0"
+                initial={{ scale: 1.12 }}
+                animate={{ scale: 1.03 }}
+                transition={{ duration: 1.6, ease: [0.22, 1, 0.36, 1] }}
+              >
+                <Image
+                  src={data.heroImage}
+                  alt={`${data.lang} programme`}
+                  fill
+                  priority
+                  sizes="100vw"
+                  className="object-cover object-center select-none"
+                />
+              </motion.div>
+              {/* fade the image's left edge into the base navy */}
+              <div
+                className="absolute inset-0"
+                style={{
+                  background:
+                    "linear-gradient(90deg, #030b35 0%, rgba(3,11,53,0.98) 24%, rgba(3,11,53,0.70) 50%, rgba(3,11,53,0.18) 78%, transparent 100%)",
+                }}
+              />
+            </div>
+            {/* darken the very top (breadcrumb) + fade bottom into the stats strip */}
+            <div
+              className="absolute inset-0 z-0 pointer-events-none"
+              style={{ background: "linear-gradient(180deg, rgba(2,8,43,0.8) 0%, rgba(2,8,43,0.16) 14%, rgba(2,8,43,0) 38%, rgba(2,8,43,0) 82%, #02072a 100%), radial-gradient(ellipse 58% 46% at 78% 72%, rgba(113,42,255,0.34) 0%, transparent 58%)" }}
+            />
+          </>
+        )}
+
         <div className="container-max px-5 md:px-8 relative z-10 w-full">
-          <nav className="text-xs text-white/40 mb-6 flex items-center gap-1.5">
+          <div className={data.heroImage ? "max-w-2xl" : ""}>
+          <nav className={`${data.heroImage ? "text-xs mb-6 text-white/45" : "text-xs mb-6 text-white/40"} flex items-center gap-2`}>
             <Link href="/" className="hover:text-white">Home</Link>
             <ChevronRight size={12} />
             <Link href="/courses" className="hover:text-white">Courses</Link>
@@ -39,43 +90,85 @@ export function CourseLanding({ data }: { data: CourseData }) {
             <span className="font-semibold" style={{ color: al }}>{data.lang}</span>
           </nav>
 
-          <motion.span initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} className="text-xs font-bold uppercase tracking-[0.18em] block" style={{ color: al }}>
+          <motion.span
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="rounded-lg px-3.5 py-1.5 text-[11px] inline-flex items-center border bg-white/[0.04] backdrop-blur-sm font-bold uppercase tracking-[0.18em]"
+            style={{
+              color: al,
+              borderColor: data.heroImage ? `${al}7a` : `${al}40`,
+              boxShadow: data.heroImage ? `0 0 0 1px ${al}1f, 0 0 22px ${al}47` : `inset 0 1px 0 ${al}33`,
+            }}
+          >
+            {data.heroImage && (
+              <motion.span
+                className="inline-block w-1.5 h-1.5 rounded-full mr-2.5 flex-shrink-0"
+                style={{ background: al, boxShadow: `0 0 8px ${al}` }}
+                animate={{ opacity: [1, 0.4, 1] }}
+                transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut" }}
+              />
+            )}
             {data.ew}
           </motion.span>
-          <motion.h1 initial={{ opacity: 0, y: 26 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.1, ease: [0.22, 1, 0.36, 1] }} className="text-4xl md:text-6xl font-black text-white leading-[1.05] tracking-tight mt-4">
-            {data.h1a}<br /><span style={{ color: al }}>{data.h1b}</span>
+          <motion.h1 initial={{ opacity: 0, y: 26 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.1, ease: [0.22, 1, 0.36, 1] }} className={`${data.heroImage ? "text-4xl sm:text-5xl xl:text-[3.6rem] mt-5" : "text-4xl md:text-6xl mt-4"} font-black text-white leading-[1.05] tracking-tight`} style={data.heroImage ? { textShadow: "0 6px 44px rgba(2,8,40,0.55)" } : undefined}>
+            {data.h1a}<br /><span className={data.heroImage ? "shimmer-text" : ""} style={data.heroImage ? { backgroundImage: `linear-gradient(110deg, ${al} 0%, ${al} 38%, #ffffff 50%, ${al} 62%, ${al} 100%)` } : { color: al }}>{data.h1b}</span>
           </motion.h1>
-          <motion.p initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.22 }} className="mt-5 text-lg text-white/65 max-w-2xl leading-relaxed">
+          <motion.p initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.22 }} className={`${data.heroImage ? "mt-5 text-base md:text-lg text-white/75 max-w-xl" : "mt-5 text-lg text-white/65 max-w-2xl"} leading-relaxed`}>
             {data.hs}
           </motion.p>
 
-          <motion.div className="mt-7 flex flex-wrap gap-2.5" initial="hidden" animate="visible" variants={{ visible: { transition: { staggerChildren: 0.06, delayChildren: 0.35 } } }}>
-            {data.chips.map((c) => (
-              <motion.span key={c} variants={{ hidden: { opacity: 0, scale: 0.8 }, visible: { opacity: 1, scale: 1 } }} className="text-xs font-semibold text-white/85 bg-white/10 border border-white/20 px-3.5 py-1.5 rounded-full">{c}</motion.span>
-            ))}
-          </motion.div>
+          {!data.heroImage && (
+            <motion.div className="mt-7 gap-2.5 flex flex-wrap" initial="hidden" animate="visible" variants={{ visible: { transition: { staggerChildren: 0.06, delayChildren: 0.35 } } }}>
+              {data.chips.map((c) => (
+                <motion.span
+                  key={c}
+                  variants={{ hidden: { opacity: 0, scale: 0.8 }, visible: { opacity: 1, scale: 1 } }}
+                  className="text-xs px-3.5 py-1.5 rounded-full border-white/20 bg-white/10 inline-flex items-center gap-1.5 font-semibold text-white/90 border backdrop-blur-sm"
+                >
+                  {c}
+                </motion.span>
+              ))}
+            </motion.div>
+          )}
 
-          <motion.div initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.7 }} className="mt-8 flex flex-wrap items-center gap-4">
-            <button onClick={() => openModal(data.modalKey)} className="btn-white text-base px-7 py-3.5">Book a Free Trial Class <ArrowRight size={16} /></button>
-            <Link href="#curriculum" className="inline-flex items-center gap-1.5 text-white/80 font-bold text-sm">
+          <motion.div initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.7 }} className={`${data.heroImage ? "mt-8 gap-5" : "mt-8 gap-4"} flex flex-wrap items-center`}>
+            <button
+              onClick={() => openModal(data.modalKey)}
+              className={`${data.heroImage ? "text-base px-7 py-3.5 rounded-full" : "btn-white text-base px-7 py-3.5"} inline-flex items-center gap-2.5 font-black transition-transform hover:-translate-y-0.5`}
+              style={data.heroImage ? { background: al, color: "#0a1024", boxShadow: `0 0 30px ${al}59` } : undefined}
+            >
+              Book a Free Trial Class <ArrowRight size={16} />
+            </button>
+            <Link href="#curriculum" className="text-sm inline-flex items-center gap-1.5 text-white/80 font-bold">
               View the curriculum
               <motion.span animate={{ y: [0, 4, 0] }} transition={{ duration: 1.5, repeat: Infinity }}><ArrowDown size={15} /></motion.span>
             </Link>
           </motion.div>
           <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.85 }} className="mt-4 text-white/35 text-xs">Free trial class available · No obligation</motion.p>
+          </div>
         </div>
       </section>
 
       {/* ══════════ STATS ══════════ */}
-      <section className="sec-dark relative overflow-hidden py-12 border-t border-white/10">
+      <section
+        className={`relative overflow-hidden pb-16 -mt-2 ${data.heroImage ? "" : "sec-dark"}`}
+        style={data.heroImage ? { background: "linear-gradient(180deg,#02072a 0%,#061336 100%)" } : undefined}
+      >
         <div className="container-max px-5 md:px-8 relative z-10">
-          <div className="grid grid-cols-3 md:grid-cols-5 gap-6 md:gap-2 text-center">
-            {data.stats.map((s, i) => (
-              <motion.div key={s.l} initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: i * 0.08 }} className="md:border-r md:border-white/10 md:last:border-r-0">
-                <div className="text-3xl md:text-4xl font-black text-white"><CountUp value={s.n} duration={1500} /></div>
-                <div className="text-[10.5px] md:text-xs font-bold uppercase tracking-wider text-white/40 mt-1.5">{s.l}</div>
-              </motion.div>
-            ))}
+          <div className="rounded-2xl border border-white/12 bg-white/[0.04] backdrop-blur-sm px-4 py-8 md:px-6 md:py-9 shadow-[0_20px_60px_rgba(0,0,0,0.35)]">
+            <div className="grid grid-cols-3 md:grid-cols-5 gap-6 md:gap-2 text-center">
+              {data.stats.map((s, i) => {
+                const Icon = statIcons[i % statIcons.length];
+                return (
+                  <motion.div key={s.l} initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: i * 0.08 }} whileHover={{ y: -3 }} className="group md:border-r md:border-white/10 md:last:border-r-0 cursor-default">
+                    <Icon size={22} strokeWidth={1.75} className="mx-auto mb-2.5 transition-transform duration-300 group-hover:scale-110" style={{ color: al }} />
+                    <div className="text-3xl md:text-4xl font-black text-white"><CountUp value={s.n} duration={1500} /></div>
+                    <div className="text-[10.5px] md:text-xs font-bold uppercase tracking-wider text-white/45 mt-1.5 transition-colors group-hover:text-white/70">{s.l}</div>
+                  </motion.div>
+                );
+              })}
+            </div>
           </div>
         </div>
       </section>

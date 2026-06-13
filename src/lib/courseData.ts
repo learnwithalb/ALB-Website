@@ -13,6 +13,7 @@ export interface CourseData {
   modalKey: string;
   accent: string;
   al: string;
+  heroImage?: string;
   ew: string;
   h1a: string;
   h1b: string;
@@ -46,6 +47,7 @@ const SOFT_SKILLS_MODULE: CurriculumModule = {
 export const FRENCH: CourseData = {
   lang: "French", modalKey: "French Language",
   accent: "#2563EB", al: "#93C5FD",
+  heroImage: "/images/hero-images/french.png",
   ew: "French · A1 to B2 · Four Tracks",
   h1a: "Learn French.", h1b: "Achieve What Matters.",
   hs: "A1 to B2 in 36 weeks. Four tracks — Immigration, Academic, Career, and Junior. One structured programme built for Indian learners with a clear goal.",
@@ -140,6 +142,7 @@ export const FRENCH: CourseData = {
 export const ENGLISH: CourseData = {
   lang: "English", modalKey: "IELTS Coaching",
   accent: "#059669", al: "#6EE7B7",
+  heroImage: "/images/hero-images/english.png",
   ew: "English Speaking · Foundation to Advanced · Four Tracks",
   h1a: "Speak English.", h1b: "Change Your Story.",
   hs: "Foundation to Advanced in 22 weeks. Four tracks — Immigration, Academic, Career, and Junior. Built for Indian professionals and students who are ready to go further.",
@@ -234,6 +237,7 @@ export const ENGLISH: CourseData = {
 export const GERMAN: CourseData = {
   lang: "German", modalKey: "German Language",
   accent: "#B45309", al: "#FBBF24",
+  heroImage: "/images/hero-images/german.png",
   ew: "German · A1 to B2 · Four Tracks",
   h1a: "Learn German.", h1b: "Open Any Door.",
   hs: "A1 to B2 in 36 weeks. Four tracks — Immigration, Academic, Career, and Junior. One systematic programme for Indian learners targeting Germany, Austria, and Switzerland.",
