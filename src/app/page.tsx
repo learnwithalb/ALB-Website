@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
@@ -12,6 +12,7 @@ import { AnimateOnView, StaggerContainer, StaggerItem } from "@/components/share
 import { languages, testimonials, faqs } from "@/lib/constants";
 import { MuiIcon, Flag, flagSrc } from "@/lib/icons";
 import { useBooking } from "@/components/shared/BookingContext";
+import Lightfall from "@/components/shared/Lightfall";
 
 /* ───────────────────────────────────────────────
    Language Network Visualization (light theme)
@@ -345,16 +346,54 @@ export default function HomePage() {
   const { openModal } = useBooking();
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
+  // Pause the WebGL hero background while it's scrolled off-screen (saves GPU/CPU → smoother scrolling).
+  const heroRef = useRef<HTMLElement>(null);
+  const [heroInView, setHeroInView] = useState(true);
+  useEffect(() => {
+    const el = heroRef.current;
+    if (!el) return;
+    const io = new IntersectionObserver(
+      ([entry]) => setHeroInView(entry.isIntersecting),
+      { threshold: 0 }
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
   return (
     <div className="bg-site">
 
       {/* ══════════════════════════ HERO (dark anchor) ══════════════════════════ */}
-      <section className="sec-dark relative min-h-[100svh] flex items-center overflow-hidden pt-20 pb-10">
+      <section ref={heroRef} className="sec-dark relative min-h-[100svh] flex items-center overflow-hidden pt-20 pb-10">
+
+        {/* Lightfall WebGL streaks — animated hero background */}
+        <div className="absolute inset-0 z-0">
+          <Lightfall
+            paused={!heroInView}
+            colors={["#9bb2ff", "#3b5bdb", "#7dd3fc"]}
+            backgroundColor="#0f1840"
+            speed={0.6}
+            streakCount={3}
+            streakWidth={1}
+            streakLength={1}
+            glow={0.8}
+            density={0.5}
+            twinkle={1}
+            zoom={2.4}
+            backgroundGlow={0.6}
+            opacity={0.4}
+            mouseInteraction
+            mouseStrength={0.7}
+            mouseRadius={0.7}
+          />
+        </div>
+        {/* readability veil + fade to the section edges */}
+        <div className="absolute inset-0 z-0 pointer-events-none" style={{ background: "radial-gradient(ellipse 78% 68% at 50% 45%, rgba(15,24,64,0.25) 0%, rgba(15,24,64,0.55) 68%, rgba(15,24,64,0.85) 100%)" }} />
 
         {/* dot grid bg */}
-        <div className="absolute inset-0 grid-dots-light pointer-events-none opacity-40" />
-        <div className="blob blob-royal w-[520px] h-[420px] bottom-0 right-[12%] pointer-events-none" />
-        <div className="blob blob-sky w-[360px] h-[360px] top-[8%] left-[-6%] pointer-events-none" />
+        <div className="absolute inset-0 grid-dots-light pointer-events-none opacity-20 z-0" />
+        <div className="blob blob-royal w-[520px] h-[420px] bottom-0 right-[12%] pointer-events-none z-0" />
+        <div className="blob blob-sky w-[360px] h-[360px] top-[8%] left-[-6%] pointer-events-none z-0" />
 
         <div className="container-max px-5 md:px-8 w-full relative z-10">
           <div className="grid lg:grid-cols-2 gap-8 lg:gap-6 items-center">

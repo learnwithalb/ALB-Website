@@ -2,8 +2,9 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowRight, CheckCircle, ChevronDown } from "lucide-react";
+import { ArrowRight, CheckCircle, ChevronDown, Users, Video, Star, Globe, PlayCircle } from "lucide-react";
 import { AnimateOnView, StaggerContainer, StaggerItem } from "@/components/shared/AnimateOnView";
 import { CountUp } from "@/components/shared/CountUp";
 import { useBooking } from "@/components/shared/BookingContext";
@@ -11,7 +12,13 @@ import { MuiIcon, Flag } from "@/lib/icons";
 
 /* ─────────────── data ─────────────── */
 
-const TRUST = ["Ages 6–16", "Live Online", "Small Cohorts", "DELF / Goethe Exam Readiness", "India-First Curriculum"];
+const TRUST = [
+  { Icon: Users, label: "Ages 6–16" },
+  { Icon: Video, label: "Live & Interactive" },
+  { Icon: Star, label: "Expert Educators" },
+  { Icon: Globe, label: "DELF / Goethe / Cambridge Aligned" },
+  { Icon: Users, label: "India + Global Curriculum" },
+];
 
 const SCIENCE_STATS = [
   { value: "140", prefix: "+", label: "SAT points vs monolingual peers" },
@@ -96,16 +103,6 @@ const FAQS = [
   { q: "How long does it take to get a DELF certificate?", a: "DELF A1 takes approximately 8 weeks to complete at ALB Junior (3 sessions per week). After completing the level, students are fully prepared to sit the official DELF exam. Most students reach A2 within one academic year, and B1 by their second year." },
 ];
 
-type Floater = { kind: "flag" | "icon"; val: string; d: number; top?: string; bottom?: string; left?: string; right?: string };
-const FLOATERS: Floater[] = [
-  { kind: "flag", val: "FR", top: "14%", left: "6%",  d: 3.4 },
-  { kind: "flag", val: "DE", top: "22%", right: "9%", d: 4.2 },
-  { kind: "icon", val: "edit", bottom: "26%", left: "9%", d: 3.0 },
-  { kind: "icon", val: "globe", top: "55%", right: "5%", d: 3.8 },
-  { kind: "icon", val: "school", bottom: "16%", right: "16%", d: 4.6 },
-  { kind: "flag", val: "GB", top: "40%", left: "3%", d: 3.2 },
-];
-
 /* ─────────────── page ─────────────── */
 
 export default function JuniorPage() {
@@ -115,94 +112,111 @@ export default function JuniorPage() {
   return (
     <>
       {/* ══════════════════ HERO ══════════════════ */}
-      <section className="relative min-h-[94vh] flex items-center overflow-hidden pt-28 pb-20 hero-light">
-        <div className="absolute inset-0 grid-lines pointer-events-none opacity-70" />
-        <div className="blob blob-royal w-[520px] h-[460px] -top-24 left-1/4 pointer-events-none" />
-        <div className="blob blob-sky w-[420px] h-[420px] bottom-0 right-[-6%] pointer-events-none" />
+      <section
+        className="relative overflow-hidden pt-28 pb-16 min-h-[600px] md:min-h-[660px] lg:min-h-[760px] flex items-center"
+        style={{ background: "linear-gradient(115deg, #ffffff 0%, #f5f9ff 44%, #e9f1ff 72%, #eef5ff 100%)" }}
+      >
+        {/* soft royal + sky glows for depth (full width, no edges) */}
+        <div
+          className="absolute inset-0 z-0 pointer-events-none"
+          style={{ background: "radial-gradient(ellipse 52% 64% at 70% 46%, rgba(59,91,219,0.12) 0%, transparent 62%), radial-gradient(ellipse 46% 54% at 24% 26%, rgba(56,189,248,0.10) 0%, transparent 60%)" }}
+        />
+        {/* grid texture that gradually fades out toward the centre */}
+        <div
+          className="absolute inset-0 z-0 grid-lines pointer-events-none opacity-50"
+          style={{ WebkitMaskImage: "linear-gradient(90deg, #000 0%, #000 20%, transparent 52%)", maskImage: "linear-gradient(90deg, #000 0%, #000 20%, transparent 52%)" }}
+        />
 
-        {/* floating flag & icon chips */}
-        {FLOATERS.map((f, i) => (
+        {/* full-bleed illustration — melts into the background; the globe bleeds faintly behind the copy for depth */}
+        <div className="absolute inset-0 z-0 hidden lg:block overflow-hidden pointer-events-none">
           <motion.div
-            key={i}
-            className="absolute hidden md:block select-none pointer-events-none"
-            style={{ top: f.top, left: f.left, right: f.right, bottom: f.bottom }}
-            initial={{ opacity: 0, scale: 0.5 }}
-            animate={{ opacity: 1, scale: 1, y: [0, -18, 0], rotate: [0, 6, -6, 0] }}
-            transition={{
-              opacity: { duration: 0.6, delay: 0.6 + i * 0.1 },
-              scale: { duration: 0.6, delay: 0.6 + i * 0.1, type: "spring", stiffness: 200 },
-              y: { duration: f.d, repeat: Infinity, ease: "easeInOut", delay: i * 0.3 },
-              rotate: { duration: f.d, repeat: Infinity, ease: "easeInOut", delay: i * 0.3 },
-            }}
+            className="absolute inset-0"
+            initial={{ scale: 1.05, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ duration: 1.5, ease: [0.22, 1, 0.36, 1] }}
           >
-            {f.kind === "flag" ? (
-              <Flag code={f.val} size={44} rounded="rounded-xl" className="shadow-lg shadow-royal-500/20 ring-1 ring-white/60" />
-            ) : (
-              <span className="w-12 h-12 rounded-2xl bg-white shadow-lg shadow-royal-500/15 border border-line flex items-center justify-center">
-                <MuiIcon name={f.val} size={24} style={{ color: "#3b5bdb" }} />
-              </span>
-            )}
+            <Image
+              src="/images/hero-images/junior.png"
+              alt="ALB Junior — children learning languages live online"
+              fill
+              priority
+              sizes="100vw"
+              className="object-cover object-[50%_28%] select-none"
+            />
           </motion.div>
-        ))}
+          {/* horizontal melt into the white — keeps the copy readable, lets the globe bleed through the centre */}
+          <div className="absolute inset-0" style={{ background: "linear-gradient(90deg, rgba(245,249,255,0.98) 0%, rgba(245,249,255,0.92) 22%, rgba(245,249,255,0.55) 42%, rgba(245,249,255,0.14) 64%, rgba(245,249,255,0) 82%)" }} />
+          {/* vertical melt so the image has no hard top/bottom frame */}
+          <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, #f5f9ff 0%, transparent 13%, transparent 87%, #eef5ff 100%)" }} />
+        </div>
 
-        <div className="container-max px-5 md:px-8 relative z-10 w-full text-center">
-          <motion.div initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
-            <span className="eyebrow-pill">ALB Junior · Ages 6–16</span>
-          </motion.div>
+        <div className="container-max px-5 md:px-8 relative z-10 w-full">
+          <div className="max-w-2xl">
+            <motion.div initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
+              <span className="eyebrow-pill">ALB Junior · Ages 6–16</span>
+            </motion.div>
 
-          <motion.h1
-            initial={{ opacity: 0, y: 28 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-            className="text-4xl md:text-6xl font-black text-ink leading-[1.05] tracking-tight max-w-4xl mx-auto"
-          >
-            Give your child a head start{" "}
-            <span className="gradient-text">the world will notice.</span>
-          </motion.h1>
+            <motion.h1
+              initial={{ opacity: 0, y: 26 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+              className="text-4xl sm:text-5xl xl:text-[3.6rem] font-black text-ink leading-[1.05] tracking-tight mt-5"
+            >
+              Give your child a head start{" "}
+              <span className="gradient-text">the world will notice.</span>
+            </motion.h1>
 
-          <motion.p
-            initial={{ opacity: 0, y: 18 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.22 }}
-            className="mt-5 text-lg md:text-xl text-body max-w-2xl mx-auto leading-relaxed"
-          >
-            French, German &amp; English — taught live, online, in small batches.
-            Designed for Indian children. Structured for global success.
-          </motion.p>
+            <motion.p
+              initial={{ opacity: 0, y: 18 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.22 }}
+              className="mt-5 text-base md:text-lg text-body max-w-lg leading-relaxed"
+            >
+              French, German &amp; English — taught live, online, in small batches.
+              Designed for Indian children. Structured for global success.
+            </motion.p>
 
-          <motion.div
-            initial={{ opacity: 0, y: 14 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.33 }}
-            className="mt-8 flex flex-wrap justify-center gap-3"
-          >
-            <button onClick={() => openModal("ALB Junior (Ages 6–16)")} className="btn-primary text-base px-7 py-3.5">
-              Book a Free Demo Class <ArrowRight size={16} />
-            </button>
-            <Link href="#courses" className="btn-outline text-base px-7 py-3.5">
-              View Courses for My Child
-            </Link>
-          </motion.div>
-
-          {/* trust strip */}
-          <motion.div
-            className="mt-9 flex flex-wrap justify-center gap-2.5"
-            initial="hidden"
-            animate="visible"
-            variants={{ visible: { transition: { staggerChildren: 0.07, delayChildren: 0.5 } } }}
-          >
-            {TRUST.map((t) => (
-              <motion.span
-                key={t}
-                variants={{ hidden: { opacity: 0, scale: 0.8, y: 10 }, visible: { opacity: 1, scale: 1, y: 0 } }}
-                transition={{ type: "spring", stiffness: 400, damping: 20 }}
-                className="flex items-center gap-1.5 bg-white border border-line shadow-sm rounded-full px-3.5 py-1.5 text-xs font-bold text-ink"
+            <motion.div
+              initial={{ opacity: 0, y: 14 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.4 }}
+              className="mt-8 flex flex-wrap items-center gap-4"
+            >
+              <button
+                onClick={() => openModal("ALB Junior (Ages 6–16)")}
+                className="inline-flex items-center gap-3 text-base pl-7 pr-3 py-2.5 rounded-full font-black text-white transition-transform hover:-translate-y-0.5"
+                style={{ background: "#3b5bdb", boxShadow: "0 10px 26px rgba(59,91,219,0.35)" }}
               >
-                <CheckCircle size={12} className="text-royal-500" />
-                {t}
-              </motion.span>
-            ))}
-          </motion.div>
+                Book a Free Demo Class
+                <span className="w-9 h-9 rounded-full bg-white flex items-center justify-center" style={{ color: "#3b5bdb" }}><ArrowRight size={16} /></span>
+              </button>
+              <Link href="#courses" className="inline-flex items-center gap-2.5 text-base px-6 py-3 rounded-full font-bold text-royal-700 bg-white/70 backdrop-blur-md border border-white/70 shadow-[0_6px_22px_rgba(59,91,219,0.12)] hover:bg-white/90 hover:-translate-y-0.5 transition-all">
+                <PlayCircle size={20} className="text-royal-500" />
+                View Courses for My Child
+              </Link>
+            </motion.div>
+
+            {/* trust strip */}
+            <motion.div
+              className="mt-10 flex flex-wrap gap-2.5"
+              initial="hidden"
+              animate="visible"
+              variants={{ visible: { transition: { staggerChildren: 0.07, delayChildren: 0.5 } } }}
+            >
+              {TRUST.map(({ Icon, label }) => (
+                <motion.span
+                  key={label}
+                  variants={{ hidden: { opacity: 0, scale: 0.8, y: 10 }, visible: { opacity: 1, scale: 1, y: 0 } }}
+                  transition={{ type: "spring", stiffness: 400, damping: 20 }}
+                  whileHover={{ y: -3 }}
+                  className="inline-flex items-center gap-2 bg-white/65 backdrop-blur-md border border-white/70 shadow-[0_4px_16px_rgba(59,91,219,0.10)] rounded-full px-4 py-2.5 text-sm font-bold text-ink"
+                >
+                  <Icon size={16} className="text-royal-500" />
+                  {label}
+                </motion.span>
+              ))}
+            </motion.div>
+          </div>
         </div>
       </section>
 

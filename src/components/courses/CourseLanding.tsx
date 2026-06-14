@@ -8,6 +8,7 @@ import { ArrowRight, ArrowDown, CheckCircle, ChevronDown, ChevronRight, Download
 import { AnimateOnView, StaggerContainer, StaggerItem } from "@/components/shared/AnimateOnView";
 import { CountUp } from "@/components/shared/CountUp";
 import { useBooking } from "@/components/shared/BookingContext";
+import { MuiIcon } from "@/lib/icons";
 import type { CourseData } from "@/lib/courseData";
 
 export function CourseLanding({ data }: { data: CourseData }) {
@@ -20,9 +21,9 @@ export function CourseLanding({ data }: { data: CourseData }) {
   const statIcons = [GraduationCap, Clock, Users, BookOpen, Trophy];
 
   const instructors = [
-    { emoji: "🎓", role: `Lead ${data.lang} Language Mentor`, desc: "CEFR-aligned trainer focused on speaking confidence, grammar clarity, pronunciation correction, and structured progression across every level." },
-    { emoji: "📝", role: data.examRole, desc: "Specialist in exam task strategy, mock testing, writing correction, oral performance, and score improvement for immigration and academic outcomes." },
-    { emoji: "🎤", role: "Soft Skills & Interview Mentor", desc: "Trainer focused on public speaking, email etiquette, presentation delivery, personal branding, and interview performance in professional settings." },
+    { icon: "school", role: `Lead ${data.lang} Language Mentor`, desc: "CEFR-aligned trainer focused on speaking confidence, grammar clarity, pronunciation correction, and structured progression across every level." },
+    { icon: "edit", role: data.examRole, desc: "Specialist in exam task strategy, mock testing, writing correction, oral performance, and score improvement for immigration and academic outcomes." },
+    { icon: "mic", role: "Soft Skills & Interview Mentor", desc: "Trainer focused on public speaking, email etiquette, presentation delivery, personal branding, and interview performance in professional settings." },
   ];
 
   return (
@@ -178,15 +179,16 @@ export function CourseLanding({ data }: { data: CourseData }) {
         <div className="blob blob-sky w-[420px] h-[420px] top-0 right-[-8%] opacity-40 pointer-events-none" />
         <div className="container-max relative z-10">
           <AnimateOnView className="mb-12 max-w-2xl">
-            <span className="eyebrow" style={{ color: a }}>Choose Your Track</span>
-            <h2 className="text-3xl md:text-4xl font-black text-ink leading-tight">Four tracks. One programme. <span style={{ color: a }}>Your goal, built in.</span></h2>
+            <span className="eyebrow" style={{ color: a }}>{data.sections?.tracks?.eyebrow ?? "Choose Your Track"}</span>
+            <h2 className="text-3xl md:text-4xl font-black text-ink leading-tight">{data.sections?.tracks?.a ?? "Four tracks. One programme. "}<span style={{ color: a }}>{data.sections?.tracks?.b ?? "Your goal, built in."}</span></h2>
+            {data.sections?.tracks?.sub && <p className="text-body text-base md:text-lg mt-4 leading-relaxed">{data.sections.tracks.sub}</p>}
           </AnimateOnView>
           <StaggerContainer className="grid sm:grid-cols-2 gap-5" staggerDelay={0.08}>
             {data.tracks.map((t) => (
               <StaggerItem key={t.name}>
                 <div className="relative card-hover rounded-2xl p-7 h-full" style={{ borderTop: `4px solid ${t.color}` }}>
                   {t.pop && <span className="absolute top-4 right-4 text-[10px] font-black uppercase tracking-wider text-white px-2.5 py-1 rounded-full" style={{ background: t.color }}>★ Most Popular</span>}
-                  <span className="text-3xl block mb-3">{t.icon}</span>
+                  <span className="w-12 h-12 rounded-xl flex items-center justify-center mb-3" style={{ background: `${t.color}14` }}><MuiIcon name={t.icon} size={26} style={{ color: t.color }} /></span>
                   <h3 className="text-lg font-black text-ink">{t.name}</h3>
                   <p className="text-muted text-sm mt-2 leading-relaxed">{t.forText}</p>
                   <div className="flex flex-wrap gap-1.5 mt-4">
@@ -207,8 +209,9 @@ export function CourseLanding({ data }: { data: CourseData }) {
         <div className="blob blob-royal w-[420px] h-[420px] bottom-0 left-[-8%] opacity-40 pointer-events-none" />
         <div className="container-max relative z-10">
           <AnimateOnView className="text-center max-w-2xl mx-auto mb-12">
-            <span className="eyebrow" style={{ color: a }}>The Learning Journey</span>
-            <h2 className="text-3xl md:text-4xl font-black text-ink leading-tight">One structured journey. <span style={{ color: a }}>Every milestone counts.</span></h2>
+            <span className="eyebrow" style={{ color: a }}>{data.sections?.journey?.eyebrow ?? "The Learning Journey"}</span>
+            <h2 className="text-3xl md:text-4xl font-black text-ink leading-tight">{data.sections?.journey?.a ?? "One structured journey. "}<span style={{ color: a }}>{data.sections?.journey?.b ?? "Every milestone counts."}</span></h2>
+            {data.sections?.journey?.sub && <p className="text-body text-base md:text-lg mt-4 leading-relaxed">{data.sections.journey.sub}</p>}
           </AnimateOnView>
           <div className="relative">
             <div className="hidden lg:block absolute top-7 left-[10%] right-[10%] h-px" style={{ background: `linear-gradient(90deg, ${a}33, ${a}, ${a}33)` }} />
@@ -233,8 +236,9 @@ export function CourseLanding({ data }: { data: CourseData }) {
       <section id="curriculum" className="section-padding sec-light relative overflow-hidden">
         <div className="container-max relative z-10">
           <AnimateOnView className="text-center max-w-2xl mx-auto mb-12">
-            <span className="eyebrow" style={{ color: a }}>The Curriculum in Detail</span>
-            <h2 className="text-3xl md:text-4xl font-black text-ink leading-tight">What you study at <span style={{ color: a }}>every level.</span></h2>
+            <span className="eyebrow" style={{ color: a }}>{data.sections?.curriculum?.eyebrow ?? "The Curriculum in Detail"}</span>
+            <h2 className="text-3xl md:text-4xl font-black text-ink leading-tight">{data.sections?.curriculum?.a ?? "What you study at "}<span style={{ color: a }}>{data.sections?.curriculum?.b ?? "every level."}</span></h2>
+            {data.sections?.curriculum?.sub && <p className="text-body text-base md:text-lg mt-4 leading-relaxed max-w-2xl mx-auto">{data.sections.curriculum.sub}</p>}
           </AnimateOnView>
 
           <div className="grid lg:grid-cols-[260px_1fr] gap-5 lg:gap-7 items-start">
@@ -287,14 +291,15 @@ export function CourseLanding({ data }: { data: CourseData }) {
         <div className="blob blob-sky w-[420px] h-[420px] top-0 right-[-8%] opacity-40 pointer-events-none" />
         <div className="container-max relative z-10">
           <AnimateOnView className="text-center max-w-2xl mx-auto mb-12">
-            <span className="eyebrow" style={{ color: a }}>What You Will Be Able to Do</span>
-            <h2 className="text-3xl md:text-4xl font-black text-ink leading-tight">Outcomes you <span style={{ color: a }}>keep for life.</span></h2>
+            <span className="eyebrow" style={{ color: a }}>{data.sections?.outcomes?.eyebrow ?? "What You Will Be Able to Do"}</span>
+            <h2 className="text-3xl md:text-4xl font-black text-ink leading-tight">{data.sections?.outcomes?.a ?? "Outcomes you "}<span style={{ color: a }}>{data.sections?.outcomes?.b ?? "keep for life."}</span></h2>
+            {data.sections?.outcomes?.sub && <p className="text-body text-base md:text-lg mt-4 leading-relaxed">{data.sections.outcomes.sub}</p>}
           </AnimateOnView>
           <StaggerContainer className="grid sm:grid-cols-2 gap-4" staggerDelay={0.06}>
             {data.outcomes.map((o) => (
               <StaggerItem key={o.t}>
                 <div className="card-hover rounded-2xl p-5 flex gap-4 h-full">
-                  <span className="w-11 h-11 rounded-xl flex items-center justify-center text-xl flex-shrink-0" style={{ background: `${a}14` }}>{o.i}</span>
+                  <span className="w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0" style={{ background: `${a}14` }}><MuiIcon name={o.i} size={22} style={{ color: a }} /></span>
                   <div>
                     <p className="font-bold text-ink text-sm leading-snug">{o.t}</p>
                     <p className="text-muted text-xs mt-1 leading-relaxed">{o.s}</p>
@@ -310,14 +315,15 @@ export function CourseLanding({ data }: { data: CourseData }) {
       <section className="section-padding sec-light relative overflow-hidden">
         <div className="container-max relative z-10">
           <AnimateOnView className="text-center max-w-2xl mx-auto mb-12">
-            <span className="eyebrow" style={{ color: a }}>The ALB Difference</span>
-            <h2 className="text-3xl md:text-4xl font-black text-ink leading-tight">Why serious learners <span style={{ color: a }}>choose ALB.</span></h2>
+            <span className="eyebrow" style={{ color: a }}>{data.sections?.usps?.eyebrow ?? "The ALB Difference"}</span>
+            <h2 className="text-3xl md:text-4xl font-black text-ink leading-tight">{data.sections?.usps?.a ?? "Why serious learners "}<span style={{ color: a }}>{data.sections?.usps?.b ?? "choose ALB."}</span></h2>
+            {data.sections?.usps?.sub && <p className="text-body text-base md:text-lg mt-4 leading-relaxed">{data.sections.usps.sub}</p>}
           </AnimateOnView>
           <StaggerContainer className="grid sm:grid-cols-2 gap-5" staggerDelay={0.08}>
             {data.usps.map((u) => (
               <StaggerItem key={u.t}>
                 <div className="card-feature rounded-2xl p-7 h-full">
-                  <span className="text-2xl block mb-3">{u.i}</span>
+                  <span className="w-12 h-12 rounded-xl flex items-center justify-center mb-3" style={{ background: `${a}14` }}><MuiIcon name={u.i} size={26} style={{ color: a }} /></span>
                   <h3 className="font-black text-ink text-lg">{u.t}</h3>
                   <p className="text-muted text-sm mt-2 leading-relaxed">{u.b}</p>
                 </div>
@@ -331,8 +337,9 @@ export function CourseLanding({ data }: { data: CourseData }) {
       <section className="section-padding sec-mist relative overflow-hidden">
         <div className="container-max relative z-10">
           <AnimateOnView className="text-center max-w-2xl mx-auto mb-12">
-            <span className="eyebrow" style={{ color: a }}>ALB vs A Generic Class</span>
-            <h2 className="text-3xl md:text-4xl font-black text-ink leading-tight">See the <span style={{ color: a }}>difference</span> clearly.</h2>
+            <span className="eyebrow" style={{ color: a }}>{data.sections?.comparison?.eyebrow ?? "ALB vs A Generic Class"}</span>
+            <h2 className="text-3xl md:text-4xl font-black text-ink leading-tight">{data.sections?.comparison?.a ?? "See the "}<span style={{ color: a }}>{data.sections?.comparison?.b ?? "difference"}</span>{data.sections?.comparison ? "" : " clearly."}</h2>
+            {data.sections?.comparison?.sub && <p className="text-body text-base md:text-lg mt-4 leading-relaxed">{data.sections.comparison.sub}</p>}
           </AnimateOnView>
           <AnimateOnView className="card rounded-2xl overflow-hidden max-w-4xl mx-auto">
             <div className="hidden md:grid grid-cols-[1.2fr_1fr_1fr] text-sm font-bold">
@@ -356,8 +363,9 @@ export function CourseLanding({ data }: { data: CourseData }) {
         <div className="blob blob-royal w-[420px] h-[420px] top-10 left-[-8%] opacity-30 pointer-events-none" />
         <div className="container-max relative z-10">
           <AnimateOnView className="text-center max-w-2xl mx-auto mb-12">
-            <span className="eyebrow" style={{ color: a }}>Learner Stories</span>
-            <h2 className="text-3xl md:text-4xl font-black text-ink leading-tight">Real results from <span style={{ color: a }}>real {data.lang} learners.</span></h2>
+            <span className="eyebrow" style={{ color: a }}>{data.sections?.reviews?.eyebrow ?? "Learner Stories"}</span>
+            <h2 className="text-3xl md:text-4xl font-black text-ink leading-tight">{data.sections?.reviews?.a ?? "Real results from "}<span style={{ color: a }}>{data.sections?.reviews?.b ?? `real ${data.lang} learners.`}</span></h2>
+            {data.sections?.reviews?.sub && <p className="text-body text-base md:text-lg mt-4 leading-relaxed">{data.sections.reviews.sub}</p>}
           </AnimateOnView>
           <StaggerContainer className="grid md:grid-cols-2 lg:grid-cols-3 gap-5" staggerDelay={0.07}>
             {data.reviews.map((r) => {
@@ -413,14 +421,15 @@ export function CourseLanding({ data }: { data: CourseData }) {
       <section className="section-padding sec-mist relative overflow-hidden">
         <div className="container-max relative z-10">
           <AnimateOnView className="text-center max-w-2xl mx-auto mb-12">
-            <span className="eyebrow" style={{ color: a }}>The Experts Behind Your Journey</span>
-            <h2 className="text-3xl md:text-4xl font-black text-ink leading-tight">Mentors who know <span style={{ color: a }}>both the language and the goal.</span></h2>
+            <span className="eyebrow" style={{ color: a }}>{data.sections?.instructors?.eyebrow ?? "The Experts Behind Your Journey"}</span>
+            <h2 className="text-3xl md:text-4xl font-black text-ink leading-tight">{data.sections?.instructors?.a ?? "Mentors who know "}<span style={{ color: a }}>{data.sections?.instructors?.b ?? "both the language and the goal."}</span></h2>
+            {data.sections?.instructors?.sub && <p className="text-body text-base md:text-lg mt-4 leading-relaxed">{data.sections.instructors.sub}</p>}
           </AnimateOnView>
           <StaggerContainer className="grid md:grid-cols-3 gap-5" staggerDelay={0.1}>
             {instructors.map((m) => (
               <StaggerItem key={m.role}>
                 <div className="card-hover rounded-2xl p-7 text-center h-full">
-                  <div className="w-16 h-16 mx-auto rounded-2xl flex items-center justify-center text-3xl mb-4" style={{ background: `${a}14` }}>{m.emoji}</div>
+                  <div className="w-16 h-16 mx-auto rounded-2xl flex items-center justify-center mb-4" style={{ background: `${a}14` }}><MuiIcon name={m.icon} size={32} style={{ color: a }} /></div>
                   <p className="text-[10.5px] font-bold uppercase tracking-widest mb-2" style={{ color: a }}>Faculty</p>
                   <h3 className="font-black text-ink">{m.role}</h3>
                   <p className="text-muted text-sm mt-2 leading-relaxed">{m.desc}</p>
