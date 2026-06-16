@@ -1,15 +1,22 @@
 "use client";
 
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { motion } from "framer-motion";
-import { ArrowRight, CheckCircle, XCircle } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { ArrowRight, CheckCircle, XCircle, Award, Globe, Quote } from "lucide-react";
 import { AnimateOnView, StaggerContainer, StaggerItem } from "@/components/shared/AnimateOnView";
 import { CountUp } from "@/components/shared/CountUp";
 import { MuiIcon } from "@/lib/icons";
 import { useBooking } from "@/components/shared/BookingContext";
 
 /* ─────────────── data ─────────────── */
+
+const HERO_QUOTES = [
+  { img: "/images/hero-images/homepage/english.png", quote: "The limits of my language are the limits of my world.", author: "Ludwig Wittgenstein" },
+  { img: "/images/hero-images/homepage/french.png", quote: "To have another language is to possess a second soul.", author: "Charlemagne" },
+  { img: "/images/hero-images/homepage/german.png", quote: "One language sets you in a corridor for life. Two open every door along the way.", author: "Frank Smith" },
+];
 
 const GREETINGS = [
   { w: "Bonjour", c: "#6d8bff" },
@@ -84,113 +91,185 @@ const DIFF = [
 export default function AboutPage() {
   const { openModal } = useBooking();
 
+  const [slide, setSlide] = useState(0);
+  const slidePaused = useRef(false);
+  useEffect(() => {
+    const id = setInterval(() => {
+      if (slidePaused.current) return;
+      setSlide((p) => (p + 1) % HERO_QUOTES.length);
+    }, 4500);
+    return () => clearInterval(id);
+  }, []);
+
   return (
     <>
       {/* ══════════════════ HERO ══════════════════ */}
-      <section className="relative hero-light overflow-hidden pt-28 pb-20 flex items-center min-h-[90vh]">
-        <div className="absolute inset-0 grid-lines pointer-events-none opacity-70" />
-        <div className="blob blob-royal w-[560px] h-[460px] -top-24 right-0 pointer-events-none" />
-        <div className="blob blob-sky w-[400px] h-[400px] bottom-0 left-[-6%] pointer-events-none" />
-        {/* floating accents */}
-        {[
-          { e: "🇫🇷", top: "16%", left: "4%", d: 3.4 },
-          { e: "🇩🇪", bottom: "20%", left: "8%", d: 4.1 },
-          { e: "🇬🇧", top: "24%", right: "44%", d: 3.7 },
-        ].map((f, i) => (
-          <motion.div key={i} className="absolute hidden lg:block text-3xl select-none pointer-events-none opacity-80"
-            style={{ top: f.top, left: (f as { left?: string }).left, right: (f as { right?: string }).right, bottom: (f as { bottom?: string }).bottom }}
-            animate={{ y: [0, -16, 0], rotate: [0, 6, -6, 0] }} transition={{ duration: f.d, repeat: Infinity, ease: "easeInOut", delay: i * 0.3 }}>
-            {f.e}
+      <section className="relative hero-light overflow-hidden pt-40 pb-16">
+        <div className="absolute inset-0 grid-lines pointer-events-none opacity-60" />
+        <div className="blob blob-royal w-[520px] h-[420px] -top-24 right-[4%] opacity-50 pointer-events-none" />
+        <div className="blob blob-sky w-[440px] h-[440px] -bottom-28 left-[-6%] opacity-40 pointer-events-none" />
+
+        <div className="container-max px-5 md:px-8 relative z-10">
+          {/* credential badges */}
+          <motion.div
+            initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}
+            className="flex flex-wrap justify-center gap-3"
+          >
+            {[
+              { Icon: Award, label: "50+ Years Teaching Legacy" },
+              { Icon: Globe, label: "French · German · English" },
+            ].map((b) => (
+              <span key={b.label} className="flex items-center gap-2 bg-white border border-line shadow-sm rounded-full pl-2 pr-4 py-1.5">
+                <span className="w-6 h-6 rounded-full bg-amber-100 flex items-center justify-center">
+                  <b.Icon size={13} className="text-amber-500" />
+                </span>
+                <span className="text-xs font-extrabold text-ink tracking-tight">{b.label}</span>
+              </span>
+            ))}
           </motion.div>
-        ))}
 
-        <div className="container-max px-5 md:px-8 relative z-10 w-full">
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-            {/* copy */}
-            <div>
-              <motion.div initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
-                <span className="eyebrow-pill-outline">Our Story</span>
-              </motion.div>
-              <motion.h1
-                initial={{ opacity: 0, y: 28 }} animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.7, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-                className="text-4xl md:text-[3.4rem] font-black text-ink leading-[1.08] tracking-tight"
-              >
-                We didn&apos;t just build a language school.{" "}
-                <span className="gradient-text">We built what we always wished existed.</span>
-              </motion.h1>
-              <motion.p
-                initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.25 }}
-                className="mt-6 text-lg md:text-xl text-body max-w-xl leading-relaxed"
-              >
-                Academy of Languages &amp; Beyond was created to bridge one gap: the gap between
-                <span className="text-ink font-semibold"> learning a language</span> and
-                <span className="text-ink font-semibold"> living it.</span>
-              </motion.p>
-              <motion.div
-                initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.4 }}
-                className="mt-7 flex flex-wrap gap-2.5"
-              >
-                {["50+ years of legacy", "3 languages", "India-first", "Live & online"].map((t) => (
-                  <span key={t} className="flex items-center gap-1.5 bg-white border border-line shadow-sm rounded-full px-3.5 py-1.5 text-xs font-bold text-ink">
-                    <CheckCircle size={12} className="text-royal-500" /> {t}
-                  </span>
-                ))}
-              </motion.div>
-            </div>
+          {/* headline */}
+          <motion.h1
+            initial={{ opacity: 0, y: 26 }} animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+            className="mt-7 text-center mx-auto max-w-5xl text-3xl sm:text-4xl lg:text-[3rem] font-black text-ink leading-[1.08] tracking-tight"
+          >
+            We don&apos;t just teach languages.<br />
+            We build{" "}
+            <span style={{ color: "#3b5bdb" }}>fluency</span>,{" "}
+            <span style={{ color: "#0ea5e9" }}>confidence</span> &amp;{" "}
+            <span style={{ color: "#6366f1" }}>belonging</span>.
+          </motion.h1>
 
-            {/* bridge-the-gap visual */}
-            <motion.div
-              className="hidden lg:block"
-              initial={{ opacity: 0, scale: 0.92 }} animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.8, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+          <motion.p
+            initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.25 }}
+            className="mt-5 text-center mx-auto max-w-3xl text-sm md:text-base text-body leading-relaxed"
+          >
+            Academy of Languages &amp; Beyond bridges the gap between learning a language and living it —
+            through live teaching, real-world practice, and the confidence to belong anywhere.
+          </motion.p>
+
+          <motion.div
+            initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.4 }}
+            className="mt-9 flex justify-center"
+          >
+            <button
+              onClick={() => openModal()}
+              className="inline-flex items-center gap-2.5 text-sm pl-6 pr-2.5 py-2 rounded-full font-black text-white transition-transform hover:-translate-y-0.5"
+              style={{ background: "#3b5bdb", boxShadow: "0 14px 30px rgba(59,91,219,0.40)" }}
             >
-              <motion.div className="relative max-w-sm mx-auto" animate={{ y: [0, -12, 0] }} transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}>
-                <div className="blob blob-royal absolute -inset-8 opacity-50" />
+              Book a Free Demo
+              <span className="w-8 h-8 rounded-full bg-white flex items-center justify-center" style={{ color: "#3b5bdb" }}><ArrowRight size={15} /></span>
+            </button>
+          </motion.div>
 
-                {/* card A — learning */}
-                <div className="relative card rounded-2xl p-5 flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-xl bg-mist flex items-center justify-center text-2xl">📘</div>
-                  <div>
-                    <p className="text-[10px] font-bold uppercase tracking-widest text-muted">You learn</p>
-                    <p className="font-black text-ink text-lg leading-tight">A language</p>
-                    <p className="text-muted text-xs mt-0.5">Grammar · vocabulary · exams</p>
-                  </div>
-                </div>
+          {/* three cards */}
+          <motion.div
+            initial="hidden" animate="show"
+            variants={{ hidden: {}, show: { transition: { staggerChildren: 0.13, delayChildren: 0.5 } } }}
+            className="mt-12 grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-5"
+          >
+            {/* card 1 — quote + photo carousel */}
+            <motion.div
+              variants={{ hidden: { opacity: 0, y: 24 }, show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } } }}
+              onMouseEnter={() => { slidePaused.current = true; }}
+              onMouseLeave={() => { slidePaused.current = false; }}
+              className="md:col-span-5 relative rounded-2xl overflow-hidden min-h-[300px] md:min-h-[340px]"
+              style={{ background: "linear-gradient(135deg,#2b3a66,#16244f)" }}
+            >
+              {/* slides */}
+              <AnimatePresence mode="popLayout">
+                <motion.div
+                  key={slide}
+                  initial={{ opacity: 0, scale: 1.06 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 1 }}
+                  transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+                  className="absolute inset-0"
+                >
+                  <Image
+                    src={HERO_QUOTES[slide].img}
+                    alt={HERO_QUOTES[slide].author}
+                    fill sizes="(max-width:768px) 100vw, 500px"
+                    className="object-cover object-top"
+                    style={{ maskImage: "linear-gradient(to left, #000 30%, transparent 88%)", WebkitMaskImage: "linear-gradient(to left, #000 30%, transparent 88%)" }}
+                  />
+                </motion.div>
+              </AnimatePresence>
 
-                {/* connector + ALB node */}
-                <div className="relative flex flex-col items-center py-2">
-                  <div className="w-px h-5 border-l-2 border-dashed border-royal-200" />
-                  <div className="relative my-1">
-                    {[0, 1].map((i) => (
-                      <motion.span key={i} className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full border border-royal-300" style={{ width: 56, height: 56 }} animate={{ scale: [1, 1.7, 1.7], opacity: [0.6, 0, 0] }} transition={{ duration: 2.6, repeat: Infinity, delay: i * 1.1, ease: "easeOut" }} />
-                    ))}
-                    <div className="relative w-14 h-14 rounded-full bg-white shadow-xl ring-1 ring-line flex items-center justify-center">
-                      <Image src="/images/logo-v2.png" alt="ALB" width={955} height={442} className="w-9 h-auto" />
-                    </div>
-                  </div>
-                  <div className="w-px h-5 border-l-2 border-dashed border-royal-200" />
-                  <span className="text-[10px] font-bold uppercase tracking-widest text-royal-600 mt-1">ALB bridges the gap</span>
-                </div>
+              <div className="absolute inset-0 grid-dots-light opacity-15 pointer-events-none" />
+              <Quote className="absolute top-6 left-6 text-white/25 z-10" size={34} />
 
-                {/* card B — living */}
-                <div className="relative rounded-2xl p-5 flex items-center gap-4 text-white shadow-xl mt-2 overflow-hidden" style={{ background: "linear-gradient(135deg,#3b5bdb,#2f49c0)" }}>
-                  <div className="absolute inset-0 grid-dots-light opacity-20 pointer-events-none" />
-                  <div className="relative z-10 w-12 h-12 rounded-xl bg-white/15 flex items-center justify-center text-2xl">🌍</div>
-                  <div className="relative z-10">
-                    <p className="text-[10px] font-bold uppercase tracking-widest text-white/70">You live it</p>
-                    <p className="font-black text-white text-lg leading-tight">Everywhere</p>
-                    <p className="text-white/70 text-xs mt-0.5">Interviews · embassies · boardrooms · life</p>
-                  </div>
-                </div>
-              </motion.div>
+              {/* pagination dots */}
+              <div className="absolute top-7 right-6 z-20 flex items-center gap-1.5">
+                {HERO_QUOTES.map((_, i) => (
+                  <button
+                    key={i}
+                    onClick={() => setSlide(i)}
+                    aria-label={`Quote ${i + 1}`}
+                    className={`h-1.5 rounded-full transition-all duration-300 ${i === slide ? "w-5 bg-white" : "w-1.5 bg-white/40 hover:bg-white/70"}`}
+                  />
+                ))}
+              </div>
+
+              {/* quote text (animates per slide) */}
+              <div className="absolute bottom-0 left-0 right-0 p-6 z-10">
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={slide}
+                    initial={{ opacity: 0, y: 14 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    transition={{ duration: 0.45, ease: "easeOut" }}
+                    className="flex items-end justify-between gap-4"
+                  >
+                    <p className="font-display text-xl md:text-2xl font-semibold text-white leading-snug max-w-[62%]">
+                      {`"${HERO_QUOTES[slide].quote}"`}
+                    </p>
+                    <span className="text-white/55 text-xs font-semibold text-right leading-tight max-w-[92px]">{HERO_QUOTES[slide].author}</span>
+                  </motion.div>
+                </AnimatePresence>
+              </div>
             </motion.div>
-          </div>
+
+            {/* card 2 — stat */}
+            <motion.div
+              variants={{ hidden: { opacity: 0, y: 24 }, show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } } }}
+              className="md:col-span-3 relative rounded-2xl overflow-hidden min-h-[300px] md:min-h-[340px] p-6 flex flex-col"
+              style={{ background: "linear-gradient(150deg,#3b5bdb,#2f49c0)" }}
+            >
+              <div className="absolute inset-0 grid-dots-light opacity-20 pointer-events-none" />
+              <div className="relative z-10 mt-auto">
+                <div className="text-6xl md:text-7xl font-black text-white leading-none">50<span className="text-4xl align-top">+</span></div>
+                <p className="text-white/80 text-sm font-semibold mt-3 leading-snug">Years of family teaching legacy behind every class</p>
+              </div>
+              <span className="relative z-10 text-white/45 text-xs font-bold mt-4 tracking-wide uppercase">ALB Heritage</span>
+            </motion.div>
+
+            {/* card 3 — CTA */}
+            <motion.div
+              variants={{ hidden: { opacity: 0, y: 24 }, show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } } }}
+              className="md:col-span-4 relative rounded-2xl overflow-hidden min-h-[300px] md:min-h-[340px] p-7 flex flex-col"
+              style={{ background: "linear-gradient(150deg,#dbeafe,#bfdbfe 55%,#a8c8fb)" }}
+            >
+              <div className="absolute -top-12 -right-12 w-44 h-44 rounded-full bg-white/45 blur-2xl pointer-events-none" />
+              <h3 className="relative z-10 text-2xl md:text-3xl font-black text-ink leading-tight">Learn a language you&apos;ll actually use.</h3>
+              <p className="relative z-10 text-royal-700/80 text-sm mt-2.5 font-medium leading-relaxed">Live, interactive cohorts. Exam-ready. Real-world confident.</p>
+              <Link
+                href="/courses"
+                className="relative z-10 mt-auto inline-flex items-center gap-2.5 self-start pl-6 pr-2.5 py-2.5 rounded-full font-black text-white text-sm transition-transform hover:-translate-y-0.5"
+                style={{ background: "#3b5bdb" }}
+              >
+                Explore programmes
+                <span className="w-7 h-7 rounded-full bg-white flex items-center justify-center" style={{ color: "#3b5bdb" }}><ArrowRight size={14} /></span>
+              </Link>
+            </motion.div>
+          </motion.div>
         </div>
       </section>
 
       {/* ══════════════════ GREETING STRIP (dark) ══════════════════ */}
-      <section className="sec-dark relative overflow-hidden py-12 md:py-16">
+      <section className="sec-dark relative overflow-hidden py-6 md:py-8">
         <div className="absolute inset-0 grid-dots-light opacity-25 pointer-events-none" />
         <div className="relative z-10 overflow-hidden [mask-image:linear-gradient(to_right,transparent,#000_8%,#000_92%,transparent)]">
           <motion.div
@@ -202,15 +281,15 @@ export default function AboutPage() {
               <div key={dup} className="flex items-center gap-8 md:gap-12">
                 {GREETINGS.concat(GREETINGS).map((g, i) => (
                   <span key={`${dup}-${i}`} className="flex items-center gap-8 md:gap-12">
-                    <span className="font-display text-5xl md:text-7xl font-bold" style={{ color: g.c }}>{g.w}</span>
-                    <span className="text-white/15 text-4xl md:text-6xl">·</span>
+                    <span className="font-display text-3xl md:text-4xl font-bold" style={{ color: g.c }}>{g.w}</span>
+                    <span className="text-white/15 text-2xl md:text-3xl">·</span>
                   </span>
                 ))}
               </div>
             ))}
           </motion.div>
         </div>
-        <p className="relative z-10 text-center text-white/45 text-sm font-semibold tracking-widest uppercase mt-6">
+        <p className="relative z-10 text-center text-white/45 text-xs font-semibold tracking-widest uppercase mt-3">
           French · German · English · &amp; the warmth of home
         </p>
       </section>

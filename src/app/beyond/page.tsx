@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowRight, ArrowDown, CheckCircle, ChevronDown, Hourglass, Video, Clock, Gift, Sparkles } from "lucide-react";
+import { ArrowRight, ArrowDown, CheckCircle, ChevronDown, Hourglass, Video, Clock, Gift, Sparkles, MessageCircle, Mic, Globe } from "lucide-react";
 import { AnimateOnView, StaggerContainer, StaggerItem } from "@/components/shared/AnimateOnView";
 import { MuiIcon } from "@/lib/icons";
 import { CountUp } from "@/components/shared/CountUp";
@@ -13,10 +13,17 @@ import { useBooking } from "@/components/shared/BookingContext";
 /* ─────────────── data ─────────────── */
 
 const HERO_STATS = [
-  { Icon: Hourglass, label: "2 Weeks" },
-  { Icon: Video, label: "6 Live Sessions" },
-  { Icon: Clock, label: "6 Hours" },
-  { Icon: Gift, label: "₹0 Extra Cost" },
+  { Icon: Hourglass, value: "2", unit: "Weeks" },
+  { Icon: Video, value: "6", unit: "Live Sessions" },
+  { Icon: Clock, value: "6", unit: "Hours" },
+  { Icon: Gift, value: "₹0", unit: "Extra Cost" },
+];
+
+// Floating gradient icon tiles that frame the hero image
+const FLOAT_ICONS = [
+  { Icon: MessageCircle, cls: "top-1 -left-2 sm:-left-6", grad: "linear-gradient(135deg,#3b5bdb,#6d8bff)", d: 0,   dur: 5.2 },
+  { Icon: Mic,           cls: "top-20 -right-1 sm:-right-5", grad: "linear-gradient(135deg,#0ea5e9,#38bdf8)", d: 0.5, dur: 6.0 },
+  { Icon: Globe,         cls: "bottom-6 -left-3 sm:-left-7", grad: "linear-gradient(135deg,#6366f1,#818cf8)", d: 1.1, dur: 5.6 },
 ];
 
 const STATS = [
@@ -82,104 +89,172 @@ export default function BeyondPage() {
   return (
     <>
       {/* ══════════════════ HERO ══════════════════ */}
-      <section className="relative sec-dark overflow-hidden pt-28 pb-16 min-h-[600px] md:min-h-[640px] lg:min-h-[720px] flex items-center">
-        {/* flat navy base */}
-        <div className="absolute inset-0 z-0" style={{ background: "#040b2a" }} />
+      <section
+        className="relative overflow-hidden pt-32 pb-16 lg:pb-20 flex items-center min-h-[90vh]"
+        style={{ background: "linear-gradient(180deg,#f4f3fe 0%,#eef1fe 55%,#eef6ff 100%)" }}
+      >
+        <div className="absolute inset-0 grid-lines pointer-events-none opacity-50" />
+        <div className="blob blob-royal w-[460px] h-[420px] -top-20 left-[-6%] opacity-30 pointer-events-none" />
+        <div className="blob blob-sky w-[420px] h-[420px] bottom-[-12%] right-[-4%] opacity-30 pointer-events-none" />
 
-        {/* image — right side, blended into the navy */}
-        <div className="absolute inset-y-0 right-0 z-0 hidden lg:block w-[58%] overflow-hidden pointer-events-none">
-          <motion.div className="absolute inset-0" initial={{ scale: 1.08 }} animate={{ scale: 1 }} transition={{ duration: 1.6, ease: [0.22, 1, 0.36, 1] }}>
-            <Image
-              src="/images/hero-images/beyond.png"
-              alt="ALB +Beyond — Global Confidence Program"
-              fill
-              priority
-              sizes="(max-width: 1024px) 0px, 58vw"
-              className="object-cover object-center select-none"
-            />
-          </motion.div>
-          {/* fade the image's left edge into the navy base */}
-          <div className="absolute inset-0" style={{ background: "linear-gradient(90deg, #040b2a 0%, rgba(4,11,42,0.94) 16%, rgba(4,11,42,0.5) 40%, rgba(4,11,42,0.12) 68%, transparent 100%)" }} />
-        </div>
-        {/* top/bottom polish + purple glow lower-right */}
-        <div className="absolute inset-0 z-0 pointer-events-none" style={{ background: "linear-gradient(180deg, rgba(3,8,30,0.5) 0%, transparent 16%, transparent 88%, rgba(3,8,30,0.55) 100%), radial-gradient(ellipse 50% 50% at 80% 70%, rgba(124,58,237,0.22) 0%, transparent 60%)" }} />
-
-        <div className="container-max px-5 md:px-8 relative z-10 w-full">
-          <div className="max-w-2xl">
-            <motion.span
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.05] backdrop-blur-sm px-4 py-2 text-sm font-semibold text-white/85"
-            >
-              <Sparkles size={15} className="text-sky-300" />
-              Included Free with Every Language Program
-            </motion.span>
-
-            <motion.h1
-              initial={{ opacity: 0, y: 26 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-              className="text-4xl sm:text-5xl xl:text-[3.6rem] font-black text-white leading-[1.05] tracking-tight mt-6"
-              style={{ textShadow: "0 6px 44px rgba(2,8,40,0.5)" }}
-            >
-              Beyond Language.
-              <br />
-              Beyond <span className="shimmer-text">Limits.</span>
-            </motion.h1>
-
-            <motion.p
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.22 }}
-              className="mt-5 text-base md:text-lg text-white/70 max-w-xl leading-relaxed"
-            >
-              Most language schools teach you <em className="text-white not-italic font-semibold">what</em> to say.
-              ALB teaches you <em className="text-white not-italic font-semibold">how</em> to say it — with the confidence,
-              clarity, and professional presence that changes how the world receives you.
-            </motion.p>
-
-            <motion.div
-              initial={{ opacity: 0, y: 14 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.6 }}
-              className="mt-8 flex flex-wrap items-center gap-5"
-            >
-              <button
-                onClick={() => openModal("ALB Global Confidence Program")}
-                className="inline-flex items-center gap-3 text-base pl-7 pr-3 py-2.5 rounded-full font-black text-white transition-transform hover:-translate-y-0.5"
-                style={{ background: "#3b5bdb", boxShadow: "0 0 30px rgba(59,91,219,0.45)" }}
+        <div className="container-max px-5 md:px-8 relative z-10">
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-10 items-center">
+            {/* ── left: copy ── */}
+            <div>
+              <motion.span
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+                className="inline-flex items-center gap-2 rounded-full border border-royal-200 bg-white shadow-sm px-4 py-2 text-sm font-bold text-royal-700"
               >
-                Explore the Module
-                <span className="w-9 h-9 rounded-full bg-white flex items-center justify-center" style={{ color: "#3b5bdb" }}><ArrowRight size={16} /></span>
-              </button>
-              <Link href="#structure" className="inline-flex items-center gap-2 text-white/85 font-bold text-sm border-b border-white/30 pb-1 hover:text-white hover:border-white/60 transition-colors">
-                See the sessions
-                <motion.span animate={{ y: [0, 4, 0] }} transition={{ duration: 1.5, repeat: Infinity }}>
-                  <ArrowDown size={15} />
-                </motion.span>
-              </Link>
-            </motion.div>
+                <Sparkles size={15} className="text-royal-500" />
+                Included Free with Every Language Program
+              </motion.span>
 
-            {/* stat chips */}
-            <motion.div
-              className="mt-10 grid grid-cols-2 sm:grid-cols-4 gap-3"
-              initial="hidden"
-              animate="visible"
-              variants={{ visible: { transition: { staggerChildren: 0.08, delayChildren: 0.7 } } }}
-            >
-              {HERO_STATS.map(({ Icon, label }) => (
-                <motion.div
-                  key={label}
-                  variants={{ hidden: { opacity: 0, scale: 0.85, y: 10 }, visible: { opacity: 1, scale: 1, y: 0 } }}
-                  transition={{ type: "spring", stiffness: 380, damping: 22 }}
-                  whileHover={{ y: -3 }}
-                  className="flex items-center gap-2.5 rounded-2xl border border-white/10 bg-white/[0.05] backdrop-blur-sm px-3.5 py-3"
+              <motion.h1
+                initial={{ opacity: 0, y: 26 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+                className="text-4xl sm:text-5xl xl:text-[3.7rem] font-black text-ink leading-[1.04] tracking-tight mt-6"
+              >
+                Beyond Language.
+                <br />
+                Beyond <span className="gradient-text">Limits.</span>
+              </motion.h1>
+
+              <motion.p
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.22 }}
+                className="mt-5 text-base md:text-lg text-body max-w-xl leading-relaxed"
+              >
+                Most language schools teach you <em className="text-ink not-italic font-semibold">what</em> to say.
+                ALB teaches you <em className="text-ink not-italic font-semibold">how</em> to say it — with the confidence,
+                clarity, and professional presence that changes how the world receives you.
+              </motion.p>
+
+              {/* stat chips */}
+              <motion.div
+                className="mt-8 grid grid-cols-2 sm:grid-cols-4 gap-3"
+                initial="hidden"
+                animate="visible"
+                variants={{ visible: { transition: { staggerChildren: 0.08, delayChildren: 0.4 } } }}
+              >
+                {HERO_STATS.map(({ Icon, value, unit }) => (
+                  <motion.div
+                    key={unit}
+                    variants={{ hidden: { opacity: 0, scale: 0.85, y: 10 }, visible: { opacity: 1, scale: 1, y: 0 } }}
+                    transition={{ type: "spring", stiffness: 380, damping: 22 }}
+                    whileHover={{ y: -3 }}
+                    className="flex items-center gap-2.5 rounded-2xl border border-line bg-white shadow-sm px-3.5 py-3"
+                  >
+                    <span className="w-9 h-9 rounded-xl bg-royal-50 flex items-center justify-center flex-shrink-0">
+                      <Icon size={18} className="text-royal-500" />
+                    </span>
+                    <span className="text-sm leading-tight">
+                      <span className="font-black text-ink">{value}</span>{" "}
+                      <span className="text-muted font-semibold">{unit}</span>
+                    </span>
+                  </motion.div>
+                ))}
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, y: 14 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.7 }}
+                className="mt-8 flex flex-wrap items-center gap-5"
+              >
+                <button
+                  onClick={() => openModal("ALB Global Confidence Program")}
+                  className="inline-flex items-center gap-3 text-base pl-7 pr-3 py-2.5 rounded-full font-black text-white transition-transform hover:-translate-y-0.5"
+                  style={{ background: "#3b5bdb", boxShadow: "0 12px 30px rgba(59,91,219,0.40)" }}
                 >
-                  <span className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0" style={{ background: "rgba(124,58,237,0.22)" }}>
-                    <Icon size={18} className="text-[#c4b5fd]" />
-                  </span>
-                  <span className="text-sm font-bold text-white/90 leading-tight">{label}</span>
+                  Explore the Module
+                  <span className="w-9 h-9 rounded-full bg-white flex items-center justify-center" style={{ color: "#3b5bdb" }}><ArrowRight size={16} /></span>
+                </button>
+                <Link href="#structure" className="inline-flex items-center gap-2 text-ink font-bold text-sm border-b border-royal-300 pb-1 hover:text-royal-600 hover:border-royal-500 transition-colors">
+                  See the sessions
+                  <motion.span animate={{ y: [0, 4, 0] }} transition={{ duration: 1.5, repeat: Infinity }}>
+                    <ArrowDown size={15} />
+                  </motion.span>
+                </Link>
+              </motion.div>
+            </div>
+
+            {/* ── right: people-network image + graphical accents ── */}
+            <motion.div
+              className="relative"
+              initial={{ opacity: 0, scale: 0.95, y: 24 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              transition={{ duration: 0.9, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+            >
+              {/* slow rotating gradient glow behind the image */}
+              <motion.div
+                className="absolute inset-6 rounded-full pointer-events-none"
+                style={{ background: "conic-gradient(from 0deg, #3b5bdb, #0ea5e9, #6366f1, #3b5bdb)", filter: "blur(46px)", opacity: 0.22 }}
+                animate={{ rotate: 360 }}
+                transition={{ duration: 32, repeat: Infinity, ease: "linear" }}
+              />
+              {/* pulsing dashed orbit ring */}
+              <motion.div
+                className="absolute inset-0 rounded-[2rem] border border-dashed border-royal-300/40 pointer-events-none hidden md:block"
+                animate={{ scale: [1, 1.03, 1], opacity: [0.5, 0.2, 0.5] }}
+                transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+              />
+
+              <motion.div className="lg:scale-[1.22] origin-center" animate={{ y: [0, -14, 0] }} transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}>
+                <Image
+                  src="/images/hero-images/beyond-hero-v2.png"
+                  alt="ALB +Beyond — speak with confidence in any language"
+                  width={1600}
+                  height={929}
+                  priority
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                  className="relative w-full h-auto select-none drop-shadow-[0_24px_60px_rgba(59,91,219,0.18)]"
+                />
+              </motion.div>
+
+              {/* orbiting dots travelling around the image */}
+              <motion.div className="absolute inset-0 pointer-events-none hidden md:block" animate={{ rotate: 360 }} transition={{ duration: 18, repeat: Infinity, ease: "linear" }}>
+                <span className="absolute top-0 left-1/2 -translate-x-1/2 w-3 h-3 rounded-full bg-royal-500 shadow-lg shadow-royal-500/50" />
+              </motion.div>
+              <motion.div className="absolute inset-0 pointer-events-none hidden md:block" animate={{ rotate: -360 }} transition={{ duration: 26, repeat: Infinity, ease: "linear" }}>
+                <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-2.5 h-2.5 rounded-full bg-sky-400 shadow-lg shadow-sky-400/50" />
+              </motion.div>
+
+              {/* floating gradient icon tiles */}
+              {FLOAT_ICONS.map(({ Icon, cls, grad, d, dur }, i) => (
+                <motion.div
+                  key={i}
+                  className={`absolute z-20 ${cls} w-12 h-12 rounded-2xl flex items-center justify-center shadow-xl`}
+                  style={{ background: grad, boxShadow: "0 14px 30px rgba(59,91,219,0.28)" }}
+                  initial={{ opacity: 0, scale: 0.5 }}
+                  animate={{ opacity: 1, scale: 1, y: [0, -12, 0], rotate: [0, 6, -6, 0] }}
+                  transition={{
+                    opacity: { duration: 0.5, delay: 0.8 + d },
+                    scale: { type: "spring", stiffness: 320, damping: 18, delay: 0.8 + d },
+                    y: { duration: dur, repeat: Infinity, ease: "easeInOut", delay: d },
+                    rotate: { duration: dur, repeat: Infinity, ease: "easeInOut", delay: d },
+                  }}
+                >
+                  <Icon size={20} className="text-white" />
+                </motion.div>
+              ))}
+
+              {/* drifting sparkles */}
+              {[
+                { cls: "top-4 right-10", s: 18, d: 0 },
+                { cls: "bottom-10 right-4", s: 14, d: 1.2 },
+                { cls: "bottom-2 left-1/3", s: 16, d: 0.6 },
+              ].map((sp, i) => (
+                <motion.div
+                  key={i}
+                  className={`absolute z-20 ${sp.cls} text-royal-400 pointer-events-none`}
+                  animate={{ scale: [0.7, 1, 0.7], opacity: [0.3, 0.9, 0.3], rotate: [0, 90, 0] }}
+                  transition={{ duration: 3.4, repeat: Infinity, ease: "easeInOut", delay: sp.d }}
+                >
+                  <Sparkles size={sp.s} />
                 </motion.div>
               ))}
             </motion.div>

@@ -113,9 +113,9 @@
   .sec-dark {
     position: relative;
     background:
-      radial-gradient(ellipse 70% 60% at 15% 10%, rgba(59,91,219,0.45) 0%, transparent 55%),
-      radial-gradient(ellipse 60% 50% at 90% 90%, rgba(14,165,233,0.22) 0%, transparent 55%),
-      linear-gradient(160deg, #1b2a63 0%, #141f4d 55%, #0f1840 100%);
+      radial-gradient(ellipse 70% 60% at 15% 10%, rgba(59,91,219,0.40) 0%, transparent 55%),
+      radial-gradient(ellipse 60% 50% at 90% 90%, rgba(14,165,233,0.16) 0%, transparent 55%),
+      #00082A;
     color: #ffffff;
   }
   .sec-dark h1, .sec-dark h2, .sec-dark h3, .sec-dark h4, .sec-dark h5 { color: #ffffff; }
@@ -707,4 +707,3 @@
     }
   }
 }
-

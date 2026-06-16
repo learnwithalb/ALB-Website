@@ -5,9 +5,17 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, ChevronDown, ArrowRight } from "lucide-react";
+import { Menu, X, ChevronDown, ArrowRight, Sparkles } from "lucide-react";
 import { navItems, languages } from "@/lib/constants";
 import { Flag } from "@/lib/icons";
+
+/* Featured cards for the Courses mega-dropdown */
+const COURSE_CARDS = [
+  { name: "French", sub: "Open Europe — immigration, study & career.", meta: "A1 → B2 · DELF · TEF · TCF", href: "/courses/french", color: "#3b5bdb", icon: "/icons/france.png", curve: "M0 60 C 40 24 70 24 110 46 S 170 38 200 26" },
+  { name: "German", sub: "Study, work & life across German-speaking Europe.", meta: "A1 → B2 · Goethe · TestDaF · DSH", href: "/courses/german", color: "#f59e0b", icon: "/icons/germany.png", curve: "M0 50 C 45 78 80 70 120 46 S 175 30 200 50" },
+  { name: "English", sub: "Speak with confidence and clear every exam.", meta: "IELTS · PTE · Foundation → Advanced", href: "/courses/ielts", color: "#10b981", icon: "/icons/uk.png", curve: "M0 38 C 50 78 90 64 135 50 S 180 56 200 60" },
+  { name: "+Beyond", sub: "Soft skills, interviews & global confidence.", meta: "Communication · Presentations · Interviews", href: "/beyond", color: "#8b5cf6", icon: null, curve: "M0 62 C 55 28 95 30 135 44 S 180 50 200 38" },
+];
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -42,10 +50,7 @@ export function Navbar() {
         transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
         className="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
         style={{
-          background: scrolled
-            ? "rgba(255,255,255,0.88)"
-            : "rgba(255,255,255,0.72)",
-          backdropFilter: "blur(20px)",
+          background: "#ffffff",
           borderBottom: scrolled ? "1px solid rgba(59,91,219,0.10)" : "1px solid rgba(59,91,219,0.06)",
           boxShadow: scrolled ? "0 4px 24px rgba(16,23,51,0.06)" : "none",
         }}
@@ -107,48 +112,53 @@ export function Navbar() {
                             transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }}
                             className="absolute top-full left-1/2 -translate-x-1/2 pt-3"
                           >
-                            <div className="w-[440px] bg-white rounded-2xl border border-line shadow-[0_20px_60px_rgba(16,23,51,0.14)] p-3 overflow-hidden">
-                              <div className="px-3 py-2 mb-1 flex items-center justify-between">
-                                <span className="text-[10px] font-bold uppercase tracking-widest text-muted">Language Programmes</span>
-                                <span className="text-[10px] font-bold uppercase tracking-widest text-royal-400">CEFR-aligned</span>
+                            <div className="w-[840px] max-w-[92vw] bg-white rounded-2xl border border-line shadow-[0_24px_70px_rgba(16,23,51,0.18)] p-3">
+                              {/* header bar */}
+                              <div className="flex items-center justify-between rounded-xl px-5 py-3 mb-3" style={{ background: "#3b5bdb" }}>
+                                <span className="text-white font-bold text-sm">Our language programmes for every goal</span>
+                                <div className="flex items-center gap-5 text-xs font-semibold">
+                                  <Link href="/beyond" className="text-white/70 hover:text-white inline-flex items-center gap-1 transition-colors">+Beyond <ArrowRight size={12} /></Link>
+                                  <Link href="/courses" className="text-white/70 hover:text-white inline-flex items-center gap-1 transition-colors">View All Courses <ArrowRight size={12} /></Link>
+                                </div>
                               </div>
-                              <div className="grid grid-cols-2 gap-1">
-                                {orderedLanguages.map((lang) =>
-                                  lang.comingSoon ? (
-                                    <div
-                                      key={lang.code}
-                                      aria-disabled="true"
-                                      title="Coming soon"
-                                      className="relative flex items-start gap-3 rounded-xl p-3 cursor-not-allowed select-none opacity-70"
-                                    >
-                                      <Flag code={lang.flagCode} size={36} rounded="rounded-lg" className="mt-0.5 grayscale" />
-                                      <span className="min-w-0">
-                                        <span className="flex items-center gap-1.5 text-sm font-bold text-muted leading-tight">{lang.name}</span>
-                                        <span className="mt-1 inline-block text-[9px] font-black uppercase tracking-wider text-royal-500 bg-royal-50 border border-royal-100 px-1.5 py-0.5 rounded-full">Coming Soon</span>
-                                      </span>
+                              {/* course cards */}
+                              <div className="grid grid-cols-4 gap-3">
+                                {COURSE_CARDS.map((c, i) => (
+                                  <Link
+                                    key={c.name}
+                                    href={c.href}
+                                    className="group relative h-[184px] rounded-xl overflow-hidden bg-white border border-line p-4 flex flex-col transition-all hover:border-royal-200 hover:shadow-[0_10px_30px_rgba(16,23,51,0.10)]"
+                                  >
+                                    <div className="relative z-10 flex items-center gap-2 mb-2">
+                                      {c.icon ? (
+                                        <Image src={c.icon} alt="" width={20} height={20} className="w-5 h-5 rounded object-contain flex-shrink-0" />
+                                      ) : (
+                                        <span className="w-5 h-5 rounded flex items-center justify-center flex-shrink-0" style={{ background: `${c.color}1f` }}>
+                                          <Sparkles size={13} style={{ color: c.color }} />
+                                        </span>
+                                      )}
+                                      <h4 className="font-black text-[15px] leading-tight" style={{ color: "#00082A" }}>{c.name}</h4>
                                     </div>
-                                  ) : (
-                                    <Link
-                                      key={lang.code}
-                                      href={lang.href}
-                                      className="group flex items-start gap-3 rounded-xl p-3 hover:bg-royal-50 transition-colors"
+                                    <p className="relative z-10 text-muted text-[11px] mt-1.5 leading-snug">{c.sub}</p>
+                                    <p className="relative z-10 text-[10.5px] mt-2.5 leading-snug" style={{ color: "#9aa3bd" }}>{c.meta}</p>
+                                    {/* glowing chart-style accent line */}
+                                    <svg
+                                      viewBox="0 0 200 90"
+                                      preserveAspectRatio="none"
+                                      className="absolute bottom-0 left-0 w-full h-[92px] transition-transform duration-500 origin-bottom group-hover:scale-y-[1.1]"
                                     >
-                                      <Flag code={lang.flagCode} size={36} rounded="rounded-lg" className="mt-0.5" />
-                                      <span className="min-w-0">
-                                        <span className="block text-sm font-bold text-ink leading-tight">{lang.name}</span>
-                                        <span className="block text-[11px] text-muted leading-snug truncate">{lang.tagline}</span>
-                                      </span>
-                                    </Link>
-                                  )
-                                )}
+                                      <defs>
+                                        <linearGradient id={`hsfill-${i}`} x1="0" y1="0" x2="0" y2="1">
+                                          <stop offset="0%" stopColor={c.color} stopOpacity="0.6" />
+                                          <stop offset="100%" stopColor={c.color} stopOpacity="0.06" />
+                                        </linearGradient>
+                                      </defs>
+                                      <path d={`${c.curve} L 200 90 L 0 90 Z`} fill={`url(#hsfill-${i})`} />
+                                      <path d={c.curve} fill="none" stroke={c.color} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ filter: `drop-shadow(0 0 6px ${c.color}66)` }} />
+                                    </svg>
+                                  </Link>
+                                ))}
                               </div>
-                              <Link
-                                href="/courses"
-                                className="mt-2 flex items-center justify-between rounded-xl px-4 py-3 bg-royal-50 hover:bg-royal-100 transition-colors group"
-                              >
-                                <span className="text-sm font-bold text-royal-700">View all courses</span>
-                                <ArrowRight size={15} className="text-royal-600 group-hover:translate-x-1 transition-transform" />
-                              </Link>
                             </div>
                           </motion.div>
                         )}

@@ -4,21 +4,13 @@ import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowRight, CheckCircle, ChevronDown, Users, Video, Star, Globe, PlayCircle } from "lucide-react";
+import { ArrowRight, CheckCircle, ChevronDown, Users, Globe } from "lucide-react";
 import { AnimateOnView, StaggerContainer, StaggerItem } from "@/components/shared/AnimateOnView";
 import { CountUp } from "@/components/shared/CountUp";
 import { useBooking } from "@/components/shared/BookingContext";
 import { MuiIcon, Flag } from "@/lib/icons";
 
 /* ─────────────── data ─────────────── */
-
-const TRUST = [
-  { Icon: Users, label: "Ages 6–16" },
-  { Icon: Video, label: "Live & Interactive" },
-  { Icon: Star, label: "Expert Educators" },
-  { Icon: Globe, label: "DELF / Goethe / Cambridge Aligned" },
-  { Icon: Users, label: "India + Global Curriculum" },
-];
 
 const SCIENCE_STATS = [
   { value: "140", prefix: "+", label: "SAT points vs monolingual peers" },
@@ -112,111 +104,131 @@ export default function JuniorPage() {
   return (
     <>
       {/* ══════════════════ HERO ══════════════════ */}
-      <section
-        className="relative overflow-hidden pt-28 pb-16 min-h-[600px] md:min-h-[660px] lg:min-h-[760px] flex items-center"
-        style={{ background: "linear-gradient(115deg, #ffffff 0%, #f5f9ff 44%, #e9f1ff 72%, #eef5ff 100%)" }}
-      >
-        {/* soft royal + sky glows for depth (full width, no edges) */}
-        <div
-          className="absolute inset-0 z-0 pointer-events-none"
-          style={{ background: "radial-gradient(ellipse 52% 64% at 70% 46%, rgba(59,91,219,0.12) 0%, transparent 62%), radial-gradient(ellipse 46% 54% at 24% 26%, rgba(56,189,248,0.10) 0%, transparent 60%)" }}
-        />
-        {/* grid texture that gradually fades out toward the centre */}
-        <div
-          className="absolute inset-0 z-0 grid-lines pointer-events-none opacity-50"
-          style={{ WebkitMaskImage: "linear-gradient(90deg, #000 0%, #000 20%, transparent 52%)", maskImage: "linear-gradient(90deg, #000 0%, #000 20%, transparent 52%)" }}
-        />
+      <section className="relative hero-light overflow-hidden pt-28 pb-0 flex flex-col">
+        <div className="blob blob-sky w-[420px] h-[420px] top-[8%] right-[10%] opacity-40 pointer-events-none" />
+        <div className="blob blob-royal w-[400px] h-[400px] top-[24%] left-[8%] opacity-30 pointer-events-none" />
 
-        {/* full-bleed illustration — melts into the background; the globe bleeds faintly behind the copy for depth */}
-        <div className="absolute inset-0 z-0 hidden lg:block overflow-hidden pointer-events-none">
-          <motion.div
-            className="absolute inset-0"
-            initial={{ scale: 1.05, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 1.5, ease: [0.22, 1, 0.36, 1] }}
-          >
-            <Image
-              src="/images/hero-images/junior.png"
-              alt="ALB Junior — children learning languages live online"
-              fill
-              priority
-              sizes="100vw"
-              className="object-cover object-[50%_28%] select-none"
-            />
+        {/* ── centre content ── */}
+        <div className="container-max px-5 md:px-8 relative z-20 flex flex-col items-center text-center max-w-3xl mx-auto">
+          <motion.div initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
+            <span className="eyebrow-pill">ALB Junior · Ages 6–16</span>
           </motion.div>
-          {/* horizontal melt into the white — keeps the copy readable, lets the globe bleed through the centre */}
-          <div className="absolute inset-0" style={{ background: "linear-gradient(90deg, rgba(245,249,255,0.98) 0%, rgba(245,249,255,0.92) 22%, rgba(245,249,255,0.55) 42%, rgba(245,249,255,0.14) 64%, rgba(245,249,255,0) 82%)" }} />
-          {/* vertical melt so the image has no hard top/bottom frame */}
-          <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, #f5f9ff 0%, transparent 13%, transparent 87%, #eef5ff 100%)" }} />
+
+          <motion.h1
+            initial={{ opacity: 0, y: 26 }} animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+            className="text-4xl sm:text-5xl lg:text-[3.9rem] font-black text-ink leading-[1.05] tracking-tight mt-5"
+          >
+            A brighter future for <span className="gradient-text">your child.</span>
+          </motion.h1>
+
+          <motion.p
+            initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.2 }}
+            className="mt-4 text-base md:text-lg text-body"
+          >
+            Let your child speak, present, and belong on the world stage.
+          </motion.p>
+
+          <motion.div initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.3 }} className="mt-7">
+            <button
+              onClick={() => openModal("ALB Junior (Ages 6–16)")}
+              className="inline-flex items-center gap-3 text-base pl-7 pr-3 py-2.5 rounded-full font-black text-white transition-transform hover:-translate-y-0.5"
+              style={{ background: "#3b5bdb", boxShadow: "0 12px 28px rgba(59,91,219,0.40)" }}
+            >
+              Book a Free Demo
+              <span className="w-9 h-9 rounded-full bg-white flex items-center justify-center" style={{ color: "#3b5bdb" }}><ArrowRight size={16} /></span>
+            </button>
+          </motion.div>
+
+          <motion.p
+            initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.4 }}
+            className="mt-7 text-sm text-body max-w-md leading-relaxed"
+          >
+            French, German &amp; English — taught live and online in small batches, with real
+            speaking practice, projects and exam-ready milestones throughout the journey.
+          </motion.p>
+
+          {/* stats */}
+          <motion.div
+            initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.5 }}
+            className="mt-8 flex items-start justify-center gap-10 sm:gap-16"
+          >
+            {[
+              { Icon: Users, value: "5,000+", label: "Young learners guided across India" },
+              { Icon: Globe, value: "3", label: "Languages — French, German & English" },
+            ].map((s) => (
+              <div key={s.value} className="flex items-start gap-3 text-left max-w-[200px]">
+                <span className="w-9 h-9 rounded-full bg-white shadow-sm border border-line flex items-center justify-center flex-shrink-0 mt-1">
+                  <s.Icon size={16} className="text-royal-500" />
+                </span>
+                <div>
+                  <div className="text-2xl md:text-3xl font-black text-ink leading-none">{s.value}</div>
+                  <p className="text-muted text-xs mt-1.5 leading-snug">{s.label}</p>
+                </div>
+              </div>
+            ))}
+          </motion.div>
         </div>
 
-        <div className="container-max px-5 md:px-8 relative z-10 w-full">
-          <div className="max-w-2xl">
-            <motion.div initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
-              <span className="eyebrow-pill">ALB Junior · Ages 6–16</span>
-            </motion.div>
-
-            <motion.h1
-              initial={{ opacity: 0, y: 26 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-              className="text-4xl sm:text-5xl xl:text-[3.6rem] font-black text-ink leading-[1.05] tracking-tight mt-5"
-            >
-              Give your child a head start{" "}
-              <span className="gradient-text">the world will notice.</span>
-            </motion.h1>
-
-            <motion.p
-              initial={{ opacity: 0, y: 18 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.22 }}
-              className="mt-5 text-base md:text-lg text-body max-w-lg leading-relaxed"
-            >
-              French, German &amp; English — taught live, online, in small batches.
-              Designed for Indian children. Structured for global success.
-            </motion.p>
-
+        {/* ── side kid photos (anchored to a centred track so they don't drift on wide screens) ── */}
+        <div className="hidden lg:block absolute inset-0 z-10 pointer-events-none">
+          <div className="relative h-full w-full max-w-[1380px] mx-auto">
             <motion.div
-              initial={{ opacity: 0, y: 14 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.4 }}
-              className="mt-8 flex flex-wrap items-center gap-4"
+              initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.8, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+              className="absolute left-0 top-[44%] -translate-y-1/2"
             >
-              <button
-                onClick={() => openModal("ALB Junior (Ages 6–16)")}
-                className="inline-flex items-center gap-3 text-base pl-7 pr-3 py-2.5 rounded-full font-black text-white transition-transform hover:-translate-y-0.5"
-                style={{ background: "#3b5bdb", boxShadow: "0 10px 26px rgba(59,91,219,0.35)" }}
-              >
-                Book a Free Demo Class
-                <span className="w-9 h-9 rounded-full bg-white flex items-center justify-center" style={{ color: "#3b5bdb" }}><ArrowRight size={16} /></span>
-              </button>
-              <Link href="#courses" className="inline-flex items-center gap-2.5 text-base px-6 py-3 rounded-full font-bold text-royal-700 bg-white/70 backdrop-blur-md border border-white/70 shadow-[0_6px_22px_rgba(59,91,219,0.12)] hover:bg-white/90 hover:-translate-y-0.5 transition-all">
-                <PlayCircle size={20} className="text-royal-500" />
-                View Courses for My Child
-              </Link>
+              <div className="relative w-[260px] h-[260px] xl:w-[300px] xl:h-[300px] rounded-full" style={{ background: "radial-gradient(circle at 50% 38%, #fbbf24 0%, #f59e0b 100%)", boxShadow: "0 30px 60px rgba(245,158,11,0.28)" }}>
+                <div className="absolute inset-0 rounded-full overflow-hidden">
+                  <Image src="/images/hero-images/junior/kid1.png" alt="ALB Junior learner" fill sizes="300px" className="object-cover object-[50%_12%]" />
+                </div>
+              </div>
             </motion.div>
-
-            {/* trust strip */}
             <motion.div
-              className="mt-10 flex flex-wrap gap-2.5"
-              initial="hidden"
-              animate="visible"
-              variants={{ visible: { transition: { staggerChildren: 0.07, delayChildren: 0.5 } } }}
+              initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.8, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
+              className="absolute right-0 top-[44%] -translate-y-1/2"
             >
-              {TRUST.map(({ Icon, label }) => (
-                <motion.span
-                  key={label}
-                  variants={{ hidden: { opacity: 0, scale: 0.8, y: 10 }, visible: { opacity: 1, scale: 1, y: 0 } }}
-                  transition={{ type: "spring", stiffness: 400, damping: 20 }}
-                  whileHover={{ y: -3 }}
-                  className="inline-flex items-center gap-2 bg-white/65 backdrop-blur-md border border-white/70 shadow-[0_4px_16px_rgba(59,91,219,0.10)] rounded-full px-4 py-2.5 text-sm font-bold text-ink"
-                >
-                  <Icon size={16} className="text-royal-500" />
-                  {label}
-                </motion.span>
-              ))}
+              <div className="relative w-[260px] h-[260px] xl:w-[300px] xl:h-[300px] rounded-full" style={{ background: "radial-gradient(circle at 50% 38%, #fb923c 0%, #ea6c12 100%)", boxShadow: "0 30px 60px rgba(234,108,18,0.28)" }}>
+                <div className="absolute inset-0 rounded-full overflow-hidden">
+                  <Image src="/images/hero-images/junior/kid2.png" alt="ALB Junior learner" fill sizes="300px" className="object-cover object-[88%_30%] scale-[1.3] origin-center" />
+                </div>
+              </div>
             </motion.div>
           </div>
+        </div>
+
+        {/* ── Programmes strip ── */}
+        <div className="container-max px-5 md:px-8 relative z-20 mt-14 lg:mt-20">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.55, ease: [0.22, 1, 0.36, 1] }}
+            className="rounded-t-3xl overflow-hidden p-6 md:p-8 grid lg:grid-cols-[1fr_2fr] gap-6 items-center"
+            style={{ background: "linear-gradient(135deg, #1b2a63 0%, #0f1840 60%, #00082A 100%)" }}
+          >
+            <div>
+              <h3 className="text-white font-black text-2xl">Programmes</h3>
+              <p className="text-white/55 text-sm mt-2 leading-relaxed max-w-xs">
+                Live language programmes designed to develop your child — ages 6 to 16.
+              </p>
+            </div>
+            <div className="grid grid-cols-3 gap-3">
+              {[
+                { flag: "FR", name: "French", href: "/courses/french" },
+                { flag: "EN", name: "English", href: "/courses/ielts" },
+                { flag: "DE", name: "German", href: "/courses/german" },
+              ].map((p, idx) => (
+                <Link
+                  key={p.name}
+                  href={p.href}
+                  className={`group rounded-2xl p-4 transition-all ${idx === 1 ? "bg-royal-500 shadow-lg shadow-royal-500/30" : "bg-white/[0.06] border border-white/10 hover:bg-white/10"}`}
+                >
+                  <Flag code={p.flag} size={34} rounded="rounded-lg" className="shadow" />
+                  <p className="text-white font-black text-sm mt-3">{p.name}</p>
+                  <span className="inline-flex items-center gap-1 text-xs font-semibold mt-1 text-white/60 group-hover:gap-1.5 transition-all">
+                    Learn more <ArrowRight size={11} />
+                  </span>
+                </Link>
+              ))}
+            </div>
+          </motion.div>
         </div>
       </section>
 
@@ -378,7 +390,7 @@ export default function JuniorPage() {
                   <div className="relative px-6 pt-7 pb-6 overflow-hidden" style={{ background: `linear-gradient(150deg, ${c.from}, ${c.to})` }}>
                     <div className="absolute inset-0 grid-dots-light opacity-20 pointer-events-none" />
                     <motion.div className="relative z-10 inline-flex" animate={{ y: [0, -8, 0] }} transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}>
-                      <Flag code={c.flagCode} size={56} rounded="rounded-2xl" className="shadow-xl ring-2 ring-white/40" />
+                      <Flag code={c.flagCode} size={56} rounded="rounded-2xl" className="shadow-xl" />
                     </motion.div>
                     <h3 className="relative z-10 text-2xl font-black text-white mt-3">{c.name}</h3>
                     <p className="relative z-10 text-white/75 text-sm mt-1.5 leading-relaxed">{c.tagline}</p>

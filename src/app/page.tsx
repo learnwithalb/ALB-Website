@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
@@ -12,245 +12,6 @@ import { AnimateOnView, StaggerContainer, StaggerItem } from "@/components/share
 import { languages, testimonials, faqs } from "@/lib/constants";
 import { MuiIcon, Flag, flagSrc } from "@/lib/icons";
 import { useBooking } from "@/components/shared/BookingContext";
-import Lightfall from "@/components/shared/Lightfall";
-
-/* ───────────────────────────────────────────────
-   Language Network Visualization (light theme)
-   - 3 orbital rings (alternating CW / CCW)
-   - 6 white glass language cards orbiting the deep
-     royal hub globe. Royal + sky accents.
-─────────────────────────────────────────────── */
-
-const ORBIT_CONFIG = [
-  {
-    radius: 178,
-    duration: 30,
-    dir: 1,
-    dash: "",
-    trackColor: "#3b5bdb",
-    tags: [
-      { name: "French",  flagCode: "FR", start: 0,   glow: "#3b5bdb" },
-      { name: "Korean",  flagCode: "KR", start: 180, glow: "#0ea5e9" },
-    ],
-  },
-  {
-    radius: 218,
-    duration: 40,
-    dir: -1,
-    dash: "7 14",
-    trackColor: "#0ea5e9",
-    tags: [
-      { name: "German",  flagCode: "DE", start: 90,  glow: "#6d8bff" },
-      { name: "Spanish", flagCode: "ES", start: 270, glow: "#38bdf8" },
-    ],
-  },
-  {
-    radius: 244,
-    duration: 52,
-    dir: 1,
-    dash: "3 9",
-    trackColor: "#3b5bdb",
-    tags: [
-      { name: "Japanese", flagCode: "JP", start: 45,  glow: "#3b5bdb" },
-      { name: "IELTS",    flagCode: "EN", start: 225, glow: "#0ea5e9" },
-    ],
-  },
-];
-
-const BG_NODES = [
-  { cx: 58,  cy: 90,  r: 1.5, fill: "#3b5bdb", op: 0.5 },
-  { cx: 478, cy: 108, r: 1,   fill: "#0ea5e9", op: 0.6 },
-  { cx: 85,  cy: 435, r: 1.5, fill: "#6d8bff", op: 0.4 },
-  { cx: 482, cy: 418, r: 1,   fill: "#3b5bdb", op: 0.5 },
-  { cx: 35,  cy: 270, r: 1,   fill: "#0ea5e9", op: 0.4 },
-  { cx: 508, cy: 270, r: 1.5, fill: "#3b5bdb", op: 0.5 },
-  { cx: 165, cy: 48,  r: 1,   fill: "#6d8bff", op: 0.4 },
-  { cx: 378, cy: 46,  r: 1,   fill: "#0ea5e9", op: 0.35 },
-  { cx: 148, cy: 496, r: 1,   fill: "#3b5bdb", op: 0.4 },
-  { cx: 392, cy: 498, r: 1,   fill: "#6d8bff", op: 0.4 },
-  { cx: 28,  cy: 145, r: 1,   fill: "#3b5bdb", op: 0.3 },
-  { cx: 518, cy: 155, r: 1,   fill: "#0ea5e9", op: 0.3 },
-];
-
-const SPOKE_LINES = [0, 60, 120, 180, 240, 300].map((angle) => {
-  const rad = (angle * Math.PI) / 180;
-  return {
-    angle,
-    x2: Math.round((270 + 220 * Math.cos(rad)) * 1e6) / 1e6,
-    y2: Math.round((270 + 220 * Math.sin(rad)) * 1e6) / 1e6,
-  };
-});
-
-function LanguageNetwork() {
-  return (
-    <motion.div
-      className="relative w-full aspect-square max-w-[540px] mx-auto select-none"
-      animate={{ y: [0, -10, 0] }}
-      transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
-    >
-
-      {/* atmosphere glows */}
-      <div className="absolute inset-[24%] rounded-full bg-royal-400/20 blur-[70px] pointer-events-none" />
-      <div className="absolute inset-[37%] rounded-full bg-royal-500/25 blur-[35px] pointer-events-none" />
-
-      {/* dot grid overlay */}
-      <div
-        className="absolute inset-0 pointer-events-none opacity-[0.5]"
-        style={{
-          backgroundImage: "radial-gradient(circle at 1px 1px, rgba(59,91,219,0.12) 1px, transparent 0)",
-          backgroundSize: "28px 28px",
-        }}
-      />
-
-      {/* SVG: orbit tracks + faint spokes + bg particles */}
-      <svg className="absolute inset-0 w-full h-full z-0" viewBox="0 0 540 540">
-        {ORBIT_CONFIG.map((o) => (
-          <circle
-            key={o.radius}
-            cx="270" cy="270" r={o.radius}
-            fill="none"
-            stroke={o.trackColor}
-            strokeWidth="0.6"
-            strokeOpacity="0.3"
-            strokeDasharray={o.dash || undefined}
-          />
-        ))}
-        {SPOKE_LINES.map((s) => (
-          <line
-            key={s.angle}
-            x1="270" y1="270"
-            x2={s.x2} y2={s.y2}
-            stroke="#3b5bdb" strokeWidth="0.4" strokeOpacity="0.10"
-          />
-        ))}
-        {BG_NODES.map((n, i) => (
-          <circle key={i} cx={n.cx} cy={n.cy} r={n.r} fill={n.fill} opacity={n.op} />
-        ))}
-      </svg>
-
-      {/* Orbiting language glass cards */}
-      {ORBIT_CONFIG.map((orbit) =>
-        orbit.tags.map((tag) => (
-          <div
-            key={tag.name}
-            style={{ position: "absolute", top: "50%", left: "50%", width: 0, height: 0, zIndex: 15 }}
-          >
-            <motion.div
-              style={{ position: "absolute", transformOrigin: "0 0" }}
-              initial={{ rotate: tag.start }}
-              animate={{ rotate: tag.start + orbit.dir * 360 }}
-              transition={{ duration: orbit.duration, repeat: Infinity, ease: "linear" }}
-            >
-              <motion.div
-                style={{ position: "absolute", left: 0, top: -orbit.radius, x: "-50%", y: "-50%" }}
-                initial={{ rotate: -tag.start }}
-                animate={{ rotate: -(tag.start + orbit.dir * 360) }}
-                transition={{ duration: orbit.duration, repeat: Infinity, ease: "linear" }}
-              >
-                <div
-                  style={{
-                    display: "inline-flex",
-                    alignItems: "center",
-                    gap: "6px",
-                    padding: "6px 11px",
-                    borderRadius: "10px",
-                    background: "rgba(255,255,255,0.95)",
-                    border: `1px solid ${tag.glow}40`,
-                    backdropFilter: "blur(16px)",
-                    WebkitBackdropFilter: "blur(16px)",
-                    boxShadow: `0 0 14px ${tag.glow}20, 0 6px 16px rgba(16,23,51,0.10)`,
-                    whiteSpace: "nowrap",
-                    pointerEvents: "none",
-                  }}
-                >
-                  <Flag code={tag.flagCode} size={14} rounded="rounded-sm" />
-                  <span style={{ color: "#1b2a63", fontSize: "10.5px", fontWeight: 700, letterSpacing: "0.03em" }}>
-                    {tag.name}
-                  </span>
-                  <span
-                    style={{
-                      width: "5px", height: "5px", borderRadius: "50%",
-                      background: tag.glow, boxShadow: `0 0 6px ${tag.glow}`,
-                      flexShrink: 0, display: "inline-block",
-                    }}
-                  />
-                </div>
-                <div
-                  style={{
-                    position: "absolute", top: "100%", left: "50%",
-                    width: "1px", height: "10px", transform: "translateX(-50%)",
-                    background: `linear-gradient(to bottom, ${tag.glow}55, transparent)`,
-                  }}
-                />
-              </motion.div>
-            </motion.div>
-          </div>
-        ))
-      )}
-
-      {/* Central hub – Earth */}
-      <div
-        style={{ position: "absolute", top: "50%", left: "50%", width: "62%", aspectRatio: "1", transform: "translate(-50%, -50%)", zIndex: 10 }}
-      >
-        {/* atmosphere glow */}
-        <motion.div
-          className="absolute rounded-full pointer-events-none"
-          style={{ inset: "-16%", background: "radial-gradient(circle, rgba(59,91,219,0.5) 0%, rgba(14,165,233,0.16) 45%, transparent 70%)" }}
-          animate={{ opacity: [0.5, 0.85, 0.5], scale: [1, 1.06, 1] }}
-          transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-        />
-        {/* expanding sonar ring */}
-        <motion.div
-          className="absolute inset-0 rounded-full pointer-events-none"
-          style={{ border: "1px solid rgba(125,211,252,0.35)" }}
-          animate={{ scale: [1, 1.32], opacity: [0.55, 0] }}
-          transition={{ duration: 3.6, repeat: Infinity, ease: "easeOut" }}
-        />
-        {/* the planet */}
-        <div
-          className="absolute inset-0 rounded-full overflow-hidden"
-          style={{ boxShadow: "0 0 70px rgba(59,91,219,0.45), 0 0 28px rgba(14,165,233,0.3)" }}
-        >
-          <Image
-            src="/images/earth.png"
-            alt="Earth"
-            fill
-            sizes="(min-width:1024px) 340px, 1px"
-            className="object-cover"
-            priority
-          />
-          {/* rim-light sheen */}
-          <div
-            className="absolute inset-0 rounded-full pointer-events-none"
-            style={{ background: "radial-gradient(circle at 30% 26%, rgba(255,255,255,0.18) 0%, transparent 42%)" }}
-          />
-        </div>
-      </div>
-
-      {/* floating accent particles */}
-      <motion.div
-        style={{ position: "absolute", top: "6%", right: "9%", width: "8px", height: "8px", borderRadius: "50%", background: "#0ea5e9", boxShadow: "0 0 10px #0ea5e9, 0 0 22px rgba(14,165,233,0.5)", zIndex: 5 }}
-        animate={{ opacity: [0.5, 1, 0.5], scale: [1, 1.3, 1] }}
-        transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-      />
-      <motion.div
-        style={{ position: "absolute", bottom: "9%", left: "6%", width: "6px", height: "6px", borderRadius: "50%", background: "#3b5bdb", boxShadow: "0 0 8px #3b5bdb", zIndex: 5 }}
-        animate={{ opacity: [0.4, 0.9, 0.4] }}
-        transition={{ duration: 2.5, repeat: Infinity, delay: 1 }}
-      />
-      <motion.div
-        style={{ position: "absolute", top: "47%", right: "2%", width: "4px", height: "4px", borderRadius: "50%", background: "#6d8bff", zIndex: 5 }}
-        animate={{ opacity: [0.3, 0.8, 0.3] }}
-        transition={{ duration: 2, repeat: Infinity, delay: 0.5 }}
-      />
-      <motion.div
-        style={{ position: "absolute", top: "20%", left: "3%", width: "5px", height: "5px", borderRadius: "50%", background: "#3b5bdb", boxShadow: "0 0 7px #3b5bdb", zIndex: 5 }}
-        animate={{ opacity: [0.35, 0.8, 0.35] }}
-        transition={{ duration: 3.5, repeat: Infinity, delay: 1.5 }}
-      />
-    </motion.div>
-  );
-}
 
 /* ─────────────────────────── Stat Cards ─────────────────────────── */
 const STAT_CARDS = [
@@ -341,57 +102,38 @@ const INSTRUCTORS = [
   { name: "Rohan Pillai",    role: "IELTS & Academic English", cred: "British Council",  exp: "7+ yrs",  rating: "4.9", students: "6000+", from: "#0284c7", to: "#2f49c0", initials: "RP" },
 ];
 
+/* Cover images for the hero language cards (by language code) */
+const COVERS: Record<string, string> = {
+  fr: "/images/hero-images/homepage/french.png",
+  de: "/images/hero-images/homepage/german.png",
+  en: "/images/hero-images/homepage/english.png",
+};
+
 /* ─────────────────────────── Page ─────────────────────────── */
 export default function HomePage() {
   const { openModal } = useBooking();
   const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const [activeLang, setActiveLang] = useState(0);
 
-  // Pause the WebGL hero background while it's scrolled off-screen (saves GPU/CPU → smoother scrolling).
-  const heroRef = useRef<HTMLElement>(null);
-  const [heroInView, setHeroInView] = useState(true);
+  // Auto-cycle the hero language cards every 3s; pause while hovered.
+  const heroLangs = languages.filter((l) => !l.comingSoon);
+  const cardsPaused = useRef(false);
   useEffect(() => {
-    const el = heroRef.current;
-    if (!el) return;
-    const io = new IntersectionObserver(
-      ([entry]) => setHeroInView(entry.isIntersecting),
-      { threshold: 0 }
-    );
-    io.observe(el);
-    return () => io.disconnect();
-  }, []);
+    const id = setInterval(() => {
+      if (cardsPaused.current) return;
+      setActiveLang((p) => (p + 1) % heroLangs.length);
+    }, 3000);
+    return () => clearInterval(id);
+  }, [heroLangs.length]);
 
   return (
     <div className="bg-site">
 
       {/* ══════════════════════════ HERO (dark anchor) ══════════════════════════ */}
-      <section ref={heroRef} className="sec-dark relative min-h-[100svh] flex items-center overflow-hidden pt-20 pb-10">
+      <section className="hero-light relative min-h-[100svh] flex items-center overflow-hidden pt-20 pb-10">
 
-        {/* Lightfall WebGL streaks — animated hero background */}
-        <div className="absolute inset-0 z-0">
-          <Lightfall
-            paused={!heroInView}
-            colors={["#9bb2ff", "#3b5bdb", "#7dd3fc"]}
-            backgroundColor="#0f1840"
-            speed={0.6}
-            streakCount={3}
-            streakWidth={1}
-            streakLength={1}
-            glow={0.8}
-            density={0.5}
-            twinkle={1}
-            zoom={2.4}
-            backgroundGlow={0.6}
-            opacity={0.4}
-            mouseInteraction
-            mouseStrength={0.7}
-            mouseRadius={0.7}
-          />
-        </div>
-        {/* readability veil + fade to the section edges */}
-        <div className="absolute inset-0 z-0 pointer-events-none" style={{ background: "radial-gradient(ellipse 78% 68% at 50% 45%, rgba(15,24,64,0.25) 0%, rgba(15,24,64,0.55) 68%, rgba(15,24,64,0.85) 100%)" }} />
-
-        {/* dot grid bg */}
-        <div className="absolute inset-0 grid-dots-light pointer-events-none opacity-20 z-0" />
+        {/* light texture + soft glows */}
+        <div className="absolute inset-0 grid-lines pointer-events-none opacity-60 z-0" />
         <div className="blob blob-royal w-[520px] h-[420px] bottom-0 right-[12%] pointer-events-none z-0" />
         <div className="blob blob-sky w-[360px] h-[360px] top-[8%] left-[-6%] pointer-events-none z-0" />
 
@@ -401,10 +143,10 @@ export default function HomePage() {
             {/* ── Left: text ── */}
             <div>
               <motion.div initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
-                <span className="inline-flex items-center gap-2 glass-light text-royal-100 text-xs font-semibold px-4 py-1.5 rounded-full mb-6 tracking-wide">
+                <span className="inline-flex items-center gap-2 bg-royal-50 border border-royal-100 text-royal-700 text-xs font-semibold px-4 py-1.5 rounded-full mb-6 tracking-wide">
                   <Globe size={11} />
                   India&apos;s first language + Soft Skills Academy
-                  <span className="w-1.5 h-1.5 rounded-full bg-sky-400 animate-pulse" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-sky-500 animate-pulse" />
                 </span>
               </motion.div>
 
@@ -412,18 +154,18 @@ export default function HomePage() {
                 initial={{ opacity: 0, y: 28 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.7, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-                className="text-4xl sm:text-5xl xl:text-[3.6rem] font-black text-white leading-[1.05] tracking-tight"
+                className="text-4xl sm:text-5xl xl:text-[3.6rem] font-black text-ink leading-[1.05] tracking-tight"
               >
                 Helping you
                 <br />
-                <span className="shimmer-text">Speak, Connect &amp; Belong</span>
+                <span className="gradient-text">Speak, Connect &amp; Belong</span>
               </motion.h1>
 
               <motion.p
                 initial={{ opacity: 0, y: 18 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.22 }}
-                className="mt-5 text-base md:text-lg text-white/55 max-w-lg leading-relaxed"
+                className="mt-5 text-base md:text-lg text-body max-w-lg leading-relaxed"
               >
                 From learning a language to living it. Master the language and
                 build the confidence to thrive in every conversation.
@@ -433,64 +175,98 @@ export default function HomePage() {
                 initial={{ opacity: 0, y: 14 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.33 }}
-                className="mt-8 flex flex-wrap gap-3"
+                className="mt-8"
               >
-                <Link href="/courses" className="btn-primary text-sm px-7 py-3.5 font-bold rounded-full flex items-center gap-2">
-                  Explore Courses <ArrowRight size={14} />
-                </Link>
-                <button
-                  onClick={() => openModal()}
-                  className="btn-outline-light text-sm px-7 py-3.5 rounded-full flex items-center gap-2"
-                >
-                  Book a Free Demo <ArrowRight size={14} />
-                </button>
+                <div className="flex flex-wrap items-center gap-3">
+                  <Link href="/courses" className="btn-primary text-sm px-7 py-3.5 font-bold rounded-full flex items-center gap-2">
+                    Explore Courses <ArrowRight size={14} />
+                  </Link>
+                  <button onClick={() => openModal()} className="btn-outline text-sm px-7 py-3.5 rounded-full flex items-center gap-2">
+                    Book a Free Demo <ArrowRight size={14} />
+                  </button>
+                </div>
               </motion.div>
 
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.46 }}
-                className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-1.5 text-white/50 text-xs"
+                className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-1.5 text-muted text-xs"
               >
                 {["DELF · DALF", "TEF · TCF Canada", "Goethe · TestDaF", "IELTS · PTE · TOEFL"].map((e) => (
                   <span key={e} className="flex items-center gap-1.5">
-                    <CheckCircle size={11} className="text-sky-400" />
+                    <CheckCircle size={11} className="text-royal-500" />
                     {e}
                   </span>
                 ))}
               </motion.div>
 
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.6 }}
-                className="mt-7 flex items-center gap-4"
-              >
-                <div className="flex -space-x-2">
-                  {["PS", "AM", "KN", "RJ", "SP"].map((i) => (
-                    <div key={i} className="w-8 h-8 rounded-full border-2 border-[#141f4d] bg-gradient-to-br from-[#3b5bdb] to-[#6d8bff] flex items-center justify-center text-white font-black text-[9px] shadow-sm">
-                      {i}
-                    </div>
-                  ))}
-                </div>
-                <div>
-                  <div className="flex items-center gap-1">
-                    {[1,2,3,4,5].map((i) => <Star key={i} size={11} className="text-amber-400 fill-amber-400" />)}
-                    <span className="text-white text-xs font-bold ml-1">4.9/5</span>
-                  </div>
-                  <p className="text-white/40 text-xs">from 5,000+ learners</p>
-                </div>
-              </motion.div>
             </div>
 
-            {/* ── Right: Language Network ── */}
+            {/* ── Right: expanding language cards ── */}
             <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
+              initial={{ opacity: 0, scale: 0.96 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.9, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-              className="hidden lg:flex items-center justify-center py-6"
+              onMouseEnter={() => { cardsPaused.current = true; }}
+              onMouseLeave={() => { cardsPaused.current = false; }}
+              className="hidden lg:flex gap-3 h-[440px]"
             >
-              <LanguageNetwork />
+              {heroLangs.map((l, i) => {
+                const active = activeLang === i;
+                return (
+                  <div
+                    key={l.code}
+                    onMouseEnter={() => setActiveLang(i)}
+                    className={`relative rounded-3xl overflow-hidden cursor-pointer transition-all duration-500 ease-[cubic-bezier(.22,1,.36,1)] ${active ? "flex-[4]" : "flex-[1]"}`}
+                    style={{
+                      border: "1px solid rgba(255,255,255,0.14)",
+                      boxShadow: active
+                        ? "0 24px 54px rgba(16,23,51,0.24)"
+                        : "0 10px 26px rgba(16,23,51,0.14)",
+                    }}
+                  >
+                    {/* cover image */}
+                    {COVERS[l.code] && (
+                      <Image src={COVERS[l.code]} alt={l.name} fill priority sizes="420px" className="object-cover" />
+                    )}
+                    {/* readability overlay */}
+                    <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, rgba(6,10,36,0.20) 0%, rgba(6,10,36,0.08) 36%, rgba(6,10,36,0.62) 72%, rgba(4,8,30,0.94) 100%)" }} />
+                    {/* top accent line */}
+                    <div className="absolute top-0 left-0 right-0 h-1 z-10" style={{ background: l.color }} />
+
+                    {active ? (
+                      <motion.div
+                        initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.3, delay: 0.12 }}
+                        className="absolute inset-0 p-6 flex flex-col justify-between z-10"
+                      >
+                        <div className="flex items-start justify-between">
+                          <Flag code={l.flagCode} size={46} rounded="rounded-xl" className="shadow-lg" />
+                          {l.tag && <span className="text-[10px] font-black uppercase tracking-wider text-white bg-white/15 border border-white/25 backdrop-blur-sm px-2.5 py-1 rounded-full">{l.tag}</span>}
+                        </div>
+                        <div>
+                          <h3 className="text-3xl font-black text-white leading-none drop-shadow-lg">{l.name}</h3>
+                          <p className="text-white/85 text-sm mt-2 leading-relaxed max-w-[15rem]">{l.tagline}</p>
+                          <div className="flex flex-wrap gap-1.5 mt-4">
+                            {l.levels.map((lv) => (
+                              <span key={lv} className="text-[10.5px] font-bold text-white bg-white/[0.18] border border-white/20 backdrop-blur-sm px-2 py-0.5 rounded-full">{lv}</span>
+                            ))}
+                          </div>
+                          <Link href={l.href} className="mt-5 inline-flex items-center gap-1.5 text-white font-bold text-sm hover:gap-2.5 transition-all">
+                            View course <ArrowRight size={15} />
+                          </Link>
+                        </div>
+                      </motion.div>
+                    ) : (
+                      <div className="absolute inset-0 flex flex-col items-center justify-between py-6 z-10">
+                        <Flag code={l.flagCode} size={30} rounded="rounded-lg" />
+                        <span className="[writing-mode:vertical-rl] rotate-180 text-white font-bold tracking-wide whitespace-nowrap drop-shadow">{l.name}</span>
+                        <span className="w-2 h-2 rounded-full bg-white/85" />
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
             </motion.div>
           </div>
 
@@ -510,7 +286,7 @@ export default function HomePage() {
                   whileHover={{ y: -6 }}
                   transition={{ type: "spring", stiffness: 300, damping: 22 }}
                   className="group relative rounded-2xl p-5 overflow-hidden flex flex-col gap-3"
-                  style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.12)", backdropFilter: "blur(12px)" }}
+                  style={{ background: "#ffffff", border: "1px solid #e6ebf5", boxShadow: "0 1px 2px rgba(16,23,51,0.04), 0 8px 24px rgba(16,23,51,0.06)" }}
                 >
                   {/* hover glow wash */}
                   <div
@@ -534,10 +310,10 @@ export default function HomePage() {
                       animate={{ opacity: [0, 0.28, 0], scale: [0.85, 1.35, 0.85] }}
                       transition={{ duration: 2.6, repeat: Infinity, ease: "easeInOut", delay: i * 0.3 }}
                     />
-                    <s.Icon size={20} style={{ color: glow }} className="relative z-10" />
+                    <s.Icon size={20} style={{ color: s.iconColor }} className="relative z-10" />
                   </motion.div>
 
-                  <div className="relative z-10 text-base md:text-lg font-black text-white leading-tight">{s.title}</div>
+                  <div className="relative z-10 text-base md:text-lg font-black text-ink leading-tight">{s.title}</div>
 
                   {/* accent line — grows in, stretches on hover */}
                   <motion.div
@@ -567,7 +343,7 @@ export default function HomePage() {
           <div className="marquee-inner gap-8">
             {[...languages, ...languages].map((lang, i) => (
               <span key={i} className="flex items-center gap-2.5 text-muted text-sm font-semibold px-6">
-                <Flag code={lang.flagCode} size={22} rounded="rounded" className="ring-1 ring-line" />
+                <Flag code={lang.flagCode} size={22} rounded="rounded" />
                 {lang.name}
               </span>
             ))}

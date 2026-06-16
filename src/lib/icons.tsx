@@ -145,9 +145,12 @@ export const flagSrc: Record<string, string> = {
   ES: "/flags/es.png",
   JP: "/flags/jp.png",
   KR: "/flags/kr.png",
-  EN: "/flags/en.png",
-  GB: "/flags/en.png",
+  EN: "/flags/uk-wave.png",
+  GB: "/flags/uk-wave.png",
 };
+
+/** Codes whose asset is a transparent waving-flag icon — rendered uncropped, not in a rounded frame. */
+const ICON_FLAGS = new Set(["EN", "GB"]);
 
 /** Small rounded flag image. Returns null if no flag exists for the code. */
 export function Flag({
@@ -161,14 +164,22 @@ export function Flag({
   className?: string;
   rounded?: string;
 }) {
-  const src = flagSrc[code.toUpperCase()];
+  const upper = code.toUpperCase();
+  const src = flagSrc[upper];
   if (!src) return null;
+  const isIcon = ICON_FLAGS.has(upper);
   return (
     <span
-      className={`relative inline-block overflow-hidden flex-shrink-0 ${rounded} ${className}`}
+      className={`relative inline-block flex-shrink-0 ${isIcon ? "" : `overflow-hidden ${rounded}`} ${className}`}
       style={{ width: size, height: size }}
     >
-      <Image src={src} alt={`${code} flag`} fill sizes={`${size}px`} className="object-cover" />
+      <Image
+        src={src}
+        alt={`${code} flag`}
+        fill
+        sizes={`${size}px`}
+        className={isIcon ? "object-contain" : "object-cover"}
+      />
     </span>
   );
 }
@@ -186,7 +197,17 @@ export function CountryBadge({
   const pxMap = { sm: 32, md: 56, lg: 80 };
   const fontMap = { sm: "0.6rem", md: "0.75rem", lg: "1rem" };
   const dim = pxMap[size];
-  const src = flagSrc[code.toUpperCase()];
+  const upper = code.toUpperCase();
+  const src = flagSrc[upper];
+
+  // Transparent waving-flag icon (UK): render uncropped, no circular frame.
+  if (src && ICON_FLAGS.has(upper)) {
+    return (
+      <span className="relative inline-block flex-shrink-0" style={{ width: dim, height: dim }}>
+        <Image src={src} alt={`${code} flag`} fill sizes={`${dim}px`} className="object-contain" />
+      </span>
+    );
+  }
 
   if (src) {
     return (
