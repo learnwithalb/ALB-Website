@@ -267,34 +267,92 @@ export default function BeyondPage() {
         <div className="blob blob-sky w-[420px] h-[420px] top-0 right-[-8%] opacity-40 pointer-events-none" />
         <div className="container-max relative z-10">
           <div className="grid lg:grid-cols-[1fr_1.1fr] gap-12 lg:gap-16 items-center">
-            <AnimateOnView direction="right">
+            {/* ── left: headline + glassy pull-quote ── */}
+            <motion.div
+              initial={{ opacity: 0, x: -28 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true, margin: "-80px" }}
+              transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+            >
               <span className="eyebrow-pill-outline">Why +Beyond Exists</span>
-              <h2 className="text-3xl md:text-4xl font-black text-ink mt-1 leading-tight">
+              <h2 className="text-3xl md:text-4xl font-black text-ink mt-3 leading-tight">
                 Language alone <span className="gradient-text">isn&apos;t enough.</span>
               </h2>
-              {/* pull quote */}
-              <div className="relative mt-8 rounded-3xl bg-royal-50 border border-royal-100 p-7">
-                <span aria-hidden className="absolute -top-5 left-5 font-display text-6xl text-royal-200 leading-none select-none">&ldquo;</span>
-                <p className="relative text-xl md:text-2xl font-semibold text-ink leading-snug">
-                  You don&apos;t just leave ALB with a language. You leave ready for every room it opens.
-                </p>
-              </div>
-            </AnimateOnView>
+              {/* animated underline */}
+              <motion.div
+                className="h-1 rounded-full mt-3"
+                style={{ background: "linear-gradient(90deg,#3b5bdb,#0ea5e9)" }}
+                initial={{ width: 0 }} whileInView={{ width: 104 }} viewport={{ once: true }}
+                transition={{ duration: 0.7, delay: 0.25, ease: "easeOut" }}
+              />
 
-            <StaggerContainer className="space-y-5" staggerDelay={0.12}>
-              {[
-                "We watched students complete language courses, earn their certificates, pass their mock tests, clock their hours. And then freeze.",
-                "In visa interviews. In job interviews. On their first day in a new country. The language was there. The confidence wasn't. The certificate was there. The real-world readiness wasn't.",
-                "The +Beyond module exists to close that gap. Every ALB language student receives it automatically, at no extra cost — because language education is incomplete without the human skills that bring it to life.",
-              ].map((p, i) => (
-                <StaggerItem key={i}>
-                  <div className="flex gap-4">
-                    <div className="mt-1 w-8 h-8 rounded-lg bg-royal-50 flex items-center justify-center flex-shrink-0 text-royal-600 font-black text-sm">{i + 1}</div>
-                    <p className="text-body text-base md:text-lg leading-relaxed">{p}</p>
-                  </div>
-                </StaggerItem>
-              ))}
-            </StaggerContainer>
+              {/* pull quote — glass card with animated glow */}
+              <motion.div
+                className="relative mt-8 rounded-3xl p-7 overflow-hidden"
+                style={{ background: "linear-gradient(135deg,#eef2ff,#e8edff)", border: "1px solid rgba(59,91,219,0.14)" }}
+                initial={{ opacity: 0, y: 22 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+              >
+                <motion.div
+                  className="absolute -top-12 -right-12 w-40 h-40 rounded-full pointer-events-none"
+                  style={{ background: "radial-gradient(circle,rgba(59,91,219,0.20),transparent 70%)" }}
+                  animate={{ scale: [1, 1.2, 1], opacity: [0.6, 1, 0.6] }}
+                  transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+                />
+                <span aria-hidden className="absolute -top-2 left-5 font-display text-7xl text-royal-300/70 leading-none select-none">&ldquo;</span>
+                <p className="relative text-xl md:text-2xl font-semibold text-ink leading-snug pt-5">
+                  You don&apos;t just leave ALB with a language. You leave{" "}
+                  <span className="gradient-text">ready for every room</span> it opens.
+                </p>
+                <div className="relative mt-5 flex items-center gap-2 text-sm font-black text-royal-600">
+                  <Sparkles size={15} /> The ALB +Beyond promise
+                </div>
+              </motion.div>
+            </motion.div>
+
+            {/* ── right: animated timeline ── */}
+            <div className="relative">
+              {/* growing connector line */}
+              <motion.div
+                className="absolute left-5 top-7 bottom-7 w-px origin-top hidden sm:block"
+                style={{ background: "linear-gradient(to bottom,#6d8bff,#0ea5e9,#bfd5fd)" }}
+                initial={{ scaleY: 0 }} whileInView={{ scaleY: 1 }} viewport={{ once: true }}
+                transition={{ duration: 1.1, ease: "easeInOut" }}
+              />
+              <div className="space-y-5">
+                {[
+                  { t: "The pattern we kept seeing", d: "Students completed language courses, earned their certificates, passed their mock tests, clocked their hours. And then froze." },
+                  { t: "Where it broke down", d: "In visa interviews. In job interviews. On their first day in a new country. The language was there. The confidence wasn't. The certificate was there. The real-world readiness wasn't." },
+                  { t: "How +Beyond closes the gap", d: "The +Beyond module exists to close that gap. Every ALB language student receives it automatically, at no extra cost — because language education is incomplete without the human skills that bring it to life.", highlight: true },
+                ].map((r, i) => (
+                  <motion.div
+                    key={i}
+                    className="relative flex gap-4 sm:gap-5"
+                    initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-60px" }}
+                    transition={{ duration: 0.55, delay: 0.15 * i, ease: [0.22, 1, 0.36, 1] }}
+                  >
+                    {/* number badge with sonar pulse */}
+                    <div className="relative flex-shrink-0 w-10 h-10">
+                      <motion.span
+                        className="absolute inset-0 rounded-full"
+                        style={{ background: "rgba(59,91,219,0.28)" }}
+                        animate={{ scale: [1, 1.7, 1.7], opacity: [0.5, 0, 0] }}
+                        transition={{ duration: 2.6, repeat: Infinity, delay: i * 0.5, ease: "easeOut" }}
+                      />
+                      <div
+                        className="relative w-10 h-10 rounded-full flex items-center justify-center text-white font-black text-sm"
+                        style={{ background: r.highlight ? "linear-gradient(135deg,#3b5bdb,#0ea5e9)" : "linear-gradient(135deg,#6d8bff,#3b5bdb)", boxShadow: "0 8px 20px rgba(59,91,219,0.35)" }}
+                      >
+                        {i + 1}
+                      </div>
+                    </div>
+                    {/* card */}
+                    <div className={`group flex-1 rounded-2xl p-5 transition-all hover:-translate-y-0.5 ${r.highlight ? "bg-white border-2 border-royal-200 shadow-lg shadow-royal-500/10" : "bg-white/70 backdrop-blur-sm border border-line shadow-sm hover:shadow-md"}`}>
+                      <h3 className={`font-black text-xs uppercase tracking-wider mb-1.5 ${r.highlight ? "text-royal-600" : "text-ink"}`}>{r.t}</h3>
+                      <p className="text-body text-sm md:text-base leading-relaxed">{r.d}</p>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </section>

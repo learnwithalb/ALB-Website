@@ -236,53 +236,48 @@ export default function JuniorPage() {
       <section className="section-padding sec-light relative overflow-hidden">
         <div className="blob blob-sky w-[420px] h-[420px] top-0 right-[-8%] opacity-40 pointer-events-none" />
         <div className="container-max relative z-10">
+          {/* heading */}
+          <AnimateOnView className="text-center max-w-2xl mx-auto mb-10">
+            <span className="eyebrow-pill-blue">Why Families Love ALB Junior</span>
+            <h2 className="text-3xl md:text-4xl font-black text-ink mt-1 leading-tight">
+              Big confidence, <span className="gradient-text">small joyful classes.</span>
+            </h2>
+          </AnimateOnView>
+
           <StaggerContainer className="grid md:grid-cols-3 gap-5" staggerDelay={0.1}>
-            {/* tile 1 — graphic */}
-            <StaggerItem>
-              <motion.div whileHover={{ y: -6 }} transition={{ type: "spring", stiffness: 300, damping: 22 }} className="relative h-full min-h-[230px] rounded-3xl overflow-hidden flex flex-col justify-end p-7 shadow-lg" style={{ background: "linear-gradient(155deg,#3b5bdb,#2f49c0)" }}>
-                <div className="absolute inset-0 grid-dots-light opacity-20 pointer-events-none" />
-                <motion.div className="absolute top-6 left-6 w-16 h-16 rounded-2xl bg-white/15 backdrop-blur-sm border border-white/25 flex items-center justify-center" animate={{ y: [0, -10, 0] }} transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}>
-                  <MuiIcon name="computer" size={32} style={{ color: "#ffffff" }} />
-                </motion.div>
-                <p className="relative z-10 text-white font-bold text-lg">Live online classes</p>
-                <p className="relative z-10 text-white/60 text-sm mt-1">Real teachers, real-time — never pre-recorded.</p>
-              </motion.div>
-            </StaggerItem>
-
-            {/* tile 2 — quote */}
-            <StaggerItem>
-              <div className="relative h-full min-h-[230px] card rounded-3xl p-7 flex flex-col justify-center text-center overflow-hidden">
-                <span aria-hidden className="absolute -top-3 left-5 font-display text-6xl text-royal-100 leading-none select-none">&ldquo;</span>
-                <p className="relative font-display text-2xl md:text-[1.7rem] font-semibold text-ink leading-snug">
-                  Every child deserves a global voice.
-                </p>
-                <motion.span
-                  className="relative z-10 mt-5 mx-auto inline-flex items-center gap-2 bg-royal-50 border border-royal-100 rounded-full px-4 py-2 text-xs font-bold text-royal-700"
-                  animate={{ y: [0, -5, 0] }}
-                  transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+            {[
+              { src: "/images/hero-images/junior/card1.png", alt: "Live online classes — real teachers, real-time" },
+              { src: "/images/hero-images/junior/card2.png", alt: "Every child deserves a global voice" },
+              { src: "/images/hero-images/junior/card3.png", alt: "Small, joyful batches — max 12 kids" },
+            ].map((c) => (
+              <StaggerItem key={c.src}>
+                <motion.div
+                  whileHover={{ y: -6 }}
+                  transition={{ type: "spring", stiffness: 300, damping: 22 }}
+                  className="group relative aspect-[3/2] rounded-3xl overflow-hidden shadow-lg ring-1 ring-line/60"
                 >
-                  <Flag code="FR" size={16} rounded="rounded" /> French A1 → 8 Weeks
-                </motion.span>
-              </div>
-            </StaggerItem>
-
-            {/* tile 3 — graphic */}
-            <StaggerItem>
-              <motion.div whileHover={{ y: -6 }} transition={{ type: "spring", stiffness: 300, damping: 22 }} className="relative h-full min-h-[230px] rounded-3xl overflow-hidden flex flex-col justify-end p-7 shadow-lg" style={{ background: "linear-gradient(155deg,#0ea5e9,#0284c7)" }}>
-                <div className="absolute inset-0 grid-dots-light opacity-20 pointer-events-none" />
-                <motion.div className="absolute top-6 right-6 w-16 h-16 rounded-2xl bg-white/15 backdrop-blur-sm border border-white/25 flex items-center justify-center" animate={{ y: [0, -10, 0] }} transition={{ duration: 4.4, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}>
-                  <MuiIcon name="people" size={32} style={{ color: "#ffffff" }} />
+                  <Image src={c.src} alt={c.alt} fill sizes="(max-width:768px) 100vw, 33vw" className="object-cover transition-transform duration-500 group-hover:scale-[1.04]" />
+                  {/* shine sweep on hover */}
+                  <motion.div
+                    className="absolute top-0 -left-1/3 w-1/3 h-full bg-white/15 blur-md -skew-x-12 pointer-events-none opacity-0 group-hover:opacity-100"
+                    initial={false}
+                    animate={{ x: ["0%", "380%"] }}
+                    transition={{ duration: 1.1, ease: "easeInOut", repeat: Infinity, repeatDelay: 1.5 }}
+                  />
                 </motion.div>
-                <p className="relative z-10 text-white font-bold text-lg">Small, joyful batches</p>
-                <p className="relative z-10 text-white/70 text-sm mt-1">Max 12 kids — everyone speaks, every class.</p>
-              </motion.div>
-            </StaggerItem>
+              </StaggerItem>
+            ))}
           </StaggerContainer>
 
-          <AnimateOnView className="mt-7 flex flex-col sm:flex-row items-center justify-center gap-x-8 gap-y-2 text-center">
-            <p className="text-sm text-muted font-semibold flex items-center gap-2"><CheckCircle size={14} className="text-royal-500" /> Educators with 5+ years of language-instruction experience</p>
-            <p className="text-sm text-muted font-semibold flex items-center gap-2"><CheckCircle size={14} className="text-royal-500" /> Curriculum designed by certified DELF &amp; Goethe examiners</p>
-          </AnimateOnView>
+          <StaggerContainer className="mt-8 flex flex-wrap items-center justify-center gap-3" staggerDelay={0.1}>
+            {["Educators with 5+ years of language-instruction experience", "Curriculum designed by certified DELF & Goethe examiners"].map((t) => (
+              <StaggerItem key={t}>
+                <span className="inline-flex items-center gap-2 bg-white border border-line shadow-sm rounded-full px-4 py-2 text-sm font-semibold text-ink">
+                  <CheckCircle size={14} className="text-royal-500" /> {t}
+                </span>
+              </StaggerItem>
+            ))}
+          </StaggerContainer>
         </div>
       </section>
 
