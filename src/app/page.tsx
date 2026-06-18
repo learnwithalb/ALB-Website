@@ -130,7 +130,7 @@ export default function HomePage() {
     <div className="bg-site">
 
       {/* ══════════════════════════ HERO (dark anchor) ══════════════════════════ */}
-      <section className="hero-light relative min-h-[100svh] flex items-center overflow-hidden pt-20 pb-10">
+      <section className="hero-light relative min-h-[100svh] flex items-center overflow-hidden pt-32 pb-10">
 
         {/* light texture + soft glows */}
         <div className="absolute inset-0 grid-lines pointer-events-none opacity-60 z-0" />
