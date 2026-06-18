@@ -29,8 +29,8 @@ const weekSchedule = [
 const albDifference = [
   { title: "Goal-First Placement", desc: "Start at your exact level. We test before you invest." },
   { title: "Cultural Immersion", desc: "Every class includes authentic media, idioms, and cultural context." },
-  { title: "Speaking from Day 1", desc: "No silent observer seats. You speak, listen, and respond — every class." },
-  { title: "Exam-Ready Curriculum", desc: "DELF, Goethe, JLPT, TOPIK, IELTS — exam prep is built into every advanced batch." },
+  { title: "Speaking from Day 1", desc: "No silent observer seats. You speak, listen, and respond, every class." },
+  { title: "Exam-Ready Curriculum", desc: "DELF, Goethe, JLPT, TOPIK, IELTS, exam prep is built into every advanced batch." },
 ];
 
 // European languages get royal accent; Asian/English get sky
@@ -136,16 +136,16 @@ export default function CoursesPage() {
             <div>
               <AnimateOnView>
                 <span className="eyebrow-pill-outline">Language Programmes</span>
-                <h1 className="text-5xl md:text-6xl font-black text-ink mt-4 leading-[1.05] tracking-tight">
+                <h1 className="text-4xl md:text-5xl font-black text-ink mt-4 leading-[1.15] tracking-tight">
                   Six languages.
                   <br />
                   One world.
                   <br />
-                  <span className="gradient-text">Infinite doors.</span>
+                  <span className="gradient-text inline-block pb-1">Infinite doors.</span>
                 </h1>
                 <p className="mt-5 text-xl text-body max-w-lg leading-relaxed">
                   Every course is CEFR-aligned, culturally immersive, and taught by
-                  expert faculty who care about your actual goal — not just curriculum coverage.
+                  expert faculty who care about your actual goal, not just curriculum coverage.
                 </p>
               </AnimateOnView>
 
@@ -360,7 +360,7 @@ export default function CoursesPage() {
               </h2>
               <p className="mt-4 text-body leading-relaxed">
                 Our approach combines expert instruction, cultural context, and
-                consistent speaking practice — from your very first class.
+                consistent speaking practice, from your very first class.
               </p>
               <div className="mt-7 space-y-5">
                 {albDifference.map((item, i) => (

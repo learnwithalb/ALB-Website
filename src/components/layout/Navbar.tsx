@@ -8,13 +8,13 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, ChevronDown, ArrowRight, Sparkles } from "lucide-react";
 import { navItems, languages } from "@/lib/constants";
 import { Flag } from "@/lib/icons";
+import { useBooking } from "@/components/shared/BookingContext";
 
 /* Featured cards for the Courses mega-dropdown */
 const COURSE_CARDS = [
-  { name: "French", sub: "Open Europe — immigration, study & career.", meta: "A1 → B2 · DELF · TEF · TCF", href: "/courses/french", color: "#3b5bdb", icon: "/icons/france.png", curve: "M0 60 C 40 24 70 24 110 46 S 170 38 200 26" },
+  { name: "French", sub: "Open Europe, immigration, study & career.", meta: "A1 → B2 · DELF · TEF · TCF", href: "/courses/french", color: "#3b5bdb", icon: "/icons/france.png", curve: "M0 60 C 40 24 70 24 110 46 S 170 38 200 26" },
   { name: "German", sub: "Study, work & life across German-speaking Europe.", meta: "A1 → B2 · Goethe · TestDaF · DSH", href: "/courses/german", color: "#f59e0b", icon: "/icons/germany.png", curve: "M0 50 C 45 78 80 70 120 46 S 175 30 200 50" },
   { name: "English", sub: "Speak with confidence and clear every exam.", meta: "IELTS · PTE · Foundation → Advanced", href: "/courses/ielts", color: "#10b981", icon: "/icons/uk.png", curve: "M0 38 C 50 78 90 64 135 50 S 180 56 200 60" },
-  { name: "+Beyond", sub: "Soft skills, interviews & global confidence.", meta: "Communication · Presentations · Interviews", href: "/beyond", color: "#8b5cf6", icon: null, curve: "M0 62 C 55 28 95 30 135 44 S 180 50 200 38" },
 ];
 
 export function Navbar() {
@@ -23,6 +23,7 @@ export function Navbar() {
   const [coursesOpen, setCoursesOpen] = useState(false);
   const [mobileCoursesOpen, setMobileCoursesOpen] = useState(false);
   const pathname = usePathname();
+  const { openModal } = useBooking();
 
   // available languages first, "coming soon" pushed to the bottom (stable order)
   const orderedLanguages = [...languages].sort(
@@ -117,12 +118,11 @@ export function Navbar() {
                               <div className="flex items-center justify-between rounded-xl px-5 py-3 mb-3" style={{ background: "#3b5bdb" }}>
                                 <span className="text-white font-bold text-sm">Our language programmes for every goal</span>
                                 <div className="flex items-center gap-5 text-xs font-semibold">
-                                  <Link href="/beyond" className="text-white/70 hover:text-white inline-flex items-center gap-1 transition-colors">+Beyond <ArrowRight size={12} /></Link>
                                   <Link href="/courses" className="text-white/70 hover:text-white inline-flex items-center gap-1 transition-colors">View All Courses <ArrowRight size={12} /></Link>
                                 </div>
                               </div>
                               {/* course cards */}
-                              <div className="grid grid-cols-4 gap-3">
+                              <div className="grid grid-cols-3 gap-3">
                                 {COURSE_CARDS.map((c, i) => (
                                   <Link
                                     key={c.name}
@@ -191,12 +191,12 @@ export function Navbar() {
               >
                 Student Login
               </Link>
-              <Link
-                href="/courses"
+              <button
+                onClick={() => openModal()}
                 className="btn-primary text-sm px-5 py-2.5 rounded-full font-semibold"
               >
                 Book a Free Demo
-              </Link>
+              </button>
             </div>
 
             {/* Hamburger */}
@@ -336,9 +336,12 @@ export function Navbar() {
               </div>
 
               <div className="px-5 pb-8 space-y-3">
-                <Link href="/courses" className="btn-primary w-full justify-center" onClick={() => setMobileOpen(false)}>
+                <button
+                  className="btn-primary w-full justify-center"
+                  onClick={() => { setMobileOpen(false); openModal(); }}
+                >
                   Book a Free Demo
-                </Link>
+                </button>
                 <a href="https://wa.me/919876543210" target="_blank" rel="noopener noreferrer" className="btn-outline w-full justify-center">
                   WhatsApp Us
                 </a>

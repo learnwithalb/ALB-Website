@@ -17,7 +17,7 @@ const PROGRAMMES = [
   "IELTS Coaching",
   "+Beyond (Soft Skills)",
   "ALB Junior (Ages 6–16)",
-  "Not sure yet — help me choose",
+  "Not sure yet, help me choose",
 ];
 
 const BENEFITS = [

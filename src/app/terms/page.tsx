@@ -3,7 +3,7 @@ import { AnimateOnView } from "@/components/shared/AnimateOnView";
 
 export const metadata: Metadata = {
   title: "Terms & Conditions | Academy of Languages & Beyond",
-  description: "Terms and Conditions for Academy of Languages & Beyond — enrolment, payment, refund & cancellation policy, conduct, intellectual property, privacy, and more.",
+  description: "Terms and Conditions for Academy of Languages & Beyond, enrolment, payment, refund & cancellation policy, conduct, intellectual property, privacy, and more.",
 };
 
 const EMAIL = "hello@academyoflanguagesandbeyond.com";
@@ -28,7 +28,7 @@ const SECTIONS: Section[] = [
     id: "agreement", num: "01", title: "Agreement", short: "Agreement",
     body: [
       "By enrolling in any programme offered by Academy of Languages and Beyond (referred to throughout as “ALB,” “we,” “us,” or “our”), you confirm that you have read, understood, and agree to be bound by these Terms and Conditions.",
-      "These Terms apply to all students, learners, and users who access ALB's language programmes, soft skills modules, trial classes, or any other services offered by Academy of Languages and Beyond — whether accessed through our website, by direct enrolment, or through any other channel.",
+      "These Terms apply to all students, learners, and users who access ALB's language programmes, soft skills modules, trial classes, or any other services offered by Academy of Languages and Beyond, whether accessed through our website, by direct enrolment, or through any other channel.",
       "If you are enrolling on behalf of a minor, you as the parent or legal guardian accept these Terms on their behalf and take full responsibility for their participation.",
       "If you do not agree with any part of these Terms, please do not proceed with enrolment.",
     ],
@@ -52,7 +52,7 @@ const SECTIONS: Section[] = [
     id: "enrolment", num: "03", title: "Enrolment & Admission", short: "Enrolment & Admission",
     body: [
       "3.1 Enrolment in any ALB programme is confirmed only upon receipt of full payment unless a payment plan has been expressly agreed upon in writing by ALB.",
-      "3.2 ALB reserves the right to decline or cancel any enrolment at its discretion — including where a programme is full, where the student does not meet entry requirements, or where ALB determines that the programme may not be suitable. In such cases, a full refund of fees paid will be issued.",
+      "3.2 ALB reserves the right to decline or cancel any enrolment at its discretion, including where a programme is full, where the student does not meet entry requirements, or where ALB determines that the programme may not be suitable. In such cases, a full refund of fees paid will be issued.",
       "3.3 Students are responsible for ensuring they meet any entry-level requirements communicated at the time of enrolment. ALB may conduct a brief placement assessment to confirm suitability for a level. Enrolment in an inappropriate level does not in itself constitute grounds for a refund beyond the policy stated in Section 5.",
       "3.4 Enrolment is personal and non-transferable. A student may not transfer their seat to another individual without prior written consent from ALB.",
       "3.5 ALB reserves the right to reschedule, modify, or reorganise batch timings, instructors, or delivery format with reasonable prior notice. Such changes do not automatically constitute grounds for a refund.",
@@ -64,34 +64,34 @@ const SECTIONS: Section[] = [
       "4.1 All fees are quoted and payable in Indian Rupees (INR) unless otherwise stated.",
       "4.2 Full payment is required at the time of enrolment unless an instalment plan has been agreed upon in writing. Instalment arrangements are subject to separate terms communicated at the time of agreement.",
       "4.3 Fees are inclusive of all course materials, the +Beyond soft skills module, and any assessments included in the programme, unless otherwise specified.",
-      "4.4 ALB does not charge any hidden fees. Any additional costs — such as official examination registration fees for third-party bodies (DELF, Goethe-Institut, IELTS, TEF, TCF, etc.) — are entirely separate and are the responsibility of the student.",
+      "4.4 ALB does not charge any hidden fees. Any additional costs, such as official examination registration fees for third-party bodies (DELF, Goethe-Institut, IELTS, TEF, TCF, etc.), are entirely separate and are the responsibility of the student.",
       "4.5 In the event of a payment failure or reversal, ALB reserves the right to suspend or withdraw access to the programme until payment is resolved.",
     ],
   },
   {
     id: "refund", num: "05", title: "Refund & Cancellation Policy", short: "Refund & Cancellation",
     body: [
-      "ALB's refund policy is designed to be transparent and fair. Students who complete the programme and find it was not the right fit are protected — provided the conditions below are met in full.",
+      "ALB's refund policy is designed to be transparent and fair. Students who complete the programme and find it was not the right fit are protected, provided the conditions below are met in full.",
       { h: "5.1 Refund Eligibility Conditions" },
       "A refund request will only be considered valid if all four of the following conditions are satisfied:",
       { conditions: [
-        { title: "Condition 1 — 30% Deduction", text: "30% of the total amount paid is non-refundable under all circumstances. This covers the operational costs of the 6 sessions conducted — instructor time, platform costs, and administrative overhead. The maximum refund is therefore 70% of total fees paid." },
-        { title: "Condition 2 — Full Attendance Required", text: "The student must have attended all 6 sessions in full. Partial attendance does not qualify. Sessions missed — for any reason — are forfeited without exception and do not count toward refund eligibility." },
-        { title: "Condition 3 — Refund Request Window", text: "The refund request must be submitted within 48 hours of completing the 6th session. Requests submitted after this window will not be entertained, regardless of reason." },
-        { title: "Condition 4 — No Mid-Pack Exits", text: "Students cannot exit mid-way and claim a refund. The full 6-session pack must be completed before any refund request can be assessed." },
+        { title: "Condition 1, 30% Deduction", text: "30% of the total amount paid is non-refundable under all circumstances. This covers the operational costs of the 6 sessions conducted, instructor time, platform costs, and administrative overhead. The maximum refund is therefore 70% of total fees paid." },
+        { title: "Condition 2, Full Attendance Required", text: "The student must have attended all 6 sessions in full. Partial attendance does not qualify. Sessions missed, for any reason, are forfeited without exception and do not count toward refund eligibility." },
+        { title: "Condition 3, Refund Request Window", text: "The refund request must be submitted within 48 hours of completing the 6th session. Requests submitted after this window will not be entertained, regardless of reason." },
+        { title: "Condition 4, No Mid-Pack Exits", text: "Students cannot exit mid-way and claim a refund. The full 6-session pack must be completed before any refund request can be assessed." },
       ]},
       { h: "5.2 Summary of Refund Conditions" },
       { table: [
         ["Attendance", "All 6 sessions attended in full"],
         ["Request timing", "Within 48 hours of completing Session 6"],
         ["Refund amount", "70% of total fees paid"],
-        ["Non-refundable", "30% retained — no exceptions"],
-        ["Mid-pack exits", "Not permitted — full pack must be completed"],
+        ["Non-refundable", "30% retained, no exceptions"],
+        ["Mid-pack exits", "Not permitted, full pack must be completed"],
       ]},
       { h: "5.3 How to Request a Refund" },
       "To submit a valid refund request, students must:",
       { bullets: [
-        `Email ${REFUND_EMAIL} with the subject line: “Refund Request — [Full Name] — [Programme Name]”`,
+        `Email ${REFUND_EMAIL} with the subject line: “Refund Request, [Full Name], [Programme Name]”`,
         "Include: full name, registered phone number or email, programme enrolled in, and date of 6th session completed",
         "Submit within 48 hours of completing their 6th session",
       ]},
@@ -109,7 +109,7 @@ const SECTIONS: Section[] = [
         "Requests submitted before completing all 6 sessions",
         "Students who have received a programme completion certificate",
         "No-shows or absences without prior communication",
-        "Dissatisfaction with third-party examination outcomes (DELF, Goethe, IELTS, TEF, TCF, etc.) — these are entirely independent of ALB",
+        "Dissatisfaction with third-party examination outcomes (DELF, Goethe, IELTS, TEF, TCF, etc.), these are entirely independent of ALB",
       ]},
       { h: "5.6 Trial Class Policy" },
       "If a student attends a free or paid trial class prior to full enrolment, the 6-session refund window and attendance conditions apply exclusively to the main enrolled programme. The trial class is separate and does not count toward the 6-session requirement.",
@@ -121,7 +121,7 @@ const SECTIONS: Section[] = [
     id: "conduct", num: "06", title: "Programme Conduct & Participation", short: "Conduct & Participation",
     body: [
       "6.1 Students are expected to participate respectfully in all live sessions, group activities, and any communication with instructors or peers.",
-      "6.2 ALB operates a zero-tolerance policy toward any form of harassment, discrimination, abusive language, or disruptive behaviour directed at instructors, staff, or fellow students — whether in live sessions, group chats, or any other ALB-associated platform.",
+      "6.2 ALB operates a zero-tolerance policy toward any form of harassment, discrimination, abusive language, or disruptive behaviour directed at instructors, staff, or fellow students, whether in live sessions, group chats, or any other ALB-associated platform.",
       "6.3 ALB reserves the right to remove a student from a programme without refund if, after a formal warning, the student continues to engage in behaviour that disrupts the learning environment or violates this code of conduct.",
       "6.4 Students are expected to attend sessions on time. While ALB understands that life happens, habitual tardiness or absence without notice affects both the student's progress and the batch experience.",
     ],
@@ -139,7 +139,7 @@ const SECTIONS: Section[] = [
     id: "ip", num: "08", title: "Intellectual Property", short: "Intellectual Property",
     body: [
       "8.1 All content, materials, lesson plans, recordings, worksheets, slides, and resources created and shared by ALB are the exclusive intellectual property of Academy of Languages and Beyond.",
-      "8.2 Students may use course materials strictly for their personal learning. Sharing, reproducing, distributing, uploading, or selling any ALB course material — in any format, on any platform — is strictly prohibited and may result in legal action.",
+      "8.2 Students may use course materials strictly for their personal learning. Sharing, reproducing, distributing, uploading, or selling any ALB course material, in any format, on any platform, is strictly prohibited and may result in legal action.",
       "8.3 Any feedback, testimonials, or project submissions shared by students during the programme may be used by ALB for educational or marketing purposes, with the student's identity anonymised unless explicit written consent is given to use their name.",
     ],
   },
@@ -149,14 +149,14 @@ const SECTIONS: Section[] = [
       "9.1 ALB may record live sessions for internal quality assurance, instructor evaluation, or to share recordings with absent enrolled students for catch-up purposes only.",
       "9.2 Session recordings are not publicly shared, uploaded to open platforms, or distributed beyond the enrolled cohort without student consent.",
       "9.3 Students must not record live sessions using any external device or screen recording tool without the explicit written consent of ALB and the instructor.",
-      "9.4 ALB collects and processes personal data in accordance with its Privacy Policy. By enrolling, students consent to ALB using their contact details for programme-related communications, updates, and — with consent — promotional purposes.",
+      "9.4 ALB collects and processes personal data in accordance with its Privacy Policy. By enrolling, students consent to ALB using their contact details for programme-related communications, updates, and, with consent, promotional purposes.",
     ],
   },
   {
     id: "liability", num: "10", title: "Limitation of Liability", short: "Limitation of Liability",
     body: [
-      "10.1 ALB is committed to delivering high-quality language and communication education. However, ALB does not guarantee specific outcomes — including but not limited to examination scores, visa approvals, employment offers, university admissions, or any particular result arising from completion of a programme.",
-      "10.2 Language learning outcomes depend on individual effort, consistency, and engagement. ALB provides the instruction, environment, and tools — outcomes are co-created with the student.",
+      "10.1 ALB is committed to delivering high-quality language and communication education. However, ALB does not guarantee specific outcomes, including but not limited to examination scores, visa approvals, employment offers, university admissions, or any particular result arising from completion of a programme.",
+      "10.2 Language learning outcomes depend on individual effort, consistency, and engagement. ALB provides the instruction, environment, and tools, outcomes are co-created with the student.",
       "10.3 ALB shall not be held liable for any indirect, consequential, or special damages arising from participation in, or withdrawal from, any programme, beyond the refund provisions stated in Section 5.",
       "10.4 ALB is not responsible for technical failures arising from the student's internet connection, device, or third-party platforms beyond ALB's control.",
     ],

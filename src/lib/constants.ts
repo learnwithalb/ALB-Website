@@ -115,7 +115,7 @@ export const testimonials = [
     course: "German B1",
     avatar: "AM",
     quote:
-      "I needed conversational German fast for my MBA. ALB's immersive approach got me to B1 in 8 months. I could hold real conversations at orientation — my classmates were amazed.",
+      "I needed conversational German fast for my MBA. ALB's immersive approach got me to B1 in 8 months. I could hold real conversations at orientation, my classmates were amazed.",
     rating: 5,
   },
   {
@@ -142,7 +142,7 @@ export const testimonials = [
     course: "Spanish A2",
     avatar: "KN",
     quote:
-      "Learning Spanish at ALB opened Latin America to me. The cultural immersion angle in the curriculum is unique — you don't just learn the language, you fall in love with it.",
+      "Learning Spanish at ALB opened Latin America to me. The cultural immersion angle in the curriculum is unique, you don't just learn the language, you fall in love with it.",
     rating: 5,
   },
   {
@@ -159,11 +159,11 @@ export const testimonials = [
 export const faqs = [
   {
     q: "Do I need any prior language knowledge to enroll?",
-    a: "Not at all. We welcome complete beginners. Our diagnostic placement test ensures you start at exactly the right level — whether that's A1 for total beginners or B1 if you have some prior exposure.",
+    a: "Not at all. We welcome complete beginners. Our diagnostic placement test ensures you start at exactly the right level, whether that's A1 for total beginners or B1 if you have some prior exposure.",
   },
   {
     q: "Are classes online or offline?",
-    a: "We offer both! Live online sessions (Zoom/Google Meet) with the same experienced faculty, plus offline batches at our Mumbai centre. Many learners prefer our hybrid model — attend from home on weekdays and come to the centre on weekends.",
+    a: "We offer both! Live online sessions (Zoom/Google Meet) with the same experienced faculty, plus offline batches at our Mumbai centre. Many learners prefer our hybrid model, attend from home on weekdays and come to the centre on weekends.",
   },
   {
     q: "How long does it take to reach B2 level in French?",
@@ -171,7 +171,7 @@ export const faqs = [
   },
   {
     q: "Do you offer exam preparation (DELF, DALF, Goethe, IELTS)?",
-    a: "Yes — exam prep is woven into every advanced batch. We offer dedicated DELF/DALF (French), Goethe-Institut (German), DELE (Spanish), JLPT (Japanese), TOPIK (Korean), and IELTS-specific programmes with past-paper analysis and mock tests.",
+    a: "Yes, exam prep is woven into every advanced batch. We offer dedicated DELF/DALF (French), Goethe-Institut (German), DELE (Spanish), JLPT (Japanese), TOPIK (Korean), and IELTS-specific programmes with past-paper analysis and mock tests.",
   },
   {
     q: "What makes ALB different from apps like Duolingo or Babbel?",
@@ -195,7 +195,7 @@ export const whyAlbPoints = [
   {
     icon: "target",
     title: "Goal-First Curriculum",
-    desc: "We reverse-engineer your goal — visa, study abroad, job, travel — and build a learning path backwards from there.",
+    desc: "We reverse-engineer your goal, visa, study abroad, job, travel, and build a learning path backwards from there.",
   },
   {
     icon: "teacher",
@@ -220,14 +220,14 @@ export const whyAlbPoints = [
   {
     icon: "infinite",
     title: "Lifetime Access",
-    desc: "Re-take any module, attend refresher sessions, and access updated content — forever. Your investment compounds.",
+    desc: "Re-take any module, attend refresher sessions, and access updated content, forever. Your investment compounds.",
   },
 ] as const;
 
 export const beyondModules = [
   {
     title: "Public Speaking Mastery",
-    desc: "Command the room — from 5-person meetings to 500-seat auditoriums.",
+    desc: "Command the room, from 5-person meetings to 500-seat auditoriums.",
     duration: "8 weeks",
     icon: "mic",
   },
@@ -251,7 +251,7 @@ export const beyondModules = [
   },
   {
     title: "Interview Mastery",
-    desc: "Crack any interview — MNCs, MBA admissions, visa panels, scholarships.",
+    desc: "Crack any interview, MNCs, MBA admissions, visa panels, scholarships.",
     duration: "4 weeks",
     icon: "target",
   },

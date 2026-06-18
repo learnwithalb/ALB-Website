@@ -3,7 +3,7 @@ import { AnimateOnView } from "@/components/shared/AnimateOnView";
 
 export const metadata: Metadata = {
   title: "Privacy Policy",
-  description: "Privacy policy for Academy of Languages & Beyond — how we collect, use, and protect your personal data.",
+  description: "Privacy policy for Academy of Languages & Beyond, how we collect, use, and protect your personal data.",
 };
 
 const sections = [
@@ -21,7 +21,7 @@ const sections = [
   },
   {
     title: "4. Legal Basis for Processing",
-    content: `We process your data on the following legal bases: Contract — to fulfil our obligations under your enrollment; Legitimate Interest — to improve our services and communicate with prospective students; Consent — for marketing communications (which you may withdraw at any time); Legal Obligation — where required by law.`,
+    content: `We process your data on the following legal bases: Contract, to fulfil our obligations under your enrollment; Legitimate Interest, to improve our services and communicate with prospective students; Consent, for marketing communications (which you may withdraw at any time); Legal Obligation, where required by law.`,
   },
   {
     title: "5. Data Sharing",

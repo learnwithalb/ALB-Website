@@ -78,10 +78,6 @@ export function LanguageGlobe() {
       animate={{ y: [0, -10, 0] }}
       transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
     >
-      {/* atmosphere glows */}
-      <div className="absolute inset-[24%] rounded-full bg-royal-400/20 blur-[70px] pointer-events-none" />
-      <div className="absolute inset-[37%] rounded-full bg-royal-500/25 blur-[35px] pointer-events-none" />
-
       {/* dot grid overlay */}
       <div
         className="absolute inset-0 pointer-events-none opacity-[0.5]"
@@ -177,42 +173,18 @@ export function LanguageGlobe() {
         ))
       )}
 
-      {/* Central hub – Earth */}
+      {/* Central hub – globe */}
       <div
-        style={{ position: "absolute", top: "50%", left: "50%", width: "62%", aspectRatio: "1", transform: "translate(-50%, -50%)", zIndex: 10 }}
+        style={{ position: "absolute", top: "50%", left: "50%", width: "72%", aspectRatio: "1", transform: "translate(-50%, -50%)", zIndex: 10 }}
       >
-        {/* atmosphere glow */}
-        <motion.div
-          className="absolute rounded-full pointer-events-none"
-          style={{ inset: "-16%", background: "radial-gradient(circle, rgba(59,91,219,0.5) 0%, rgba(14,165,233,0.16) 45%, transparent 70%)" }}
-          animate={{ opacity: [0.5, 0.85, 0.5], scale: [1, 1.06, 1] }}
-          transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+        {/* the globe — PNG already carries its own atmosphere, so no frame/clip */}
+        <Image
+          src="/images/hero-images/globe-light.png"
+          alt="Globe"
+          fill
+          sizes="(min-width:1024px) 390px, 1px"
+          className="relative object-contain"
         />
-        {/* expanding sonar ring */}
-        <motion.div
-          className="absolute inset-0 rounded-full pointer-events-none"
-          style={{ border: "1px solid rgba(125,211,252,0.35)" }}
-          animate={{ scale: [1, 1.32], opacity: [0.55, 0] }}
-          transition={{ duration: 3.6, repeat: Infinity, ease: "easeOut" }}
-        />
-        {/* the planet */}
-        <div
-          className="absolute inset-0 rounded-full overflow-hidden"
-          style={{ boxShadow: "0 0 70px rgba(59,91,219,0.45), 0 0 28px rgba(14,165,233,0.3)" }}
-        >
-          <Image
-            src="/images/earth.png"
-            alt="Earth"
-            fill
-            sizes="(min-width:1024px) 340px, 1px"
-            className="object-cover"
-          />
-          {/* rim-light sheen */}
-          <div
-            className="absolute inset-0 rounded-full pointer-events-none"
-            style={{ background: "radial-gradient(circle at 30% 26%, rgba(255,255,255,0.18) 0%, transparent 42%)" }}
-          />
-        </div>
       </div>
 
       {/* floating accent particles */}

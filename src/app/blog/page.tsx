@@ -8,11 +8,11 @@ import { MuiIcon } from "@/lib/icons";
 import { AnimateOnView } from "@/components/shared/AnimateOnView";
 
 const posts = [
-  { category: "Learning Tips", color: "#3b5bdb", title: "The 5 Habits That Separate B2 Achievers from Eternal Beginners", excerpt: "After 5,000+ learners, the pattern is clear: the students who reach their goal don't work harder — they work smarter.", readTime: "7 min", date: "May 28, 2026", icon: "target" },
-  { category: "French", color: "#0ea5e9", title: "DELF B2: The Complete 2026 Preparation Guide", excerpt: "Everything you need to register, prepare, and pass the DELF B2 — from someone who has coached 200+ candidates through it.", readTime: "12 min", date: "May 20, 2026", icon: "translate" },
+  { category: "Learning Tips", color: "#3b5bdb", title: "The 5 Habits That Separate B2 Achievers from Eternal Beginners", excerpt: "After 5,000+ learners, the pattern is clear: the students who reach their goal don't work harder, they work smarter.", readTime: "7 min", date: "May 28, 2026", icon: "target" },
+  { category: "French", color: "#0ea5e9", title: "DELF B2: The Complete 2026 Preparation Guide", excerpt: "Everything you need to register, prepare, and pass the DELF B2, from someone who has coached 200+ candidates through it.", readTime: "12 min", date: "May 20, 2026", icon: "translate" },
   { category: "Career", color: "#6d8bff", title: "Why Learning German in 2026 Is a Career Game-Changer", excerpt: "Germany is actively recruiting skilled workers. Here's why B1 German might be your golden ticket.", readTime: "9 min", date: "May 14, 2026", icon: "trending" },
-  { category: "+Beyond", color: "#2f49c0", title: "The Real Reason You Freeze During Presentations", excerpt: "Public speaking anxiety is wildly misunderstood. Here's the actual mechanism — and the 3-step fix.", readTime: "6 min", date: "May 7, 2026", icon: "mic" },
-  { category: "Culture", color: "#38bdf8", title: "La Vie Française: 10 Concepts No Textbook Will Teach You", excerpt: "Joie de vivre, savoir-faire, and flânerie — these untranslatable ideas reveal more about France than any grammar rule.", readTime: "8 min", date: "Apr 30, 2026", icon: "theater" },
+  { category: "+Beyond", color: "#2f49c0", title: "The Real Reason You Freeze During Presentations", excerpt: "Public speaking anxiety is wildly misunderstood. Here's the actual mechanism, and the 3-step fix.", readTime: "6 min", date: "May 7, 2026", icon: "mic" },
+  { category: "Culture", color: "#38bdf8", title: "La Vie Française: 10 Concepts No Textbook Will Teach You", excerpt: "Joie de vivre, savoir-faire, and flânerie, these untranslatable ideas reveal more about France than any grammar rule.", readTime: "8 min", date: "Apr 30, 2026", icon: "theater" },
   { category: "Junior", color: "#0284c7", title: "When Should Your Child Start a Second Language?", excerpt: "The science is clear. Here's the critical window explained, and a practical framework for choosing the right language.", readTime: "5 min", date: "Apr 22, 2026", icon: "baby" },
 ];
 
@@ -61,7 +61,7 @@ export default function BlogPage() {
               <span className="gradient-text">Think global.</span>
             </h1>
             <p className="mt-4 text-body text-lg max-w-xl leading-relaxed">
-              Language tips, culture deep-dives, exam strategies, and career insights — straight from the ALB faculty.
+              Language tips, culture deep-dives, exam strategies, and career insights, straight from the ALB faculty.
             </p>
           </AnimateOnView>
         </div>

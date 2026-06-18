@@ -1,10 +1,15 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { Mail, Phone, MapPin } from "lucide-react";
 import { siteConfig, beyondModules } from "@/lib/constants";
 
 export function Footer() {
   const year = new Date().getFullYear();
+  const pathname = usePathname();
+  const showCta = pathname !== "/beyond" && pathname !== "/about";
 
   return (
     <footer className="sec-dark text-white/55 relative overflow-hidden">
@@ -14,32 +19,34 @@ export function Footer() {
       <div className="blob blob-sky w-[420px] h-[420px] -top-24 -right-24 pointer-events-none" />
 
       {/* CTA Banner */}
-      <div className="relative overflow-hidden border-b border-white/10">
-        <div className="container-max px-5 md:px-8 py-12 flex flex-col md:flex-row items-center justify-between gap-6 relative z-10">
-          <div>
-            <p className="eyebrow-pill-light mb-2">Ready to start?</p>
-            <h3 className="text-2xl md:text-3xl font-black text-white">
-              Begin your language journey today.
-            </h3>
-            <p className="mt-1 text-white/45 text-sm">
-              Free counselling session · No commitment required
-            </p>
-          </div>
-          <div className="flex gap-3 flex-shrink-0">
-            <Link href="/courses" className="btn-white whitespace-nowrap">
-              Explore Courses
-            </Link>
-            <a
-              href={siteConfig.socials.whatsapp}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-outline-light whitespace-nowrap"
-            >
-              WhatsApp Us
-            </a>
+      {showCta && (
+        <div className="relative overflow-hidden border-b border-white/10">
+          <div className="container-max px-5 md:px-8 py-12 flex flex-col md:flex-row items-center justify-between gap-6 relative z-10">
+            <div>
+              <p className="eyebrow-pill-light mb-2">Ready to start?</p>
+              <h3 className="text-2xl md:text-3xl font-black text-white">
+                Begin your language journey today.
+              </h3>
+              <p className="mt-1 text-white/45 text-sm">
+                Free counselling session · No commitment required
+              </p>
+            </div>
+            <div className="flex gap-3 flex-shrink-0">
+              <Link href="/courses" className="btn-white whitespace-nowrap">
+                Explore Courses
+              </Link>
+              <a
+                href={siteConfig.socials.whatsapp}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-outline-light whitespace-nowrap"
+              >
+                WhatsApp Us
+              </a>
+            </div>
           </div>
         </div>
-      </div>
+      )}
 
       {/* Main Footer */}
       <div className="container-max px-5 md:px-8 pt-14 pb-8 relative z-10">

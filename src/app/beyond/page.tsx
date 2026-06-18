@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowRight, ArrowDown, CheckCircle, ChevronDown, Hourglass, Video, Clock, Gift, Sparkles, MessageCircle, Mic, Globe } from "lucide-react";
+import { ArrowRight, ArrowDown, CheckCircle, ChevronDown, Hourglass, Video, Clock, Gift, Sparkles } from "lucide-react";
 import { AnimateOnView, StaggerContainer, StaggerItem } from "@/components/shared/AnimateOnView";
 import { MuiIcon } from "@/lib/icons";
 import { CountUp } from "@/components/shared/CountUp";
@@ -20,12 +20,6 @@ const HERO_STATS = [
 ];
 
 // Floating gradient icon tiles that frame the hero image
-const FLOAT_ICONS = [
-  { Icon: MessageCircle, cls: "top-1 -left-2 sm:-left-6", grad: "linear-gradient(135deg,#3b5bdb,#6d8bff)", d: 0,   dur: 5.2 },
-  { Icon: Mic,           cls: "top-20 -right-1 sm:-right-5", grad: "linear-gradient(135deg,#0ea5e9,#38bdf8)", d: 0.5, dur: 6.0 },
-  { Icon: Globe,         cls: "bottom-6 -left-3 sm:-left-7", grad: "linear-gradient(135deg,#6366f1,#818cf8)", d: 1.1, dur: 5.6 },
-];
-
 const STATS = [
   { value: "2",  label: "Weeks",             grad: "linear-gradient(135deg,#dde6ff,#c2d2ff)" },
   { value: "6",  label: "Live Sessions",     grad: "linear-gradient(135deg,#e0f2fe,#bae6fd)" },
@@ -56,28 +50,28 @@ const WEEKS = [
 ];
 
 const OUTCOMES = [
-  { icon: "stars",   title: "Communicate with Greater Confidence", desc: "Speak up in any room — clearly, calmly, and with genuine presence." },
-  { icon: "sparkle", title: "Present Yourself Professionally",     desc: "Make a strong first impression in introductions, meetings, and on stage." },
-  { icon: "target",  title: "Navigate Interviews & Networking",    desc: "Handle interviews, panels, and networking situations with poise and structure." },
-  { icon: "work",    title: "Master Workplace Communication",      desc: "Write sharp emails and communicate effectively across global teams." },
-  { icon: "globe",   title: "Develop a Global Professional Mindset", desc: "Carry the cross-cultural awareness that international workplaces expect." },
+  { icon: "stars",   title: "Communicate with Greater Confidence", desc: "Speak up in any room, clearly, calmly, and with genuine presence.", from: "#3b5bdb", to: "#6d8bff" },
+  { icon: "sparkle", title: "Present Yourself Professionally",     desc: "Make a strong first impression in introductions, meetings, and on stage.", from: "#8b5cf6", to: "#a78bfa" },
+  { icon: "target",  title: "Navigate Interviews & Networking",    desc: "Handle interviews, panels, and networking situations with poise and structure.", from: "#0ea5e9", to: "#38bdf8" },
+  { icon: "work",    title: "Master Workplace Communication",      desc: "Write sharp emails and communicate effectively across global teams.", from: "#10b981", to: "#34d399" },
+  { icon: "globe",   title: "Develop a Global Professional Mindset", desc: "Carry the cross-cultural awareness that international workplaces expect.", from: "#f59e0b", to: "#fbbf24" },
 ];
 
 const PROFILES = [
   { icon: "work",     title: "The Job Seeker Abroad",   desc: "You've learned the language. Now you need to walk into that interview in Paris or Frankfurt and own the room. This module gives you exactly that." },
-  { icon: "article",  title: "The Visa Applicant",      desc: "The officer will ask you questions in French or German. What they're really judging is your composure and clarity — not just your grammar." },
-  { icon: "school",   title: "The International Student", desc: "You're heading to a university abroad. The coursework won't be the hard part — presenting yourself, speaking in seminars, and fitting into professional spaces will be." },
+  { icon: "article",  title: "The Visa Applicant",      desc: "The officer will ask you questions in French or German. What they're really judging is your composure and clarity, not just your grammar." },
+  { icon: "school",   title: "The International Student", desc: "You're heading to a university abroad. The coursework won't be the hard part, presenting yourself, speaking in seminars, and fitting into professional spaces will be." },
   { icon: "business", title: "The Working Professional", desc: "You're already in a multilingual environment, but your emails feel stiff, your meetings feel awkward, and presentations make you nervous. This module changes that." },
 ];
 
 const FAQS = [
-  { q: "What is the ALB Global Confidence Program?", a: "The ALB Global Confidence Program is a 2-week live soft skills module included free with every language course at Academy of Languages and Beyond. It covers 6 sessions across confidence building, professional communication, public speaking, interview preparation, and personal branding — 6 hours of live, interactive training at zero extra cost." },
-  { q: "Is the +Beyond soft skills module really free?", a: "Yes — completely. The ALB Global Confidence Program is included with every language program at no extra cost. There are no add-on fees, no separate registration, and no conditions. Every ALB student receives the full 2-week module automatically as part of their enrolment." },
-  { q: "How many sessions are there and how long is each?", a: "The program includes 6 live sessions over 2 weeks — 3 sessions per week, each 1 hour long. All sessions are instructor-led, real-time, and fully interactive." },
+  { q: "What is the ALB Global Confidence Program?", a: "The ALB Global Confidence Program is a 2-week live soft skills module included free with every language course at Academy of Languages and Beyond. It covers 6 sessions across confidence building, professional communication, public speaking, interview preparation, and personal branding, 6 hours of live, interactive training at zero extra cost." },
+  { q: "Is the +Beyond soft skills module really free?", a: "Yes, completely. The ALB Global Confidence Program is included with every language program at no extra cost. There are no add-on fees, no separate registration, and no conditions. Every ALB student receives the full 2-week module automatically as part of their enrolment." },
+  { q: "How many sessions are there and how long is each?", a: "The program includes 6 live sessions over 2 weeks, 3 sessions per week, each 1 hour long. All sessions are instructor-led, real-time, and fully interactive." },
   { q: "What exactly will I learn across the 6 sessions?", a: "Week 1 covers Confidence and Communication Foundations: self-awareness and confidence building, effective communication and active listening, and public speaking fundamentals with live practice. Week 2 covers Professional Readiness: professional email and workplace communication, personal branding and interview skills, and a final capstone simulation with role plays, a mock interview, and individual feedback." },
-  { q: "Do I need any prior experience in public speaking or soft skills?", a: "None at all. The program is designed for learners at every level — whether you have never spoken in a group setting before or you're refining your professional communication for an international environment. The program starts from self-awareness and builds progressively." },
-  { q: "Are the sessions online or in person?", a: "All +Beyond sessions are conducted live online — real-time, instructor-led, and fully participatory. You attend from wherever you are and engage directly with the instructor and your cohort." },
-  { q: "How does +Beyond help with visa or job interviews specifically?", a: "Session 5 is dedicated entirely to personal branding and interview skills — covering preparation, common questions, and confidence under pressure. Session 6 is a live mock interview simulation with individual instructor feedback. The confidence and composure built across all 6 sessions directly prepares you for the pressured environment of a consular, embassy, or professional interview." },
+  { q: "Do I need any prior experience in public speaking or soft skills?", a: "None at all. The program is designed for learners at every level, whether you have never spoken in a group setting before or you're refining your professional communication for an international environment. The program starts from self-awareness and builds progressively." },
+  { q: "Are the sessions online or in person?", a: "All +Beyond sessions are conducted live online, real-time, instructor-led, and fully participatory. You attend from wherever you are and engage directly with the instructor and your cohort." },
+  { q: "How does +Beyond help with visa or job interviews specifically?", a: "Session 5 is dedicated entirely to personal branding and interview skills, covering preparation, common questions, and confidence under pressure. Session 6 is a live mock interview simulation with individual instructor feedback. The confidence and composure built across all 6 sessions directly prepares you for the pressured environment of a consular, embassy, or professional interview." },
 ];
 
 /* ─────────────── page ─────────────── */
@@ -129,7 +123,7 @@ export default function BeyondPage() {
                 className="mt-5 text-base md:text-lg text-body max-w-xl leading-relaxed"
               >
                 Most language schools teach you <em className="text-ink not-italic font-semibold">what</em> to say.
-                ALB teaches you <em className="text-ink not-italic font-semibold">how</em> to say it — with the confidence,
+                ALB teaches you <em className="text-ink not-italic font-semibold">how</em> to say it, with the confidence,
                 clarity, and professional presence that changes how the world receives you.
               </motion.p>
 
@@ -203,44 +197,18 @@ export default function BeyondPage() {
                 transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
               />
 
-              <motion.div className="lg:scale-[1.22] origin-center" animate={{ y: [0, -14, 0] }} transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}>
+              <div className="lg:scale-[1.22] origin-center">
                 <Image
-                  src="/images/hero-images/beyond-hero-v2.png"
-                  alt="ALB +Beyond — speak with confidence in any language"
+                  src="/images/hero-images/beyond-hero-image3.png"
+                  alt="ALB +Beyond, speak with confidence in any language"
                   width={1600}
                   height={929}
                   priority
-                  sizes="(max-width: 1024px) 100vw, 50vw"
+                  quality={95}
+                  sizes="(max-width: 1024px) 100vw, 70vw"
                   className="relative w-full h-auto select-none drop-shadow-[0_24px_60px_rgba(59,91,219,0.18)]"
                 />
-              </motion.div>
-
-              {/* orbiting dots travelling around the image */}
-              <motion.div className="absolute inset-0 pointer-events-none hidden md:block" animate={{ rotate: 360 }} transition={{ duration: 18, repeat: Infinity, ease: "linear" }}>
-                <span className="absolute top-0 left-1/2 -translate-x-1/2 w-3 h-3 rounded-full bg-royal-500 shadow-lg shadow-royal-500/50" />
-              </motion.div>
-              <motion.div className="absolute inset-0 pointer-events-none hidden md:block" animate={{ rotate: -360 }} transition={{ duration: 26, repeat: Infinity, ease: "linear" }}>
-                <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-2.5 h-2.5 rounded-full bg-sky-400 shadow-lg shadow-sky-400/50" />
-              </motion.div>
-
-              {/* floating gradient icon tiles */}
-              {FLOAT_ICONS.map(({ Icon, cls, grad, d, dur }, i) => (
-                <motion.div
-                  key={i}
-                  className={`absolute z-20 ${cls} w-12 h-12 rounded-2xl flex items-center justify-center shadow-xl`}
-                  style={{ background: grad, boxShadow: "0 14px 30px rgba(59,91,219,0.28)" }}
-                  initial={{ opacity: 0, scale: 0.5 }}
-                  animate={{ opacity: 1, scale: 1, y: [0, -12, 0], rotate: [0, 6, -6, 0] }}
-                  transition={{
-                    opacity: { duration: 0.5, delay: 0.8 + d },
-                    scale: { type: "spring", stiffness: 320, damping: 18, delay: 0.8 + d },
-                    y: { duration: dur, repeat: Infinity, ease: "easeInOut", delay: d },
-                    rotate: { duration: dur, repeat: Infinity, ease: "easeInOut", delay: d },
-                  }}
-                >
-                  <Icon size={20} className="text-white" />
-                </motion.div>
-              ))}
+              </div>
 
               {/* drifting sparkles */}
               {[
@@ -284,7 +252,7 @@ export default function BeyondPage() {
                 transition={{ duration: 0.7, delay: 0.25, ease: "easeOut" }}
               />
 
-              {/* pull quote — glass card with animated glow */}
+              {/* pull quote, glass card with animated glow */}
               <motion.div
                 className="relative mt-8 rounded-3xl p-7 overflow-hidden"
                 style={{ background: "linear-gradient(135deg,#eef2ff,#e8edff)", border: "1px solid rgba(59,91,219,0.14)" }}
@@ -321,7 +289,7 @@ export default function BeyondPage() {
                 {[
                   { t: "The pattern we kept seeing", d: "Students completed language courses, earned their certificates, passed their mock tests, clocked their hours. And then froze." },
                   { t: "Where it broke down", d: "In visa interviews. In job interviews. On their first day in a new country. The language was there. The confidence wasn't. The certificate was there. The real-world readiness wasn't." },
-                  { t: "How +Beyond closes the gap", d: "The +Beyond module exists to close that gap. Every ALB language student receives it automatically, at no extra cost — because language education is incomplete without the human skills that bring it to life.", highlight: true },
+                  { t: "How +Beyond closes the gap", d: "The +Beyond module exists to close that gap. Every ALB language student receives it automatically, at no extra cost, because language education is incomplete without the human skills that bring it to life.", highlight: true },
                 ].map((r, i) => (
                   <motion.div
                     key={i}
@@ -368,7 +336,7 @@ export default function BeyondPage() {
         <motion.div className="absolute top-[60%] right-[40%] w-1 h-1 rounded-full bg-white/70 pointer-events-none" animate={{ opacity: [0.2, 0.8, 0.2] }} transition={{ duration: 3, repeat: Infinity, delay: 0.5 }} />
         <div className="container-max px-5 md:px-8 relative z-10">
           <div className="grid lg:grid-cols-2 gap-10 lg:gap-14 items-center">
-            {/* left — copy */}
+            {/* left, copy */}
             <AnimateOnView direction="right">
               <span className="eyebrow-pill-light">At a Glance</span>
               <h2 className="text-3xl md:text-4xl font-black text-white mt-1 leading-tight">
@@ -376,7 +344,7 @@ export default function BeyondPage() {
                 <span className="gradient-text-light">Zero extra cost.</span>
               </h2>
               <p className="mt-4 text-white/60 leading-relaxed max-w-md">
-                Two focused weeks. Six live, interactive sessions. Real transformation —
+                Two focused weeks. Six live, interactive sessions. Real transformation,
                 included free with every ALB language program.
               </p>
               <div className="mt-7 flex flex-wrap gap-3">
@@ -389,7 +357,7 @@ export default function BeyondPage() {
               </div>
             </AnimateOnView>
 
-            {/* right — stat bento (dark glass tiles + graphics) */}
+            {/* right, stat bento (dark glass tiles + graphics) */}
             <StaggerContainer className="grid grid-cols-2 gap-4" staggerDelay={0.08}>
               {STATS.map((s, i) => {
                 // vibrant full-width "free" highlight
@@ -545,23 +513,51 @@ export default function BeyondPage() {
               You leave with more than <span className="gradient-text">a language.</span>
             </h2>
             <p className="mt-5 text-body text-base md:text-lg leading-relaxed">
-              Five outcomes. Real, measurable, and yours to keep — for every room you walk into after.
+              Five outcomes. Real, measurable, and yours to keep, for every room you walk into after.
             </p>
           </AnimateOnView>
 
-          <StaggerContainer className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5" staggerDelay={0.09}>
+          <StaggerContainer className="grid sm:grid-cols-2 lg:grid-cols-6 gap-5" staggerDelay={0.09}>
             {OUTCOMES.map((o, i) => (
-              <StaggerItem key={o.title}>
-                <div className="card-feature rounded-2xl p-6 h-full relative overflow-hidden">
-                  <span className="absolute top-4 right-5 text-5xl font-black text-royal-50 select-none leading-none">{String(i + 1).padStart(2, "0")}</span>
-                  <motion.div
-                    className="w-12 h-12 rounded-xl bg-royal-50 flex items-center justify-center mb-4 relative z-10"
-                    whileHover={{ rotate: -6, scale: 1.08 }}
+              <StaggerItem key={o.title} className={`h-full ${i < 2 ? "lg:col-span-3" : "lg:col-span-2"}`}>
+                <div className="group relative w-full h-full min-h-[230px] flex flex-col rounded-2xl bg-white border border-line p-7 overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_26px_55px_-24px_rgba(16,23,51,0.3)]">
+                  {/* colored glow fills the lower corner */}
+                  <span
+                    className="absolute -bottom-14 -right-12 w-52 h-52 rounded-full blur-3xl opacity-[0.18] group-hover:opacity-40 transition-opacity duration-500 pointer-events-none"
+                    style={{ background: o.from }}
+                  />
+                  {/* colored hover ring */}
+                  <span
+                    className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+                    style={{ boxShadow: `inset 0 0 0 1.5px ${o.from}44` }}
+                  />
+                  {/* number watermark */}
+                  <span
+                    className="absolute top-5 right-6 text-6xl font-black select-none leading-none pointer-events-none opacity-[0.12] group-hover:opacity-25 transition-opacity duration-300"
+                    style={{ color: o.from }}
                   >
-                    <MuiIcon name={o.icon} size={24} style={{ color: "#3b5bdb" }} />
-                  </motion.div>
-                  <h3 className="font-bold text-ink text-base relative z-10">{o.title}</h3>
-                  <p className="text-muted text-sm mt-1.5 leading-relaxed relative z-10">{o.desc}</p>
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+
+                  {/* gradient icon tile, anchored top */}
+                  <span
+                    className="relative z-10 w-12 h-12 rounded-xl flex items-center justify-center transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-6"
+                    style={{ background: `linear-gradient(150deg, ${o.from}, ${o.to})`, boxShadow: `0 8px 22px ${o.from}59` }}
+                  >
+                    <MuiIcon name={o.icon} size={24} style={{ color: "#ffffff" }} />
+                  </span>
+
+                  {/* text, anchored to the bottom */}
+                  <div className="relative z-10 mt-auto pt-10">
+                    <h3 className="font-black text-ink text-lg md:text-xl leading-snug">{o.title}</h3>
+                    <p className="text-muted text-sm mt-2 leading-relaxed max-w-md">{o.desc}</p>
+                  </div>
+
+                  {/* gradient accent line slides in on hover */}
+                  <span
+                    className="absolute bottom-0 left-0 right-0 h-1 scale-x-0 origin-left transition-transform duration-500 group-hover:scale-x-100"
+                    style={{ background: `linear-gradient(90deg, ${o.from}, ${o.to})` }}
+                  />
                 </div>
               </StaggerItem>
             ))}
@@ -635,20 +631,20 @@ export default function BeyondPage() {
         <div className="container-max relative z-10">
           <div className="grid lg:grid-cols-[1fr_1.7fr] gap-12 lg:gap-16 items-start">
 
-            {/* left — sticky intro + helper */}
+            {/* left, sticky intro + helper */}
             <AnimateOnView direction="right" className="lg:sticky lg:top-28">
               <span className="eyebrow-pill-outline">Common Questions</span>
               <h2 className="text-3xl md:text-4xl font-black text-ink mt-1 leading-tight">
                 Everything you want to know about <span className="gradient-text">+Beyond.</span>
               </h2>
               <p className="mt-4 text-body leading-relaxed text-sm">
-                Quick answers about the ALB Global Confidence Program — what it covers, how it runs,
+                Quick answers about the ALB Global Confidence Program, what it covers, how it runs,
                 and why it&apos;s included free with every language course.
               </p>
 
               <div className="mt-6 card rounded-2xl p-5">
                 <p className="font-bold text-ink text-sm">Still have a question?</p>
-                <p className="text-muted text-xs mt-1">Talk to a counsellor — no commitment.</p>
+                <p className="text-muted text-xs mt-1">Talk to a counsellor, no commitment.</p>
                 <div className="mt-4 flex flex-wrap gap-2.5">
                   <button onClick={() => openModal("+Beyond (Soft Skills)")} className="btn-primary text-sm px-4 py-2.5">
                     Book a Free Call <ArrowRight size={14} />
@@ -660,7 +656,7 @@ export default function BeyondPage() {
               </div>
             </AnimateOnView>
 
-            {/* right — numbered Q&A accordion */}
+            {/* right, numbered Q&A accordion */}
             <StaggerContainer className="space-y-4" staggerDelay={0.07}>
               {FAQS.map((f, i) => {
                 const open = openFaq === i;
@@ -723,7 +719,7 @@ export default function BeyondPage() {
             </h2>
             <p className="mt-5 text-white/60 text-lg max-w-2xl mx-auto leading-relaxed">
               Students leave ALB with stronger language skills, deeper confidence, sharper communication,
-              and real professional readiness — without paying a rupee extra. That&apos;s the +Beyond difference.
+              and real professional readiness, without paying a rupee extra. That&apos;s the +Beyond difference.
             </p>
             <div className="mt-8 flex flex-wrap justify-center gap-4">
               <button onClick={() => openModal("+Beyond (Soft Skills)")} className="btn-white text-base px-8 py-4">

@@ -77,7 +77,7 @@ const TRACKS = [
     title: "Sprint Track",
     badge: "Sprint",
     icon: "rocket",
-    ideal: "Tight deadlines — visa filing, university intake, job change or relocation.",
+    ideal: "Tight deadlines, visa filing, university intake, job change or relocation.",
     different: "An intensive schedule with more live classes per week, daily speaking practice, and tight progress checks.",
     exams: ["TEF / TCF Canada", "DELF / Goethe", "IELTS (Acad. & Gen.)"],
   },
@@ -96,10 +96,10 @@ const JOURNEY = [
 
 /* Faculty / mentors */
 const INSTRUCTORS = [
-  { name: "Ananya Krishnan", role: "Lead French Faculty",      cred: "DELF Examiner",    exp: "14+ yrs", rating: "4.9", students: "5000+", from: "#3b5bdb", to: "#2f49c0", initials: "AK" },
-  { name: "Priya Narayanan", role: "German Expert",            cred: "Goethe Certified", exp: "8+ yrs",  rating: "4.8", students: "3500+", from: "#6d8bff", to: "#3b5bdb", initials: "PN" },
-  { name: "Carlos Mendes",   role: "Spanish & Culture",        cred: "Native Speaker",   exp: "9+ yrs",  rating: "4.9", students: "4200+", from: "#0ea5e9", to: "#0284c7", initials: "CM" },
-  { name: "Rohan Pillai",    role: "IELTS & Academic English", cred: "British Council",  exp: "7+ yrs",  rating: "4.9", students: "6000+", from: "#0284c7", to: "#2f49c0", initials: "RP" },
+  { name: "Ananya Krishnan", role: "Lead French Faculty",      cred: "DELF Examiner",    exp: "14+ yrs", rating: "4.9", students: "5000+", from: "#3b5bdb", to: "#2f49c0", img: "/images/hero-images/homepage/Stock-mentor1.png" },
+  { name: "Priya Narayanan", role: "German Expert",            cred: "Goethe Certified", exp: "8+ yrs",  rating: "4.8", students: "3500+", from: "#6d8bff", to: "#3b5bdb", img: "/images/hero-images/homepage/Stock-mentor2.png" },
+  { name: "Carlos Mendes",   role: "Spanish & Culture",        cred: "Native Speaker",   exp: "9+ yrs",  rating: "4.9", students: "4200+", from: "#0ea5e9", to: "#0284c7", img: "/images/hero-images/homepage/Stock-mentor3.png" },
+  { name: "Rohan Pillai",    role: "IELTS & Academic English", cred: "British Council",  exp: "7+ yrs",  rating: "4.9", students: "6000+", from: "#0284c7", to: "#2f49c0", img: "/images/hero-images/homepage/Stock-mentor4.png" },
 ];
 
 /* Cover images for the hero language cards (by language code) */
@@ -158,7 +158,7 @@ export default function HomePage() {
               >
                 Helping you
                 <br />
-                <span className="gradient-text">Speak, Connect &amp; Belong</span>
+                <span className="aurora-text inline-block pb-1">Speak, Connect &amp; Belong</span>
               </motion.h1>
 
               <motion.p
@@ -296,7 +296,7 @@ export default function HomePage() {
                   {/* top sheen line */}
                   <div className="absolute top-0 left-0 right-0 h-px" style={{ background: `linear-gradient(90deg, transparent, ${glow}66, transparent)` }} />
 
-                  {/* icon tile — floats + glow pulse */}
+                  {/* icon tile, floats + glow pulse */}
                   <motion.div
                     className="relative w-12 h-12 rounded-xl flex items-center justify-center"
                     style={{ background: `${s.iconColor}26`, boxShadow: `inset 0 0 0 1px ${s.iconColor}33` }}
@@ -315,7 +315,7 @@ export default function HomePage() {
 
                   <div className="relative z-10 text-base md:text-lg font-black text-ink leading-tight">{s.title}</div>
 
-                  {/* accent line — grows in, stretches on hover */}
+                  {/* accent line, grows in, stretches on hover */}
                   <motion.div
                     className="relative z-10 h-1 rounded-full mt-auto group-hover:w-12 transition-all duration-300"
                     style={{ background: `linear-gradient(90deg, ${glow}, transparent)` }}
@@ -369,7 +369,7 @@ export default function HomePage() {
               <span className="gradient-text">won&apos;t get you there.</span>
             </h2>
             <p className="mt-5 text-body text-base md:text-lg leading-relaxed">
-              Most institutes teach grammar, test vocabulary, and hand you a certificate — but
+              Most institutes teach grammar, test vocabulary, and hand you a certificate, but
               never prepare you for a visa interview, a university panel, or a salary negotiation.
               That gap between being <strong className="text-ink font-bold">fluent</strong> and being{" "}
               <strong className="text-ink font-bold">effective</strong> is exactly what ALB was built to close.
@@ -389,7 +389,7 @@ export default function HomePage() {
                   <h3 className="mt-2 text-xl font-black text-ink leading-snug">{c.title}</h3>
                   <p className="mt-3 text-muted text-sm leading-relaxed italic">&ldquo;{c.quote}&rdquo;</p>
 
-                  {/* decorative visual — animates in on view */}
+                  {/* decorative visual, animates in on view */}
                   <div className="mt-auto pt-8">
                     {i === 0 && (
                       <svg viewBox="0 0 240 80" className="w-full h-20" fill="none" preserveAspectRatio="none">
@@ -454,7 +454,7 @@ export default function HomePage() {
               <div className="absolute inset-0 grid-dots-light opacity-25 pointer-events-none" />
               <p className="relative z-10 text-white/80 text-center md:text-left text-sm md:text-base leading-relaxed max-w-2xl">
                 <strong className="text-white font-bold">At ALB, soft skills aren&apos;t an add-on.</strong> They&apos;re woven into
-                every programme from day one — so you don&apos;t just learn the language, you own the room in it.
+                every programme from day one, so you don&apos;t just learn the language, you own the room in it.
               </p>
               <button onClick={() => openModal()} className="btn-white relative z-10 whitespace-nowrap flex-shrink-0">
                 Book a Free Demo <ArrowRight size={15} />
@@ -471,14 +471,14 @@ export default function HomePage() {
         <div className="container-max relative z-10">
           <AnimateOnView className="text-center mb-12">
             <span className="eyebrow-pill-blue">Language Programmes</span>
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-ink mt-1">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-ink mt-1 leading-[1.15]">
               Six languages. One world.
               <br />
-              <span className="gradient-text">Infinite doors.</span>
+              <span className="gradient-text inline-block pb-1">Infinite doors.</span>
             </h2>
             <p className="mt-4 text-body text-lg max-w-xl mx-auto leading-relaxed">
               CEFR-aligned, culturally immersive, taught by experts who care about
-              your goal — not just curriculum coverage.
+              your goal, not just curriculum coverage.
             </p>
           </AnimateOnView>
 
@@ -587,7 +587,7 @@ export default function HomePage() {
               <span className="gradient-text-light">your goal.</span>
             </h2>
             <p className="mt-5 text-white/60 text-base md:text-lg leading-relaxed">
-              Immigrating, studying abroad, advancing your career, or racing a deadline —
+              Immigrating, studying abroad, advancing your career, or racing a deadline,
               every programme is shaped around the outcome you actually need.
             </p>
           </AnimateOnView>
@@ -621,11 +621,6 @@ export default function HomePage() {
                       </span>
                     ))}
                   </div>
-
-                  <Link href="/courses" className="relative z-10 mt-auto pt-6 inline-flex items-center gap-1.5 text-royal-600 font-bold text-sm">
-                    Explore track
-                    <ArrowRight size={14} className="group-hover/track:translate-x-1 transition-transform" />
-                  </Link>
                 </div>
               </StaggerItem>
             ))}
@@ -647,7 +642,7 @@ export default function HomePage() {
               <span className="gradient-text">A complete transformation.</span>
             </h2>
             <p className="mt-5 text-body text-base md:text-lg leading-relaxed">
-              A methodology honed for Indian learners — outcome-driven, immersive, and
+              A methodology honed for Indian learners, outcome-driven, immersive, and
               designed to take you straight to the result that matters most to you.
             </p>
           </AnimateOnView>
@@ -655,7 +650,7 @@ export default function HomePage() {
           {/* bento grid */}
           <StaggerContainer className="grid lg:grid-cols-3 gap-4 md:gap-5" staggerDelay={0.08}>
 
-            {/* Live interactive — wide */}
+            {/* Live interactive, wide */}
             <StaggerItem className="lg:col-span-2">
               <div className="card-hover rounded-2xl p-7 h-full flex flex-col sm:flex-row sm:items-center gap-6 overflow-hidden">
                 <div className="flex-1">
@@ -664,7 +659,7 @@ export default function HomePage() {
                   </div>
                   <h3 className="text-lg font-black text-ink">Live interactive learning</h3>
                   <p className="text-muted text-sm mt-1.5 leading-relaxed">
-                    3 live sessions a week with a qualified mentor, plus regular speaking practice — never pre-recorded.
+                    3 live sessions a week with a qualified mentor, plus regular speaking practice, never pre-recorded.
                   </p>
                 </div>
                 {/* session-activity bars */}
@@ -690,7 +685,7 @@ export default function HomePage() {
                 </div>
                 <h3 className="text-lg font-black text-ink">Small cohorts</h3>
                 <p className="text-muted text-sm mt-1.5 leading-relaxed">
-                  Real speaking time, real feedback — no hiding at the back of a 60-person class.
+                  Real speaking time, real feedback, no hiding at the back of a 60-person class.
                 </p>
                 <div className="flex items-center -space-x-2 mt-auto pt-5">
                   {["AR", "PK", "SN", "RM"].map((x) => (
@@ -710,7 +705,7 @@ export default function HomePage() {
                 </div>
                 <h3 className="text-lg font-black text-ink">Goal-certified tracks</h3>
                 <p className="text-muted text-sm mt-1.5 leading-relaxed">
-                  Immigration, Academic, or Career — your path shapes everything from enrolment day.
+                  Immigration, Academic, or Career, your path shapes everything from enrolment day.
                 </p>
               </div>
             </StaggerItem>
@@ -736,12 +731,12 @@ export default function HomePage() {
                 </div>
                 <h3 className="text-lg font-black text-ink">Soft skills in every batch</h3>
                 <p className="text-muted text-sm mt-1.5 leading-relaxed">
-                  Confidence, communication, and professional presence — not optional. Built in.
+                  Confidence, communication, and professional presence, not optional. Built in.
                 </p>
               </div>
             </StaggerItem>
 
-            {/* India-first pedagogy — full width */}
+            {/* India-first pedagogy, full width */}
             <StaggerItem className="lg:col-span-3">
               <div className="card-hover rounded-2xl p-7 h-full flex flex-col md:flex-row md:items-center gap-7">
                 <div className="md:max-w-sm">
@@ -750,7 +745,7 @@ export default function HomePage() {
                   </div>
                   <h3 className="text-lg font-black text-ink">India-first pedagogy</h3>
                   <p className="text-muted text-sm mt-1.5 leading-relaxed">
-                    Hindi cognates, India-relevant scenarios, and visa &amp; embassy vocabulary — not generic Western textbooks.
+                    Hindi cognates, India-relevant scenarios, and visa &amp; embassy vocabulary, not generic Western textbooks.
                   </p>
                 </div>
                 <div className="flex-1 flex flex-wrap items-center gap-2 md:gap-3">
@@ -782,15 +777,15 @@ export default function HomePage() {
             </h2>
             <p className="mt-4 text-white/55 max-w-xl mx-auto">
               Public Speaking, Business Communication, Leadership, Personality Development
-              — standalone or bundled with any language course.
+             , standalone or bundled with any language course.
             </p>
           </AnimateOnView>
 
           <StaggerContainer className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-10 text-left" staggerDelay={0.07}>
             {[
-              { icon: "mic",     title: "Public Speaking",         desc: "Command any room — from 5-person meetings to 500-seat stages.",         from: "#3b5bdb", to: "#6d8bff" },
+              { icon: "mic",     title: "Public Speaking",         desc: "Command any room, from 5-person meetings to 500-seat stages.",         from: "#3b5bdb", to: "#6d8bff" },
               { icon: "work",    title: "Business Communication",  desc: "Write sharper emails, lead better meetings, negotiate with clarity.",   from: "#7c3aed", to: "#a855f7" },
-              { icon: "sparkle", title: "Personality Development", desc: "Executive presence, EQ, and authentic confidence — built systematically.", from: "#0ea5e9", to: "#38bdf8" },
+              { icon: "sparkle", title: "Personality Development", desc: "Executive presence, EQ, and authentic confidence, built systematically.", from: "#0ea5e9", to: "#38bdf8" },
               { icon: "stars",   title: "Leadership Presence",     desc: "Inspire teams and communicate vision at every level.",                  from: "#10b981", to: "#34d399" },
               { icon: "target",  title: "Interview Mastery",       desc: "Crack MNC, MBA, visa, and scholarship interviews with confidence.",      from: "#f59e0b", to: "#fbbf24" },
               { icon: "globe",   title: "Cross-Cultural Comm.",    desc: "Navigate global workplaces and cultures with ease and empathy.",         from: "#6d28d9", to: "#8b5cf6" },
@@ -899,7 +894,7 @@ export default function HomePage() {
               <span className="h-px w-8 bg-royal-300" />
             </div>
             <h2 className="text-3xl md:text-5xl font-black text-ink leading-[1.12]">
-              <span className="bg-royal-600 text-white rounded-xl px-2.5 py-0.5">Learn</span> from India&apos;s best mentors
+              <span className="gradient-text inline-block mr-3">Learn</span>from India&apos;s best mentors
             </h2>
             <p className="mt-5 text-body text-base md:text-lg leading-relaxed">
               In today&apos;s competitive world, you need industry-relevant skills taught by certified,
@@ -913,10 +908,13 @@ export default function HomePage() {
                 <div className="group card-hover rounded-3xl overflow-hidden h-full">
                   {/* avatar */}
                   <div className="relative h-[230px] overflow-hidden" style={{ background: `linear-gradient(160deg, ${m.from}, ${m.to})` }}>
-                    <div className="absolute inset-0 grid-dots-light opacity-20 pointer-events-none" />
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <span className="text-white font-black text-7xl select-none drop-shadow-lg group-hover:scale-105 transition-transform">{m.initials}</span>
-                    </div>
+                    <Image
+                      src={m.img}
+                      alt={m.name}
+                      fill
+                      sizes="(max-width:640px) 100vw, (max-width:1024px) 50vw, 25vw"
+                      className="object-cover object-top group-hover:scale-105 transition-transform duration-500"
+                    />
                     <span className="absolute top-3 left-3 bg-white/90 backdrop-blur-sm rounded-full px-3 py-1 text-[10px] font-bold text-ink shadow-sm">{m.cred}</span>
                     <span className="absolute top-3 right-3 bg-white rounded-full px-2.5 py-1 text-[11px] font-bold text-ink flex items-center gap-1 shadow-sm">
                       <Star size={11} className="text-amber-400 fill-amber-400" /> {m.rating}
@@ -967,7 +965,7 @@ export default function HomePage() {
             </h2>
             <p className="mt-5 text-white/60 text-base md:text-lg leading-relaxed">
               Unlike platforms that hand you streaks and badges, ALB issues verifiable,
-              CEFR-aligned certificates at the end of every module — while preparing you for
+              CEFR-aligned certificates at the end of every module, while preparing you for
               internationally recognised exams accepted by universities, embassies, and employers worldwide.
             </p>
           </AnimateOnView>
@@ -1015,7 +1013,7 @@ export default function HomePage() {
                     <span key={c} className="text-xs font-semibold bg-white/10 border border-white/15 text-white/85 px-2.5 py-1 rounded-lg">{c}</span>
                   ))}
                 </div>
-                <p className="text-white/55 text-sm mt-4 leading-relaxed">Verifiable and shareable on LinkedIn — proof of exactly what you can do.</p>
+                <p className="text-white/55 text-sm mt-4 leading-relaxed">Verifiable and shareable on LinkedIn, proof of exactly what you can do.</p>
               </div>
 
               <div className="card-dark-hover rounded-2xl p-6">
@@ -1107,7 +1105,7 @@ export default function HomePage() {
                 const y = high ? 170 : 330;
                 return (
                   <div key={s.n} className="absolute inset-y-0" style={{ left: `${i * 25}%`, width: "25%" }}>
-                    {/* watermark number — under the icon (high) / above the icon (low) */}
+                    {/* watermark number, under the icon (high) / above the icon (low) */}
                     <span
                       className="absolute left-1/2 -translate-x-1/2 text-[6.5rem] font-black text-royal-100 select-none leading-none pointer-events-none z-0"
                       style={{ top: high ? y + 44 : y - 148 }}
@@ -1174,7 +1172,7 @@ export default function HomePage() {
                 <span className="gradient-text">We&apos;ve got answers.</span>
               </h2>
               <p className="mt-4 text-body leading-relaxed text-sm">
-                Still curious? Book a free 30-minute counselling call — no commitment.
+                Still curious? Book a free 30-minute counselling call, no commitment.
               </p>
               <a href="https://wa.me/919876543210" target="_blank" rel="noopener noreferrer" className="btn-primary mt-6 inline-flex">
                 WhatsApp Us <ArrowRight size={15} />

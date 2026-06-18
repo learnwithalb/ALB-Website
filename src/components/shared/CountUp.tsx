@@ -5,7 +5,7 @@ import { useInView } from "framer-motion";
 
 interface CountUpProps {
   value: string;      // e.g. "5000+", "95%", "12+", "4.9/5", "6", "4.9★"
-  duration?: number;  // ms — default 1800
+  duration?: number;  // ms, default 1800
   className?: string;
 }
 
@@ -20,7 +20,7 @@ function parse(raw: string) {
   };
 }
 
-// easeOutExpo — rocket-fast start, butter-smooth landing
+// easeOutExpo, rocket-fast start, butter-smooth landing
 function easeOutExpo(t: number) {
   return t === 1 ? 1 : 1 - Math.pow(2, -10 * t);
 }

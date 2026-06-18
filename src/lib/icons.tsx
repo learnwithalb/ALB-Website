@@ -149,7 +149,7 @@ export const flagSrc: Record<string, string> = {
   GB: "/flags/uk-wave.png",
 };
 
-/** Codes whose asset is a transparent waving-flag icon — rendered uncropped, not in a rounded frame. */
+/** Codes whose asset is a transparent waving-flag icon, rendered uncropped, not in a rounded frame. */
 const ICON_FLAGS = new Set(["EN", "GB"]);
 
 /** Small rounded flag image. Returns null if no flag exists for the code. */
@@ -184,7 +184,7 @@ export function Flag({
   );
 }
 
-/** Styled country flag badge — uses the real flag image, falls back to a coloured code chip. */
+/** Styled country flag badge, uses the real flag image, falls back to a coloured code chip. */
 export function CountryBadge({
   code,
   color,

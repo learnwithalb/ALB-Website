@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowRight, ArrowDown, CheckCircle, ChevronDown, ChevronRight, Download, X, GraduationCap, Clock, Users, BookOpen, Trophy } from "lucide-react";
+import { ArrowRight, ArrowDown, CheckCircle, Check, ChevronDown, ChevronRight, Download, X, GraduationCap, Clock, Users, BookOpen, Trophy } from "lucide-react";
 import { AnimateOnView, StaggerContainer, StaggerItem } from "@/components/shared/AnimateOnView";
 import { CountUp } from "@/components/shared/CountUp";
 import { useBooking } from "@/components/shared/BookingContext";
@@ -34,7 +34,7 @@ export function CourseLanding({ data }: { data: CourseData }) {
         {!data.heroImage && <div className="blob blob-royal w-[520px] h-[440px] -top-24 left-1/4 pointer-events-none" />}
         {!data.heroImage && <div className="blob blob-sky w-[400px] h-[400px] bottom-0 right-[-6%] pointer-events-none" />}
 
-        {/* Hero image — full height on the right, blended into the navy */}
+        {/* Hero image, full height on the right, blended into the navy */}
         {data.heroImage && (
           <>
             {/* flat navy base so the image edge blends with no seam */}
@@ -178,28 +178,78 @@ export function CourseLanding({ data }: { data: CourseData }) {
       <section className="section-padding sec-light relative overflow-hidden">
         <div className="blob blob-sky w-[420px] h-[420px] top-0 right-[-8%] opacity-40 pointer-events-none" />
         <div className="container-max relative z-10">
-          <AnimateOnView className="mb-12 max-w-2xl">
+          <AnimateOnView className="text-center max-w-2xl mx-auto mb-12">
             <span className="eyebrow" style={{ color: a }}>{data.sections?.tracks?.eyebrow ?? "Choose Your Track"}</span>
             <h2 className="text-3xl md:text-4xl font-black text-ink leading-tight">{data.sections?.tracks?.a ?? "Four tracks. One programme. "}<span style={{ color: a }}>{data.sections?.tracks?.b ?? "Your goal, built in."}</span></h2>
             {data.sections?.tracks?.sub && <p className="text-body text-base md:text-lg mt-4 leading-relaxed">{data.sections.tracks.sub}</p>}
           </AnimateOnView>
-          <StaggerContainer className="grid sm:grid-cols-2 gap-5" staggerDelay={0.08}>
-            {data.tracks.map((t) => (
-              <StaggerItem key={t.name}>
-                <div className="relative card-hover rounded-2xl p-7 h-full" style={{ borderTop: `4px solid ${t.color}` }}>
-                  {t.pop && <span className="absolute top-4 right-4 text-[10px] font-black uppercase tracking-wider text-white px-2.5 py-1 rounded-full" style={{ background: t.color }}>★ Most Popular</span>}
-                  <span className="w-12 h-12 rounded-xl flex items-center justify-center mb-3" style={{ background: `${t.color}14` }}><MuiIcon name={t.icon} size={26} style={{ color: t.color }} /></span>
-                  <h3 className="text-lg font-black text-ink">{t.name}</h3>
-                  <p className="text-muted text-sm mt-2 leading-relaxed">{t.forText}</p>
-                  <div className="flex flex-wrap gap-1.5 mt-4">
-                    {t.exams.map((e) => (<span key={e} className="text-[11px] font-semibold px-2.5 py-1 rounded-full" style={{ color: t.color, background: `${t.color}14`, border: `1px solid ${t.color}33` }}>{e}</span>))}
+          <StaggerContainer className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 items-stretch" staggerDelay={0.08}>
+            {data.tracks.map((t, i) => {
+              // solid, deep colours per track (blue, purple, green, amber)
+              const acc = ["#1e3a8a", "#5b21b6", "#065f46", "#9a3412"][i % 4];
+              return (
+              <StaggerItem key={t.name} className="h-full">
+                <div
+                  className="group relative h-full flex flex-col rounded-2xl p-6 bg-white border transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_26px_54px_-24px_rgba(16,23,51,0.3)]"
+                  style={t.pop ? { borderColor: acc, boxShadow: `0 22px 46px -26px ${acc}aa` } : { borderColor: "#e6ebf5" }}
+                >
+                  {/* soft colour wash at the top */}
+                  <span className="absolute inset-x-0 top-0 h-28 rounded-t-2xl pointer-events-none" style={{ background: `linear-gradient(${acc}14, transparent)` }} />
+                  {/* most-popular ribbon */}
+                  {t.pop && (
+                    <span className="absolute -top-2.5 right-5 text-[10px] font-black uppercase tracking-wide rounded-full px-3 py-1 text-white shadow-md" style={{ background: acc }}>★ Most Popular</span>
+                  )}
+
+                  <div className="relative z-10 flex flex-col h-full">
+                    {/* icon + label */}
+                    <div className="flex items-center justify-between mb-5">
+                      <span
+                        className="w-12 h-12 rounded-xl flex items-center justify-center transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-6"
+                        style={{ background: `linear-gradient(150deg, ${acc}, ${acc}b3)`, boxShadow: `0 8px 20px ${acc}55` }}
+                      >
+                        <MuiIcon name={t.icon} size={24} style={{ color: "#ffffff" }} />
+                      </span>
+                      <span className="text-[10px] font-bold uppercase tracking-wide text-muted">Goal-based</span>
+                    </div>
+
+                    {/* title */}
+                    <h3 className="text-xl font-black leading-tight" style={{ color: acc }}>{t.name}</h3>
+
+                    {/* description */}
+                    <p className="text-muted text-sm leading-relaxed mt-2.5">{t.forText}</p>
+
+                    {/* exam-ready chips */}
+                    <div className="mt-5">
+                      <p className="text-muted text-[10.5px] font-bold uppercase tracking-wider mb-2">Exam Ready</p>
+                      <div className="flex flex-wrap gap-1.5">
+                        {t.exams.map((e) => (
+                          <span key={e} className="text-[11px] font-bold px-2.5 py-1 rounded-lg" style={{ color: acc, background: `${acc}14`, border: `1px solid ${acc}2e` }}>{e}</span>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* download CTA */}
+                    <button
+                      onClick={() => openModal(data.modalKey)}
+                      className="mt-auto pt-6"
+                    >
+                      <span
+                        className="flex w-full items-center justify-center gap-2 rounded-full font-bold text-sm py-2.5 transition-colors"
+                        style={t.pop
+                          ? { background: acc, color: "#ffffff", boxShadow: `0 10px 24px -8px ${acc}aa` }
+                          : { color: acc, border: `1.5px solid ${acc}40` }}
+                      >
+                        <Download size={14} /> Download curriculum
+                      </span>
+                    </button>
                   </div>
-                  <button onClick={() => openModal(data.modalKey)} className="mt-5 inline-flex items-center gap-1.5 font-bold text-sm" style={{ color: t.color }}>
-                    <Download size={14} /> Download {t.name} Curriculum
-                  </button>
+
+                  {/* colored bottom accent grows in on hover */}
+                  <span className="absolute bottom-0 left-0 right-0 h-1 rounded-b-2xl scale-x-0 origin-left transition-transform duration-500 group-hover:scale-x-100" style={{ background: `linear-gradient(90deg, ${acc}, ${acc}33)` }} />
                 </div>
               </StaggerItem>
-            ))}
+              );
+            })}
           </StaggerContainer>
         </div>
       </section>
@@ -233,55 +283,122 @@ export function CourseLanding({ data }: { data: CourseData }) {
       </section>
 
       {/* ══════════ CURRICULUM ══════════ */}
-      <section id="curriculum" className="section-padding sec-light relative overflow-hidden">
+      <section id="curriculum" className="section-padding sec-dark relative overflow-hidden">
+        <div className="absolute inset-0 grid-dots-light opacity-25 pointer-events-none" />
+        <div className="blob blob-royal w-[460px] h-[460px] -top-24 left-[-8%] opacity-40 pointer-events-none" />
+        <div className="blob blob-sky w-[420px] h-[420px] bottom-[-10%] right-[-8%] opacity-30 pointer-events-none" />
+
         <div className="container-max relative z-10">
           <AnimateOnView className="text-center max-w-2xl mx-auto mb-12">
-            <span className="eyebrow" style={{ color: a }}>{data.sections?.curriculum?.eyebrow ?? "The Curriculum in Detail"}</span>
-            <h2 className="text-3xl md:text-4xl font-black text-ink leading-tight">{data.sections?.curriculum?.a ?? "What you study at "}<span style={{ color: a }}>{data.sections?.curriculum?.b ?? "every level."}</span></h2>
-            {data.sections?.curriculum?.sub && <p className="text-body text-base md:text-lg mt-4 leading-relaxed max-w-2xl mx-auto">{data.sections.curriculum.sub}</p>}
+            <span className="inline-flex items-center gap-2 text-[11px] font-black uppercase tracking-[0.18em] px-3 py-1.5 rounded-full" style={{ color: "#fff", background: `${a}33`, border: `1px solid ${a}66` }}>
+              {data.sections?.curriculum?.eyebrow ?? "The Curriculum in Detail"}
+            </span>
+            <h2 className="text-3xl md:text-4xl font-black text-white leading-tight mt-4">{data.sections?.curriculum?.a ?? "What you study at "}<span className="gradient-text-light">{data.sections?.curriculum?.b ?? "every level."}</span></h2>
+            {data.sections?.curriculum?.sub && <p className="text-white/60 text-base md:text-lg mt-4 leading-relaxed max-w-2xl mx-auto">{data.sections.curriculum.sub}</p>}
           </AnimateOnView>
 
-          <div className="grid lg:grid-cols-[260px_1fr] gap-5 lg:gap-7 items-start">
-            {/* module switcher */}
-            <div className="flex lg:flex-col gap-2 overflow-x-auto lg:overflow-visible pb-2 lg:pb-0 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-              {data.curriculum.map((m, i) => {
-                const on = mod === i;
-                return (
-                  <button key={m.label} onClick={() => setMod(i)} className={`flex-shrink-0 lg:w-full text-left rounded-xl px-4 py-3 transition-all border ${on ? "bg-white shadow-md" : "bg-mist/60 border-transparent hover:bg-white"}`} style={on ? { borderColor: `${a}55` } : {}}>
-                    <span className="text-[10px] font-bold uppercase tracking-wide block" style={{ color: on ? a : "#737d9c" }}>{m.label}</span>
-                    <span className={`text-sm font-bold block leading-tight mt-0.5 ${on ? "text-ink" : "text-muted"}`}>{m.title}</span>
-                  </button>
-                );
-              })}
-            </div>
-
-            {/* detail */}
+          <div className="grid lg:grid-cols-[0.92fr_1.08fr] gap-8 lg:gap-12 items-start">
+            {/* ── right: the module "screen" ── */}
             <AnimatePresence mode="wait">
-              <motion.div key={mod} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} transition={{ duration: 0.25 }} className="card rounded-3xl p-6 md:p-8">
-                <div className="flex flex-wrap items-start justify-between gap-3">
-                  <div>
-                    <span className="text-[10.5px] font-bold uppercase tracking-widest" style={{ color: a }}>{active.badge}</span>
-                    <h3 className="text-2xl font-black text-ink mt-1">{active.title}</h3>
-                  </div>
-                  <span className="text-xs font-bold text-white px-3 py-1.5 rounded-full whitespace-nowrap" style={{ background: a }}>{active.weeks}</span>
+              <motion.div
+                key={mod}
+                initial={{ opacity: 0, y: 16, scale: 0.985 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: -10, scale: 0.99 }}
+                transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+                className="relative rounded-2xl overflow-hidden lg:sticky lg:top-28 lg:order-2 border border-white/10 bg-white/[0.04] backdrop-blur-xl"
+                style={{ boxShadow: `0 40px 80px -40px ${a}80` }}
+              >
+                {/* glow edge */}
+                <span className="absolute inset-x-0 top-0 h-px" style={{ background: `linear-gradient(90deg, transparent, ${a}, transparent)` }} />
+                {/* faux app chrome */}
+                <div className="flex items-center gap-1.5 px-4 py-3 border-b border-white/10 bg-white/[0.03]">
+                  <span className="w-2.5 h-2.5 rounded-full bg-rose-400/80" />
+                  <span className="w-2.5 h-2.5 rounded-full bg-amber-400/80" />
+                  <span className="w-2.5 h-2.5 rounded-full bg-emerald-400/80" />
+                  <span className="ml-3 text-[11px] font-semibold text-white/45 truncate">{active.label} · {active.title}</span>
                 </div>
-                <p className="text-body text-sm mt-3 leading-relaxed max-w-2xl">{active.desc}</p>
 
-                <div className="grid sm:grid-cols-2 gap-3 mt-6">
-                  {active.topics.map((tp) => (
-                    <div key={tp.t} className="bg-mist rounded-xl p-4" style={{ borderLeft: `3px solid ${a}` }}>
-                      <p className="font-bold text-ink text-sm mb-2">{tp.t}</p>
-                      <ul className="space-y-1">
-                        {tp.i.map((it) => (<li key={it} className="text-xs text-muted flex items-start gap-1.5"><span style={{ color: a }}>·</span>{it}</li>))}
-                      </ul>
+                <div className="p-6 md:p-8">
+                  <div className="flex flex-wrap items-start justify-between gap-3">
+                    <div>
+                      <span className="text-[10.5px] font-bold uppercase tracking-widest" style={{ color: a }}>{active.badge}</span>
+                      <h3 className="text-2xl font-black text-white mt-1">{active.title}</h3>
                     </div>
-                  ))}
-                </div>
-                <div className="mt-5 bg-mist rounded-xl px-4 py-3 text-sm text-muted leading-relaxed">
-                  <strong className="text-ink">Assessments:</strong> {active.assess}
+                    <span className="text-xs font-bold text-white px-3 py-1.5 rounded-full whitespace-nowrap" style={{ background: a }}>{active.weeks}</span>
+                  </div>
+                  <p className="text-white/65 text-sm mt-3 leading-relaxed">{active.desc}</p>
+
+                  <div className="grid sm:grid-cols-2 gap-3 mt-6">
+                    {active.topics.map((tp, ti) => (
+                      <motion.div
+                        key={tp.t}
+                        initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.12 + ti * 0.07, duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                        className="rounded-xl p-4 bg-white/[0.04] border border-white/10"
+                        style={{ borderLeft: `3px solid ${a}` }}
+                      >
+                        <p className="font-bold text-white text-sm mb-2">{tp.t}</p>
+                        <ul className="space-y-1">
+                          {tp.i.map((it) => (<li key={it} className="text-xs text-white/55 flex items-start gap-1.5"><span style={{ color: a }}>·</span>{it}</li>))}
+                        </ul>
+                      </motion.div>
+                    ))}
+                  </div>
+                  <motion.div
+                    initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.12 + active.topics.length * 0.07 }}
+                    className="mt-5 rounded-xl px-4 py-3 text-sm text-white/60 leading-relaxed bg-white/[0.04] border border-white/10"
+                  >
+                    <strong className="text-white">Assessments:</strong> {active.assess}
+                  </motion.div>
                 </div>
               </motion.div>
             </AnimatePresence>
+
+            {/* ── left: vertical module stepper ── */}
+            <StaggerContainer className="relative lg:order-1" staggerDelay={0.08}>
+              {data.curriculum.map((m, i) => {
+                const on = mod === i;
+                const done = i < mod;
+                const last = i === data.curriculum.length - 1;
+                return (
+                  <StaggerItem key={m.label}>
+                    <button
+                      onClick={() => setMod(i)}
+                      className="group relative flex gap-4 text-left w-full pb-6 last:pb-0"
+                    >
+                      {/* connector line */}
+                      {!last && (
+                        <span
+                          className="absolute left-[22px] top-12 bottom-0 w-0.5 -translate-x-1/2 rounded-full transition-colors duration-300"
+                          style={{ background: done ? a : "rgba(255,255,255,0.12)" }}
+                        />
+                      )}
+                      {/* number tile */}
+                      <span
+                        className="relative z-10 flex-shrink-0 w-11 h-11 rounded-xl flex items-center justify-center font-black text-sm transition-all duration-300 group-hover:scale-105"
+                        style={
+                          on
+                            ? { background: a, color: "#fff", boxShadow: `0 10px 24px ${a}88` }
+                            : done
+                              ? { background: `${a}33`, color: "#fff" }
+                              : { background: "rgba(255,255,255,0.06)", color: "rgba(255,255,255,0.45)", border: "1px solid rgba(255,255,255,0.1)" }
+                        }
+                      >
+                        {i + 1}
+                      </span>
+                      {/* text card */}
+                      <span
+                        className={`flex-1 rounded-xl px-4 py-3 transition-all duration-300 ${on ? "bg-white/[0.07]" : "border border-transparent group-hover:bg-white/[0.04]"}`}
+                        style={on ? { boxShadow: `0 18px 40px -18px ${a}99`, border: `1px solid ${a}66` } : undefined}
+                      >
+                        <span className="text-[10px] font-bold uppercase tracking-wide block" style={{ color: on ? a : "rgba(255,255,255,0.45)" }}>{m.label}</span>
+                        <span className={`text-base font-black block leading-snug mt-0.5 ${on ? "" : "text-white"}`} style={on ? { color: a } : undefined}>{m.title}</span>
+                        <span className="text-white/55 text-xs mt-1 leading-relaxed block line-clamp-2">{m.desc}</span>
+                      </span>
+                    </button>
+                  </StaggerItem>
+                );
+              })}
+            </StaggerContainer>
           </div>
         </div>
       </section>
@@ -312,24 +429,39 @@ export function CourseLanding({ data }: { data: CourseData }) {
       </section>
 
       {/* ══════════ USPs ══════════ */}
-      <section className="section-padding sec-light relative overflow-hidden">
-        <div className="container-max relative z-10">
-          <AnimateOnView className="text-center max-w-2xl mx-auto mb-12">
-            <span className="eyebrow" style={{ color: a }}>{data.sections?.usps?.eyebrow ?? "The ALB Difference"}</span>
-            <h2 className="text-3xl md:text-4xl font-black text-ink leading-tight">{data.sections?.usps?.a ?? "Why serious learners "}<span style={{ color: a }}>{data.sections?.usps?.b ?? "choose ALB."}</span></h2>
-            {data.sections?.usps?.sub && <p className="text-body text-base md:text-lg mt-4 leading-relaxed">{data.sections.usps.sub}</p>}
+      <section className="relative overflow-hidden py-24 md:py-32">
+        {/* full-bleed background image */}
+        <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: "url('/images/alb-difference-bg.png')" }} />
+        {/* dark overlay for legibility */}
+        <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, rgba(6,10,26,0.72) 0%, rgba(6,10,26,0.6) 50%, rgba(6,10,26,0.8) 100%)" }} />
+        <div className="absolute inset-0 grid-dots-light opacity-15 pointer-events-none" />
+
+        <div className="container-max px-5 md:px-8 relative z-10">
+          <AnimateOnView className="text-center max-w-3xl mx-auto mb-12">
+            <span className="eyebrow-pill-light">{data.sections?.usps?.eyebrow ?? "The ALB Difference"}</span>
+            <h2 className="text-3xl md:text-5xl font-black text-white mt-3 leading-tight">{data.sections?.usps?.a ?? "Why serious learners "}<span className="gradient-text-light">{data.sections?.usps?.b ?? "choose ALB."}</span></h2>
+            {data.sections?.usps?.sub && <p className="mt-5 text-white/70 text-base md:text-lg leading-relaxed">{data.sections.usps.sub}</p>}
           </AnimateOnView>
-          <StaggerContainer className="grid sm:grid-cols-2 gap-5" staggerDelay={0.08}>
+
+          <StaggerContainer className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4" staggerDelay={0.07}>
             {data.usps.map((u) => (
-              <StaggerItem key={u.t}>
-                <div className="card-feature rounded-2xl p-7 h-full">
-                  <span className="w-12 h-12 rounded-xl flex items-center justify-center mb-3" style={{ background: `${a}14` }}><MuiIcon name={u.i} size={26} style={{ color: a }} /></span>
-                  <h3 className="font-black text-ink text-lg">{u.t}</h3>
-                  <p className="text-muted text-sm mt-2 leading-relaxed">{u.b}</p>
+              <StaggerItem key={u.t} className="h-full">
+                <div className="h-full rounded-2xl p-7 border border-white/15 bg-white/[0.06] backdrop-blur-md transition-all duration-300 hover:bg-white/[0.1] hover:border-white/30 hover:-translate-y-1">
+                  <div className="w-11 h-11 rounded-xl bg-white/10 border border-white/15 flex items-center justify-center mb-5">
+                    <MuiIcon name={u.i} size={22} style={{ color: "#ffffff" }} />
+                  </div>
+                  <h3 className="text-lg font-black text-white leading-snug">{u.t}</h3>
+                  <p className="text-white/60 text-sm mt-2 leading-relaxed">{u.b}</p>
                 </div>
               </StaggerItem>
             ))}
           </StaggerContainer>
+
+          <AnimateOnView className="mt-10 flex justify-center">
+            <button onClick={() => openModal(data.modalKey)} className="btn-white text-base px-8 py-4">
+              Book a Free Demo <ArrowRight size={16} />
+            </button>
+          </AnimateOnView>
         </div>
       </section>
 
@@ -341,17 +473,31 @@ export function CourseLanding({ data }: { data: CourseData }) {
             <h2 className="text-3xl md:text-4xl font-black text-ink leading-tight">{data.sections?.comparison?.a ?? "See the "}<span style={{ color: a }}>{data.sections?.comparison?.b ?? "difference"}</span>{data.sections?.comparison ? "" : " clearly."}</h2>
             {data.sections?.comparison?.sub && <p className="text-body text-base md:text-lg mt-4 leading-relaxed">{data.sections.comparison.sub}</p>}
           </AnimateOnView>
-          <AnimateOnView className="card rounded-2xl overflow-hidden max-w-4xl mx-auto">
-            <div className="hidden md:grid grid-cols-[1.2fr_1fr_1fr] text-sm font-bold">
-              <div className="px-5 py-4 bg-mist text-muted">Feature</div>
-              <div className="px-5 py-4 bg-rose-50 text-rose-700">Generic Class</div>
-              <div className="px-5 py-4 text-white" style={{ background: a }}>ALB</div>
+          <AnimateOnView className="max-w-4xl mx-auto rounded-2xl overflow-hidden border border-line bg-white shadow-[0_24px_60px_-32px_rgba(16,23,51,0.32)]">
+            {/* header */}
+            <div className="hidden md:grid grid-cols-[1.4fr_1fr_1fr] text-sm font-black">
+              <div className="px-5 py-4 text-muted uppercase tracking-wide text-[11px]">Feature</div>
+              <div className="px-5 py-4 bg-rose-50 text-rose-600 flex items-center gap-2">
+                <span className="w-5 h-5 rounded-full bg-rose-100 flex items-center justify-center"><X size={12} className="text-rose-500" strokeWidth={3} /></span>
+                Generic Class
+              </div>
+              <div className="px-5 py-4 text-white flex items-center gap-2" style={{ background: `linear-gradient(135deg, ${a}, ${a}cc)` }}>
+                <span className="w-5 h-5 rounded-full bg-white/25 flex items-center justify-center"><Check size={12} className="text-white" strokeWidth={3} /></span>
+                ALB
+              </div>
             </div>
-            {data.comparison.map((r, i) => (
-              <div key={r.f} className={`grid grid-cols-1 md:grid-cols-[1.2fr_1fr_1fr] border-t border-line ${i % 2 ? "bg-royal-50/20" : ""}`}>
-                <div className="px-5 pt-4 md:py-3.5 font-bold text-ink text-sm">{r.f}</div>
-                <div className="px-5 pb-1 md:py-3.5 text-sm text-amber-700 flex items-start gap-1.5"><X size={13} className="text-rose-400 mt-0.5 flex-shrink-0" />{r.g}</div>
-                <div className="px-5 pb-4 md:py-3.5 text-sm font-semibold flex items-start gap-1.5" style={{ color: a }}><CheckCircle size={13} className="mt-0.5 flex-shrink-0" />{r.a}</div>
+            {/* rows */}
+            {data.comparison.map((r) => (
+              <div key={r.f} className="group grid grid-cols-1 md:grid-cols-[1.4fr_1fr_1fr] border-t border-line">
+                <div className="px-5 pt-4 md:py-4 font-bold text-ink text-sm transition-colors group-hover:bg-mist/50">{r.f}</div>
+                <div className="px-5 pb-1 md:py-4 text-sm text-muted flex items-start gap-2 transition-colors group-hover:bg-mist/50">
+                  <span className="mt-0.5 w-5 h-5 rounded-full bg-rose-50 flex items-center justify-center flex-shrink-0"><X size={11} className="text-rose-400" strokeWidth={3} /></span>
+                  {r.g}
+                </div>
+                <div className="px-5 pb-4 md:py-4 text-sm font-semibold flex items-start gap-2" style={{ background: `${a}0b`, color: a }}>
+                  <span className="mt-0.5 w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0" style={{ background: `${a}1f` }}><Check size={11} strokeWidth={3} style={{ color: a }} /></span>
+                  {r.a}
+                </div>
               </div>
             ))}
           </AnimateOnView>
@@ -367,12 +513,12 @@ export function CourseLanding({ data }: { data: CourseData }) {
             <h2 className="text-3xl md:text-4xl font-black text-ink leading-tight">{data.sections?.reviews?.a ?? "Real results from "}<span style={{ color: a }}>{data.sections?.reviews?.b ?? `real ${data.lang} learners.`}</span></h2>
             {data.sections?.reviews?.sub && <p className="text-body text-base md:text-lg mt-4 leading-relaxed">{data.sections.reviews.sub}</p>}
           </AnimateOnView>
-          <StaggerContainer className="grid md:grid-cols-2 lg:grid-cols-3 gap-5" staggerDelay={0.07}>
-            {data.reviews.map((r) => {
-              const c = r.b2b ? "#059669" : a;
-              return (
-                <StaggerItem key={r.name}>
-                  <div className="card rounded-2xl p-6 h-full flex flex-col">
+          <div className="reviews-mask relative z-10 -mx-5 md:-mx-8 lg:-mx-10 marquee-wrap [mask-image:linear-gradient(to_right,transparent,#000_5%,#000_95%,transparent)] [-webkit-mask-image:linear-gradient(to_right,transparent,#000_5%,#000_95%,transparent)]">
+            <div className="reviews-track py-2">
+              {[...data.reviews, ...data.reviews].map((r, i) => {
+                const c = r.b2b ? "#059669" : a;
+                return (
+                  <div key={i} className="card rounded-2xl p-6 flex flex-col shrink-0 w-[330px] sm:w-[380px] whitespace-normal">
                     <div className="text-amber-400 tracking-[2px] text-sm mb-3">★★★★★</div>
                     <p className="text-body text-sm leading-relaxed italic flex-1">&ldquo;{r.text}&rdquo;</p>
                     <div className="flex items-center gap-3 mt-5 pt-4 border-t border-line">
@@ -384,10 +530,10 @@ export function CourseLanding({ data }: { data: CourseData }) {
                       </div>
                     </div>
                   </div>
-                </StaggerItem>
-              );
-            })}
-          </StaggerContainer>
+                );
+              })}
+            </div>
+          </div>
         </div>
       </section>
 
@@ -425,17 +571,39 @@ export function CourseLanding({ data }: { data: CourseData }) {
             <h2 className="text-3xl md:text-4xl font-black text-ink leading-tight">{data.sections?.instructors?.a ?? "Mentors who know "}<span style={{ color: a }}>{data.sections?.instructors?.b ?? "both the language and the goal."}</span></h2>
             {data.sections?.instructors?.sub && <p className="text-body text-base md:text-lg mt-4 leading-relaxed">{data.sections.instructors.sub}</p>}
           </AnimateOnView>
-          <StaggerContainer className="grid md:grid-cols-3 gap-5" staggerDelay={0.1}>
-            {instructors.map((m) => (
-              <StaggerItem key={m.role}>
-                <div className="card-hover rounded-2xl p-7 text-center h-full">
-                  <div className="w-16 h-16 mx-auto rounded-2xl flex items-center justify-center mb-4" style={{ background: `${a}14` }}><MuiIcon name={m.icon} size={32} style={{ color: a }} /></div>
-                  <p className="text-[10.5px] font-bold uppercase tracking-widest mb-2" style={{ color: a }}>Faculty</p>
-                  <h3 className="font-black text-ink">{m.role}</h3>
-                  <p className="text-muted text-sm mt-2 leading-relaxed">{m.desc}</p>
-                </div>
-              </StaggerItem>
-            ))}
+          <StaggerContainer className="grid md:grid-cols-3 gap-5 items-stretch" staggerDelay={0.1}>
+            {instructors.map((m, i) => {
+              const g = [
+                { from: "#3b5bdb", to: "#6d8bff" }, // blue
+                { from: "#7c3aed", to: "#a78bfa" }, // purple
+                { from: "#0d9488", to: "#2dd4bf" }, // teal
+              ][i % 3];
+              return (
+                <StaggerItem key={m.role} className="h-full">
+                  <div className="group rounded-2xl overflow-hidden h-full flex flex-col bg-white border border-line shadow-sm transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_24px_50px_-22px_rgba(16,23,51,0.25)]">
+                    {/* tinted header with curved bottom */}
+                    <div className="relative h-32 overflow-hidden" style={{ background: `linear-gradient(150deg, ${g.from}, ${g.to})` }}>
+                      <div className="absolute inset-0 grid-dots-light opacity-20 pointer-events-none" />
+                      <div className="absolute -top-8 -right-6 w-28 h-28 rounded-full bg-white/15 blur-2xl pointer-events-none" />
+                      {/* glass icon tile */}
+                      <span className="absolute top-4 left-5 w-11 h-11 rounded-xl bg-white/20 border border-white/30 backdrop-blur flex items-center justify-center transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-6">
+                        <MuiIcon name={m.icon} size={22} style={{ color: "#ffffff" }} />
+                      </span>
+                      {/* white curve */}
+                      <svg className="absolute bottom-0 left-0 w-full h-6" viewBox="0 0 100 20" preserveAspectRatio="none">
+                        <path d="M0 0 Q 50 18 100 0 L 100 20 L 0 20 Z" fill="#ffffff" />
+                      </svg>
+                    </div>
+                    {/* body */}
+                    <div className="px-6 pb-6 pt-2 flex-1 flex flex-col">
+                      <p className="text-[10.5px] font-bold uppercase tracking-widest mb-1.5" style={{ color: g.from }}>Faculty</p>
+                      <h3 className="font-black text-ink text-lg leading-snug">{m.role}</h3>
+                      <p className="text-muted text-sm mt-2 leading-relaxed">{m.desc}</p>
+                    </div>
+                  </div>
+                </StaggerItem>
+              );
+            })}
           </StaggerContainer>
         </div>
       </section>
@@ -449,7 +617,7 @@ export function CourseLanding({ data }: { data: CourseData }) {
               <h2 className="text-3xl md:text-4xl font-black text-ink leading-tight">Everything you want to know <span style={{ color: a }}>before you enrol.</span></h2>
               <div className="mt-6 card rounded-2xl p-5">
                 <p className="font-bold text-ink text-sm">Still have a question?</p>
-                <p className="text-muted text-xs mt-1">Book a free trial — no obligation.</p>
+                <p className="text-muted text-xs mt-1">Book a free trial, no obligation.</p>
                 <button onClick={() => openModal(data.modalKey)} className="btn-primary text-sm px-4 py-2.5 mt-4">Book a Free Trial <ArrowRight size={14} /></button>
               </div>
             </AnimateOnView>
