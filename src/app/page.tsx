@@ -997,20 +997,21 @@ export default function HomePage() {
                     transition={{ duration: 0.5, delay: i * 0.06, ease: [0.22, 1, 0.36, 1] }}
                     className="group card-hover rounded-3xl overflow-hidden h-full"
                   >
-                    {/* initials header */}
+                    {/* photo header */}
                     <div
-                      className="relative h-[200px] flex items-center justify-center overflow-hidden"
+                      className="relative h-[210px] overflow-hidden"
                       style={{ background: `linear-gradient(155deg, ${c.from}, ${c.to})` }}
                     >
-                      <span className="absolute top-3 left-3 bg-white rounded-full px-3 py-1 text-[10px] font-bold text-ink shadow-sm">{m.cred}</span>
+                      <Image
+                        src={encodeURI(`/images/mentor-images/${m.name}.png`)}
+                        alt={m.name}
+                        fill
+                        sizes="(max-width:640px) 100vw, (max-width:1024px) 50vw, 33vw"
+                        className="object-cover object-top group-hover:scale-105 transition-transform duration-500"
+                      />
+                      <span className="absolute top-3 left-3 bg-white/90 backdrop-blur-sm rounded-full px-3 py-1 text-[10px] font-bold text-ink shadow-sm">{m.cred}</span>
                       <span className="absolute top-3 right-3 bg-white rounded-full px-2.5 py-1 text-[11px] font-bold text-ink flex items-center gap-1 shadow-sm">
                         <Star size={11} className="text-amber-400 fill-amber-400" /> {m.rating}
-                      </span>
-                      <span
-                        className="text-5xl font-black text-white tracking-wide select-none transition-transform duration-500 group-hover:scale-110"
-                        style={{ textShadow: "0 6px 22px rgba(0,0,0,0.20)" }}
-                      >
-                        {m.init}
                       </span>
                     </div>
 
