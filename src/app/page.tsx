@@ -1017,12 +1017,9 @@ export default function HomePage() {
 
                     {/* info */}
                     <div className="p-5">
-                      <div className="flex items-start justify-between gap-2">
-                        <div className="min-w-0">
-                          <h3 className="font-bold text-ink text-base leading-tight">{m.name}</h3>
-                          <p className="text-muted text-xs mt-0.5 leading-snug">{m.role}</p>
-                        </div>
-                        <a href="#" aria-label="LinkedIn" className="w-8 h-8 rounded-lg bg-[#0a66c2] hover:bg-[#0a5bb0] transition-colors flex items-center justify-center text-white font-black text-xs flex-shrink-0">in</a>
+                      <div className="min-w-0">
+                        <h3 className="font-bold text-ink text-base leading-tight">{m.name}</h3>
+                        <p className="text-muted text-xs mt-0.5 leading-snug">{m.role}</p>
                       </div>
 
                       {/* stat boxes */}
