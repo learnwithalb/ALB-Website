@@ -221,7 +221,7 @@ export function BookingModal() {
                         Our team will reach out within <strong className="text-gray-700">24 hours</strong> to confirm your free session.
                       </p>
                       <a
-                        href="https://wa.me/919876543210"
+                        href="https://wa.me/919821275843"
                         target="_blank" rel="noopener noreferrer"
                         className="inline-flex items-center gap-2 bg-[#3b5bdb] hover:bg-[#2f49c0] text-white font-bold text-sm px-6 py-3 rounded-full transition-colors"
                       >

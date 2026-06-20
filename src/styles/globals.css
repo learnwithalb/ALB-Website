@@ -634,7 +634,7 @@
     display: flex;
     gap: 1.25rem;
     width: max-content;
-    animation: marquee 50s linear infinite;
+    animation: marquee 150s linear infinite;
   }
   .reviews-mask:hover .reviews-track { animation-play-state: paused; }
   @media (prefers-reduced-motion: reduce) {

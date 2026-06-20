@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { ArrowRight, CheckCircle, Star } from "lucide-react";
+import { ArrowRight, CheckCircle, Star, Globe, Sparkles } from "lucide-react";
 import { AnimateOnView, StaggerContainer, StaggerItem } from "@/components/shared/AnimateOnView";
 import { languages } from "@/lib/constants";
 import { CountryBadge } from "@/lib/icons";
@@ -124,42 +124,80 @@ export default function CoursesPage() {
 
   return (
     <>
-      {/* ─── HERO ─── */}
-      <section className="relative hero-light pt-28 pb-16 overflow-hidden min-h-[80vh] flex items-center">
-        <div className="absolute inset-0 grid-lines pointer-events-none opacity-70" />
-        <div className="blob blob-royal w-[460px] h-[460px] top-0 right-0 pointer-events-none" />
-        <div className="blob blob-sky w-[380px] h-[380px] bottom-0 left-0 pointer-events-none" />
+      {/* ─── HERO (dark) ─── */}
+      <section className="relative sec-dark overflow-hidden pt-32 pb-20 min-h-[92vh] flex items-center">
+        {/* texture + animated glows */}
+        <div className="absolute inset-0 grid-dots-light opacity-25 pointer-events-none" />
+        <motion.div
+          className="blob blob-royal w-[560px] h-[480px] -top-24 right-[4%] pointer-events-none"
+          animate={{ opacity: [0.7, 1, 0.7], scale: [1, 1.08, 1] }}
+          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+        />
+        <motion.div
+          className="blob blob-sky w-[460px] h-[460px] bottom-[-12%] left-[-6%] pointer-events-none"
+          animate={{ opacity: [0.6, 0.9, 0.6], scale: [1, 1.1, 1] }}
+          transition={{ duration: 9, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+        />
+        {/* aurora sweep */}
+        <div
+          className="absolute inset-0 z-0 pointer-events-none opacity-60"
+          style={{ background: "radial-gradient(ellipse 50% 40% at 70% 30%, rgba(113,42,255,0.20) 0%, transparent 60%)" }}
+        />
 
         <div className="container-max px-5 md:px-8 relative z-10 w-full">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-8 items-center">
             {/* Left: Text + feature pills */}
             <div>
-              <AnimateOnView>
-                <span className="eyebrow-pill-outline">Language Programmes</span>
-                <h1 className="text-4xl md:text-5xl font-black text-ink mt-4 leading-[1.15] tracking-tight">
-                  Six languages.
-                  <br />
-                  One world.
-                  <br />
-                  <span className="gradient-text inline-block pb-1">Infinite doors.</span>
-                </h1>
-                <p className="mt-5 text-xl text-body max-w-lg leading-relaxed">
-                  Every course is CEFR-aligned, culturally immersive, and taught by
-                  expert faculty who care about your actual goal, not just curriculum coverage.
-                </p>
-              </AnimateOnView>
+              <motion.span
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+                className="eyebrow-pill-light"
+              >
+                <motion.span
+                  className="inline-block w-1.5 h-1.5 rounded-full mr-2 bg-sky-400"
+                  animate={{ opacity: [1, 0.3, 1], scale: [1, 1.3, 1] }}
+                  transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut" }}
+                />
+                Language Programmes
+              </motion.span>
+
+              <motion.h1
+                initial={{ opacity: 0, y: 26 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+                className="text-4xl md:text-6xl font-black text-white mt-5 leading-[1.05] tracking-tight"
+              >
+                Six languages.
+                <br />
+                One world.
+                <br />
+                <span className="shimmer-text" style={{ backgroundImage: "linear-gradient(110deg,#6d8bff 0%,#6d8bff 36%,#ffffff 50%,#6d8bff 64%,#6d8bff 100%)" }}>
+                  Infinite doors.
+                </span>
+              </motion.h1>
+
+              <motion.p
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.25 }}
+                className="mt-5 text-lg text-white/65 max-w-lg leading-relaxed"
+              >
+                Every course is CEFR-aligned, culturally immersive, and taught by
+                expert faculty who care about your actual goal, not just curriculum coverage.
+              </motion.p>
 
               {/* Animated feature pills */}
               <div className="mt-7 flex flex-wrap gap-2.5">
                 {features.map((f, i) => (
                   <motion.span
                     key={f}
-                    className="flex items-center gap-1.5 text-body text-xs font-semibold px-3 py-1.5 rounded-full bg-white border border-line shadow-sm"
+                    className="flex items-center gap-1.5 text-white/85 text-xs font-semibold px-3 py-1.5 rounded-full bg-white/10 border border-white/15 backdrop-blur-sm"
                     initial={{ opacity: 0, y: 16, scale: 0.9 }}
                     animate={{ opacity: 1, y: 0, scale: 1 }}
-                    transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1], delay: 0.3 + i * 0.09 }}
+                    transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1], delay: 0.4 + i * 0.08 }}
                   >
-                    <CheckCircle size={11} className="text-royal-500" />
+                    <CheckCircle size={11} className="text-sky-300" />
                     {f}
                   </motion.span>
                 ))}
@@ -169,33 +207,114 @@ export default function CoursesPage() {
                 className="mt-8 flex flex-wrap gap-4"
                 initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.9 }}
+                transition={{ duration: 0.6, delay: 0.95 }}
               >
-                <Link href="#languages" className="btn-primary">
+                <Link href="#languages" className="btn-white text-base px-7 py-3.5">
                   See All Courses
                   <ArrowRight size={16} />
                 </Link>
                 <a
-                  href="https://wa.me/919876543210"
+                  href="https://wa.me/919821275843"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="btn-outline"
+                  className="btn-outline-light text-base px-7 py-3.5"
                 >
                   Free Counselling
                 </a>
               </motion.div>
             </div>
 
-            {/* Right: Animated week schedule visual */}
+            {/* Right: animated language constellation */}
             <motion.div
               className="hidden lg:block"
-              initial={{ opacity: 0, x: 40 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.4 }}
+              initial={{ opacity: 0, scale: 0.92 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1], delay: 0.3 }}
             >
-              <div className="relative">
-                <div className="blob blob-royal absolute -inset-4 opacity-60" />
-                <WeekScheduleCard />
+              <div className="relative mx-auto w-[460px] h-[460px]">
+                {/* rotating orbit rings */}
+                <motion.div
+                  className="absolute inset-6 rounded-full border border-dashed border-white/15"
+                  animate={{ rotate: 360 }}
+                  transition={{ duration: 50, repeat: Infinity, ease: "linear" }}
+                />
+                <motion.div
+                  className="absolute inset-20 rounded-full border border-white/10"
+                  animate={{ rotate: -360 }}
+                  transition={{ duration: 38, repeat: Infinity, ease: "linear" }}
+                />
+
+                {/* connecting lines from centre to each flag */}
+                <svg className="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 100 100">
+                  {[[50, 10], [84.6, 30], [84.6, 70], [50, 90], [15.4, 70], [15.4, 30]].map(([x, y], i) => (
+                    <motion.line
+                      key={i}
+                      x1="50" y1="50" x2={x} y2={y}
+                      stroke="url(#lineGrad)" strokeWidth="0.4" strokeDasharray="2 2"
+                      initial={{ pathLength: 0, opacity: 0 }}
+                      animate={{ pathLength: 1, opacity: 0.5 }}
+                      transition={{ duration: 0.8, delay: 0.6 + i * 0.1 }}
+                    />
+                  ))}
+                  <defs>
+                    <linearGradient id="lineGrad" x1="0" y1="0" x2="1" y2="1">
+                      <stop offset="0%" stopColor="#6d8bff" stopOpacity="0.8" />
+                      <stop offset="100%" stopColor="#0ea5e9" stopOpacity="0.2" />
+                    </linearGradient>
+                  </defs>
+                </svg>
+
+                {/* central glowing orb */}
+                <motion.div
+                  className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-28 h-28 rounded-full flex items-center justify-center"
+                  style={{ background: "radial-gradient(circle at 35% 30%, #6d8bff, #2f49c0 70%)", boxShadow: "0 0 60px rgba(59,91,219,0.6), inset 0 0 30px rgba(255,255,255,0.15)" }}
+                  animate={{ scale: [1, 1.06, 1] }}
+                  transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                >
+                  <div className="absolute inset-0 rounded-full grid-dots-light opacity-40" />
+                  <Globe size={44} className="text-white relative z-10" strokeWidth={1.5} />
+                </motion.div>
+
+                {/* floating flag tiles */}
+                {languages.slice(0, 6).map((lang, i) => {
+                  const pos = [
+                    { top: "10%", left: "50%" },
+                    { top: "30%", left: "84.6%" },
+                    { top: "70%", left: "84.6%" },
+                    { top: "90%", left: "50%" },
+                    { top: "70%", left: "15.4%" },
+                    { top: "30%", left: "15.4%" },
+                  ][i];
+                  return (
+                    <motion.div
+                      key={lang.code}
+                      className="absolute -translate-x-1/2 -translate-y-1/2 rounded-2xl p-2.5 bg-white/[0.07] border border-white/15 backdrop-blur-md shadow-[0_12px_30px_-12px_rgba(0,0,0,0.6)]"
+                      style={{ top: pos.top, left: pos.left }}
+                      initial={{ opacity: 0, scale: 0 }}
+                      animate={{ opacity: 1, scale: 1, y: [0, -10, 0] }}
+                      transition={{
+                        opacity: { duration: 0.5, delay: 0.7 + i * 0.1 },
+                        scale: { duration: 0.5, delay: 0.7 + i * 0.1, type: "spring", stiffness: 260 },
+                        y: { duration: 4 + i * 0.3, repeat: Infinity, ease: "easeInOut", delay: i * 0.3 },
+                      }}
+                    >
+                      <CountryBadge code={lang.flagCode} color={lang.color} size="md" />
+                    </motion.div>
+                  );
+                })}
+
+                {/* sparkle accents */}
+                {[{ t: "4%", l: "22%" }, { t: "84%", l: "70%" }, { t: "48%", l: "96%" }].map((s, i) => (
+                  <motion.span
+                    key={i}
+                    className="absolute text-sky-300"
+                    style={{ top: s.t, left: s.l }}
+                    animate={{ opacity: [0, 1, 0], scale: [0.6, 1, 0.6] }}
+                    transition={{ duration: 2.6, repeat: Infinity, delay: i * 0.8, ease: "easeInOut" }}
+                  >
+                    <Sparkles size={16} />
+                  </motion.span>
+                ))}
               </div>
             </motion.div>
           </div>

@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowRight, Award, Globe, Quote } from "lucide-react";
+import { ArrowRight, Award, Globe, Quote, Sparkles, PenLine } from "lucide-react";
 import { AnimateOnView, StaggerContainer, StaggerItem } from "@/components/shared/AnimateOnView";
 import { MuiIcon } from "@/lib/icons";
 import { useBooking } from "@/components/shared/BookingContext";
@@ -324,7 +324,6 @@ export default function AboutPage() {
                           <span className="w-10 h-10 rounded-xl bg-white/15 border border-white/25 backdrop-blur flex items-center justify-center text-white font-black text-sm">
                             {String(i + 1).padStart(2, "0")}
                           </span>
-                          <span className="text-[10px] font-black uppercase tracking-[0.16em] text-white/70">Chapter {i + 1}</span>
                         </div>
 
                         <div className="mt-auto">
@@ -363,6 +362,146 @@ export default function AboutPage() {
               </StaggerItem>
             ))}
           </StaggerContainer>
+        </div>
+      </section>
+
+      {/* ══════════════════ FOUNDER'S NOTE ══════════════════ */}
+      <section className="section-padding sec-light relative overflow-hidden">
+        <div className="absolute inset-0 grid-dots opacity-50 pointer-events-none" />
+        <div className="blob blob-royal w-[480px] h-[480px] -top-24 right-[-10%] opacity-30 pointer-events-none" />
+        <div className="blob blob-sky w-[420px] h-[420px] bottom-[-12%] left-[-8%] opacity-25 pointer-events-none" />
+
+        <div className="container-max relative z-10">
+          <div className="grid lg:grid-cols-[0.82fr_1.18fr] gap-12 lg:gap-16 items-center">
+
+            {/* ── Founder photo card ── */}
+            <AnimateOnView direction="right">
+              <div className="relative mx-auto w-full max-w-sm">
+                {/* soft animated glow behind the card */}
+                <motion.div
+                  className="absolute -inset-4 rounded-[2.2rem] blur-2xl pointer-events-none"
+                  style={{ background: "linear-gradient(135deg, rgba(59,91,219,0.28), rgba(14,165,233,0.18))" }}
+                  animate={{ opacity: [0.55, 0.85, 0.55], scale: [1, 1.03, 1] }}
+                  transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+                />
+
+                <div className="relative rounded-[1.6rem] overflow-hidden bg-white border border-line shadow-[0_34px_80px_-34px_rgba(16,23,51,0.5)]">
+                  <div className="relative aspect-[4/5]">
+                    <Image
+                      src="/images/hero-images/Founder.png"
+                      alt="Jasmine Kaur, Founder of ALB"
+                      fill
+                      sizes="(max-width:1024px) 90vw, 400px"
+                      className="object-cover object-top"
+                    />
+                    {/* legibility gradient at the base */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-ink/70 via-transparent to-transparent pointer-events-none" />
+
+                    {/* legacy badge */}
+                    <motion.span
+                      initial={{ opacity: 0, y: -10, scale: 0.9 }}
+                      whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.5, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                      className="absolute top-4 left-4 inline-flex items-center gap-1.5 rounded-full bg-ink/70 backdrop-blur-md border border-white/15 px-3 py-1.5 text-[11px] font-black text-white tracking-wide"
+                    >
+                      <motion.span
+                        animate={{ rotate: [0, 18, -8, 0], scale: [1, 1.2, 1] }}
+                        transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+                        className="text-amber-400 inline-flex"
+                      >
+                        <Sparkles size={13} fill="currentColor" />
+                      </motion.span>
+                      50+ yr legacy
+                    </motion.span>
+
+                    {/* glass name plate */}
+                    <div className="absolute inset-x-3 bottom-3 flex items-center justify-between gap-3 rounded-2xl bg-ink/65 backdrop-blur-md border border-white/15 px-4 py-3">
+                      <div className="min-w-0">
+                        <p className="text-white font-black text-base leading-tight">Jasmine Kaur</p>
+                        <p className="text-white/60 text-xs font-semibold">Founder, ALB</p>
+                      </div>
+                      <span className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg" style={{ background: "linear-gradient(135deg,#3b5bdb,#6d8bff)" }}>
+                        <PenLine size={16} className="text-white" />
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </AnimateOnView>
+
+            {/* ── Founder's words ── */}
+            <AnimateOnView direction="left">
+              <span className="eyebrow-pill-outline">Founder&apos;s Note</span>
+
+              <h2 className="text-3xl md:text-5xl font-black text-ink mt-4 leading-[1.12]">
+                In the <span className="gradient-text">founder&apos;s words.</span>
+              </h2>
+              <motion.div
+                initial={{ scaleX: 0 }}
+                whileInView={{ scaleX: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.7, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+                className="mt-4 h-1 w-20 origin-left rounded-full"
+                style={{ background: "linear-gradient(90deg,#3b5bdb,#6d8bff)" }}
+              />
+
+              <div className="relative mt-6">
+                <Quote size={46} className="absolute -top-3 -left-1 text-royal-100 -z-0" fill="currentColor" />
+
+                <StaggerContainer className="relative space-y-4" staggerDelay={0.12}>
+                  <StaggerItem>
+                    <p className="text-body leading-relaxed">
+                      Education has been part of my family&apos;s legacy for more than five decades. From principals to teachers, I grew up watching how learning can transform lives and create opportunities.
+                    </p>
+                  </StaggerItem>
+                  <StaggerItem>
+                    <p className="text-body leading-relaxed">
+                      When I explored the education industry, I noticed a gap. Many students were learning languages and preparing for exams, yet they often lacked the confidence to communicate in real-world situations.
+                    </p>
+                  </StaggerItem>
+
+                  {/* highlighted founding line */}
+                  <StaggerItem>
+                    <div className="flex gap-3.5 my-5">
+                      <span className="w-1 rounded-full flex-shrink-0 self-stretch" style={{ background: "linear-gradient(to bottom,#3b5bdb,#6d8bff)" }} />
+                      <p className="text-lg md:text-xl font-black text-ink leading-snug">
+                        That&apos;s why I founded ALB, Academy of Languages &amp; Beyond.
+                      </p>
+                    </div>
+                  </StaggerItem>
+
+                  <StaggerItem>
+                    <p className="text-body leading-relaxed">
+                      Our mission goes beyond helping students learn a language. We help them build the confidence, communication skills, and professional readiness needed to thrive in a global world.
+                    </p>
+                  </StaggerItem>
+                  <StaggerItem>
+                    <p className="text-body leading-relaxed">
+                      Every ALB program combines language learning with practical soft skills, because success is not just about what you know, it is about how effectively you can communicate it.
+                    </p>
+                  </StaggerItem>
+                  <StaggerItem>
+                    <p className="text-body leading-relaxed">
+                      Whether your goal is higher education, immigration, career growth, or personal development, we&apos;re here to help you move beyond language barriers and closer to the opportunities you deserve.
+                    </p>
+                  </StaggerItem>
+                </StaggerContainer>
+              </div>
+
+              {/* signature */}
+              <motion.div
+                initial={{ opacity: 0, y: 14 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.3 }}
+                className="mt-8 flex items-center gap-4 pt-6 border-t border-line"
+              >
+                <span className="font-display text-3xl md:text-4xl text-ink leading-none italic">Jasmine Kaur</span>
+                <span className="text-muted text-sm font-semibold">Founder &amp; Director, ALB</span>
+              </motion.div>
+            </AnimateOnView>
+          </div>
         </div>
       </section>
 
@@ -585,6 +724,7 @@ export default function AboutPage() {
           </AnimateOnView>
         </div>
       </section>
+
     </>
   );
 }

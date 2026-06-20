@@ -9,8 +9,8 @@ import { MuiIcon, Flag } from "@/lib/icons";
 import { LanguageGlobe } from "@/components/shared/LanguageGlobe";
 import { useBooking } from "@/components/shared/BookingContext";
 
-const WA = "https://wa.me/919876543210";
-const PARTNER_EMAIL = "partners@academyoflanguagesandbeyond.com";
+const WA = "https://wa.me/919821275843";
+const PARTNER_EMAIL = "partners@learnwithalb.com";
 
 const AUDIENCES = [
   {
@@ -227,7 +227,7 @@ export default function PartnerPage() {
             {AUDIENCES.map((a) => (
               <StaggerItem key={a.title} className="h-full">
                 <div
-                  className="group relative h-full flex flex-col rounded-2xl overflow-hidden p-6 pb-7 transition-transform duration-300 hover:-translate-y-1.5"
+                  className="group relative h-full min-h-[480px] lg:min-h-[560px] flex flex-col rounded-2xl overflow-hidden p-6 pb-8 transition-transform duration-300 hover:-translate-y-1.5"
                   style={{ background: "linear-gradient(165deg,#111a36,#080c1e)", border: "1px solid rgba(255,255,255,0.08)" }}
                 >
                   {/* colored glow that blooms on hover */}
@@ -262,7 +262,7 @@ export default function PartnerPage() {
                     <p className="text-white/55 text-sm leading-relaxed mb-6">{a.desc}</p>
 
                     {/* outcomes */}
-                    <p className="text-white/45 text-[11px] font-bold uppercase tracking-wider mb-3">What we deliver</p>
+                    <p className="text-white/45 text-[11px] font-bold uppercase tracking-wider mb-3 mt-auto pt-2">What we deliver</p>
                     <ul className="space-y-2.5">
                       {a.outcomes.map((o) => (
                         <li key={o} className="flex items-start gap-2.5 text-sm text-white/85 font-semibold">

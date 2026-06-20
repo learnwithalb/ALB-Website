@@ -183,7 +183,7 @@ export function CourseLanding({ data }: { data: CourseData }) {
             <h2 className="text-3xl md:text-4xl font-black text-ink leading-tight">{data.sections?.tracks?.a ?? "Four tracks. One programme. "}<span style={{ color: a }}>{data.sections?.tracks?.b ?? "Your goal, built in."}</span></h2>
             {data.sections?.tracks?.sub && <p className="text-body text-base md:text-lg mt-4 leading-relaxed">{data.sections.tracks.sub}</p>}
           </AnimateOnView>
-          <StaggerContainer className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 items-stretch" staggerDelay={0.08}>
+          <StaggerContainer className={`grid sm:grid-cols-2 ${data.tracks.length === 3 ? "lg:grid-cols-3 max-w-5xl mx-auto" : "lg:grid-cols-4"} gap-5 items-stretch`} staggerDelay={0.08}>
             {data.tracks.map((t, i) => {
               // solid, deep colours per track (blue, purple, green, amber)
               const acc = ["#1e3a8a", "#5b21b6", "#065f46", "#9a3412"][i % 4];
@@ -218,15 +218,23 @@ export function CourseLanding({ data }: { data: CourseData }) {
                     {/* description */}
                     <p className="text-muted text-sm leading-relaxed mt-2.5">{t.forText}</p>
 
-                    {/* exam-ready chips */}
+                    {/* best-for / exam-ready chips */}
                     <div className="mt-5">
-                      <p className="text-muted text-[10.5px] font-bold uppercase tracking-wider mb-2">Exam Ready</p>
+                      <p className="text-muted text-[10.5px] font-bold uppercase tracking-wider mb-2">{t.bestFor ? "Best For" : "Exam Ready"}</p>
                       <div className="flex flex-wrap gap-1.5">
-                        {t.exams.map((e) => (
+                        {(t.bestFor ?? t.exams).map((e) => (
                           <span key={e} className="text-[11px] font-bold px-2.5 py-1 rounded-lg" style={{ color: acc, background: `${acc}14`, border: `1px solid ${acc}2e` }}>{e}</span>
                         ))}
                       </div>
                     </div>
+
+                    {/* outcome */}
+                    {t.outcome && (
+                      <div className="mt-5 rounded-xl px-4 py-3" style={{ background: `${acc}0d`, border: `1px solid ${acc}24` }}>
+                        <p className="text-[10px] font-bold uppercase tracking-wider mb-1" style={{ color: acc }}>Outcome</p>
+                        <p className="text-ink text-sm leading-snug font-semibold">{t.outcome}</p>
+                      </div>
+                    )}
 
                     {/* download CTA */}
                     <button
@@ -265,7 +273,7 @@ export function CourseLanding({ data }: { data: CourseData }) {
           </AnimateOnView>
           <div className="relative">
             <div className="hidden lg:block absolute top-7 left-[10%] right-[10%] h-px" style={{ background: `linear-gradient(90deg, ${a}33, ${a}, ${a}33)` }} />
-            <StaggerContainer className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-6 lg:gap-3" staggerDelay={0.1}>
+            <StaggerContainer className={`grid grid-cols-2 sm:grid-cols-3 ${data.journey.length === 6 ? "lg:grid-cols-6" : "lg:grid-cols-5"} gap-6 lg:gap-3`} staggerDelay={0.1}>
               {data.journey.map((j, i) => {
                 const edge = i === 0 || i === data.journey.length - 1;
                 return (

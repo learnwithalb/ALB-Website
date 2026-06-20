@@ -649,7 +649,7 @@ export default function BeyondPage() {
                   <button onClick={() => openModal("+Beyond (Soft Skills)")} className="btn-primary text-sm px-4 py-2.5">
                     Book a Free Call <ArrowRight size={14} />
                   </button>
-                  <a href="https://wa.me/919876543210" target="_blank" rel="noopener noreferrer" className="btn-outline text-sm px-4 py-2.5">
+                  <a href="https://wa.me/919821275843" target="_blank" rel="noopener noreferrer" className="btn-outline text-sm px-4 py-2.5">
                     WhatsApp Us
                   </a>
                 </div>

@@ -62,10 +62,10 @@ export function Navbar() {
             {/* Logo */}
             <Link href="/" className="flex items-center gap-2.5 group">
               <Image
-                src="/images/logo-v2.png"
-                alt="ALB"
-                width={955}
-                height={442}
+                src="/images/alb-blue.svg"
+                alt="Academy of Languages & Beyond"
+                width={1625}
+                height={942}
                 priority
                 className="h-9 w-auto group-hover:scale-105 transition-transform"
               />
@@ -342,7 +342,7 @@ export function Navbar() {
                 >
                   Book a Free Demo
                 </button>
-                <a href="https://wa.me/919876543210" target="_blank" rel="noopener noreferrer" className="btn-outline w-full justify-center">
+                <a href="https://wa.me/919821275843" target="_blank" rel="noopener noreferrer" className="btn-outline w-full justify-center">
                   WhatsApp Us
                 </a>
               </div>

@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 const sections = [
   {
     title: "1. Who We Are",
-    content: `Academy of Languages & Beyond ("ALB", "we", "us", "our") is a language and soft skills academy based in Mumbai, India. Our website is academyoflanguagesandbeyond.com. This Privacy Policy explains how we collect, use, and protect information about you when you use our website or enroll in our programmes.`,
+    content: `Academy of Languages & Beyond ("ALB", "we", "us", "our") is a language and soft skills academy based in Noida, Uttar Pradesh, India. Our website is learnwithalb.com. This Privacy Policy explains how we collect, use, and protect information about you when you use our website or enroll in our programmes.`,
   },
   {
     title: "2. Information We Collect",
@@ -37,7 +37,7 @@ const sections = [
   },
   {
     title: "8. Your Rights",
-    content: `You have the right to: access the personal data we hold about you; request correction of inaccurate data; request deletion of your data (subject to legal retention requirements); withdraw consent for marketing at any time; lodge a complaint with the relevant data protection authority. To exercise any of these rights, email hello@academyoflanguagesandbeyond.com. We will respond within 30 days.`,
+    content: `You have the right to: access the personal data we hold about you; request correction of inaccurate data; request deletion of your data (subject to legal retention requirements); withdraw consent for marketing at any time; lodge a complaint with the relevant data protection authority. To exercise any of these rights, email info@learnwithalb.com. We will respond within 30 days.`,
   },
   {
     title: "9. Security",
@@ -53,7 +53,7 @@ const sections = [
   },
   {
     title: "12. Contact Us",
-    content: `For any privacy-related queries or to exercise your rights, please contact: Email: hello@academyoflanguagesandbeyond.com · Phone: +91 98765 43210 · Address: Mumbai, Maharashtra, India.`,
+    content: `For any privacy-related queries or to exercise your rights, please contact: Email: info@learnwithalb.com · Phone: +91 98212 75843 · Address: 6th Floor, Tower-B, Bhutani Alphathum, Unit 603-604, Sector 90, Noida, Uttar Pradesh 201305.`,
   },
 ];
 

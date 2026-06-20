@@ -4,14 +4,14 @@ export const siteConfig = {
   tagline: "Go Global. Speak Fluent. Lead Bold.",
   description:
     "India's premier language & soft skills academy helping ambitious learners unlock international opportunities.",
-  email: "hello@academyoflanguagesandbeyond.com",
-  phone: "+91 98765 43210",
-  address: "Mumbai, India",
+  email: "info@learnwithalb.com",
+  phone: "+91 98212 75843",
+  address: "6th Floor, Tower-B, Bhutani Alphathum, Unit 603-604, Sector 90, Noida, Uttar Pradesh 201305",
   socials: {
-    instagram: "https://instagram.com/albacademy",
-    linkedin: "https://linkedin.com/company/albacademy",
-    youtube: "https://youtube.com/@albacademy",
-    whatsapp: "https://wa.me/919876543210",
+    instagram: "https://www.instagram.com/learnwithalb/",
+    linkedin: "https://www.linkedin.com/company/academy-of-languages-and-beyond/",
+    youtube: "https://www.youtube.com/@learnwithalb",
+    whatsapp: "https://wa.me/919821275843",
   },
 } as const;
 
@@ -19,6 +19,7 @@ export const navItems = [
   { label: "Courses", href: "/courses" },
   { label: "+Beyond", href: "/beyond" },
   { label: "Junior", href: "/junior" },
+  { label: "Success Stories", href: "/success-stories" },
   { label: "Partner with ALB", href: "/partner" },
   { label: "About Us", href: "/about" },
 ] as const;
@@ -102,56 +103,182 @@ export const stats = [
 export const testimonials = [
   {
     name: "Priya Sharma",
-    role: "Software Engineer, moved to Paris",
-    course: "French B2",
+    role: "Toronto",
+    course: "French · Immigration · Toronto",
     avatar: "PS",
     quote:
-      "ALB's French programme was transformative. Within 10 months I cleared DELF B2 and got my French work visa. The teachers make grammar feel intuitive, not intimidating.",
+      "I joined ALB because I'd read that French could significantly help with Canada's Express Entry system, but I had no idea how the CRS or TEF Canada actually worked. The programme didn't just teach me French, they explained the whole immigration mechanism, why language matters for the score, what the CLB conversion means. Four months in, my French is at B1 and I have a clear path before I'm exam-ready. The soft skills sessions were something I didn't expect and genuinely valued.",
     rating: 5,
   },
   {
-    name: "Arjun Mehta",
-    role: "MBA Student, Frankfurt School",
-    course: "German B1",
+    name: "Aditya Menon",
+    role: "Hyderabad",
+    course: "French · Academic · Hyderabad",
     avatar: "AM",
     quote:
-      "I needed conversational German fast for my MBA. ALB's immersive approach got me to B1 in 8 months. I could hold real conversations at orientation, my classmates were amazed.",
+      "I was preparing for DELF B2 for my university applications and had tried self-studying for almost a year before joining ALB. The difference was the mock examination sessions, real timed practice with written corrections that told me specifically what to fix. The speaking mocks were nerve-wracking but essential, by the time I sat the real exam the format didn't feel unfamiliar. The student success team also spent time with me on my application statement, which I hadn't expected at all. That kind of support is rare.",
     rating: 5,
   },
   {
-    name: "Sneha Pillai",
-    role: "Content Strategist",
-    course: "+Beyond Public Speaking",
-    avatar: "SP",
+    name: "Kabir Malhotra",
+    role: "Ontario",
+    course: "French · Sprint · Ontario",
+    avatar: "KM",
     quote:
-      "The Beyond programme changed how I show up in meetings. I used to freeze during presentations. Now I'm facilitating workshops for 50-person teams with confidence.",
+      "I did Sprint because I had a hard deadline. What made ALB's Sprint different was their extensive TEF prep module. Daily classes are difficult to commit to when you have a full-time job, I won't pretend otherwise. But the progress is proportional to the commitment, and by week twelve I was producing French I couldn't have imagined at week one. The soft skills work woven into Sprint, presentation, speaking under pressure, was a smart addition to what could have just been a grammar sprint.",
     rating: 5,
   },
   {
-    name: "Rahul Joshi",
-    role: "IIT Graduate, DAAD Scholar",
-    course: "German A1–B1",
-    avatar: "RJ",
+    name: "Neha Iyer",
+    role: "Mumbai",
+    course: "French · Career · Mumbai",
+    avatar: "NI",
     quote:
-      "Got the DAAD scholarship and my German was a strong differentiator. ALB's structured curriculum and mock interviews made all the difference. Worth every rupee.",
+      "My work involves a lot of interaction with France-based teams and I was tired of being the person in the meeting who needed everything repeated or translated. The Career Track at ALB is genuinely workplace-focused, professional vocabulary, email structure, how to participate confidently in a meeting when you're not yet fluent. Three months in, I followed an entire client call without interpretation for the first time. The soft skills sessions extend well beyond French, I've used those frameworks in English presentations too.",
     rating: 5,
   },
   {
-    name: "Kavya Nair",
-    role: "Travel Blogger & Influencer",
-    course: "Spanish A2",
-    avatar: "KN",
+    name: "Sunita Kapoor",
+    role: "Ghaziabad",
+    course: "French · Junior · Ghaziabad",
+    avatar: "SK",
     quote:
-      "Learning Spanish at ALB opened Latin America to me. The cultural immersion angle in the curriculum is unique, you don't just learn the language, you fall in love with it.",
+      "I was genuinely unsure whether my son would take to structured language learning or whether it would feel like extra school. It doesn't. He talks about his French class the way he talks about things he's chosen. The junior teaching approach is noticeably different, games, role-plays, storytelling, not grammar drills. What I value as a parent, beyond the French, is that he's developing confidence in communicating. He presented a small project in class last term and I watched a child who normally hates speaking stand up and do it without falling apart.",
     rating: 5,
   },
   {
-    name: "Siddharth Roy",
-    role: "Corporate Trainer",
-    course: "+Beyond Communication Mastery",
+    name: "Tanvi Krishnan",
+    role: "Bangalore",
+    course: "French · Career · Bangalore",
+    avatar: "TK",
+    quote:
+      "I've always struggled with speaking up, in meetings, in class, anywhere with a group. I joined ALB for the French, not thinking it would change anything about that. But the small batch size means there's nowhere to hide, and somehow that gentle pressure started to shift something. Five months in, my French has progressed meaningfully, but what I keep telling people is the soft skills component, presentation skills, speaking under pressure, how to structure a thought before you say it out loud.",
+    rating: 5,
+  },
+  {
+    name: "Rohan Bose",
+    role: "Kolkata",
+    course: "French · Academic · Kolkata",
+    avatar: "RB",
+    quote:
+      "My first application to a programme in France was unsuccessful. The language was acceptable but my statement of purpose didn't make sense to a French academic admissions committee. I mentioned this to ALB's student success team almost in passing. They took it seriously in a way I didn't expect. Over several sessions, they helped me understand what I'd missed and how to frame my background differently. I rebuilt my application. I applied again. I got in. I don't know if other language schools do this. It was the thing that made the biggest difference in the end.",
+    rating: 5,
+  },
+  {
+    name: "Vikram Sharma",
+    role: "Pune",
+    course: "German · Immigration · Pune",
+    avatar: "VS",
+    quote:
+      "I'm planning to move to Germany on a skilled worker visa, and I needed German that was actually functional for that purpose, not tourist German, not classroom German, but the kind you need for official appointments and daily settlement scenarios. ALB's German Immigration track covers all of that. They explained the immigration pathway too, the Chancenkarte, how language proficiency feeds into visa requirements. The small batch means you get corrected constantly. I'm at A2, moving to B1, and Germany feels like a realistic near-term plan.",
+    rating: 5,
+  },
+  {
+    name: "Shruti Ramanathan",
+    role: "Chennai",
+    course: "German · Academic · Chennai",
     avatar: "SR",
     quote:
-      "The communication mastery module reshaped my entire training methodology. My session ratings jumped from 3.8 to 4.7 within two months of completing the programme.",
+      "I'm applying for a Studienkolleg in Germany as a pathway to university, and my German needed to be strong enough to actually study in it. ALB's German Academic track is the first programme I've found that treats this goal seriously, building toward reading academic German, writing structured arguments, understanding lecture-style audio. It's not Duolingo. It's structured, demanding, and genuinely educational. The DAAD pathway context was something they explained clearly too. I feel genuinely prepared rather than just hopeful.",
+    rating: 5,
+  },
+  {
+    name: "Arjun Nair",
+    role: "Gurgaon",
+    course: "German · Career · Gurgaon",
+    avatar: "AN",
+    quote:
+      "My company works with clients across Germany and Austria, and my German was essentially zero when I started. Career Track at ALB is built around professional communication, business German, how to handle client calls and emails, how to contribute in a meeting when you're not yet fluent. The soft skills component is something I keep recommending to colleagues. Six months in my German is at B1 and I'm having actual professional conversations in it. Not perfect ones. Real ones. That distinction matters.",
+    rating: 5,
+  },
+  {
+    name: "Pooja Mehta",
+    role: "Berlin",
+    course: "German · Sprint · Berlin",
+    avatar: "PM",
+    quote:
+      "Chose Sprint because I had no choice, I needed to reach a functional German level within a specific timeline for a visa-related reason. Daily classes with ALB's German Sprint track are intense and I won't sugarcoat that. By week ten, I was producing German sentences I couldn't have imagined in week one. The soft skills sessions, managing communication under pressure, speaking without shutting down when you make errors, were particularly useful in German, where fear of mistakes can really hold you back.",
+    rating: 5,
+  },
+  {
+    name: "Ravi Gupta",
+    role: "Mumbai",
+    course: "German · Junior · Mumbai",
+    avatar: "RG",
+    quote:
+      "My daughter takes German at school as a second language and was struggling with it. I enrolled her in ALB's Junior track expecting it to function like tuition. It's been more than that. The way they teach at this age is genuinely different from a school classroom, more interactive, more oral practice, more real-world contexts. Her school grades have improved but more importantly she's less anxious about German. She used to dread German class. Now she doesn't. That change in attitude is worth more to me than any particular grade.",
+    rating: 5,
+  },
+  {
+    name: "Meera Joshi",
+    role: "Bengaluru",
+    course: "English · IELTS Advantage · Bengaluru",
+    avatar: "MJ",
+    quote:
+      "I'd sat IELTS twice before joining ALB and couldn't clear the band I needed, specifically my Writing score kept pulling the overall down. The IELTS Advantage track treated this as a specific, diagnosable problem, not a general 'practise more' situation. I understood why a sentence wasn't working, not just that it was wrong. The speaking mock sessions were the other thing that made a real difference. I sat the exam after the programme and cleared the band I needed.",
+    rating: 5,
+  },
+  {
+    name: "Sana Khan",
+    role: "Lucknow",
+    course: "English · Communication · Lucknow",
+    avatar: "SK",
+    quote:
+      "I can read and understand English well but speaking it confidently in professional settings has always been a struggle since my schooling was from UP Board. The English Communication track addressed this directly, not grammar from scratch, but functional, real-world communication practice with consistent correction. After about three months I handled a client presentation in English I would not have been able to do before, not because my grammar changed dramatically but because my relationship with speaking under pressure changed.",
+    rating: 5,
+  },
+  {
+    name: "Nikhil Reddy",
+    role: "Hyderabad",
+    course: "English · Career Lab · Hyderabad",
+    avatar: "NR",
+    quote:
+      "I joined Career English Lab specifically for the professional communication dimension, my English was functional but my writing was too casual for the level I was trying to operate at. The Lab is designed for exactly this: professional email register, business writing that's clear and direct, meeting language, stakeholder communication. The soft skills sessions have been the most valuable component, how to handle difficult conversations, how to present proposals, how to structure a negotiation. I've recommended this to two colleagues already.",
+    rating: 5,
+  },
+  {
+    name: "Divya Kulkarni",
+    role: "Calgary",
+    course: "French · Immigration · Calgary",
+    avatar: "DK",
+    quote:
+      "I want to write specifically about the soft skills component because it's not something I've seen other language institutes take seriously in this way. Interview preparation, presentation skills, public speaking basics, how to communicate under pressure, these are woven into every ALB programme as a standard part of the curriculum, not an upsell. I've attended workshops at my company that cost significantly more and covered this material less practically. I joined for French. I'm leaving with a noticeably different relationship with professional communication.",
+    rating: 5,
+  },
+  {
+    name: "Amit Sehgal",
+    role: "Delhi",
+    course: "German · Small Batch · Delhi",
+    avatar: "AS",
+    quote:
+      "I've tried three language institutes in the last four years. The one difference that matters most is batch size. At the others I was one of fifteen to twenty learners. I might speak once in a session, get a correction once a week. At ALB the cap is genuinely small, five to six people. I speak every session. I get corrected every session. Six months of ALB's German has produced more functional language ability than eighteen months at two other institutes combined. I genuinely wish I'd found this sooner.",
+    rating: 5,
+  },
+  {
+    name: "Ananya Pillai",
+    role: "Bengaluru",
+    course: "French & German · Career · Bengaluru",
+    avatar: "AP",
+    quote:
+      "I completed the French Career track first and then started German, same institute, same teaching philosophy, different trainers. The CEFR-aligned progression means my French A2 concepts helped me understand the structural logic of German A1 more quickly, which sounds counterintuitive but genuinely worked. ALB has become my long-term language partner. I'm now in French B1 and German A2 simultaneously, which would have seemed impossible to me two years ago.",
+    rating: 5,
+  },
+  {
+    name: "Priyanka Desai",
+    role: "Mumbai",
+    course: "Junior · French + German · Mumbai",
+    avatar: "PD",
+    quote:
+      "Both my children are enrolled at ALB, one in Junior French, one in Junior German. The reasons are partly practical (future educational options, study abroad, the cognitive benefits of multilingualism) and partly instinctive. What ALB's junior programme does well is hold the balance between structure and joy. These are not grammar classes with a friendly teacher. They are genuinely designed for how children engage, through stories, games, performances, projects. Worth every bit of the commitment.",
+    rating: 5,
+  },
+  {
+    name: "Jasleen Kaur",
+    role: "Chandigarh",
+    course: "French · Immigration · Chandigarh",
+    avatar: "JK",
+    quote:
+      "I'm going to be honest: I didn't expect to feel this way about a language school. What I got was a programme that treats the reason I'm learning French, Canada, PR, a different life, as part of the educational context rather than just my personal problem. The immigration pathway explanation was thorough and clear. The French teaching is rigorous and consistent. The small batch means the trainer actually knows my name and my specific gaps. And the student success team has answered questions about my immigration journey that weren't strictly about language at all.",
     rating: 5,
   },
 ] as const;
@@ -163,7 +290,7 @@ export const faqs = [
   },
   {
     q: "Are classes online or offline?",
-    a: "We offer both! Live online sessions (Zoom/Google Meet) with the same experienced faculty, plus offline batches at our Mumbai centre. Many learners prefer our hybrid model, attend from home on weekdays and come to the centre on weekends.",
+    a: "We offer both! Live online sessions (Zoom/Google Meet) with the same experienced faculty, plus offline batches at our Noida centre. Many learners prefer our hybrid model, attend from home on weekdays and come to the centre on weekends.",
   },
   {
     q: "How long does it take to reach B2 level in French?",

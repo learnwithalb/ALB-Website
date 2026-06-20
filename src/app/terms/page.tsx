@@ -6,11 +6,11 @@ export const metadata: Metadata = {
   description: "Terms and Conditions for Academy of Languages & Beyond, enrolment, payment, refund & cancellation policy, conduct, intellectual property, privacy, and more.",
 };
 
-const EMAIL = "hello@academyoflanguagesandbeyond.com";
-const REFUND_EMAIL = "refund@academyoflanguagesandbeyond.com";
-const COMPLAINTS_EMAIL = "complaints@academyoflanguagesandbeyond.com";
-const PHONE = "+91 98765 43210";
-const CITY = "Mumbai";
+const EMAIL = "info@learnwithalb.com";
+const REFUND_EMAIL = "refund@learnwithalb.com";
+const COMPLAINTS_EMAIL = "complaints@learnwithalb.com";
+const PHONE = "+91 98212 75843";
+const ADDRESS = "6th Floor, Tower-B, Bhutani Alphathum, Unit 603-604, Sector 90, Noida, Uttar Pradesh 201305";
 
 type Item =
   | string
@@ -172,7 +172,7 @@ const SECTIONS: Section[] = [
   {
     id: "law", num: "12", title: "Governing Law", short: "Governing Law",
     body: [
-      `These Terms and Conditions are governed by and construed in accordance with the laws of India. Any disputes arising under these Terms shall be subject to the exclusive jurisdiction of the courts located in ${CITY}, India.`,
+      `These Terms and Conditions are governed by and construed in accordance with the laws of India. Any disputes arising under these Terms shall be subject to the exclusive jurisdiction of the courts located in Noida, Uttar Pradesh, India.`,
     ],
   },
   {
@@ -191,7 +191,7 @@ const SECTIONS: Section[] = [
         { t: "Refund queries", d: REFUND_EMAIL },
         { t: "Complaints", d: COMPLAINTS_EMAIL },
         { t: "Phone", d: PHONE },
-        { t: "Address", d: `${CITY}, India` },
+        { t: "Address", d: ADDRESS },
       ]},
     ],
   },

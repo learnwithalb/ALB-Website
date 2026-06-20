@@ -95,12 +95,52 @@ const JOURNEY = [
 ];
 
 /* Faculty / mentors */
-const INSTRUCTORS = [
-  { name: "Ananya Krishnan", role: "Lead French Faculty",      cred: "DELF Examiner",    exp: "14+ yrs", rating: "4.9", students: "5000+", from: "#3b5bdb", to: "#2f49c0", img: "/images/hero-images/homepage/Stock-mentor1.png" },
-  { name: "Priya Narayanan", role: "German Expert",            cred: "Goethe Certified", exp: "8+ yrs",  rating: "4.8", students: "3500+", from: "#6d8bff", to: "#3b5bdb", img: "/images/hero-images/homepage/Stock-mentor2.png" },
-  { name: "Carlos Mendes",   role: "Spanish & Culture",        cred: "Native Speaker",   exp: "9+ yrs",  rating: "4.9", students: "4200+", from: "#0ea5e9", to: "#0284c7", img: "/images/hero-images/homepage/Stock-mentor3.png" },
-  { name: "Rohan Pillai",    role: "IELTS & Academic English", cred: "British Council",  exp: "7+ yrs",  rating: "4.9", students: "6000+", from: "#0284c7", to: "#2f49c0", img: "/images/hero-images/homepage/Stock-mentor4.png" },
+/* Repeating colour set used across each language's trainer cards */
+const TRAINER_COLORS = [
+  { from: "#7ea8e8", to: "#4f78cf" }, // blue
+  { from: "#f3a48f", to: "#dd7359" }, // coral
+  { from: "#84bf6a", to: "#5a9c43" }, // green
+  { from: "#b39ae8", to: "#876bd6" }, // purple
+  { from: "#e0a64d", to: "#c5821f" }, // amber
+  { from: "#5fb89a", to: "#3c9779" }, // teal
 ];
+
+const TRAINER_TABS = [
+  { key: "fr", label: "French", flag: "FR" },
+  { key: "de", label: "German", flag: "DE" },
+  { key: "en", label: "English", flag: "EN" },
+] as const;
+
+type TrainerLang = (typeof TRAINER_TABS)[number]["key"];
+
+interface Trainer { init: string; name: string; role: string; cred: string; rating: string; exp: string; students: string; }
+
+const TRAINERS: Record<TrainerLang, Trainer[]> = {
+  fr: [
+    { init: "PN", name: "Priya Nair",       role: "Lead French Faculty · Immigration", cred: "TEF Certified",  rating: "4.9", exp: "8+",  students: "1,200+" },
+    { init: "AD", name: "Ananya Desai",     role: "Academic French · DELF B2 / DALF",  cred: "DELF Certified", rating: "4.9", exp: "10+", students: "1,800+" },
+    { init: "MP", name: "Meera Pillai",     role: "Sprint Track Lead · TEF / DELF",     cred: "TEF Certified",  rating: "5.0", exp: "12+", students: "2,200+" },
+    { init: "SK", name: "Sunanda Krishnan", role: "Academic French · DALF C1",          cred: "DALF Certified", rating: "4.9", exp: "6+",  students: "850+" },
+    { init: "KM", name: "Kabir Mehta",      role: "Junior Track · DELF Prim A1/A2",      cred: "DELF Certified", rating: "4.8", exp: "4+",  students: "420+" },
+    { init: "DB", name: "Divya Bose",       role: "General French · DELF–DALF",          cred: "DALF Certified", rating: "4.9", exp: "9+",  students: "1,500+" },
+  ],
+  de: [
+    { init: "SA", name: "Shreya Agarwal", role: "German Immigration · Goethe B2/C1",         cred: "Goethe Certified", rating: "4.9", exp: "8+",  students: "1,100+" },
+    { init: "KS", name: "Kavita Singh",   role: "German General · Phonetics & Exams",        cred: "Goethe Certified", rating: "4.9", exp: "11+", students: "2,000+" },
+    { init: "PJ", name: "Pooja Joshi",    role: "Academic German · TestDaF / Studienkolleg", cred: "Goethe Certified", rating: "5.0", exp: "10+", students: "1,700+" },
+    { init: "AK", name: "Amit Kumar",     role: "Sprint Track Lead · Goethe B1/B2",          cred: "Goethe Certified", rating: "4.9", exp: "9+",  students: "1,400+" },
+    { init: "NS", name: "Nisha Sharma",   role: "Junior Track · Fit in Deutsch A1/A2",        cred: "Goethe Certified", rating: "4.8", exp: "7+",  students: "900+" },
+    { init: "AN", name: "Arjun Nair",     role: "Career German · Business Communication",     cred: "Goethe Certified", rating: "4.8", exp: "6+",  students: "780+" },
+  ],
+  en: [
+    { init: "NK", name: "Neha Kapoor",   role: "IELTS Master Trainer · Academic & GT", cred: "IELTS Specialist", rating: "4.9", exp: "9+",  students: "1,600+" },
+    { init: "RK", name: "Rohit Kumar",   role: "IELTS Reading & Listening Strategy",    cred: "IELTS Specialist", rating: "4.9", exp: "8+",  students: "1,300+" },
+    { init: "PG", name: "Preeti Gupta",  role: "Career English · Business Writing",      cred: "CELTA Certified",  rating: "4.9", exp: "10+", students: "1,900+" },
+    { init: "AS", name: "Anita Sharma",  role: "IELTS Writing · Task 1 & Task 2",         cred: "IELTS Specialist", rating: "4.9", exp: "7+",  students: "1,050+" },
+    { init: "RJ", name: "Radhika Joshi", role: "Soft Skills · Professional English",      cred: "CELTA Certified",  rating: "4.9", exp: "8+",  students: "1,250+" },
+    { init: "AB", name: "Aditya Bansal", role: "IELTS + Communication Confidence",        cred: "IELTS Specialist", rating: "4.9", exp: "7+",  students: "1,020+" },
+  ],
+};
 
 /* Cover images for the hero language cards (by language code) */
 const COVERS: Record<string, string> = {
@@ -114,6 +154,7 @@ export default function HomePage() {
   const { openModal } = useBooking();
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [activeLang, setActiveLang] = useState(0);
+  const [trainerLang, setTrainerLang] = useState<TrainerLang>("fr");
 
   // Auto-cycle the hero language cards every 3s; pause while hovered.
   const heroLangs = languages.filter((l) => !l.comingSoon);
@@ -842,17 +883,16 @@ export default function HomePage() {
                 {/* top: opening quote + author pill */}
                 <div className="relative z-10 flex items-start justify-between gap-3">
                   <span className="font-display text-6xl leading-[0.6] text-royal-200 select-none">&ldquo;</span>
-                  <div className="inline-flex items-center gap-2.5 bg-royal-50 border border-royal-100 rounded-2xl pl-1.5 pr-4 py-1.5">
-                    <div className="w-9 h-9 rounded-full bg-gradient-to-br from-[#3b5bdb] to-[#6d8bff] flex items-center justify-center text-white font-black text-xs flex-shrink-0">{t.avatar}</div>
-                    <div className="min-w-0">
+                  <div className="inline-flex items-center gap-2.5 bg-royal-50 border border-royal-100 rounded-2xl px-4 py-2">
+                    <div className="min-w-0 text-right">
                       <p className="text-ink font-bold text-sm leading-tight">{t.name}</p>
-                      <p className="text-muted text-xs leading-tight truncate max-w-[150px]">{t.course}</p>
+                      <p className="text-muted text-xs leading-tight">{t.course}</p>
                     </div>
                   </div>
                 </div>
 
                 {/* quote */}
-                <p className="relative z-10 mt-5 text-ink text-base md:text-lg font-medium leading-relaxed flex-1">{t.quote}</p>
+                <p className="relative z-10 mt-5 text-ink text-sm md:text-[15px] font-medium leading-relaxed flex-1 line-clamp-[9]">{t.quote}</p>
 
                 {/* divider */}
                 <div className="relative z-10 mt-6 h-0.5 w-16 rounded-full bg-royal-200" />
@@ -869,8 +909,21 @@ export default function HomePage() {
 
       {/* ══════════════════════ INSTRUCTORS ══════════════════════ */}
       <section className="section-padding sec-light relative overflow-hidden">
-        {/* perspective floor grid */}
+        {/* perspective grids — mirrored ceiling (top) + floor (bottom) */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none [perspective:700px]">
+          {/* ceiling grid (top) */}
+          <div
+            className="absolute top-0 left-1/2 h-[72%] w-[220%] -translate-x-1/2 origin-top"
+            style={{
+              transform: "rotateX(-64deg)",
+              backgroundImage:
+                "linear-gradient(to right, rgba(59,91,219,0.16) 1px, transparent 1px), linear-gradient(to bottom, rgba(59,91,219,0.16) 1px, transparent 1px)",
+              backgroundSize: "48px 48px",
+              maskImage: "linear-gradient(to bottom, rgba(0,0,0,0.85), transparent 70%)",
+              WebkitMaskImage: "linear-gradient(to bottom, rgba(0,0,0,0.85), transparent 70%)",
+            }}
+          />
+          {/* floor grid (bottom) */}
           <div
             className="absolute bottom-0 left-1/2 h-[72%] w-[220%] -translate-x-1/2 origin-bottom"
             style={{
@@ -902,51 +955,92 @@ export default function HomePage() {
             </p>
           </AnimateOnView>
 
-          <StaggerContainer className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5" staggerDelay={0.1}>
-            {INSTRUCTORS.map((m) => (
-              <StaggerItem key={m.name}>
-                <div className="group card-hover rounded-3xl overflow-hidden h-full">
-                  {/* avatar */}
-                  <div className="relative h-[230px] overflow-hidden" style={{ background: `linear-gradient(160deg, ${m.from}, ${m.to})` }}>
-                    <Image
-                      src={m.img}
-                      alt={m.name}
-                      fill
-                      sizes="(max-width:640px) 100vw, (max-width:1024px) 50vw, 25vw"
-                      className="object-cover object-top group-hover:scale-105 transition-transform duration-500"
-                    />
-                    <span className="absolute top-3 left-3 bg-white/90 backdrop-blur-sm rounded-full px-3 py-1 text-[10px] font-bold text-ink shadow-sm">{m.cred}</span>
-                    <span className="absolute top-3 right-3 bg-white rounded-full px-2.5 py-1 text-[11px] font-bold text-ink flex items-center gap-1 shadow-sm">
-                      <Star size={11} className="text-amber-400 fill-amber-400" /> {m.rating}
-                    </span>
-                  </div>
+          {/* language filter tabs */}
+          <AnimateOnView className="flex items-center justify-center gap-2.5 mb-10">
+            {TRAINER_TABS.map((t) => {
+              const on = trainerLang === t.key;
+              return (
+                <button
+                  key={t.key}
+                  onClick={() => setTrainerLang(t.key)}
+                  className={`inline-flex items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-bold transition-all ${
+                    on
+                      ? "bg-ink text-white shadow-[0_10px_24px_-10px_rgba(14,23,51,0.6)]"
+                      : "bg-white text-body border border-line hover:border-royal-300 hover:text-royal-700"
+                  }`}
+                >
+                  <Flag code={t.flag} size={20} rounded="rounded" />
+                  {t.label}
+                </button>
+              );
+            })}
+          </AnimateOnView>
 
-                  {/* info */}
-                  <div className="p-5">
-                    <div className="flex items-start justify-between gap-2">
-                      <div className="min-w-0">
-                        <h3 className="font-bold text-ink text-base leading-tight truncate">{m.name}</h3>
-                        <p className="text-muted text-xs mt-0.5 truncate">{m.role}</p>
-                      </div>
-                      <a href="#" aria-label="LinkedIn" className="w-8 h-8 rounded-lg bg-[#0a66c2] hover:bg-[#0a5bb0] transition-colors flex items-center justify-center text-white font-black text-xs flex-shrink-0">in</a>
+          {/* trainer grid — re-keyed by language so it replays the reveal */}
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={trainerLang}
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+              className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 max-w-4xl mx-auto"
+            >
+              {TRAINERS[trainerLang].map((m, i) => {
+                const c = TRAINER_COLORS[i % TRAINER_COLORS.length];
+                return (
+                  <motion.div
+                    key={m.name}
+                    initial={{ opacity: 0, y: 24 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: i * 0.06, ease: [0.22, 1, 0.36, 1] }}
+                    className="group card-hover rounded-3xl overflow-hidden h-full"
+                  >
+                    {/* initials header */}
+                    <div
+                      className="relative h-[200px] flex items-center justify-center overflow-hidden"
+                      style={{ background: `linear-gradient(155deg, ${c.from}, ${c.to})` }}
+                    >
+                      <span className="absolute top-3 left-3 bg-white rounded-full px-3 py-1 text-[10px] font-bold text-ink shadow-sm">{m.cred}</span>
+                      <span className="absolute top-3 right-3 bg-white rounded-full px-2.5 py-1 text-[11px] font-bold text-ink flex items-center gap-1 shadow-sm">
+                        <Star size={11} className="text-amber-400 fill-amber-400" /> {m.rating}
+                      </span>
+                      <span
+                        className="text-5xl font-black text-white tracking-wide select-none transition-transform duration-500 group-hover:scale-110"
+                        style={{ textShadow: "0 6px 22px rgba(0,0,0,0.20)" }}
+                      >
+                        {m.init}
+                      </span>
                     </div>
 
-                    {/* stat boxes */}
-                    <div className="mt-4 grid grid-cols-2 gap-2">
-                      <div className="rounded-xl bg-royal-50 px-3 py-2.5 text-center">
-                        <p className="text-sm font-black text-royal-700">{m.exp}</p>
-                        <p className="text-[10px] text-muted font-semibold uppercase tracking-wide mt-0.5">Experience</p>
+                    {/* info */}
+                    <div className="p-5">
+                      <div className="flex items-start justify-between gap-2">
+                        <div className="min-w-0">
+                          <h3 className="font-bold text-ink text-base leading-tight">{m.name}</h3>
+                          <p className="text-muted text-xs mt-0.5 leading-snug">{m.role}</p>
+                        </div>
+                        <a href="#" aria-label="LinkedIn" className="w-8 h-8 rounded-lg bg-[#0a66c2] hover:bg-[#0a5bb0] transition-colors flex items-center justify-center text-white font-black text-xs flex-shrink-0">in</a>
                       </div>
-                      <div className="rounded-xl bg-royal-50 px-3 py-2.5 text-center">
-                        <p className="text-sm font-black text-royal-700">{m.students}</p>
-                        <p className="text-[10px] text-muted font-semibold uppercase tracking-wide mt-0.5">Students Taught</p>
+
+                      {/* stat boxes */}
+                      <div className="mt-4 grid grid-cols-2 gap-2">
+                        <div className="rounded-xl bg-royal-50 px-3 py-2.5 text-center">
+                          <p className="text-sm font-black text-royal-700">{m.exp}</p>
+                          <p className="text-[10px] text-muted font-semibold uppercase tracking-wide mt-0.5">Experience</p>
+                        </div>
+                        <div className="rounded-xl bg-royal-50 px-3 py-2.5 text-center">
+                          <p className="text-sm font-black text-royal-700">{m.students}</p>
+                          <p className="text-[10px] text-muted font-semibold uppercase tracking-wide mt-0.5">Students Taught</p>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </div>
-              </StaggerItem>
-            ))}
-          </StaggerContainer>
+                  </motion.div>
+                );
+              })}
+            </motion.div>
+          </AnimatePresence>
         </div>
       </section>
 
@@ -1174,7 +1268,7 @@ export default function HomePage() {
               <p className="mt-4 text-body leading-relaxed text-sm">
                 Still curious? Book a free 30-minute counselling call, no commitment.
               </p>
-              <a href="https://wa.me/919876543210" target="_blank" rel="noopener noreferrer" className="btn-primary mt-6 inline-flex">
+              <a href="https://wa.me/919821275843" target="_blank" rel="noopener noreferrer" className="btn-primary mt-6 inline-flex">
                 WhatsApp Us <ArrowRight size={15} />
               </a>
             </AnimateOnView>

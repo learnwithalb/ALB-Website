@@ -6,10 +6,38 @@ import { usePathname } from "next/navigation";
 import { Mail, Phone, MapPin } from "lucide-react";
 import { siteConfig, beyondModules } from "@/lib/constants";
 
+/* ── brand glyphs (lucide/MUI don't ship social icons) ── */
+function InstagramIcon({ size = 15 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41a3.7 3.7 0 0 1-1.38-.9 3.7 3.7 0 0 1-.9-1.38c-.16-.42-.36-1.06-.41-2.23C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16Zm0 1.62c-3.14 0-3.51.01-4.75.07-.9.04-1.39.19-1.71.32-.43.17-.74.37-1.06.69-.32.32-.52.63-.69 1.06-.13.32-.28.81-.32 1.71-.06 1.24-.07 1.61-.07 4.75s.01 3.51.07 4.75c.04.9.19 1.39.32 1.71.17.43.37.74.69 1.06.32.32.63.52 1.06.69.32.13.81.28 1.71.32 1.24.06 1.61.07 4.75.07s3.51-.01 4.75-.07c.9-.04 1.39-.19 1.71-.32.43-.17.74-.37 1.06-.69.32-.32.52-.63.69-1.06.13-.32.28-.81.32-1.71.06-1.24.07-1.61.07-4.75s-.01-3.51-.07-4.75c-.04-.9-.19-1.39-.32-1.71a2.85 2.85 0 0 0-.69-1.06 2.85 2.85 0 0 0-1.06-.69c-.32-.13-.81-.28-1.71-.32-1.24-.06-1.61-.07-4.75-.07Zm0 2.76a5.46 5.46 0 1 1 0 10.92 5.46 5.46 0 0 1 0-10.92Zm0 9a3.54 3.54 0 1 0 0-7.08 3.54 3.54 0 0 0 0 7.08Zm5.68-9.21a1.28 1.28 0 1 1-2.56 0 1.28 1.28 0 0 1 2.56 0Z" />
+    </svg>
+  );
+}
+function LinkedInIcon({ size = 15 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28ZM5.34 7.43a2.07 2.07 0 1 1 0-4.14 2.07 2.07 0 0 1 0 4.14ZM7.12 20.45H3.55V9h3.57v11.45ZM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.22.79 24 1.77 24h20.45c.98 0 1.78-.78 1.78-1.73V1.73C24 .77 23.2 0 22.22 0Z" />
+    </svg>
+  );
+}
+function YouTubeIcon({ size = 15 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M23.5 6.5a3.02 3.02 0 0 0-2.12-2.14C19.5 3.85 12 3.85 12 3.85s-7.5 0-9.38.51A3.02 3.02 0 0 0 .5 6.5C0 8.39 0 12 0 12s0 3.61.5 5.5a3.02 3.02 0 0 0 2.12 2.14c1.88.51 9.38.51 9.38.51s7.5 0 9.38-.51a3.02 3.02 0 0 0 2.12-2.14c.5-1.89.5-5.5.5-5.5s0-3.61-.5-5.5ZM9.6 15.6V8.4l6.2 3.6-6.2 3.6Z" />
+    </svg>
+  );
+}
+
 export function Footer() {
   const year = new Date().getFullYear();
   const pathname = usePathname();
-  const showCta = pathname !== "/beyond" && pathname !== "/about";
+  // Hide the footer CTA banner where the page already ends with its own CTA:
+  // /beyond, /about, and every language course detail page (/courses/<lang>).
+  const showCta =
+    pathname !== "/beyond" &&
+    pathname !== "/about" &&
+    !pathname.startsWith("/courses/");
 
   return (
     <footer className="sec-dark text-white/55 relative overflow-hidden">
@@ -55,7 +83,7 @@ export function Footer() {
           {/* Brand */}
           <div className="lg:col-span-1">
             <Link href="/" className="inline-flex items-center gap-2.5 mb-4">
-              <Image src="/images/logo-v2.png" alt="ALB" width={955} height={442} className="h-10 w-auto" />
+              <Image src="/images/alb-white.svg" alt="Academy of Languages & Beyond" width={1622} height={940} className="h-10 w-auto" />
               <div>
                 <div className="text-white font-bold text-sm leading-tight">Academy of Languages</div>
                 <div className="text-royal-200 font-semibold text-xs">&amp; Beyond</div>
@@ -79,21 +107,21 @@ export function Footer() {
                 {siteConfig.address}
               </p>
             </div>
-            <div className="flex gap-2 mt-5">
+            <div className="flex gap-2.5 mt-5">
               {[
-                { href: siteConfig.socials.instagram, label: "IG" },
-                { href: siteConfig.socials.linkedin,  label: "LI" },
-                { href: siteConfig.socials.youtube,   label: "YT" },
-              ].map(({ href, label }) => (
+                { href: siteConfig.socials.instagram, label: "Instagram", Icon: InstagramIcon },
+                { href: siteConfig.socials.linkedin,  label: "LinkedIn",  Icon: LinkedInIcon },
+                { href: siteConfig.socials.youtube,   label: "YouTube",   Icon: YouTubeIcon },
+              ].map(({ href, label, Icon }) => (
                 <a
                   key={label}
                   href={href}
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={label}
-                  className="w-8 h-8 rounded-full border border-white/15 flex items-center justify-center text-[9px] font-black hover:border-sky-400 hover:text-sky-300 hover:bg-white/5 transition-all"
+                  className="w-9 h-9 rounded-full border border-white/15 flex items-center justify-center text-white/70 hover:text-white hover:border-sky-400 hover:bg-white/5 transition-all"
                 >
-                  {label}
+                  <Icon size={16} />
                 </a>
               ))}
             </div>
