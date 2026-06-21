@@ -113,11 +113,11 @@ const TRAINER_TABS = [
 
 type TrainerLang = (typeof TRAINER_TABS)[number]["key"];
 
-interface Trainer { init: string; name: string; role: string; cred: string; rating: string; exp: string; students: string; }
+interface Trainer { init: string; name: string; role: string; cred: string; rating: string; exp: string; students: string; img?: string; }
 
 const TRAINERS: Record<TrainerLang, Trainer[]> = {
   fr: [
-    { init: "PN", name: "Priya Nair",       role: "Lead French Faculty · Immigration", cred: "TEF Certified",  rating: "4.9", exp: "8+",  students: "1,200+" },
+    { init: "PN", name: "Priya Nair",       role: "Lead French Faculty · Immigration", cred: "TEF Certified",  rating: "4.9", exp: "8+",  students: "1,200+", img: "/images/mentor-images/Priya Nair 2.png" },
     { init: "AD", name: "Ananya Desai",     role: "Academic French · DELF B2 / DALF",  cred: "DELF Certified", rating: "4.9", exp: "10+", students: "1,800+" },
     { init: "MP", name: "Meera Pillai",     role: "Sprint Track Lead · TEF / DELF",     cred: "TEF Certified",  rating: "5.0", exp: "12+", students: "2,200+" },
     { init: "SK", name: "Sunanda Krishnan", role: "Academic French · DALF C1",          cred: "DALF Certified", rating: "4.9", exp: "6+",  students: "850+" },
@@ -128,9 +128,9 @@ const TRAINERS: Record<TrainerLang, Trainer[]> = {
     { init: "SA", name: "Shreya Agarwal", role: "German Immigration · Goethe B2/C1",         cred: "Goethe Certified", rating: "4.9", exp: "8+",  students: "1,100+" },
     { init: "KS", name: "Kavita Singh",   role: "German General · Phonetics & Exams",        cred: "Goethe Certified", rating: "4.9", exp: "11+", students: "2,000+" },
     { init: "PJ", name: "Pooja Joshi",    role: "Academic German · TestDaF / Studienkolleg", cred: "Goethe Certified", rating: "5.0", exp: "10+", students: "1,700+" },
-    { init: "AK", name: "Amit Kumar",     role: "Sprint Track Lead · Goethe B1/B2",          cred: "Goethe Certified", rating: "4.9", exp: "9+",  students: "1,400+" },
+    { init: "AK", name: "Amit Kumar",     role: "Sprint Track Lead · Goethe B1/B2",          cred: "Goethe Certified", rating: "4.9", exp: "9+",  students: "1,400+", img: "/images/mentor-images/Arjun Nair.png" },
     { init: "NS", name: "Nisha Sharma",   role: "Junior Track · Fit in Deutsch A1/A2",        cred: "Goethe Certified", rating: "4.8", exp: "7+",  students: "900+" },
-    { init: "AN", name: "Arjun Nair",     role: "Career German · Business Communication",     cred: "Goethe Certified", rating: "4.8", exp: "6+",  students: "780+" },
+    { init: "AN", name: "Arjun Nair",     role: "Career German · Business Communication",     cred: "Goethe Certified", rating: "4.8", exp: "6+",  students: "780+", img: "/images/mentor-images/Amit Kumar.png" },
   ],
   en: [
     { init: "NK", name: "Neha Kapoor",   role: "IELTS Master Trainer · Academic & GT", cred: "IELTS Specialist", rating: "4.9", exp: "9+",  students: "1,600+" },
@@ -1003,7 +1003,7 @@ export default function HomePage() {
                       style={{ background: `linear-gradient(155deg, ${c.from}, ${c.to})` }}
                     >
                       <Image
-                        src={encodeURI(`/images/mentor-images/${m.name}.png`)}
+                        src={encodeURI(m.img ?? `/images/mentor-images/${m.name}.png`)}
                         alt={m.name}
                         fill
                         sizes="(max-width:640px) 100vw, (max-width:1024px) 50vw, 33vw"
