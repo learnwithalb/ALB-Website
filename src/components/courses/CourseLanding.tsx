@@ -477,7 +477,7 @@ export function CourseLanding({ data }: { data: CourseData }) {
       <section className="section-padding sec-mist relative overflow-hidden">
         <div className="container-max relative z-10">
           <AnimateOnView className="text-center max-w-2xl mx-auto mb-12">
-            <span className="eyebrow" style={{ color: a }}>{data.sections?.comparison?.eyebrow ?? "ALB vs A Generic Class"}</span>
+            <span className="eyebrow" style={{ color: a }}>{data.sections?.comparison?.eyebrow ?? "Why Learners Choose ALB"}</span>
             <h2 className="text-3xl md:text-4xl font-black text-ink leading-tight">{data.sections?.comparison?.a ?? "See the "}<span style={{ color: a }}>{data.sections?.comparison?.b ?? "difference"}</span>{data.sections?.comparison ? "" : " clearly."}</h2>
             {data.sections?.comparison?.sub && <p className="text-body text-base md:text-lg mt-4 leading-relaxed">{data.sections.comparison.sub}</p>}
           </AnimateOnView>
@@ -487,7 +487,7 @@ export function CourseLanding({ data }: { data: CourseData }) {
               <div className="px-5 py-4 text-muted uppercase tracking-wide text-[11px]">Feature</div>
               <div className="px-5 py-4 bg-rose-50 text-rose-600 flex items-center gap-2">
                 <span className="w-5 h-5 rounded-full bg-rose-100 flex items-center justify-center"><X size={12} className="text-rose-500" strokeWidth={3} /></span>
-                Generic Class
+                Other Classes
               </div>
               <div className="px-5 py-4 text-white flex items-center gap-2" style={{ background: `linear-gradient(135deg, ${a}, ${a}cc)` }}>
                 <span className="w-5 h-5 rounded-full bg-white/25 flex items-center justify-center"><Check size={12} className="text-white" strokeWidth={3} /></span>
