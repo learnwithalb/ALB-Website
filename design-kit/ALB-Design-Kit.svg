@@ -1,0 +1,197 @@
+<svg width="1440" height="1980" viewBox="0 0 1440 1980" fill="none" xmlns="http://www.w3.org/2000/svg" font-family="Satoshi, Inter, system-ui, sans-serif">
+  <defs>
+    <linearGradient id="gradText" x1="0" y1="0" x2="1" y2="0.4">
+      <stop offset="0%" stop-color="#3b5bdb"/>
+      <stop offset="55%" stop-color="#6d8bff"/>
+      <stop offset="100%" stop-color="#0ea5e9"/>
+    </linearGradient>
+    <linearGradient id="gradPrimary" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#3b5bdb"/>
+      <stop offset="55%" stop-color="#5f80f5"/>
+      <stop offset="100%" stop-color="#2f49c0"/>
+    </linearGradient>
+    <filter id="soft" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#101733" flood-opacity="0.10"/>
+    </filter>
+    <filter id="lift" x="-40%" y="-40%" width="180%" height="180%">
+      <feDropShadow dx="0" dy="20" stdDeviation="20" flood-color="#2b49c0" flood-opacity="0.20"/>
+    </filter>
+  </defs>
+
+  <!-- canvas -->
+  <rect width="1440" height="1980" fill="#f3f6ff"/>
+
+  <!-- ══ HEADER ══ -->
+  <g>
+    <rect x="48" y="48" width="44" height="44" rx="8" fill="url(#gradPrimary)"/>
+    <text x="70" y="78" fill="#ffffff" font-size="22" font-weight="900" text-anchor="middle">A</text>
+    <text x="108" y="70" fill="#0e1733" font-size="15" font-weight="700">Academy of Languages &amp; Beyond</text>
+    <text x="108" y="88" fill="#737d9c" font-size="12" font-weight="600" letter-spacing="2">DESIGN KIT</text>
+    <text x="1392" y="78" fill="#737d9c" font-size="13" font-weight="600" text-anchor="end">Royal Blue · Satoshi · 8px radius · light-first</text>
+  </g>
+  <text x="48" y="150" fill="#0e1733" font-size="52" font-weight="900" letter-spacing="-1.5">Design <tspan fill="url(#gradText)">Kit</tspan></text>
+
+  <!-- ══ COLOR PANEL ══ -->
+  <g>
+    <rect x="48" y="190" width="1344" height="540" rx="8" fill="#ffffff" filter="url(#soft)"/>
+    <text x="80" y="240" fill="#0e1733" font-size="22" font-weight="900">Colour</text>
+    <text x="80" y="262" fill="#737d9c" font-size="13">Royal Blue is primary. Sky is the accent, amber is reserved for stars &amp; highlights.</text>
+
+    <!-- Royal scale -->
+    <text x="80" y="298" fill="#46506e" font-size="12" font-weight="700" letter-spacing="1">ROYAL (PRIMARY)</text>
+    <g>
+      <rect x="80"   y="312" width="112" height="64" rx="8" fill="#eef2ff" stroke="#e6ebf5"/><text x="136"  y="349" fill="#0e1733" font-size="12" font-weight="700" text-anchor="middle">#eef2ff</text><text x="136"  y="396" fill="#46506e" font-size="11" text-anchor="middle">royal-50</text>
+      <rect x="196"  y="312" width="112" height="64" rx="8" fill="#dde6ff"/><text x="252"  y="349" fill="#0e1733" font-size="12" font-weight="700" text-anchor="middle">#dde6ff</text><text x="252"  y="396" fill="#46506e" font-size="11" text-anchor="middle">royal-100</text>
+      <rect x="312"  y="312" width="112" height="64" rx="8" fill="#c2d2ff"/><text x="368"  y="349" fill="#0e1733" font-size="12" font-weight="700" text-anchor="middle">#c2d2ff</text><text x="368"  y="396" fill="#46506e" font-size="11" text-anchor="middle">royal-200</text>
+      <rect x="428"  y="312" width="112" height="64" rx="8" fill="#9bb2ff"/><text x="484"  y="349" fill="#0e1733" font-size="12" font-weight="700" text-anchor="middle">#9bb2ff</text><text x="484"  y="396" fill="#46506e" font-size="11" text-anchor="middle">royal-300</text>
+      <rect x="544"  y="312" width="112" height="64" rx="8" fill="#6d8bff"/><text x="600"  y="349" fill="#0e1733" font-size="12" font-weight="700" text-anchor="middle">#6d8bff</text><text x="600"  y="396" fill="#46506e" font-size="11" text-anchor="middle">royal-400</text>
+      <rect x="660"  y="312" width="112" height="64" rx="8" fill="#3b5bdb"/><text x="716"  y="345" fill="#ffffff" font-size="12" font-weight="700" text-anchor="middle">#3b5bdb</text><text x="716"  y="361" fill="#c2d2ff" font-size="9" font-weight="700" text-anchor="middle">PRIMARY</text><text x="716"  y="396" fill="#46506e" font-size="11" text-anchor="middle">royal-500</text>
+      <rect x="776"  y="312" width="112" height="64" rx="8" fill="#2f49c0"/><text x="832"  y="349" fill="#ffffff" font-size="12" font-weight="700" text-anchor="middle">#2f49c0</text><text x="832"  y="396" fill="#46506e" font-size="11" text-anchor="middle">royal-600</text>
+      <rect x="892"  y="312" width="112" height="64" rx="8" fill="#283c9e"/><text x="948"  y="349" fill="#ffffff" font-size="12" font-weight="700" text-anchor="middle">#283c9e</text><text x="948"  y="396" fill="#46506e" font-size="11" text-anchor="middle">royal-700</text>
+      <rect x="1008" y="312" width="112" height="64" rx="8" fill="#21317d"/><text x="1064" y="349" fill="#ffffff" font-size="12" font-weight="700" text-anchor="middle">#21317d</text><text x="1064" y="396" fill="#46506e" font-size="11" text-anchor="middle">royal-800</text>
+      <rect x="1124" y="312" width="112" height="64" rx="8" fill="#1b2a63"/><text x="1180" y="349" fill="#ffffff" font-size="12" font-weight="700" text-anchor="middle">#1b2a63</text><text x="1180" y="396" fill="#46506e" font-size="11" text-anchor="middle">royal-900</text>
+      <rect x="1240" y="312" width="112" height="64" rx="8" fill="#111a40"/><text x="1296" y="349" fill="#ffffff" font-size="12" font-weight="700" text-anchor="middle">#111a40</text><text x="1296" y="396" fill="#46506e" font-size="11" text-anchor="middle">royal-950</text>
+    </g>
+
+    <!-- Sky + Amber -->
+    <text x="80" y="438" fill="#46506e" font-size="12" font-weight="700" letter-spacing="1">SKY ACCENT &amp; AMBER</text>
+    <g>
+      <rect x="80"  y="452" width="112" height="64" rx="8" fill="#7dd3fc"/><text x="136" y="489" fill="#0e1733" font-size="12" font-weight="700" text-anchor="middle">#7dd3fc</text><text x="136" y="536" fill="#46506e" font-size="11" text-anchor="middle">sky-300</text>
+      <rect x="196" y="452" width="112" height="64" rx="8" fill="#38bdf8"/><text x="252" y="489" fill="#0e1733" font-size="12" font-weight="700" text-anchor="middle">#38bdf8</text><text x="252" y="536" fill="#46506e" font-size="11" text-anchor="middle">sky-400</text>
+      <rect x="312" y="452" width="112" height="64" rx="8" fill="#0ea5e9"/><text x="368" y="489" fill="#ffffff" font-size="12" font-weight="700" text-anchor="middle">#0ea5e9</text><text x="368" y="536" fill="#46506e" font-size="11" text-anchor="middle">sky-500</text>
+      <rect x="486" y="452" width="112" height="64" rx="8" fill="#fbbf24"/><text x="542" y="489" fill="#0e1733" font-size="12" font-weight="700" text-anchor="middle">#fbbf24</text><text x="542" y="536" fill="#46506e" font-size="11" text-anchor="middle">amber-400</text>
+      <rect x="602" y="452" width="112" height="64" rx="8" fill="#f59e0b"/><text x="658" y="489" fill="#0e1733" font-size="12" font-weight="700" text-anchor="middle">#f59e0b</text><text x="658" y="536" fill="#46506e" font-size="11" text-anchor="middle">amber-500</text>
+    </g>
+
+    <!-- Neutrals -->
+    <text x="80" y="578" fill="#46506e" font-size="12" font-weight="700" letter-spacing="1">NEUTRALS &amp; TEXT</text>
+    <g>
+      <rect x="80"  y="592" width="112" height="64" rx="8" fill="#0e1733"/><text x="136"  y="629" fill="#ffffff" font-size="12" font-weight="700" text-anchor="middle">#0e1733</text><text x="136"  y="676" fill="#46506e" font-size="11" text-anchor="middle">ink · headings</text>
+      <rect x="196" y="592" width="112" height="64" rx="8" fill="#46506e"/><text x="252"  y="629" fill="#ffffff" font-size="12" font-weight="700" text-anchor="middle">#46506e</text><text x="252"  y="676" fill="#46506e" font-size="11" text-anchor="middle">body</text>
+      <rect x="312" y="592" width="112" height="64" rx="8" fill="#737d9c"/><text x="368"  y="629" fill="#ffffff" font-size="12" font-weight="700" text-anchor="middle">#737d9c</text><text x="368"  y="676" fill="#46506e" font-size="11" text-anchor="middle">muted</text>
+      <rect x="428" y="592" width="112" height="64" rx="8" fill="#e6ebf5" stroke="#dde6ff"/><text x="484"  y="629" fill="#0e1733" font-size="12" font-weight="700" text-anchor="middle">#e6ebf5</text><text x="484"  y="676" fill="#46506e" font-size="11" text-anchor="middle">line</text>
+      <rect x="544" y="592" width="112" height="64" rx="8" fill="#f3f6ff" stroke="#e6ebf5"/><text x="600"  y="629" fill="#0e1733" font-size="12" font-weight="700" text-anchor="middle">#f3f6ff</text><text x="600"  y="676" fill="#46506e" font-size="11" text-anchor="middle">mist</text>
+      <rect x="660" y="592" width="112" height="64" rx="8" fill="#e9efff" stroke="#e6ebf5"/><text x="716"  y="629" fill="#0e1733" font-size="12" font-weight="700" text-anchor="middle">#e9efff</text><text x="716"  y="676" fill="#46506e" font-size="11" text-anchor="middle">haze</text>
+      <rect x="776" y="592" width="112" height="64" rx="8" fill="#ffffff" stroke="#e6ebf5"/><text x="832"  y="629" fill="#0e1733" font-size="12" font-weight="700" text-anchor="middle">#ffffff</text><text x="832"  y="676" fill="#46506e" font-size="11" text-anchor="middle">cloud</text>
+      <rect x="892" y="592" width="112" height="64" rx="8" fill="#02072a"/><text x="948"  y="629" fill="#ffffff" font-size="12" font-weight="700" text-anchor="middle">#02072a</text><text x="948"  y="676" fill="#46506e" font-size="11" text-anchor="middle">navy · dark bg</text>
+    </g>
+  </g>
+
+  <!-- ══ TYPOGRAPHY PANEL ══ -->
+  <g>
+    <rect x="48" y="762" width="1344" height="430" rx="8" fill="#ffffff" filter="url(#soft)"/>
+    <text x="80" y="812" fill="#0e1733" font-size="22" font-weight="900">Typography</text>
+    <text x="80" y="834" fill="#737d9c" font-size="13">Satoshi for everything; Cormorant Garamond (serif italic) for signatures &amp; flourishes.</text>
+
+    <text x="80"  y="900" fill="#0e1733" font-size="48" font-weight="900" letter-spacing="-1.5">Go Global. Speak <tspan fill="url(#gradText)">Fluent.</tspan></text>
+    <text x="80"  y="920" fill="#737d9c" font-size="12">Satoshi Black · 900 · display / h1 · tracking -2.5%</text>
+
+    <text x="80"  y="978" fill="#0e1733" font-size="30" font-weight="900">Section heading — h2</text>
+    <text x="80"  y="998" fill="#737d9c" font-size="12">Satoshi Black · 900 · 30px</text>
+
+    <text x="80"  y="1044" fill="#46506e" font-size="16">Body copy uses Satoshi Regular at 16px with 1.6 line-height for comfortable reading.</text>
+    <text x="80"  y="1064" fill="#737d9c" font-size="12">Satoshi Regular · 400 · 16px · line-height 1.6</text>
+
+    <g>
+      <rect x="80" y="1096" width="186" height="34" rx="17" fill="#eef2ff" stroke="#c2d2ff"/>
+      <circle cx="100" cy="1113" r="3" fill="#3b5bdb"/>
+      <text x="116" y="1118" fill="#283c9e" font-size="12" font-weight="700" letter-spacing="1.6">WHY ALB</text>
+    </g>
+    <text x="284" y="1118" fill="#737d9c" font-size="12">Eyebrow · Satoshi Bold · 12px · uppercase · tracking 10%</text>
+
+    <text x="820" y="1000" fill="#0e1733" font-size="44" font-style="italic" font-family="'Cormorant Garamond', Georgia, serif">Speak. Connect. Belong.</text>
+    <text x="820" y="1028" fill="#737d9c" font-size="12">Cormorant Garamond · Italic · display accent</text>
+    <text x="820" y="1080" fill="#0e1733" font-size="34" font-style="italic" font-family="'Cormorant Garamond', Georgia, serif">Jasmine Kaur</text>
+    <text x="820" y="1104" fill="#737d9c" font-size="12">Signature style</text>
+  </g>
+
+  <!-- ══ BUTTONS & COMPONENTS PANEL ══ -->
+  <g>
+    <rect x="48" y="1224" width="1344" height="380" rx="8" fill="#ffffff" filter="url(#soft)"/>
+    <text x="80" y="1274" fill="#0e1733" font-size="22" font-weight="900">Buttons &amp; Components</text>
+
+    <!-- light buttons -->
+    <g>
+      <rect x="80" y="1300" width="210" height="52" rx="8" fill="url(#gradPrimary)"/>
+      <text x="185" y="1332" fill="#ffffff" font-size="15" font-weight="800" text-anchor="middle">Book a Free Demo  →</text>
+      <text x="80" y="1372" fill="#737d9c" font-size="11">.btn-primary</text>
+
+      <rect x="314" y="1300" width="180" height="52" rx="8" fill="#ffffff" stroke="#3b5bdb" stroke-width="1.5"/>
+      <text x="404" y="1332" fill="#283c9e" font-size="15" font-weight="800" text-anchor="middle">View Curriculum</text>
+      <text x="314" y="1372" fill="#737d9c" font-size="11">.btn-outline</text>
+    </g>
+
+    <!-- dark strip with light buttons -->
+    <g>
+      <rect x="540" y="1294" width="510" height="118" rx="8" fill="#02072a"/>
+      <rect x="572" y="1326" width="180" height="52" rx="8" fill="#ffffff"/>
+      <text x="662" y="1358" fill="#0e1733" font-size="15" font-weight="800" text-anchor="middle">Get Started  →</text>
+      <rect x="772" y="1326" width="180" height="52" rx="8" fill="#02072a" stroke="#ffffff" stroke-opacity="0.5" stroke-width="1.5"/>
+      <text x="862" y="1358" fill="#ffffff" font-size="15" font-weight="800" text-anchor="middle">Learn More</text>
+      <text x="572" y="1402" fill="#9bb2ff" font-size="11">.btn-white  ·  .btn-outline-light  (for dark sections)</text>
+    </g>
+
+    <!-- card sample -->
+    <g>
+      <rect x="1080" y="1294" width="280" height="240" rx="8" fill="#ffffff" stroke="#e6ebf5" filter="url(#soft)"/>
+      <rect x="1080" y="1294" width="280" height="4" rx="2" fill="url(#gradText)"/>
+      <rect x="1104" y="1322" width="150" height="28" rx="14" fill="#eef2ff" stroke="#c2d2ff"/>
+      <text x="1116" y="1340" fill="#283c9e" font-size="11" font-weight="700" letter-spacing="1.2">TRACK</text>
+      <text x="1104" y="1392" fill="#0e1733" font-size="20" font-weight="900">Goal-based</text>
+      <text x="1104" y="1416" fill="#0e1733" font-size="20" font-weight="900">learning paths</text>
+      <text x="1104" y="1448" fill="#737d9c" font-size="12.5">Choose a pathway built around</text>
+      <text x="1104" y="1466" fill="#737d9c" font-size="12.5">your real-world goal.</text>
+      <rect x="1104" y="1486" width="120" height="34" rx="8" fill="url(#gradPrimary)"/>
+      <text x="1164" y="1508" fill="#ffffff" font-size="12" font-weight="800" text-anchor="middle">Explore  →</text>
+      <text x="1080" y="1556" fill="#737d9c" font-size="11">.card-feature</text>
+    </g>
+
+    <!-- stat + pill samples -->
+    <g>
+      <rect x="80" y="1420" width="150" height="86" rx="8" fill="#f3f6ff" stroke="#e6ebf5"/>
+      <text x="155" y="1466" fill="url(#gradText)" font-size="30" font-weight="900" text-anchor="middle">95%</text>
+      <text x="155" y="1490" fill="#737d9c" font-size="11" font-weight="700" letter-spacing="1" text-anchor="middle">GOAL RATE</text>
+      <text x="80" y="1528" fill="#737d9c" font-size="11">stat block</text>
+
+      <rect x="252" y="1420" width="180" height="50" rx="25" fill="#02072a"/>
+      <text x="342" y="1451" fill="#ffffff" font-size="14" font-weight="800" text-anchor="middle">Pill / tab (active)</text>
+      <rect x="252" y="1480" width="180" height="50" rx="25" fill="#ffffff" stroke="#e6ebf5"/>
+      <text x="342" y="1511" fill="#46506e" font-size="14" font-weight="800" text-anchor="middle">Pill / tab (idle)</text>
+    </g>
+  </g>
+
+  <!-- ══ FOUNDATIONS PANEL ══ -->
+  <g>
+    <rect x="48" y="1636" width="1344" height="300" rx="8" fill="#ffffff" filter="url(#soft)"/>
+    <text x="80" y="1686" fill="#0e1733" font-size="22" font-weight="900">Foundations</text>
+
+    <!-- gradients -->
+    <text x="80" y="1724" fill="#46506e" font-size="12" font-weight="700" letter-spacing="1">GRADIENTS</text>
+    <rect x="80" y="1736" width="380" height="44" rx="8" fill="url(#gradText)"/>
+    <text x="270" y="1764" fill="#ffffff" font-size="12" font-weight="800" text-anchor="middle">gradient-text · 120°</text>
+    <rect x="80" y="1792" width="380" height="44" rx="8" fill="url(#gradPrimary)"/>
+    <text x="270" y="1820" fill="#ffffff" font-size="12" font-weight="800" text-anchor="middle">btn-primary · 135°</text>
+
+    <!-- radius -->
+    <text x="520" y="1724" fill="#46506e" font-size="12" font-weight="700" letter-spacing="1">RADIUS</text>
+    <rect x="520" y="1736" width="88" height="88" rx="8" fill="#eef2ff" stroke="#3b5bdb" stroke-width="1.5"/>
+    <text x="564" y="1786" fill="#283c9e" font-size="16" font-weight="900" text-anchor="middle">8px</text>
+    <text x="520" y="1844" fill="#737d9c" font-size="11">unified across the site</text>
+
+    <!-- shadows -->
+    <text x="680" y="1724" fill="#46506e" font-size="12" font-weight="700" letter-spacing="1">SHADOWS</text>
+    <rect x="680" y="1740" width="120" height="80" rx="8" fill="#ffffff" filter="url(#soft)"/>
+    <text x="740" y="1786" fill="#0e1733" font-size="12" font-weight="700" text-anchor="middle">soft</text>
+    <rect x="828" y="1740" width="120" height="80" rx="8" fill="#ffffff" filter="url(#lift)"/>
+    <text x="888" y="1786" fill="#0e1733" font-size="12" font-weight="700" text-anchor="middle">lift</text>
+
+    <!-- fonts -->
+    <text x="1010" y="1724" fill="#46506e" font-size="12" font-weight="700" letter-spacing="1">FONTS</text>
+    <text x="1010" y="1762" fill="#0e1733" font-size="22" font-weight="900">Satoshi</text>
+    <text x="1010" y="1782" fill="#737d9c" font-size="12">UI &amp; body · 300/400/500/700/900</text>
+    <text x="1010" y="1822" fill="#0e1733" font-size="24" font-style="italic" font-family="'Cormorant Garamond', Georgia, serif">Cormorant Garamond</text>
+    <text x="1010" y="1842" fill="#737d9c" font-size="12">display accents &amp; signatures</text>
+  </g>
+
+  <text x="48" y="1968" fill="#737d9c" font-size="12">Academy of Languages &amp; Beyond — Design Kit · generated from the live site tokens (globals.css)</text>
+</svg>

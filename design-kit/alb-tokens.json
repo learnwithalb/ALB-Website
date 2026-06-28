@@ -1,0 +1,93 @@
+{
+  "global": {
+    "color": {
+      "royal": {
+        "50":  { "value": "#eef2ff", "type": "color" },
+        "100": { "value": "#dde6ff", "type": "color" },
+        "200": { "value": "#c2d2ff", "type": "color" },
+        "300": { "value": "#9bb2ff", "type": "color" },
+        "400": { "value": "#6d8bff", "type": "color" },
+        "500": { "value": "#3b5bdb", "type": "color", "description": "Primary brand colour" },
+        "600": { "value": "#2f49c0", "type": "color" },
+        "700": { "value": "#283c9e", "type": "color" },
+        "800": { "value": "#21317d", "type": "color" },
+        "900": { "value": "#1b2a63", "type": "color" },
+        "950": { "value": "#111a40", "type": "color" }
+      },
+      "sky": {
+        "300": { "value": "#7dd3fc", "type": "color" },
+        "400": { "value": "#38bdf8", "type": "color" },
+        "500": { "value": "#0ea5e9", "type": "color" }
+      },
+      "amber": {
+        "400": { "value": "#fbbf24", "type": "color" },
+        "500": { "value": "#f59e0b", "type": "color" }
+      },
+      "neutral": {
+        "ink":   { "value": "#0e1733", "type": "color", "description": "Headings on light" },
+        "body":  { "value": "#46506e", "type": "color", "description": "Paragraph text" },
+        "muted": { "value": "#737d9c", "type": "color", "description": "Secondary text" },
+        "line":  { "value": "#e6ebf5", "type": "color", "description": "Hairline borders" },
+        "mist":  { "value": "#f3f6ff", "type": "color", "description": "Tinted section background" },
+        "haze":  { "value": "#e9efff", "type": "color", "description": "Deeper tint" },
+        "cloud": { "value": "#ffffff", "type": "color" },
+        "navy":  { "value": "#02072a", "type": "color", "description": "Dark anchor section background" }
+      }
+    },
+    "gradient": {
+      "text":      { "value": "linear-gradient(120deg, #3b5bdb 0%, #6d8bff 55%, #0ea5e9 100%)", "type": "color" },
+      "btnPrimary":{ "value": "linear-gradient(135deg, #3b5bdb 0%, #5f80f5 55%, #2f49c0 100%)", "type": "color" }
+    },
+    "fontFamilies": {
+      "sans":    { "value": "Satoshi", "type": "fontFamilies", "description": "Body + UI" },
+      "display": { "value": "Cormorant Garamond", "type": "fontFamilies", "description": "Serif accents / signatures" }
+    },
+    "fontWeights": {
+      "light":  { "value": "300", "type": "fontWeights" },
+      "regular":{ "value": "400", "type": "fontWeights" },
+      "medium": { "value": "500", "type": "fontWeights" },
+      "bold":   { "value": "700", "type": "fontWeights" },
+      "black":  { "value": "900", "type": "fontWeights" }
+    },
+    "fontSizes": {
+      "xs":   { "value": "12", "type": "fontSizes" },
+      "sm":   { "value": "14", "type": "fontSizes" },
+      "base": { "value": "16", "type": "fontSizes" },
+      "lg":   { "value": "18", "type": "fontSizes" },
+      "xl":   { "value": "20", "type": "fontSizes" },
+      "2xl":  { "value": "24", "type": "fontSizes" },
+      "3xl":  { "value": "30", "type": "fontSizes" },
+      "4xl":  { "value": "36", "type": "fontSizes" },
+      "5xl":  { "value": "48", "type": "fontSizes" },
+      "6xl":  { "value": "60", "type": "fontSizes" }
+    },
+    "lineHeights": {
+      "heading": { "value": "1.1", "type": "lineHeights" },
+      "body":    { "value": "1.6", "type": "lineHeights" }
+    },
+    "letterSpacing": {
+      "heading": { "value": "-2.5%", "type": "letterSpacing" },
+      "eyebrow": { "value": "10%",   "type": "letterSpacing" }
+    },
+    "borderRadius": {
+      "base": { "value": "8", "type": "borderRadius", "description": "Unified 8px radius across the site" },
+      "pill": { "value": "9999", "type": "borderRadius" }
+    },
+    "boxShadow": {
+      "soft": {
+        "type": "boxShadow",
+        "value": [
+          { "x": "0", "y": "1",  "blur": "2",  "spread": "0", "color": "rgba(16,23,51,0.04)", "type": "dropShadow" },
+          { "x": "0", "y": "8",  "blur": "24", "spread": "0", "color": "rgba(16,23,51,0.06)", "type": "dropShadow" }
+        ]
+      },
+      "lift": {
+        "type": "boxShadow",
+        "value": [
+          { "x": "0", "y": "2",  "blur": "4",  "spread": "0", "color": "rgba(16,23,51,0.05)", "type": "dropShadow" },
+          { "x": "0", "y": "24", "blur": "48", "spread": "0", "color": "rgba(43,73,192,0.12)", "type": "dropShadow" }
+        ]
+      }
+    }
+  }
+}

@@ -83,16 +83,23 @@ export function Footer() {
           {/* Brand */}
           <div className="lg:col-span-1">
             <Link href="/" className="inline-flex items-center gap-2.5 mb-4">
-              <Image src="/images/alb-white.svg" alt="Academy of Languages & Beyond" width={1622} height={940} className="h-10 w-auto" />
+              <Image src="/images/alb-white.svg" alt="Academy of Languages and Beyond" width={1622} height={940} className="h-10 w-auto" />
               <div>
                 <div className="text-white font-bold text-sm leading-tight">Academy of Languages</div>
-                <div className="text-royal-200 font-semibold text-xs">&amp; Beyond</div>
+                <div className="text-royal-200 font-semibold text-xs">and Beyond</div>
               </div>
             </Link>
-            <p className="text-xs leading-relaxed mb-5 text-white/45">
-              India&apos;s premier language &amp; soft skills academy, empowering
-              ambitious learners to go global since 2012.
-            </p>
+            <div className="mb-5 space-y-2">
+              <p className="text-xs leading-relaxed text-white/60 font-semibold">
+                The language academy that goes beyond the certificate.
+              </p>
+              <p className="text-xs leading-relaxed text-sky-300/80 font-semibold">
+                French · German · English · Soft-Skills
+              </p>
+              <p className="text-xs leading-relaxed text-white/45">
+                Built for higher education, global careers, immigration, and confident conversations.
+              </p>
+            </div>
             <div className="space-y-2 text-xs">
               <a href={`mailto:${siteConfig.email}`} className="flex items-center gap-2 hover:text-white transition-colors">
                 <Mail size={12} className="text-sky-400 flex-shrink-0" />
@@ -179,9 +186,11 @@ export function Footer() {
                 { label: "About Us",         href: "/about" },
                 { label: "Partner with ALB", href: "/partner" },
                 { label: "Junior Programme", href: "/junior" },
+                { label: "FAQs",             href: "/faq" },
+                { label: "Verify Certificate", href: "/verify-certificate" },
                 { label: "Blog",             href: "/blog" },
                 { label: "Privacy Policy",   href: "/privacy" },
-                { label: "Terms & Conditions", href: "/terms" },
+                { label: "Terms and Conditions", href: "/terms" },
               ].map(item => (
                 <li key={item.href}>
                   <Link href={item.href} className="text-xs text-white/50 hover:text-white transition-colors inline-block">
@@ -195,7 +204,7 @@ export function Footer() {
 
         {/* Bottom bar */}
         <div className="border-t border-white/10 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-[11px] text-white/35">
-          <p>© {year} Academy of Languages &amp; Beyond. All rights reserved.</p>
+          <p>© {year} Academy of Languages and Beyond. All rights reserved.</p>
           <p>Made with ❤️ in India · Go Global. Speak Fluent. Lead Bold.</p>
         </div>
       </div>

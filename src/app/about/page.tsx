@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowRight, Award, Globe, Quote, Sparkles, PenLine } from "lucide-react";
+import { ArrowRight, Award, Globe, Quote, Sparkles, PenLine, Check } from "lucide-react";
 import { AnimateOnView, StaggerContainer, StaggerItem } from "@/components/shared/AnimateOnView";
 import { MuiIcon } from "@/lib/icons";
 import { useBooking } from "@/components/shared/BookingContext";
@@ -12,7 +12,7 @@ import { useBooking } from "@/components/shared/BookingContext";
 /* ─────────────── data ─────────────── */
 
 const HERO_QUOTES = [
-  { img: "/images/hero-images/homepage/english.png", quote: "The limits of my language are the limits of my world.", author: "Ludwig Wittgenstein" },
+  { img: "/images/hero-images/homepage/english.png", quote: "Learning another language is not only learning different words for the same things, but learning another way to think about things.", author: "Flora Lewis" },
   { img: "/images/hero-images/homepage/french.png", quote: "To have another language is to possess a second soul.", author: "Charlemagne" },
   { img: "/images/hero-images/homepage/german.png", quote: "One language sets you in a corridor for life. Two open every door along the way.", author: "Frank Smith" },
 ];
@@ -29,30 +29,34 @@ const BEATS = [
     eyebrow: "A Family Legacy",
     heading: ["Education runs in our blood.", "It always has."],
     body: [
-      "For more than five decades, education has been woven into our family. From school principals to dedicated classroom teachers, the generations before us gave their lives to one belief: that the right education changes lives.",
-      "That legacy shaped everything about how we think about teaching, and about what learners truly deserve.",
+      "For more than five decades, education has been woven into our family's story. From school principals to dedicated teachers, generations before us devoted their lives to helping students grow, learn, and unlock opportunities through learning.",
+      "We grew up seeing firsthand how the right teacher can change a student's confidence, direction, and future.",
+      "That legacy became the foundation of everything we would later build.",
     ],
     cover: "/images/about-us/story-cover1.png",
     from: "#3b5bdb", to: "#2f49c0",
   },
   {
-    eyebrow: "Why ALB Exists",
-    heading: ["Something kept", "bothering us."],
+    eyebrow: "The Gap We Couldn't Ignore",
+    heading: ["Students were learning languages.", "But something was missing."],
     body: [
-      "Students were completing language courses. Attending classes. Passing mock tests. Earning certificates.",
-      "And yet, when they sat across from a visa officer, walked into their first job interview abroad, or landed in a new country, they froze. The language was there. The confidence wasn't. The certificate was there. The real-world readiness wasn't.",
-      "We believed language learning could be better. More practical. More human. More complete.",
+      "Students were attending classes, completing courses, and earning certificates.",
+      "Yet when it was time to speak in an interview, participate in a university discussion, present an idea, or adapt to life in a new country, many struggled.",
+      "The language was there. The confidence wasn't.",
+      "The certificate was there. The communication skills weren't.",
+      "We realised that success requires more than knowing a language. It requires knowing how to use it.",
     ],
     cover: "/images/about-us/story-cover2.png",
     from: "#0ea5e9", to: "#0284c7",
   },
   {
-    eyebrow: "The Academy of Languages & Beyond",
-    heading: ["So we", "built ALB."],
+    eyebrow: "The Birth of ALB",
+    heading: ["So we built", "something different."],
     body: [
-      "Not just a language institute. Not just an exam-prep centre.",
-      "A place where you don't just learn French, German, or English, you learn how to use it. In offices. In embassies. In classrooms. In visa queues. In boardrooms. In life.",
-      "ALB was built to close the gap between learning a language and living it.",
+      "Not just a language academy. Not just an exam-preparation centre.",
+      "We created Academy of Languages and Beyond, a place where language learning meets communication, confidence, and real-world readiness.",
+      "A place where learners don't simply study French, German, English, etc. They learn how to express themselves, connect with others, and thrive in the opportunities they're working towards.",
+      "That's why we are the Academy of Languages and Beyond.",
     ],
     cover: "/images/about-us/story-cover3.png",
     from: "#6366f1", to: "#4338ca",
@@ -60,18 +64,19 @@ const BEATS = [
 ];
 
 const DESTINATIONS = [
-  { country: "Canada", exam: "TEF / TCF Canada", goal: "Permanent Residency", x: 15, y: 24 },
-  { country: "France", exam: "DELF / DALF", goal: "Study & Career", x: 48, y: 20 },
-  { country: "Germany", exam: "Goethe / TestDaF", goal: "Work & University", x: 62, y: 15 },
-  { country: "UK & Australia", exam: "IELTS", goal: "Education & Immigration", x: 83, y: 56 },
+  { country: "Canada", exam: "TEF / TCF Canada", goal: "Permanent Residency", x: 23, y: 33 },
+  { country: "UK", exam: "IELTS", goal: "Study and Work", x: 40, y: 22 },
+  { country: "Germany", exam: "Goethe / TestDaF", goal: "Work and University", x: 53, y: 27 },
+  { country: "France", exam: "DELF / DALF", goal: "Study and Career", x: 43, y: 35 },
+  { country: "Australia", exam: "IELTS / PTE", goal: "Education and Immigration", x: 89, y: 89 },
 ];
-const INDIA = { x: 70, y: 47 };
+const INDIA = { x: 69, y: 52 };
 const arc = (a: { x: number; y: number }, b: { x: number; y: number }) =>
   `M ${a.x} ${a.y} Q ${(a.x + b.x) / 2} ${Math.max(Math.min(a.y, b.y) - 6, 2)} ${b.x} ${b.y}`;
 
 const DIFF = [
   { icon: "sparkle", title: "Language + Life Skills", desc: "Every programme includes our Global Confidence Programme, live, interactive, and free. Because fluency without confidence is only half the story.", from: "#3b5bdb", to: "#6d8bff" },
-  { icon: "chat",    title: "Live & Interactive",     desc: "No recorded lectures. Every session is instructor-led and built around real conversation, because that's how humans actually learn to speak.", from: "#8b5cf6", to: "#a78bfa" },
+  { icon: "chat",    title: "Live and Interactive",     desc: "No recorded lectures. Every session is instructor-led and built around real conversation, because that's how humans actually learn to speak.", from: "#8b5cf6", to: "#a78bfa" },
   { icon: "target",  title: "Built for the Real World", desc: "We design every programme around the professional, academic, and social situations our students actually face. Practical from day one.", from: "#0ea5e9", to: "#38bdf8" },
   { icon: "people",  title: "Intimate Cohorts",       desc: "We keep cohorts small deliberately, so every student is known, seen, and supported. Big enough to learn from, small enough to matter.", from: "#10b981", to: "#34d399" },
 ];
@@ -133,14 +138,14 @@ export default function AboutPage() {
           >
             We don&apos;t just teach languages.<br />
             We build{" "}
-            <span className="aurora-text inline-block pb-1">fluency, confidence &amp; belonging.</span>
+            <span className="aurora-text inline-block pb-1">fluency, confidence and belonging.</span>
           </motion.h1>
 
           <motion.p
             initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.25 }}
             className="mt-5 text-center mx-auto max-w-3xl text-sm md:text-base text-body leading-relaxed"
           >
-            Academy of Languages &amp; Beyond bridges the gap between learning a language and living it,
+            Academy of Languages and Beyond bridges the gap between learning a language and living it,
             through live teaching, real-world practice, and the confidence to belong anywhere.
           </motion.p>
 
@@ -230,15 +235,33 @@ export default function AboutPage() {
             {/* card 2, stat */}
             <motion.div
               variants={{ hidden: { opacity: 0, y: 24 }, show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } } }}
-              className="md:col-span-3 relative rounded-2xl overflow-hidden min-h-[300px] md:min-h-[340px] p-6 flex flex-col"
+              className="md:col-span-3 group relative rounded-2xl overflow-hidden min-h-[300px] md:min-h-[340px] p-6 flex flex-col"
               style={{ background: "linear-gradient(150deg,#3b5bdb,#2f49c0)" }}
             >
+              {/* texture + ambient glows */}
               <div className="absolute inset-0 grid-dots-light opacity-20 pointer-events-none" />
-              <div className="relative z-10 mt-auto">
-                <div className="text-6xl md:text-7xl font-black text-white leading-none">50<span className="text-4xl align-top">+</span></div>
-                <p className="text-white/80 text-sm font-semibold mt-3 leading-snug">Years of family teaching legacy behind every class</p>
+              <div className="absolute -top-16 -right-16 w-52 h-52 rounded-full pointer-events-none" style={{ background: "radial-gradient(circle, rgba(255,255,255,0.20), transparent 70%)" }} />
+              {/* concentric heritage rings */}
+              <div className="absolute -bottom-24 -left-24 w-60 h-60 rounded-full border border-white/10 pointer-events-none" />
+              <div className="absolute -bottom-14 -left-14 w-44 h-44 rounded-full border border-white/10 pointer-events-none" />
+
+              {/* top: icon badge + heritage pill */}
+              <div className="relative z-10 flex items-center justify-between">
+                <span className="w-11 h-11 rounded-xl bg-white/15 border border-white/25 backdrop-blur-sm flex items-center justify-center transition-transform duration-300 group-hover:scale-105">
+                  <Award size={20} className="text-white" />
+                </span>
+                <span className="text-[10px] font-black uppercase tracking-wider text-white/75 bg-white/10 border border-white/20 rounded-full px-3 py-1">ALB Heritage</span>
               </div>
-              <span className="relative z-10 text-white/45 text-xs font-bold mt-4 tracking-wide uppercase">ALB Heritage</span>
+
+              {/* bottom: stat */}
+              <div className="relative z-10 mt-auto">
+                <div className="flex items-end gap-2.5">
+                  <span className="text-6xl md:text-7xl font-black text-white leading-[0.85]">3</span>
+                  <span className="text-white/90 text-xl font-black mb-1.5">Generations</span>
+                </div>
+                <div className="h-px w-14 bg-white/30 my-3.5" />
+                <p className="text-white/80 text-sm font-semibold leading-snug">A family tradition of teaching, mentoring, and helping learners grow across generations.</p>
+              </div>
             </motion.div>
 
             {/* card 3, CTA */}
@@ -248,14 +271,23 @@ export default function AboutPage() {
               style={{ background: "linear-gradient(150deg,#dbeafe,#bfdbfe 55%,#a8c8fb)" }}
             >
               <div className="absolute -top-12 -right-12 w-44 h-44 rounded-full bg-white/45 blur-2xl pointer-events-none" />
-              <h3 className="relative z-10 text-2xl md:text-3xl font-black text-ink leading-tight">Learn a language you&apos;ll actually use.</h3>
-              <p className="relative z-10 text-royal-700/80 text-sm mt-2.5 font-medium leading-relaxed">Live, interactive cohorts. Exam-ready. Real-world confident.</p>
+              <h3 className="relative z-10 text-2xl md:text-3xl font-black text-ink leading-tight">Learn A Language.<br />Build A Future.</h3>
+              <ul className="relative z-10 mt-5 space-y-2.5">
+                {["Communication Skills Included", "Interview Readiness", "Presentation Skills", "Confidence Building"].map((item) => (
+                  <li key={item} className="flex items-center gap-2.5 text-royal-800 text-sm font-semibold">
+                    <span className="w-5 h-5 rounded-full bg-royal-600 flex items-center justify-center flex-shrink-0">
+                      <Check size={13} strokeWidth={3} className="text-white" />
+                    </span>
+                    {item}
+                  </li>
+                ))}
+              </ul>
               <Link
-                href="/courses"
+                href="/beyond"
                 className="relative z-10 mt-auto inline-flex items-center gap-2.5 self-start pl-6 pr-2.5 py-2.5 rounded-full font-black text-white text-sm transition-transform hover:-translate-y-0.5"
                 style={{ background: "#3b5bdb" }}
               >
-                Explore programmes
+                Explore +Beyond
                 <span className="w-7 h-7 rounded-full bg-white flex items-center justify-center" style={{ color: "#3b5bdb" }}><ArrowRight size={14} /></span>
               </Link>
             </motion.div>
@@ -351,9 +383,9 @@ export default function AboutPage() {
                           {String(i + 1).padStart(2, "0")}
                         </span>
                       </div>
-                      <div className="relative z-10 space-y-3.5 overflow-y-auto pr-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+                      <div className="relative z-10 space-y-2.5 overflow-y-auto pr-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
                         {b.body.map((p, k) => (
-                          <p key={k} className="text-white text-base md:text-[17px] font-medium leading-relaxed">{p}</p>
+                          <p key={k} className="text-white text-[13px] md:text-sm font-medium leading-relaxed">{p}</p>
                         ))}
                       </div>
                     </div>
@@ -452,12 +484,17 @@ export default function AboutPage() {
                 <StaggerContainer className="relative space-y-4" staggerDelay={0.12}>
                   <StaggerItem>
                     <p className="text-body leading-relaxed">
-                      Education has been part of my family&apos;s legacy for more than five decades. From principals to teachers, I grew up watching how learning can transform lives and create opportunities.
+                      When I first began exploring the language-learning industry, I noticed a pattern.
                     </p>
                   </StaggerItem>
                   <StaggerItem>
                     <p className="text-body leading-relaxed">
-                      When I explored the education industry, I noticed a gap. Many students were learning languages and preparing for exams, yet they often lacked the confidence to communicate in real-world situations.
+                      Students were spending months preparing for language exams and certifications. Many achieved impressive scores. Many completed their courses successfully.
+                    </p>
+                  </StaggerItem>
+                  <StaggerItem>
+                    <p className="text-body leading-relaxed">
+                      But when real opportunities arrived, an interview, a university admission process, a client meeting, a visa interaction, or life in a new country, they often lacked the confidence to communicate effectively.
                     </p>
                   </StaggerItem>
 
@@ -466,24 +503,19 @@ export default function AboutPage() {
                     <div className="flex gap-3.5 my-5">
                       <span className="w-1 rounded-full flex-shrink-0 self-stretch" style={{ background: "linear-gradient(to bottom,#3b5bdb,#6d8bff)" }} />
                       <p className="text-lg md:text-xl font-black text-ink leading-snug">
-                        That&apos;s why I founded ALB, Academy of Languages &amp; Beyond.
+                        That observation became the starting point for the Academy of Languages and Beyond.
                       </p>
                     </div>
                   </StaggerItem>
 
                   <StaggerItem>
                     <p className="text-body leading-relaxed">
-                      Our mission goes beyond helping students learn a language. We help them build the confidence, communication skills, and professional readiness needed to thrive in a global world.
+                      I didn&apos;t want to create another language institute focused only on grammar, vocabulary, and examination scores. I wanted to build a learning experience that prepared people for what happens after the certificate.
                     </p>
                   </StaggerItem>
                   <StaggerItem>
                     <p className="text-body leading-relaxed">
-                      Every ALB program combines language learning with practical soft skills, because success is not just about what you know, it is about how effectively you can communicate it.
-                    </p>
-                  </StaggerItem>
-                  <StaggerItem>
-                    <p className="text-body leading-relaxed">
-                      Whether your goal is higher education, immigration, career growth, or personal development, we&apos;re here to help you move beyond language barriers and closer to the opportunities you deserve.
+                      That&apos;s why every ALB programme focuses not only on language proficiency, but also on communication, confidence, critical thinking, and professional readiness.
                     </p>
                   </StaggerItem>
                 </StaggerContainer>
@@ -498,7 +530,7 @@ export default function AboutPage() {
                 className="mt-8 flex items-center gap-4 pt-6 border-t border-line"
               >
                 <span className="font-display text-3xl md:text-4xl text-ink leading-none italic">Jasmine Kaur</span>
-                <span className="text-muted text-sm font-semibold">Founder &amp; Director, ALB</span>
+                <span className="text-muted text-sm font-semibold">Founder and Director, ALB</span>
               </motion.div>
             </AnimateOnView>
           </div>
@@ -647,7 +679,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* ══════════════════ VISION & MISSION ══════════════════ */}
+      {/* ══════════════════ VISION and MISSION ══════════════════ */}
       <section className="section-padding sec-mist relative overflow-hidden">
         <div className="container-max relative z-10">
           <div className="grid md:grid-cols-2 gap-6">

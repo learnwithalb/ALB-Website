@@ -17,14 +17,14 @@ const cormorant = Cormorant_Garamond({
 
 export const metadata: Metadata = {
   title: {
-    default: "Academy of Languages & Beyond | ALB",
+    default: "Online foreign language courses with free soft-skills | ALB",
     template: "%s | ALB",
   },
   description:
-    "ALB is India's premier language & soft skills academy, helping ambitious learners go global through French, German, Spanish, IELTS coaching, and Beyond programmes.",
+    "Academy of Languages and Beyond offers online foreign language courses with live classes, regular speaking sessions | Free online soft-skills certification",
   keywords: ["French course India", "IELTS coaching", "soft skills", "language academy", "German course"],
   openGraph: {
-    siteName: "Academy of Languages & Beyond",
+    siteName: "Academy of Languages and Beyond",
     type: "website",
     locale: "en_IN",
   },

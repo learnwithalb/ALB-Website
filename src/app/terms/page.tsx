@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import { AnimateOnView } from "@/components/shared/AnimateOnView";
 
 export const metadata: Metadata = {
-  title: "Terms & Conditions | Academy of Languages & Beyond",
-  description: "Terms and Conditions for Academy of Languages & Beyond, enrolment, payment, refund & cancellation policy, conduct, intellectual property, privacy, and more.",
+  title: "Terms and Conditions | Academy of Languages and Beyond",
+  description: "Terms and Conditions for Academy of Languages and Beyond, enrolment, payment, refund and cancellation policy, conduct, intellectual property, privacy, and more.",
 };
 
 const EMAIL = "info@learnwithalb.com";
@@ -49,7 +49,7 @@ const SECTIONS: Section[] = [
     ],
   },
   {
-    id: "enrolment", num: "03", title: "Enrolment & Admission", short: "Enrolment & Admission",
+    id: "enrolment", num: "03", title: "Enrolment and Admission", short: "Enrolment and Admission",
     body: [
       "3.1 Enrolment in any ALB programme is confirmed only upon receipt of full payment unless a payment plan has been expressly agreed upon in writing by ALB.",
       "3.2 ALB reserves the right to decline or cancel any enrolment at its discretion, including where a programme is full, where the student does not meet entry requirements, or where ALB determines that the programme may not be suitable. In such cases, a full refund of fees paid will be issued.",
@@ -69,7 +69,7 @@ const SECTIONS: Section[] = [
     ],
   },
   {
-    id: "refund", num: "05", title: "Refund & Cancellation Policy", short: "Refund & Cancellation",
+    id: "refund", num: "05", title: "Refund and Cancellation Policy", short: "Refund and Cancellation",
     body: [
       "ALB's refund policy is designed to be transparent and fair. Students who complete the programme and find it was not the right fit are protected, provided the conditions below are met in full.",
       { h: "5.1 Refund Eligibility Conditions" },
@@ -118,7 +118,7 @@ const SECTIONS: Section[] = [
     ],
   },
   {
-    id: "conduct", num: "06", title: "Programme Conduct & Participation", short: "Conduct & Participation",
+    id: "conduct", num: "06", title: "Programme Conduct and Participation", short: "Conduct and Participation",
     body: [
       "6.1 Students are expected to participate respectfully in all live sessions, group activities, and any communication with instructors or peers.",
       "6.2 ALB operates a zero-tolerance policy toward any form of harassment, discrimination, abusive language, or disruptive behaviour directed at instructors, staff, or fellow students, whether in live sessions, group chats, or any other ALB-associated platform.",
@@ -127,7 +127,7 @@ const SECTIONS: Section[] = [
     ],
   },
   {
-    id: "attendance", num: "07", title: "Attendance & Rescheduling", short: "Attendance & Rescheduling",
+    id: "attendance", num: "07", title: "Attendance and Rescheduling", short: "Attendance and Rescheduling",
     body: [
       "7.1 ALB schedules sessions in advance and shares the calendar with students at the start of each programme. Students are expected to note and plan around the session schedule.",
       "7.2 If a student is unable to attend a scheduled session, they must notify ALB in advance where possible. Missed sessions are not automatically compensated with additional one-on-one sessions unless explicitly offered by the instructor.",
@@ -144,7 +144,7 @@ const SECTIONS: Section[] = [
     ],
   },
   {
-    id: "privacy", num: "09", title: "Session Recording & Privacy", short: "Recording & Privacy",
+    id: "privacy", num: "09", title: "Session Recording and Privacy", short: "Recording and Privacy",
     body: [
       "9.1 ALB may record live sessions for internal quality assurance, instructor evaluation, or to share recordings with absent enrolled students for catch-up purposes only.",
       "9.2 Session recordings are not publicly shared, uploaded to open platforms, or distributed beyond the enrolled cohort without student consent.",
@@ -259,7 +259,7 @@ export default function TermsPage() {
         <div className="container-max px-5 md:px-8 relative z-10">
           <AnimateOnView>
             <span className="eyebrow-pill-outline">Legal</span>
-            <h1 className="text-4xl md:text-5xl font-black text-ink mt-4">Terms &amp; Conditions</h1>
+            <h1 className="text-4xl md:text-5xl font-black text-ink mt-4">Terms and Conditions</h1>
             <p className="mt-3 text-muted">Last updated: June 2026</p>
           </AnimateOnView>
         </div>
@@ -286,7 +286,7 @@ export default function TermsPage() {
             <div className="max-w-3xl">
               <AnimateOnView className="glass-blue rounded-2xl p-5 mb-10">
                 <p className="text-body text-sm leading-relaxed">
-                  <strong className="text-ink">Important:</strong> Please read these Terms &amp; Conditions carefully before
+                  <strong className="text-ink">Important:</strong> Please read these Terms and Conditions carefully before
                   enrolling in any ALB programme. By enrolling, you confirm that you have read, understood, and agree to be bound by these terms.
                 </p>
               </AnimateOnView>

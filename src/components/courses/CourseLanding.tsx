@@ -18,12 +18,14 @@ export function CourseLanding({ data }: { data: CourseData }) {
   const a = data.accent;
   const al = data.al;
   const active = data.curriculum[mod];
+  // drop a leading CEFR level when it already repeats later in the badge (e.g. "A1 · DELF A1" → "DELF A1")
+  const activeBadge = active.badge.replace(/^((?:Pre-)?[A-C][12])\s*·\s*(?=.*\b\1\b)/, "");
   const statIcons = [GraduationCap, Clock, Users, BookOpen, Trophy];
 
   const instructors = [
     { icon: "school", role: `Lead ${data.lang} Language Mentor`, desc: "CEFR-aligned trainer focused on speaking confidence, grammar clarity, pronunciation correction, and structured progression across every level." },
     { icon: "edit", role: data.examRole, desc: "Specialist in exam task strategy, mock testing, writing correction, oral performance, and score improvement for immigration and academic outcomes." },
-    { icon: "mic", role: "Soft Skills & Interview Mentor", desc: "Trainer focused on public speaking, email etiquette, presentation delivery, personal branding, and interview performance in professional settings." },
+    { icon: "mic", role: "Soft Skills and Interview Mentor", desc: "Trainer focused on public speaking, email etiquette, presentation delivery, personal branding, and interview performance in professional settings." },
   ];
 
   return (
@@ -164,7 +166,7 @@ export function CourseLanding({ data }: { data: CourseData }) {
                 return (
                   <motion.div key={s.l} initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: i * 0.08 }} whileHover={{ y: -3 }} className="group md:border-r md:border-white/10 md:last:border-r-0 cursor-default">
                     <Icon size={22} strokeWidth={1.75} className="mx-auto mb-2.5 transition-transform duration-300 group-hover:scale-110" style={{ color: al }} />
-                    <div className="text-3xl md:text-4xl font-black text-white"><CountUp value={s.n} duration={1500} /></div>
+                    <div className="text-xl md:text-2xl font-black text-white leading-tight"><CountUp value={s.n} duration={1500} /></div>
                     <div className="text-[10.5px] md:text-xs font-bold uppercase tracking-wider text-white/45 mt-1.5 transition-colors group-hover:text-white/70">{s.l}</div>
                   </motion.div>
                 );
@@ -328,7 +330,7 @@ export function CourseLanding({ data }: { data: CourseData }) {
                 <div className="p-6 md:p-8">
                   <div className="flex flex-wrap items-start justify-between gap-3">
                     <div>
-                      <span className="text-[10.5px] font-bold uppercase tracking-widest" style={{ color: a }}>{active.badge}</span>
+                      <span className="text-[10.5px] font-bold uppercase tracking-widest" style={{ color: a }}>{activeBadge}</span>
                       <h3 className="text-2xl font-black text-white mt-1">{active.title}</h3>
                     </div>
                     <span className="text-xs font-bold text-white px-3 py-1.5 rounded-full whitespace-nowrap" style={{ background: a }}>{active.weeks}</span>
@@ -362,24 +364,18 @@ export function CourseLanding({ data }: { data: CourseData }) {
             </AnimatePresence>
 
             {/* ── left: vertical module stepper ── */}
-            <StaggerContainer className="relative lg:order-1" staggerDelay={0.08}>
+            <StaggerContainer className="relative lg:order-1 lg:self-stretch lg:flex lg:flex-col lg:justify-between" staggerDelay={0.08}>
+              {/* continuous connector line */}
+              <span className="hidden lg:block absolute left-[22px] top-[22px] bottom-[22px] w-0.5 -translate-x-1/2 rounded-full" style={{ background: "rgba(255,255,255,0.12)" }} />
               {data.curriculum.map((m, i) => {
                 const on = mod === i;
                 const done = i < mod;
-                const last = i === data.curriculum.length - 1;
                 return (
                   <StaggerItem key={m.label}>
                     <button
                       onClick={() => setMod(i)}
-                      className="group relative flex gap-4 text-left w-full pb-6 last:pb-0"
+                      className="group relative flex gap-4 text-left w-full pb-6 lg:pb-0 last:pb-0"
                     >
-                      {/* connector line */}
-                      {!last && (
-                        <span
-                          className="absolute left-[22px] top-12 bottom-0 w-0.5 -translate-x-1/2 rounded-full transition-colors duration-300"
-                          style={{ background: done ? a : "rgba(255,255,255,0.12)" }}
-                        />
-                      )}
                       {/* number tile */}
                       <span
                         className="relative z-10 flex-shrink-0 w-11 h-11 rounded-xl flex items-center justify-center font-black text-sm transition-all duration-300 group-hover:scale-105"
@@ -395,12 +391,26 @@ export function CourseLanding({ data }: { data: CourseData }) {
                       </span>
                       {/* text card */}
                       <span
-                        className={`flex-1 rounded-xl px-4 py-3 transition-all duration-300 ${on ? "bg-white/[0.07]" : "border border-transparent group-hover:bg-white/[0.04]"}`}
+                        className={`flex-1 rounded-xl px-4 py-3.5 flex items-center justify-between gap-3 transition-all duration-300 ${on ? "bg-white/[0.07]" : "border border-transparent group-hover:bg-white/[0.04] group-hover:translate-x-1"}`}
                         style={on ? { boxShadow: `0 18px 40px -18px ${a}99`, border: `1px solid ${a}66` } : undefined}
                       >
-                        <span className="text-[10px] font-bold uppercase tracking-wide block" style={{ color: on ? a : "rgba(255,255,255,0.45)" }}>{m.label}</span>
-                        <span className={`text-base font-black block leading-snug mt-0.5 ${on ? "" : "text-white"}`} style={on ? { color: a } : undefined}>{m.title}</span>
-                        <span className="text-white/55 text-xs mt-1 leading-relaxed block line-clamp-2">{m.desc}</span>
+                        <span className="min-w-0">
+                          <span className="text-[10px] font-bold uppercase tracking-wide block" style={{ color: on ? a : "rgba(255,255,255,0.45)" }}>{m.label}</span>
+                          <span className={`text-base md:text-lg font-black block leading-snug mt-0.5 ${on ? "" : "text-white"}`} style={on ? { color: a } : undefined}>{m.title}</span>
+                        </span>
+                        <span className="flex items-center gap-2.5 flex-shrink-0">
+                          <span
+                            className="hidden xl:inline-block text-[10px] font-bold px-2.5 py-1 rounded-full whitespace-nowrap"
+                            style={{ background: on ? `${a}22` : "rgba(255,255,255,0.06)", color: on ? a : "rgba(255,255,255,0.5)" }}
+                          >
+                            {m.weeks}
+                          </span>
+                          <ChevronRight
+                            size={18}
+                            className={`transition-all duration-300 ${on ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-1 group-hover:opacity-60 group-hover:translate-x-0"}`}
+                            style={{ color: on ? a : "#fff" }}
+                          />
+                        </span>
                       </span>
                     </button>
                   </StaggerItem>

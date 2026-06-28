@@ -18,28 +18,32 @@ const AUDIENCES = [
     tags: ["Agencies", "IELTS · DELF · Goethe"],
     lead: "Get students campus-ready, on time",
     desc: "Help your students hit their IELTS, French or German targets on time, and arrive campus-ready.",
+    partnership: ["Higher student success rates", "Better exam results", "Additional service revenue"],
     outcomes: ["On-time exam targets", "Campus-ready communication", "Higher visa-interview success"],
   },
   {
     icon: "handshake", tint: "#22c55e", title: "Immigration Consultants",
     tags: ["Consultants", "CLB · CEFR"],
-    lead: "Stronger PR & work-permit files",
+    lead: "Stronger PR and work-permit files",
     desc: "Strengthen PR and work-permit files with tracks built around CLB/CEFR and exam requirements.",
+    partnership: ["Stronger application profiles", "Better language readiness", "Improved client satisfaction"],
     outcomes: ["CLB 7+ language proof", "Exam-aligned tracks", "Francophone life skills"],
   },
   {
-    icon: "school", tint: "#f5b81a", title: "Schools & Colleges",
+    icon: "school", tint: "#f5b81a", title: "Schools and Colleges",
     tags: ["Institutions", "Turnkey"],
     lead: "Add global languages without faculty load",
     desc: "Add global languages and communication labs without overloading your existing faculty.",
-    outcomes: ["Plug-in language labs", "Communication & soft-skill labs", "Zero faculty overload"],
+    partnership: ["New language offerings", "Enhanced student profile", "No hiring required"],
+    outcomes: ["Plug-in language labs", "Communication and soft-skill labs", "Zero faculty overload"],
   },
   {
-    icon: "business", tint: "#3b82f6", title: "Corporates & Training Companies",
+    icon: "business", tint: "#3b82f6", title: "Corporates and Training Companies",
     tags: ["Corporates", "Workforce"],
     lead: "Upskill your workforce, globally",
     desc: "Upgrade your workforce with Career English, business writing and cross-culture support.",
-    outcomes: ["Career & business English", "Cross-culture support", "Professional writing"],
+    partnership: ["Improved communication skills", "Better client interactions", "Stronger workforce readiness"],
+    outcomes: ["Career and business English", "Cross-culture support", "Professional writing"],
   },
 ];
 
@@ -68,15 +72,15 @@ const TRACKS = [
     lang: "English", flagCode: "GB", from: "#0ea5e9", to: "#0284c7",
     items: [
       { t: "English Communication Program (ECP)", d: "A1–B1/B2 everyday and academic/professional English." },
-      { t: "IELTS Advantage Program", d: "8–10 week structured prep for Academic & General Training, bands ~6.5–7.5." },
-      { t: "ALB Career English Lab", d: "Business communication & interview mastery for placements and professionals." },
+      { t: "IELTS Advantage Program", d: "8–10 week structured prep for Academic and General Training, bands ~6.5–7.5." },
+      { t: "ALB Career English Lab", d: "Business communication and interview mastery for placements and professionals." },
     ],
   },
 ];
 
 const BENEFITS = [
   { icon: "globe",     title: "One partner for multiple languages", desc: "French, German and English across immigration, academic, career, junior and sprint tracks." },
-  { icon: "grade",     title: "CEFR & exam-aligned design",         desc: "Mapped to CEFR levels and leading exams, IELTS, TEF/TCF, DELF and Goethe, so results are recognised globally." },
+  { icon: "grade",     title: "CEFR and exam-aligned design",         desc: "Mapped to CEFR levels and leading exams, IELTS, TEF/TCF, DELF and Goethe, so results are recognised globally." },
   { icon: "mic",       title: "Soft skills built in",               desc: "Interviews, group discussions, presentations and email writing are integrated into training, not sold separately." },
   { icon: "translate", title: "India-first teaching style",         desc: "Trainers who understand Indian learners' strengths, hesitations and multilingual reality." },
   { icon: "handshake", title: "Clean referral experience",          desc: "ALB is your training partner. Your brand stays in front; we work in the background." },
@@ -84,42 +88,40 @@ const BENEFITS = [
 ];
 
 const STEPS = [
-  { n: "01", color: "#3b5bdb", x: 12, up: true,  title: "Align",              desc: "We understand your context, audiences and goals, then shortlist the right ALB tracks for you." },
-  { n: "02", color: "#3b5bdb", x: 31, up: false, title: "Refer",              desc: "You share ALB via a referral link, form or code. We handle placement assessments and counselling calls." },
-  { n: "03", color: "#3b5bdb", x: 50, up: true,  title: "We Deliver",         desc: "Our trainers run live online sessions, assignments, mock tests and feedback, fully managed by ALB." },
-  { n: "04", color: "#3b5bdb", x: 69, up: false, title: "You Earn & Monitor", desc: "You receive referral fees / revenue share on each enrolment, plus monthly or quarterly reports." },
-  { n: "05", color: "#3b5bdb", x: 88, up: true,  title: "Grow Together",      desc: "We co-create campaigns around your pipeline, intakes, PR pools, placement season, internal cohorts." },
+  { n: "01", icon: "target",    title: "Discover",       desc: "We understand your learners, objectives, and growth plans, then recommend the right ALB programmes and partnership model." },
+  { n: "02", icon: "people",    title: "Refer Learners", desc: "Share ALB through your existing channels, counsellors, advisors, website, events, or student network. We handle the enrolment journey." },
+  { n: "03", icon: "school",    title: "We Deliver",     desc: "Our expert trainers manage classes, assessments, progress tracking, mock tests, and learner support from start to finish." },
+  { n: "04", icon: "chart",     title: "Track Success",  desc: "Receive regular updates on enrolments, attendance, learner progress, and outcomes through transparent reporting." },
+  { n: "05", icon: "rocket",    title: "Scale Together", desc: "Launch new cohorts, expand programme offerings, and create additional revenue streams as your partnership grows." },
 ];
 
-// winding road path (SVG viewBox 1000 x 620); peaks at y=240, valleys at y=380.
-// the tall viewBox reserves room above peaks / below valleys for the cards.
-const ROAD_PATH =
-  "M 20 240 L 120 240 C 215 240 215 380 310 380 C 405 380 405 240 500 240 C 595 240 595 380 690 380 C 785 380 785 240 880 240 L 980 240";
+/* hexagon clip-path for journey nodes */
+const HEX = "polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)";
 
 const SOLUTIONS = [
-  { icon: "flight",    tint: "#6c47ff", title: "Study Abroad Agencies",   subtitle: "Language & exam readiness for your applicants.",            challenges: "IELTS bands, language prerequisites, campus readiness.",                       tracks: "ECP · IELTS Advantage · French Academic & Sprint · German Academic & Sprint" },
-  { icon: "handshake", tint: "#22c55e", title: "Immigration Consultants", subtitle: "Language & CLB readiness for PR and work-permit clients.",  challenges: "CLB/CEFR requirements, TEF/TCF & IELTS timelines, settlement communication.",  tracks: "French Immigration Track · German Immigration Track · IELTS Advantage" },
-  { icon: "school",    tint: "#f5b81a", title: "Schools & Colleges",      subtitle: "Global languages and communication labs for your campus.", challenges: "Faculty bandwidth, global language pathways, placements and study abroad.",    tracks: "French/German Junior · French/German Academic · ECP · IELTS Advantage · Career English Lab" },
-  { icon: "business",  tint: "#3b82f6", title: "Corporates & Training",   subtitle: "Career English & communication skills for high-performing teams.", challenges: "Client communication, leadership communication, global mobility.",          tracks: "Career English Lab (corporate) · ECP for teams · French Career Track · German Career Track" },
+  { icon: "flight",    tint: "#6c47ff", title: "Study Abroad Agencies",   subtitle: "Language and exam readiness for your applicants.",            challenges: "IELTS bands, language prerequisites, campus readiness.",                       tracks: "ECP · IELTS Advantage · French Academic and Sprint · German Academic and Sprint" },
+  { icon: "handshake", tint: "#22c55e", title: "Immigration Consultants", subtitle: "Language and CLB readiness for PR and work-permit clients.",  challenges: "CLB/CEFR requirements, TEF/TCF and IELTS timelines, settlement communication.",  tracks: "French Immigration Track · German Immigration Track · IELTS Advantage" },
+  { icon: "school",    tint: "#f5b81a", title: "Schools and Colleges",      subtitle: "Global languages and communication labs for your campus.", challenges: "Faculty bandwidth, global language pathways, placements and study abroad.",    tracks: "French/German Junior · French/German Academic · ECP · IELTS Advantage · Career English Lab" },
+  { icon: "business",  tint: "#3b82f6", title: "Corporates and Training",   subtitle: "Career English and communication skills for high-performing teams.", challenges: "Client communication, leadership communication, global mobility.",          tracks: "Career English Lab (corporate) · ECP for teams · French Career Track · German Career Track" },
 ];
 
 const FOUNDER = [
   "Education has been part of my family's legacy for more than five decades. From principals to teachers, I grew up watching how learning can transform lives and create opportunities.",
   "When I explored the education industry, I noticed a gap. Many students were learning languages and preparing for exams, yet they often lacked the confidence to communicate in real-world situations.",
-  "That's why I founded ALB, Academy of Languages & Beyond.",
+  "That's why I founded ALB, Academy of Languages and Beyond.",
   "Our mission goes beyond helping students learn a language. We help them build the confidence, communication skills, and professional readiness needed to thrive in a global world.",
   "Every ALB program combines language learning with practical soft skills, because success is not just about what you know, it is about how effectively you can communicate it.",
   "Whether your goal is higher education, immigration, career growth, or personal development, we're here to help you move beyond language barriers and closer to the opportunities you deserve.",
 ];
 
 const HERO_STATS = [
-  { value: "3", label: "Languages, French, German & English", dot: "#3b5bdb" },
-  { value: "12+", label: "Programs & specialised tracks", dot: "#0ea5e9" },
-  { value: "CEFR", label: "& exam-aligned: IELTS, TEF/TCF, DELF, Goethe", dot: "#f59e0b" },
+  { value: "3", label: "Languages, French, German and English", dot: "#3b5bdb" },
+  { value: "12+", label: "Programs and specialised tracks", dot: "#0ea5e9" },
+  { value: "CEFR", label: "Certification and Exam Ready", dot: "#f59e0b" },
   { value: "100%", label: "Delivered under your brand", dot: "#6366f1" },
 ];
 const BUILT_FOR = [
-  { icon: "school", label: "Schools & Colleges" },
+  { icon: "school", label: "Schools and Colleges" },
   { icon: "globe", label: "Study Abroad Agencies" },
   { icon: "article", label: "Immigration Consultants" },
   { icon: "business", label: "Corporates" },
@@ -157,7 +159,7 @@ export default function PartnerPage() {
                 initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.2 }}
                 className="mt-6 text-base md:text-lg text-body max-w-xl leading-relaxed"
               >
-                French, German and English tracks for your students, clients and teams, delivered by our trainers, under your brand. <span className="font-bold text-ink">ALB becomes your specialist language partner</span>, so you can offer end-to-end solutions without building an academy from scratch.
+                French, German and English tracks for your students, clients and teams, delivered by our trainers. <span className="font-bold text-ink">ALB becomes your specialist language partner</span>, so you can offer end-to-end solutions without the complexity of building and managing language programmes yourself.
               </motion.p>
               <motion.div
                 initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.32 }}
@@ -167,7 +169,7 @@ export default function PartnerPage() {
                   Book a Partner Call <ArrowRight size={16} />
                 </button>
                 <a href={`mailto:${PARTNER_EMAIL}?subject=Partner%20Brochure%20Request`} className="btn-outline">
-                  <Download size={16} /> Download Partner Brochure
+                  <Download size={16} /> Download Brochure
                 </a>
               </motion.div>
             </div>
@@ -261,6 +263,19 @@ export default function PartnerPage() {
                     {/* desc */}
                     <p className="text-white/55 text-sm leading-relaxed mb-6">{a.desc}</p>
 
+                    {/* typical partnership outcome */}
+                    <div className="rounded-xl border border-white/10 bg-white/[0.04] p-4 mb-6">
+                      <p className="text-white/45 text-[11px] font-bold uppercase tracking-wider mb-3">Typical Partnership Outcome</p>
+                      <ul className="space-y-2">
+                        {a.partnership.map((p) => (
+                          <li key={p} className="flex items-start gap-2.5 text-[13px] text-white/80 font-medium">
+                            <Check size={15} strokeWidth={3} className="mt-[2px] flex-shrink-0" style={{ color: a.tint }} />
+                            {p}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+
                     {/* outcomes */}
                     <p className="text-white/45 text-[11px] font-bold uppercase tracking-wider mb-3 mt-auto pt-2">What we deliver</p>
                     <ul className="space-y-2.5">
@@ -289,7 +304,7 @@ export default function PartnerPage() {
           <AnimateOnView className="text-center max-w-2xl mx-auto mb-12">
             <span className="eyebrow-pill-outline">Our Tracks</span>
             <h2 className="text-3xl md:text-5xl font-black text-ink mt-1 leading-tight">
-              French, German &amp; English, <span className="gradient-text">one partner, multiple tracks.</span>
+              French, German and English, <span className="gradient-text">one partner, multiple tracks.</span>
             </h2>
             <p className="mt-5 text-body text-base md:text-lg leading-relaxed">
               ALB offers a full portfolio of programs you can mix and match based on your audience.
@@ -331,7 +346,7 @@ export default function PartnerPage() {
                   {/* footer strip */}
                   <div className="mt-auto px-6 py-3.5 border-t border-line flex items-center gap-2 text-xs font-bold text-muted">
                     <span className="w-1.5 h-1.5 rounded-full" style={{ background: col.from }} />
-                    CEFR-mapped &amp; exam-aligned
+                    CEFR-mapped and exam-aligned
                   </div>
                 </div>
               </StaggerItem>
@@ -355,7 +370,7 @@ export default function PartnerPage() {
               Why partners <span className="gradient-text-light">choose ALB.</span>
             </h2>
             <p className="mt-5 text-white/70 text-base md:text-lg leading-relaxed">
-              We&apos;re a specialised language and communication partner, not a generic coaching centre.
+              From curriculum and trainers to reporting and learner success, we handle the expertise so you can focus on growth.
             </p>
           </AnimateOnView>
 
@@ -389,104 +404,96 @@ export default function PartnerPage() {
             <h2 className="text-3xl md:text-5xl font-black text-ink mt-1 leading-tight">How the ALB partner model <span className="gradient-text">works.</span></h2>
           </AnimateOnView>
 
-          {/* ── desktop: winding roadmap ── */}
-          <div className="hidden lg:block relative">
-            <svg viewBox="0 0 1000 620" className="w-full h-auto" fill="none">
-              {/* road body */}
-              <motion.path
-                d={ROAD_PATH}
-                stroke="#0e1733" strokeWidth="34" strokeLinecap="round"
-                initial={{ pathLength: 0 }} whileInView={{ pathLength: 1 }} viewport={{ once: true }}
-                transition={{ duration: 1.7, ease: "easeInOut" }}
-              />
-              {/* dashed center line */}
-              <motion.path
-                d={ROAD_PATH}
-                stroke="#fbbf24" strokeWidth="3" strokeDasharray="2 18" strokeLinecap="round"
-                initial={{ pathLength: 0 }} whileInView={{ pathLength: 1 }} viewport={{ once: true }}
-                transition={{ duration: 1.7, ease: "easeInOut", delay: 0.15 }}
-              />
-            </svg>
+          <div className="relative mt-10">
 
-            {/* pins + dots + cards overlay (matches the SVG box) */}
-            <div className="absolute inset-0">
+            {/* ── desktop: wave with nodes sitting on the curve ── */}
+            <div className="hidden lg:block relative" style={{ height: 500 }}>
+              <svg className="absolute inset-0 w-full h-full" viewBox="0 0 1200 500" fill="none" preserveAspectRatio="none" aria-hidden>
+                <defs>
+                  <linearGradient id="partnerJourneyGrad" x1="0" y1="0" x2="1200" y2="0" gradientUnits="userSpaceOnUse">
+                    <stop offset="0%" stopColor="#3b5bdb" />
+                    <stop offset="100%" stopColor="#38bdf8" />
+                  </linearGradient>
+                </defs>
+                <path
+                  d="M0,170 C40,170 80,170 120,170 C200,170 280,330 360,330 C440,330 520,170 600,170 C680,170 760,330 840,330 C920,330 1000,170 1080,170 C1120,170 1160,170 1200,170"
+                  stroke="#e6ebf5"
+                  strokeWidth="10"
+                  strokeLinecap="round"
+                />
+                <motion.path
+                  id="partnerJourneyLine"
+                  d="M0,170 C40,170 80,170 120,170 C200,170 280,330 360,330 C440,330 520,170 600,170 C680,170 760,330 840,330 C920,330 1000,170 1080,170 C1120,170 1160,170 1200,170"
+                  stroke="url(#partnerJourneyGrad)"
+                  strokeWidth="3"
+                  strokeLinecap="round"
+                  initial={{ pathLength: 0 }}
+                  whileInView={{ pathLength: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 1.8, ease: "easeInOut" }}
+                />
+                <circle r="7" fill="#0ea5e9" style={{ filter: "drop-shadow(0 0 7px rgba(14,165,233,0.9))" }}>
+                  <animateMotion dur="6s" repeatCount="indefinite">
+                    <mpath href="#partnerJourneyLine" />
+                  </animateMotion>
+                </circle>
+              </svg>
+
               {STEPS.map((s, i) => {
-                const yPct = s.up ? 38.7 : 61.3; // 240/620 and 380/620
+                const high = i % 2 === 0;
+                const y = high ? 170 : 330;
                 return (
-                  // positioning wrapper anchored exactly on the road node
-                  <div key={s.n} className="absolute" style={{ left: `${s.x}%`, top: `${yPct}%` }}>
-                    {/* dot on the road */}
+                  <div key={s.n} className="absolute inset-y-0" style={{ left: `${i * 20}%`, width: "20%" }}>
+                    {/* watermark number, under the icon (high) / above the icon (low) */}
                     <span
-                      className="absolute left-0 top-0 w-3.5 h-3.5 rounded-full bg-white -translate-x-1/2 -translate-y-1/2 z-20"
-                      style={{ boxShadow: `0 0 0 3px ${s.color}` }}
-                    />
-
-                    {/* map-pin marker (body above node, tip on the road) */}
-                    <div className="absolute left-0 top-0 -translate-x-1/2 -translate-y-full z-30">
-                      <motion.div
-                        initial={{ opacity: 0, scale: 0.5 }}
-                        whileInView={{ opacity: 1, scale: 1 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: 0.5 + i * 0.14, type: "spring", stiffness: 320, damping: 17 }}
-                        className="relative mb-1.5"
-                      >
-                        <div
-                          className="w-12 h-12 rounded-full flex items-center justify-center text-white font-black text-lg ring-4 ring-white"
-                          style={{ background: s.color, boxShadow: `0 10px 22px ${s.color}66` }}
-                        >
-                          {parseInt(s.n, 10)}
-                        </div>
-                        <span
-                          className="absolute left-1/2 -bottom-1 -translate-x-1/2 w-3.5 h-3.5 rotate-45 -z-10"
-                          style={{ background: s.color }}
-                        />
-                      </motion.div>
-                    </div>
-
-                    {/* text card — above the pin for peaks, below the road for valleys */}
-                    <div
-                      className="absolute left-0 w-44 -translate-x-1/2 z-10"
-                      style={s.up ? { bottom: "70px" } : { top: "42px" }}
+                      className="absolute left-1/2 -translate-x-1/2 text-[5.5rem] font-black text-royal-100 select-none leading-none pointer-events-none z-0"
+                      style={{ top: high ? y + 44 : y - 128 }}
                     >
-                      <motion.div
-                        initial={{ opacity: 0, y: s.up ? -12 : 12 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: 0.65 + i * 0.14 }}
-                        className="rounded-2xl bg-white border border-line shadow-[0_12px_30px_-12px_rgba(16,23,51,0.25)] p-4 text-center"
-                      >
-                        <span className="inline-block text-[10px] font-black uppercase tracking-wider mb-1" style={{ color: s.color }}>
-                          Step {parseInt(s.n, 10)}
-                        </span>
-                        <p className="font-black text-ink text-sm leading-snug">{s.title}</p>
-                        <p className="text-muted text-xs mt-1.5 leading-relaxed">{s.desc}</p>
-                      </motion.div>
+                      {s.n}
+                    </span>
+
+                    {/* hexagon node centred on the curve */}
+                    <motion.div
+                      className="absolute left-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16"
+                      style={{ top: y }}
+                      initial={{ scale: 0, opacity: 0 }}
+                      whileInView={{ scale: 1, opacity: 1 }}
+                      viewport={{ once: true }}
+                      transition={{ type: "spring", stiffness: 260, damping: 16, delay: i * 0.12 + 0.35 }}
+                    >
+                      <div className="absolute inset-0 rounded-full bg-royal-400/30 blur-md" />
+                      <div className="absolute -inset-[2px]" style={{ background: "#c2d2ff", clipPath: HEX }} />
+                      <div className="absolute inset-0 bg-white flex items-center justify-center" style={{ clipPath: HEX }}>
+                        <MuiIcon name={s.icon} size={26} style={{ color: "#3b5bdb" }} />
+                      </div>
+                    </motion.div>
+
+                    {/* text above (high) or below (low) the node */}
+                    <div className="absolute left-0 right-0 px-3 text-center" style={high ? { bottom: 378 } : { top: 378 }}>
+                      <span className="inline-block text-[10px] font-black uppercase tracking-wider text-royal-500 mb-1">Step {parseInt(s.n, 10)}</span>
+                      <h3 className="font-black text-ink text-lg">{s.title}</h3>
+                      <p className="mt-2 text-muted text-sm leading-relaxed">{s.desc}</p>
                     </div>
                   </div>
                 );
               })}
             </div>
-          </div>
 
-          {/* ── mobile: vertical roadmap ── */}
-          <div className="lg:hidden relative">
-            <div className="absolute left-[21px] top-3 bottom-3 w-1 rounded-full bg-[#0e1733]" />
-            <StaggerContainer className="space-y-5" staggerDelay={0.1}>
+            {/* ── mobile / tablet: stacked ── */}
+            <StaggerContainer className="lg:hidden grid sm:grid-cols-2 gap-x-6 gap-y-12 mt-2" staggerDelay={0.1}>
               {STEPS.map((s) => (
-                <StaggerItem key={s.n}>
-                  <div className="relative flex gap-4">
-                    <div
-                      className="relative z-10 w-11 h-11 rounded-full flex items-center justify-center text-white font-black flex-shrink-0 ring-4 ring-white"
-                      style={{ background: s.color, boxShadow: `0 6px 16px ${s.color}66` }}
-                    >
-                      {parseInt(s.n, 10)}
-                    </div>
-                    <div className="rounded-2xl bg-white border border-line shadow-sm p-4 flex-1">
-                      <span className="text-[10px] font-black uppercase tracking-wider" style={{ color: s.color }}>Step {parseInt(s.n, 10)}</span>
-                      <p className="font-black text-ink mt-0.5">{s.title}</p>
-                      <p className="text-muted text-sm mt-1 leading-relaxed">{s.desc}</p>
+                <StaggerItem key={s.n} className="text-center relative">
+                  <span className="absolute left-1/2 -translate-x-1/2 -top-6 text-[5rem] font-black text-royal-50 select-none leading-none pointer-events-none">{s.n}</span>
+                  <div className="relative z-10 mx-auto w-16 h-16">
+                    <div className="absolute inset-0 rounded-full bg-royal-400/30 blur-md" />
+                    <div className="absolute -inset-[2px]" style={{ background: "#c2d2ff", clipPath: HEX }} />
+                    <div className="absolute inset-0 bg-white flex items-center justify-center" style={{ clipPath: HEX }}>
+                      <MuiIcon name={s.icon} size={26} style={{ color: "#3b5bdb" }} />
                     </div>
                   </div>
+                  <span className="relative z-10 inline-block mt-4 text-[10px] font-black uppercase tracking-wider text-royal-500">Step {parseInt(s.n, 10)}</span>
+                  <h3 className="relative z-10 mt-0.5 font-black text-ink text-lg">{s.title}</h3>
+                  <p className="relative z-10 mt-2 text-muted text-sm leading-relaxed max-w-[280px] mx-auto">{s.desc}</p>
                 </StaggerItem>
               ))}
             </StaggerContainer>
@@ -494,7 +501,7 @@ export default function PartnerPage() {
 
           <AnimateOnView className="text-center mt-12">
             <Link href="#contact" className="btn-primary">
-              Talk to us about referral &amp; co-branded models <ArrowRight size={16} />
+              Book a Partner Strategy Call <ArrowRight size={16} />
             </Link>
           </AnimateOnView>
         </div>
@@ -513,65 +520,56 @@ export default function PartnerPage() {
           </AnimateOnView>
 
           <StaggerContainer className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 items-stretch" staggerDelay={0.1}>
-            {SOLUTIONS.map((s, i) => {
-              const dark = i === SOLUTIONS.length - 1;
-              return (
-                <StaggerItem key={s.title} className="h-full">
-                  <div
-                    className={`group relative h-full flex flex-col rounded-2xl p-6 border transition-all duration-300 hover:-translate-y-1.5 ${
-                      dark ? "border-white/10" : "border-line bg-white hover:shadow-[0_24px_50px_-22px_rgba(16,23,51,0.25)]"
-                    }`}
-                    style={dark ? { background: "linear-gradient(165deg,#111a36,#0a0f24)" } : undefined}
-                  >
-                    {/* top row: icon + badge */}
-                    <div className="flex items-start justify-between mb-10">
-                      <span
-                        className="w-12 h-12 rounded-xl flex items-center justify-center"
-                        style={{ background: dark ? "rgba(255,255,255,0.1)" : "rgba(14,23,51,0.06)" }}
-                      >
-                        <MuiIcon name={s.icon} size={24} style={{ color: dark ? "#ffffff" : "#0e1733" }} />
-                      </span>
-                      <span
-                        className="w-8 h-8 rounded-full flex items-center justify-center transition-transform duration-300 group-hover:rotate-12"
-                        style={{ background: dark ? "#ffffff" : "#0e1733" }}
-                      >
-                        <ArrowRight size={14} style={{ color: dark ? "#0a0f24" : "#ffffff" }} />
-                      </span>
-                    </div>
+            {SOLUTIONS.map((s) => (
+              <StaggerItem key={s.title} className="h-full">
+                <div
+                  className="group relative h-full flex flex-col rounded-2xl p-6 border border-line bg-white transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_24px_50px_-22px_rgba(16,23,51,0.25)] overflow-hidden"
+                >
+                  {/* top accent line in the card's tint */}
+                  <span className="absolute top-0 left-0 right-0 h-1" style={{ background: `linear-gradient(90deg, ${s.tint}, ${s.tint}33)` }} />
 
-                    {/* eyebrow */}
+                  {/* top row: icon + badge */}
+                  <div className="flex items-start justify-between mb-10">
                     <span
-                      className="text-[10px] font-black uppercase tracking-wider"
-                      style={{ color: dark ? "rgba(255,255,255,0.5)" : "#737d9c" }}
+                      className="w-12 h-12 rounded-xl flex items-center justify-center"
+                      style={{ background: `${s.tint}1a`, boxShadow: `inset 0 0 0 1px ${s.tint}2e` }}
                     >
-                      Tailored Solution
+                      <MuiIcon name={s.icon} size={24} style={{ color: s.tint }} />
                     </span>
-                    {/* title */}
-                    <h3 className={`text-lg font-black mt-1 leading-snug ${dark ? "text-white" : "text-ink"}`}>{s.title}</h3>
-                    {/* body */}
-                    <p className={`text-sm mt-2.5 leading-relaxed ${dark ? "text-white/55" : "text-muted"}`}>{s.subtitle}</p>
-                    {/* suggested tracks */}
-                    <p className={`text-xs mt-3 leading-relaxed line-clamp-2 ${dark ? "text-white/40" : "text-muted/80"}`}>
-                      <span className={`font-bold ${dark ? "text-white/70" : "text-ink"}`}>Tracks: </span>{s.tracks}
-                    </p>
-
-                    {/* button */}
-                    <div className="mt-auto pt-6">
-                      <Link
-                        href="#contact"
-                        className={
-                          dark
-                            ? "inline-flex w-full justify-center items-center gap-2 rounded-full bg-white text-ink font-bold text-sm py-3 hover:bg-royal-50 transition-colors"
-                            : "inline-flex items-center gap-1.5 font-bold text-sm text-ink transition-all group-hover:gap-2.5"
-                        }
-                      >
-                        {dark ? "Talk to us" : "Explore tracks"} <ArrowRight size={14} />
-                      </Link>
-                    </div>
+                    <span
+                      className="w-8 h-8 rounded-full flex items-center justify-center transition-transform duration-300 group-hover:rotate-12"
+                      style={{ background: `${s.tint}1a` }}
+                    >
+                      <ArrowRight size={14} style={{ color: s.tint }} />
+                    </span>
                   </div>
-                </StaggerItem>
-              );
-            })}
+
+                  {/* eyebrow */}
+                  <span className="text-[10px] font-black uppercase tracking-wider" style={{ color: s.tint }}>
+                    Tailored Solution
+                  </span>
+                  {/* title */}
+                  <h3 className="text-lg font-black mt-1 leading-snug text-ink">{s.title}</h3>
+                  {/* body */}
+                  <p className="text-sm mt-2.5 leading-relaxed text-muted">{s.subtitle}</p>
+                  {/* suggested tracks */}
+                  <p className="text-xs mt-3 leading-relaxed line-clamp-2 text-muted/80">
+                    <span className="font-bold text-ink">Tracks: </span>{s.tracks}
+                  </p>
+
+                  {/* button */}
+                  <div className="mt-auto pt-6">
+                    <Link
+                      href="#contact"
+                      className="inline-flex w-full justify-center items-center gap-2 rounded-full text-white font-bold text-sm py-3 transition-transform hover:-translate-y-0.5"
+                      style={{ background: "linear-gradient(135deg,#3b5bdb,#6d8bff)", boxShadow: "0 10px 22px rgba(59,91,219,0.32)" }}
+                    >
+                      Talk to us <ArrowRight size={14} />
+                    </Link>
+                  </div>
+                </div>
+              </StaggerItem>
+            ))}
           </StaggerContainer>
         </div>
       </section>
@@ -634,7 +632,7 @@ export default function PartnerPage() {
         </div>
       </section>
 
-      {/* ══════════════════ FINAL CTA & CONTACT (royal) ══════════════════ */}
+      {/* ══════════════════ FINAL CTA and CONTACT (royal) ══════════════════ */}
       <section id="contact" className="section-padding sec-dark relative overflow-hidden">
         <div className="absolute inset-0 grid-dots-light opacity-30 pointer-events-none" />
         <div className="blob blob-sky w-[520px] h-[360px] top-0 right-0 pointer-events-none" />

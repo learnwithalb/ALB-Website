@@ -6,24 +6,24 @@ import { ArrowRight, CheckCircle, Star, Globe, Sparkles } from "lucide-react";
 import { AnimateOnView, StaggerContainer, StaggerItem } from "@/components/shared/AnimateOnView";
 import { languages } from "@/lib/constants";
 import { CountryBadge } from "@/lib/icons";
-import { CountUp } from "@/components/shared/CountUp";
 import { useBooking } from "@/components/shared/BookingContext";
 
 const features = [
-  "CEFR-aligned curriculum (A1 to C1)",
-  "Live online & offline options",
-  "Small batches (max 12 per batch)",
+  "CEFR-aligned curriculum",
+  "Live-online and recorded lectures",
+  "Small batches",
   "Monthly progress assessments",
-  "Exam preparation integrated",
-  "Lifetime alumni access",
+  "Free Soft-skill module included",
+  "Regular Communication classes",
 ];
 
-const weekSchedule = [
-  { day: "MON", label: "Live Language Class", desc: "Grammar + vocab + pronunciation", color: "#3b5bdb", active: true },
-  { day: "TUE", label: "Speaking Practice", desc: "Conversation circles & roleplay", color: "#0ea5e9", active: false },
-  { day: "WED", label: "Live Language Class", desc: "Grammar + vocab + pronunciation", color: "#3b5bdb", active: true },
-  { day: "THU", label: "Speaking Practice", desc: "Conversation circles & roleplay", color: "#0ea5e9", active: true },
-  { day: "FRI", label: "Cultural Deep Dive", desc: "Film, music, news, or cuisine", color: "#6d8bff", active: true },
+const courseIncludes = [
+  { t: "Live instructor-led classes", s: "Real-time teaching, never just recordings" },
+  { t: "Regular communication classes", s: "Build real speaking confidence from day one" },
+  { t: "Free +Beyond soft-skills module", s: "Interview, presentation, and confidence training" },
+  { t: "Exam preparation built in", s: "DELF, Goethe, IELTS, and more, included" },
+  { t: "Monthly progress reports", s: "Always know exactly where you stand" },
+  { t: "CEFR-aligned ALB certificate", s: "A recognised credential at every level" },
 ];
 
 const albDifference = [
@@ -52,63 +52,35 @@ function getLangAccent(code: string): { border: string; glow: string; levelBg: s
   };
 }
 
-function WeekScheduleCard() {
+function CourseIncludesCard() {
   return (
     <div className="card rounded-2xl p-7 h-full">
       <p className="text-royal-600 font-bold text-xs uppercase tracking-widest mb-5">
-        How a typical week looks
+        What every course includes
       </p>
-      <div className="space-y-3">
-        {weekSchedule.map((s, i) => (
+      <div className="space-y-3.5">
+        {courseIncludes.map((c, i) => (
           <motion.div
-            key={s.day}
-            className="flex gap-3 items-start rounded-xl p-3"
-            animate={
-              s.active
-                ? {
-                    backgroundColor: [
-                      "rgba(59,91,219,0.04)",
-                      `${s.color}1f`,
-                      "rgba(59,91,219,0.04)",
-                    ],
-                  }
-                : {}
-            }
-            transition={
-              s.active
-                ? { duration: 2.5, repeat: Infinity, delay: i * 0.5, ease: "easeInOut" }
-                : {}
-            }
-            style={{ background: "rgba(59,91,219,0.04)" }}
+            key={c.t}
+            className="flex gap-3 items-start"
+            initial={{ opacity: 0, x: 16 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.45, delay: i * 0.08, ease: [0.22, 1, 0.36, 1] }}
           >
-            <span
-              className="text-[10px] font-black tracking-widest px-2.5 py-1 rounded-full flex-shrink-0"
-              style={{
-                color: s.color,
-                background: `${s.color}18`,
-                border: `1px solid ${s.color}35`,
-              }}
-            >
-              {s.day}
+            <span className="flex-shrink-0 mt-0.5 w-7 h-7 rounded-full bg-royal-50 flex items-center justify-center">
+              <CheckCircle size={15} className="text-royal-600" />
             </span>
             <div>
-              <p className="text-ink font-semibold text-sm leading-tight">{s.label}</p>
-              <p className="text-muted text-xs mt-0.5">{s.desc}</p>
+              <p className="text-ink font-semibold text-sm leading-tight">{c.t}</p>
+              <p className="text-muted text-xs mt-0.5 leading-snug">{c.s}</p>
             </div>
-            {s.active && (
-              <motion.div
-                className="ml-auto w-1.5 h-1.5 rounded-full flex-shrink-0 mt-1.5"
-                style={{ background: s.color }}
-                animate={{ opacity: [1, 0.2, 1], scale: [1, 1.4, 1] }}
-                transition={{ duration: 1.8, repeat: Infinity, delay: i * 0.4 }}
-              />
-            )}
           </motion.div>
         ))}
       </div>
-      <div className="mt-5 pt-4 flex items-center gap-2 text-muted text-xs border-t border-line">
+      <div className="mt-6 pt-4 flex items-center gap-2 text-muted text-xs border-t border-line">
         <Star size={11} className="text-amber-400" fill="#fbbf24" />
-        <span>Weekend: Self-paced app exercises & listening</span>
+        <span>No hidden fees, everything above is included in every programme.</span>
       </div>
     </div>
   );
@@ -518,38 +490,9 @@ export default function CoursesPage() {
             <AnimateOnView direction="left">
               <div className="relative">
                 <div className="blob blob-sky absolute -inset-3 opacity-60 pointer-events-none" />
-                <WeekScheduleCard />
+                <CourseIncludesCard />
               </div>
             </AnimateOnView>
-          </div>
-        </div>
-      </section>
-
-      {/* ─── SOCIAL PROOF STRIP ─── */}
-      <section className="py-10 bg-white border-y border-line">
-        <div className="container-max px-5 md:px-8">
-          <div className="flex flex-wrap items-center justify-center gap-8 md:gap-14 text-center">
-            {[
-              { value: "5000+", label: "Learners" },
-              { value: "95%", label: "Goal Achievement" },
-              { value: "6", label: "Languages" },
-              { value: "4.9★", label: "Learner Rating" },
-              { value: "30+", label: "Countries" },
-            ].map((s, i) => (
-              <motion.div
-                key={s.label}
-                className="flex flex-col items-center"
-                initial={{ opacity: 0, y: 16 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: i * 0.08 }}
-              >
-                <div className="text-2xl font-black gradient-text">
-                  <CountUp value={s.value} duration={1800} />
-                </div>
-                <div className="text-xs text-muted font-semibold mt-0.5">{s.label}</div>
-              </motion.div>
-            ))}
           </div>
         </div>
       </section>

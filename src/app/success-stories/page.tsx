@@ -6,7 +6,7 @@ import { motion, AnimatePresence, useScroll, useSpring } from "framer-motion";
 import { ArrowRight, Quote, Star, MapPin, Sparkles } from "lucide-react";
 import { AnimateOnView } from "@/components/shared/AnimateOnView";
 import { CountUp } from "@/components/shared/CountUp";
-import { Flag } from "@/lib/icons";
+import { Flag, MuiIcon } from "@/lib/icons";
 import { useBooking } from "@/components/shared/BookingContext";
 
 /* ─────────────────────────  DATA  ───────────────────────── */
@@ -42,7 +42,7 @@ const STORIES: Story[] = [
   { id: 15, name: "Nikhil Reddy", lang: "English", track: "Career English Lab", location: "Hyderabad", init: "NR", text: "I joined Career English Lab specifically for the professional communication dimension, my English was functional but my writing was too casual for the level I was trying to operate at. The Lab is designed for exactly this: professional email register, business writing that's clear and direct, meeting language, stakeholder communication, interview preparation. The soft skills sessions have been the most valuable component, how to handle difficult conversations, how to present proposals, how to structure a negotiation. These extend well beyond language. I've recommended this to two colleagues already." },
   { id: 16, name: "Divya Kulkarni", lang: "French", track: "Immigration Track", location: "Calgary", init: "DK", featured: true, text: "I want to write specifically about the soft skills component because it's not something I've seen other language institutes take seriously in this way. Interview preparation, presentation skills, public speaking basics, how to communicate under pressure, these are woven into every ALB programme as a standard part of the curriculum, not an upsell. I've attended workshops at my company that cost significantly more and covered this material less practically. I joined for French. I'm leaving with a noticeably different relationship with professional communication in any language. It changed things for me." },
   { id: 17, name: "Amit Sehgal", lang: "German", track: "Small Batch Experience", location: "Delhi", init: "AS", featured: true, text: "I've tried three language institutes in the last four years. The differences are many but the one that matters most is batch size. At the others I was one of fifteen to twenty learners. I might speak once in a session, get a correction once a week. At ALB the cap is genuinely small, five to six people. I speak every session. I get corrected every session. The trainer knows specifically where I struggle and addresses it proactively. Six months of ALB's German has produced more functional language ability than eighteen months at two other institutes combined. I'm not exaggerating. I genuinely wish I'd found this sooner." },
-  { id: 18, name: "Ananya Pillai", lang: "Multi", track: "French & German Career", location: "Bengaluru", init: "AP", text: "I completed the French Career track first and then started German, same institute, same teaching philosophy, different trainers. The continuity of approach made the transition easier than I expected. The CEFR-aligned progression means my French A2 concepts helped me understand the structural logic of German A1 more quickly, which sounds counterintuitive but genuinely worked. Having one language school for both has been practical and consistent. ALB has become my long-term language partner. I'm now in French B1 and German A2 simultaneously, which would have seemed impossible to me two years ago." },
+  { id: 18, name: "Ananya Pillai", lang: "Multi", track: "French and German Career", location: "Bengaluru", init: "AP", text: "I completed the French Career track first and then started German, same institute, same teaching philosophy, different trainers. The continuity of approach made the transition easier than I expected. The CEFR-aligned progression means my French A2 concepts helped me understand the structural logic of German A1 more quickly, which sounds counterintuitive but genuinely worked. Having one language school for both has been practical and consistent. ALB has become my long-term language partner. I'm now in French B1 and German A2 simultaneously, which would have seemed impossible to me two years ago." },
   { id: 19, name: "Priyanka Desai", lang: "Multi", track: "Junior, French + German", location: "Mumbai", init: "PD", text: "Both my children are enrolled at ALB, one in Junior French, one in Junior German. The reasons are partly practical (future educational options, study abroad, the cognitive benefits of multilingualism) and partly instinctive. What ALB's junior programme does well is hold the balance between structure and joy. These are not grammar classes with a friendly teacher. They are genuinely designed for how children engage, through stories, games, performances, projects. Worth every bit of the commitment." },
   { id: 20, name: "Jasleen Kaur", lang: "French", track: "Immigration Track", location: "Chandigarh", init: "JK", featured: true, text: "I'm going to be honest: I didn't expect to feel this way about a language school. I expected lessons, practice, maybe some exam prep. What I got was a programme that treats the reason I'm learning French, Canada, PR, a different life, as part of the educational context rather than just my personal problem. The immigration pathway explanation was thorough and clear. The French teaching is rigorous and consistent. The small batch means the trainer actually knows my name and my specific gaps. And the student success team has answered questions about my immigration journey that weren't strictly about language at all." },
 ];
@@ -51,7 +51,7 @@ const LANG_META: Record<Lang, { color: string; soft: string; flags: string[]; la
   French: { color: "#3b5bdb", soft: "#2f49c0", flags: ["FR"], label: "French" },
   German: { color: "#d97706", soft: "#b45309", flags: ["DE"], label: "German" },
   English: { color: "#059669", soft: "#047857", flags: ["EN"], label: "English" },
-  Multi: { color: "#7c3aed", soft: "#6d28d9", flags: ["FR", "DE"], label: "French & German" },
+  Multi: { color: "#7c3aed", soft: "#6d28d9", flags: ["FR", "DE"], label: "French and German" },
 };
 
 const FILTERS: { key: "All" | Lang; label: string }[] = [
@@ -63,10 +63,10 @@ const FILTERS: { key: "All" | Lang; label: string }[] = [
 ];
 
 const HERO_STATS = [
-  { n: "20+", l: "Learner Stories" },
-  { n: "3", l: "Languages" },
-  { n: "4.9★", l: "Average Rating" },
-  { n: "15+", l: "Cities Worldwide" },
+  { n: "3", l: "Languages", icon: "language", color: "#3b5bdb" },
+  { n: "4", l: "Goal-Based Tracks", icon: "target", color: "#0ea5e9" },
+  { n: "+Beyond", l: "Soft Skills Included", icon: "sparkle", color: "#8b5cf6" },
+  { n: "1 Community", l: "Learners Growing Globally", icon: "people", color: "#f59e0b" },
 ];
 
 /* ─────────────────────────  PIECES  ───────────────────────── */
@@ -281,14 +281,25 @@ export default function SuccessStoriesPage() {
             {HERO_STATS.map((s, i) => (
               <motion.div
                 key={s.l}
-                className="card rounded-2xl text-center px-3 py-5"
-                whileHover={{ y: -4 }}
+                className="group relative card rounded-2xl text-center px-4 py-6 overflow-hidden"
+                whileHover={{ y: -5 }}
                 transition={{ duration: 0.25, delay: i * 0.02 }}
               >
-                <div className="text-3xl md:text-4xl font-black gradient-text">
+                {/* top accent line */}
+                <span className="absolute top-0 left-0 right-0 h-1" style={{ background: `linear-gradient(90deg, ${s.color}, ${s.color}33)` }} />
+                {/* hover glow */}
+                <span className="absolute -top-10 left-1/2 -translate-x-1/2 w-24 h-24 rounded-full blur-2xl opacity-0 group-hover:opacity-30 transition-opacity duration-300 pointer-events-none" style={{ background: s.color }} />
+                {/* icon badge */}
+                <span
+                  className="relative z-10 mx-auto mb-3 w-11 h-11 rounded-xl flex items-center justify-center transition-transform duration-300 group-hover:scale-110"
+                  style={{ background: `${s.color}1a`, boxShadow: `inset 0 0 0 1px ${s.color}33` }}
+                >
+                  <MuiIcon name={s.icon} size={20} style={{ color: s.color }} />
+                </span>
+                <div className="relative z-10 text-xl md:text-2xl font-black gradient-text leading-tight">
                   <CountUp value={s.n} duration={1600} />
                 </div>
-                <div className="text-[10.5px] md:text-xs font-bold uppercase tracking-wider text-muted mt-1.5">{s.l}</div>
+                <div className="relative z-10 text-[10.5px] md:text-xs font-bold uppercase tracking-wider text-muted mt-1.5">{s.l}</div>
               </motion.div>
             ))}
           </motion.div>

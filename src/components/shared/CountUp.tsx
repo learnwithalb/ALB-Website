@@ -11,12 +11,13 @@ interface CountUpProps {
 
 function parse(raw: string) {
   const m = raw.match(/^([^0-9]*)(\d+\.?\d*)(.*)$/);
-  if (!m) return { prefix: "", num: 0, suffix: raw, decimal: false };
+  if (!m) return { prefix: "", num: 0, suffix: raw, decimal: false, hasNum: false };
   return {
     prefix: m[1],
     num: parseFloat(m[2]),
     suffix: m[3],
     decimal: m[2].includes("."),
+    hasNum: true,
   };
 }
 
@@ -32,7 +33,7 @@ export function CountUp({ value, duration = 1800, className }: CountUpProps) {
   const inView = useInView(ref, { once: true, amount: 0 });
 
   const [count, setCount] = useState(0);
-  const { prefix, num, suffix, decimal } = parse(value);
+  const { prefix, num, suffix, decimal, hasNum } = parse(value);
 
   useEffect(() => {
     if (!inView) return;
@@ -67,7 +68,7 @@ export function CountUp({ value, duration = 1800, className }: CountUpProps) {
 
   return (
     <span ref={ref} className={className}>
-      {prefix}{display}{suffix}
+      {hasNum ? <>{prefix}{display}{suffix}</> : suffix}
     </span>
   );
 }

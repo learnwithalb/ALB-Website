@@ -13,9 +13,9 @@ import { MuiIcon, Flag } from "@/lib/icons";
 /* ─────────────── data ─────────────── */
 
 const SCIENCE_STATS = [
-  { value: "140", prefix: "+", label: "SAT points vs monolingual peers" },
-  { value: "29", label: "Countries that speak French" },
-  { value: "12", prefix: "<", label: "The critical age for native fluency" },
+  { value: "2+ Languages", label: "One child. Multiple ways to think, communicate, and connect." },
+  { value: "<12", label: "The years when language absorption happens most naturally." },
+  { value: "A Lifetime Advantage", label: "The confidence built through communication stays long after the classroom." },
 ];
 
 const REASONS = [
@@ -23,7 +23,7 @@ const REASONS = [
   { icon: "school", edge: "Better Academic Performance", stat: "Bilingual students score roughly 140 more points on the SAT than monolingual peers.", from: "#3b5bdb", to: "#2f49c0" },
   { icon: "globe", edge: "Global Career Advantage", stat: "French is spoken in 29 countries; German-speakers earn 20–30% more in EU jobs.", from: "#0ea5e9", to: "#06b6d4" },
   { icon: "mic", edge: "Native-Level Fluency", stat: "Children under 12 develop native-like accents. After 15, it's significantly harder.", from: "#f43f5e", to: "#ec4899" },
-  { icon: "rocket", edge: "Confidence & Growth Mindset", stat: "Making mistakes in a new language builds resilience, a skill that transfers to everything.", from: "#f59e0b", to: "#f97316" },
+  { icon: "rocket", edge: "Confidence and Growth Mindset", stat: "Making mistakes in a new language builds resilience, a skill that transfers to everything.", from: "#f59e0b", to: "#f97316" },
 ];
 
 const COURSES = [
@@ -81,18 +81,16 @@ const COURSES = [
 ];
 
 const FAQS = [
-  { q: "What age group is ALB Junior designed for?", a: "ALB Junior is designed for children aged 6 to 16. Students aged 6–10 follow a play-based, story-led curriculum focused on confidence and vocabulary. Students aged 11–16 follow a structured, exam-ready track aligned to internationally recognised DELF, Goethe-Zertifikat, and IELTS standards." },
-  { q: "Which languages can my child learn at ALB Junior?", a: "ALB Junior offers three languages, French, English, and German, for children aged 6 to 16. All courses are fully online, live, and taught in small batches of maximum 12 students. Each language runs from beginner (A1) through to upper-intermediate (B2) level." },
-  { q: "How many students are in each batch?", a: "Every ALB Junior batch has a maximum of 12 students. This ensures every child gets individual speaking time, personalised corrections, and direct attention from the instructor, something impossible in larger classroom or mass-market online settings." },
-  { q: "What certificate does my child receive?", a: "Certificates depend on the language. French learners are prepared for DELF A1/A2/B1/B2, issued by the French Ministry of Education and valid for life. German learners sit the Goethe-Zertifikat. English learners are prepared for IELTS. All exam preparation is built into every level at no extra charge." },
-  { q: "Are classes recorded? What if my child misses a session?", a: "Yes, all ALB Junior sessions are recorded and shared with enrolled students. If your child misses a class, they can watch the recording before the next session. Progress reports are shared with parents every 4 weeks so you always know exactly where your child stands." },
-  { q: "Does my child need any prior knowledge to join?", a: "No prior knowledge is required. ALB Junior's A1 level is designed for absolute beginners, children with zero exposure to French or German. For English, a placement assessment helps identify the right starting level (Foundation, Intermediate, or Advanced)." },
-  { q: "Will my child be the only Indian kid in the class?", a: "Not at all! ALB Junior batches are filled with students from across India, Delhi, Mumbai, Bangalore, Hyderabad, and beyond. Your child will make friends learning the same language, which makes practising far more fun." },
-  { q: "Is French or German hard for Indian kids to learn?", a: "Not as hard as you'd think! French shares over 1,000 words with English, words like “nation,” “police,” and “culture” are almost identical. German is very logical once you understand the pattern. Most ALB Junior students hold full conversations within their first 4 weeks." },
-  { q: "What happens in a typical ALB Junior class?", a: "A typical 90-minute class includes a warm-up activity, new vocabulary or grammar introduced through stories or games, a speaking-practice round where every student participates, and a short fun activity or challenge. No student just sits and listens, everyone speaks." },
-  { q: "Can my child try a class before enrolling?", a: "Yes! ALB Junior offers a free demo class with no commitment required. Your child gets to meet the teacher, try a real activity, and see if the class feels right, before any decision is made." },
-  { q: "Will learning French or German help in school exams?", a: "Yes, significantly. French is offered as a second language in CBSE and ICSE boards, and a strong foundation from ALB Junior gives students a huge advantage over classroom-only learners. German is increasingly recognised in competitive school assessments and scholarship applications." },
-  { q: "How long does it take to get a DELF certificate?", a: "DELF A1 takes approximately 8 weeks to complete at ALB Junior (3 sessions per week). After completing the level, students are fully prepared to sit the official DELF exam. Most students reach A2 within one academic year, and B1 by their second year." },
+  { q: "What is the right age for a child to start learning a second language?", a: "Research consistently shows that children between 6 and 12 years old are in an optimal window for second language acquisition, pronunciation accuracy, retention, and instinctive grammar absorption are all significantly higher at this stage than in adulthood. Starting before 10 specifically gives children a near-native accent advantage that becomes much harder to develop after puberty. ALB Junior is designed for learners aged 6 to 18, with curriculum adapted by age group." },
+  { q: "Should my child learn French or German, which is better for their future?", a: "Both carry strong long-term value but for different reasons. French is the second most taught language globally, opens pathways to Canada, France, Belgium, Switzerland, and Francophone Africa, and carries weight in international organisations. German offers strong university and Ausbildung opportunities in Germany and Austria. For Indian school students, French integrates more naturally as a third language option. The best choice depends on your child's long-term educational or career direction." },
+  { q: "What are the benefits of learning French or German for Indian school students?", a: "For Indian school students, learning French or German offers three distinct advantages: academic, French is a recognised third language option in CBSE and ICSE boards and can contribute to board exam scores; competitive, multilingual candidates stand out in university admissions globally; and long-term, language certifications like DELF and Goethe-Zertifikat earned in school remain valid for life and give students a verifiable credential years before their peers." },
+  { q: "What language certifications can school students earn?", a: "School students learning French can earn internationally recognised DELF (Diplôme d'Études en Langue Française) certifications at A1 and A2 levels, official credentials issued by the French Ministry of Education that never expire. Students learning German can work toward Goethe-Zertifikat A1 and A2. Both are globally recognised, accepted by universities and visa authorities worldwide, and carry significantly more weight than school grades alone in international university applications." },
+  { q: "How long does it take for a child to earn a DELF A1 or A2 certificate?", a: "With consistent structured learning, most children with no prior French exposure can reach DELF A1 readiness in approximately 8 weeks and A2 readiness in a further 8 weeks. At ALB Junior, each level runs 8 weeks with three live sessions per week, meaning a child can realistically earn a DELF A1 certification within their first term and A2 within two terms, well within a standard academic year." },
+  { q: "Is French or German difficult for Indian children to learn?", a: "Less difficult than most parents expect, particularly French for Hindi-speaking children. French shares hundreds of cognates with English (words like 'nation,' 'information,' 'animal' are identical or near-identical), making vocabulary acquisition faster than it appears. German has a more complex grammar system but children absorb grammatical patterns more intuitively than adults. Both languages become significantly more natural when taught with India-specific examples and linguistic bridges rather than Western textbooks." },
+  { q: "Will learning French or German help my child in CBSE or ICSE exams?", a: "Yes, French is available as a third language option in both CBSE and ICSE boards, and a strong foundation built through structured courses like ALB Junior directly supports board exam performance. Beyond school exams, children who learn French or German to a certified level (DELF A2 or above) also strengthen their university applications significantly, both in India and for institutions abroad that value demonstrated multilingualism." },
+  { q: "How do online language classes for children actually work?", a: "Effective online language classes for children require small group sizes, live instructor interaction, and structured speaking time in every session, not passive video watching. ALB Junior batches are capped at 12 students, run live three times per week, and incorporate speaking practice in every class rather than reserving it for assessments. Sessions are age-adapted, activity-based, and supported by AI-powered pronunciation practice between classes for daily reinforcement." },
+  { q: "Can a child with no language background start learning French or German?", a: "Absolutely, both French and German courses at ALB Junior begin at A1, which assumes zero prior knowledge. The curriculum is specifically designed for complete beginners, with vocabulary, grammar, and pronunciation introduced progressively and reinforced through age-appropriate activities. No prior language exposure is needed or expected. Many of ALB's strongest junior learners started with no background at all and reached certified A2 level within a single academic year." },
+  { q: "Does learning a second language early give children a cognitive advantage?", a: "Yes, and the research is well established. Children who learn a second language consistently show stronger performance in problem-solving, pattern recognition, and focused attention compared to monolingual peers. Multilingualism has also been linked to stronger working memory and greater mental flexibility. Beyond the cognitive benefits, children who gain a language certification before 18 carry a verifiable, lifelong credential into university applications and early career opportunities." },
 ];
 
 /* ─────────────── page ─────────────── */
@@ -144,7 +142,7 @@ export default function JuniorPage() {
             initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.4 }}
             className="mt-7 text-sm text-body max-w-md leading-relaxed"
           >
-            French, German &amp; English, taught live and online in small batches, with real
+            French, German and English, taught live and online in small batches, with real
             speaking practice, projects and exam-ready milestones throughout the journey.
           </motion.p>
 
@@ -154,15 +152,15 @@ export default function JuniorPage() {
             className="mt-8 flex items-start justify-center gap-10 sm:gap-16"
           >
             {[
-              { Icon: Users, value: "5,000+", label: "Young learners guided across India" },
-              { Icon: Globe, value: "3", label: "Languages, French, German & English" },
+              { Icon: Users, value: "Age-Appropriate Curriculum", label: "Designed for young learners" },
+              { Icon: Globe, value: "3", label: "Languages, French, German and English" },
             ].map((s) => (
               <div key={s.value} className="flex items-start gap-3 text-left max-w-[200px]">
                 <span className="w-9 h-9 rounded-full bg-white shadow-sm border border-line flex items-center justify-center flex-shrink-0 mt-1">
                   <s.Icon size={16} className="text-royal-500" />
                 </span>
                 <div>
-                  <div className="text-2xl md:text-3xl font-black text-ink leading-none">{s.value}</div>
+                  <div className="text-lg md:text-xl font-black text-ink leading-tight">{s.value}</div>
                   <p className="text-muted text-xs mt-1.5 leading-snug">{s.label}</p>
                 </div>
               </div>
@@ -214,11 +212,11 @@ export default function JuniorPage() {
                 { flag: "FR", name: "French", href: "/courses/french" },
                 { flag: "EN", name: "English", href: "/courses/ielts" },
                 { flag: "DE", name: "German", href: "/courses/german" },
-              ].map((p, idx) => (
+              ].map((p) => (
                 <Link
                   key={p.name}
                   href={p.href}
-                  className={`group rounded-2xl p-4 transition-all ${idx === 1 ? "bg-royal-500 shadow-lg shadow-royal-500/30" : "bg-white/[0.06] border border-white/10 hover:bg-white/10"}`}
+                  className="group rounded-2xl p-4 transition-all bg-white/[0.06] border border-white/10 hover:bg-white/10"
                 >
                   <Flag code={p.flag} size={34} rounded="rounded-lg" className="shadow" />
                   <p className="text-white font-black text-sm mt-3">{p.name}</p>
@@ -247,8 +245,8 @@ export default function JuniorPage() {
           <StaggerContainer className="grid md:grid-cols-3 gap-5" staggerDelay={0.1}>
             {[
               { src: "/images/hero-images/junior/card1.png", alt: "Live online classes, real teachers, real-time" },
-              { src: "/images/hero-images/junior/card2.png", alt: "Every child deserves a global voice" },
-              { src: "/images/hero-images/junior/card3.png", alt: "Small, joyful batches, max 12 kids" },
+              { src: "/images/hero-images/junior/card5.png", alt: "Every child deserves a global voice" },
+              { src: "/images/hero-images/junior/card4.png", alt: "Small, joyful batches, max 12 kids" },
             ].map((c) => (
               <StaggerItem key={c.src}>
                 <motion.div
@@ -270,7 +268,7 @@ export default function JuniorPage() {
           </StaggerContainer>
 
           <StaggerContainer className="mt-8 flex flex-wrap items-center justify-center gap-3" staggerDelay={0.1}>
-            {["Educators with 5+ years of language-instruction experience", "Curriculum designed by certified DELF & Goethe examiners"].map((t) => (
+            {["Educators with 5+ years of language-instruction experience", "Curriculum designed by certified DELF and Goethe examiners"].map((t) => (
               <StaggerItem key={t}>
                 <span className="inline-flex items-center gap-2 bg-white border border-line shadow-sm rounded-full px-4 py-2 text-sm font-semibold text-ink">
                   <CheckCircle size={14} className="text-royal-500" /> {t}
@@ -290,13 +288,12 @@ export default function JuniorPage() {
             <AnimateOnView direction="right">
               <span className="eyebrow-pill-light">The Science Is Clear</span>
               <h2 className="text-3xl md:text-4xl font-black text-white mt-1 leading-tight">
-                The edge your child gets today{" "}
-                <span className="gradient-text-light">lasts their entire life.</span>
+                The advantages of learning young{" "}
+                <span className="gradient-text-light">last a lifetime.</span>
               </h2>
               <p className="mt-5 text-white/60 text-lg leading-relaxed">
-                Research from the NIH, the University of Michigan, and global cognitive studies shows that
-                children who learn a second language before 12 gain measurable, lifelong advantages, in
-                memory, focus, academics, and confidence.
+                Research consistently shows that learning another language at an early age strengthens
+                communication skills, cultural awareness, cognitive flexibility, and long-term confidence.
               </p>
             </AnimateOnView>
 
@@ -315,11 +312,11 @@ export default function JuniorPage() {
                 </div>
                 <div className="grid grid-cols-3 gap-3">
                   {SCIENCE_STATS.map((s) => (
-                    <div key={s.label} className="card-dark rounded-2xl p-4 text-center">
-                      <div className="text-2xl md:text-3xl font-black gradient-text-light">
-                        {s.prefix}<CountUp value={s.value} duration={1600} />
+                    <div key={s.label} className="card-dark rounded-2xl p-4 text-center flex flex-col">
+                      <div className="text-base md:text-lg font-black gradient-text-light leading-tight">
+                        <CountUp value={s.value} duration={1600} />
                       </div>
-                      <div className="text-white/50 text-[11px] font-semibold mt-1 leading-snug">{s.label}</div>
+                      <div className="text-white/50 text-[11px] font-semibold mt-2 leading-snug">{s.label}</div>
                     </div>
                   ))}
                 </div>
@@ -495,7 +492,7 @@ export default function JuniorPage() {
               </div>
               <div>
                 <p className="font-black text-ink">Ages 6–10</p>
-                <p className="text-muted text-sm mt-0.5">Play-based, story-led, confidence &amp; vocabulary first.</p>
+                <p className="text-muted text-sm mt-0.5">Play-based, story-led, confidence and vocabulary first.</p>
               </div>
             </motion.div>
             <motion.div whileHover={{ y: -4 }} transition={{ type: "spring", stiffness: 300 }} className="group card rounded-2xl p-6 flex items-center gap-4">
@@ -504,7 +501,7 @@ export default function JuniorPage() {
               </div>
               <div>
                 <p className="font-black text-ink">Ages 11–16</p>
-                <p className="text-muted text-sm mt-0.5">Structured, exam-ready, DELF, Goethe &amp; IELTS aligned.</p>
+                <p className="text-muted text-sm mt-0.5">Structured, exam-ready, DELF, Goethe and IELTS aligned.</p>
               </div>
             </motion.div>
           </AnimateOnView>

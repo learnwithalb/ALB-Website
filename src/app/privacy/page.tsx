@@ -3,13 +3,13 @@ import { AnimateOnView } from "@/components/shared/AnimateOnView";
 
 export const metadata: Metadata = {
   title: "Privacy Policy",
-  description: "Privacy policy for Academy of Languages & Beyond, how we collect, use, and protect your personal data.",
+  description: "Privacy policy for Academy of Languages and Beyond, how we collect, use, and protect your personal data.",
 };
 
 const sections = [
   {
     title: "1. Who We Are",
-    content: `Academy of Languages & Beyond ("ALB", "we", "us", "our") is a language and soft skills academy based in Noida, Uttar Pradesh, India. Our website is learnwithalb.com. This Privacy Policy explains how we collect, use, and protect information about you when you use our website or enroll in our programmes.`,
+    content: `Academy of Languages and Beyond ("ALB", "we", "us", "our") is a language and soft skills academy based in Noida, Uttar Pradesh, India. Our website is learnwithalb.com. This Privacy Policy explains how we collect, use, and protect information about you when you use our website or enroll in our programmes.`,
   },
   {
     title: "2. Information We Collect",

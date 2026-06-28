@@ -31,9 +31,9 @@ const STATS = [
 const WEEKS = [
   {
     week: "Week 1",
-    title: "Confidence & Communication Foundations",
+    title: "Confidence and Communication Foundations",
     sessions: [
-      { n: 1, title: "Self-Awareness & Confidence Building", topics: ["Understanding communication styles", "Building self-confidence", "Speaking with clarity and presence", "Overcoming hesitation and fear of speaking"] },
+      { n: 1, title: "Self-Awareness and Confidence Building", topics: ["Understanding communication styles", "Building self-confidence", "Speaking with clarity and presence", "Overcoming hesitation and fear of speaking"] },
       { n: 2, title: "Effective Communication Skills", topics: ["Active listening", "Verbal and non-verbal communication", "Building rapport and empathy", "Everyday professional interactions"] },
       { n: 3, title: "Public Speaking Fundamentals", topics: ["Structuring your thoughts", "Speaking confidently in groups", "Presentation basics", "Practice activities and feedback"] },
     ],
@@ -43,8 +43,8 @@ const WEEKS = [
     title: "Professional Readiness",
     sessions: [
       { n: 4, title: "Professional Communication", topics: ["Email etiquette", "Workplace communication", "Professional introductions", "Cross-cultural communication basics"] },
-      { n: 5, title: "Personal Branding & Interview Skills", topics: ["Creating a professional impression", "Interview preparation", "Answering common interview questions", "Confidence under pressure"] },
-      { n: 6, title: "Capstone Simulation & Feedback", topics: ["Role plays", "Mock interview or networking activity", "Individual feedback", "Graduation and action plan"] },
+      { n: 5, title: "Personal Branding and Interview Skills", topics: ["Creating a professional impression", "Interview preparation", "Answering common interview questions", "Confidence under pressure"] },
+      { n: 6, title: "Capstone Simulation and Feedback", topics: ["Role plays", "Mock interview or networking activity", "Individual feedback", "Graduation and action plan"] },
     ],
   },
 ];
@@ -52,7 +52,7 @@ const WEEKS = [
 const OUTCOMES = [
   { icon: "stars",   title: "Communicate with Greater Confidence", desc: "Speak up in any room, clearly, calmly, and with genuine presence.", from: "#3b5bdb", to: "#6d8bff" },
   { icon: "sparkle", title: "Present Yourself Professionally",     desc: "Make a strong first impression in introductions, meetings, and on stage.", from: "#8b5cf6", to: "#a78bfa" },
-  { icon: "target",  title: "Navigate Interviews & Networking",    desc: "Handle interviews, panels, and networking situations with poise and structure.", from: "#0ea5e9", to: "#38bdf8" },
+  { icon: "target",  title: "Navigate Interviews and Networking",    desc: "Handle interviews, panels, and networking situations with poise and structure.", from: "#0ea5e9", to: "#38bdf8" },
   { icon: "work",    title: "Master Workplace Communication",      desc: "Write sharp emails and communicate effectively across global teams.", from: "#10b981", to: "#34d399" },
   { icon: "globe",   title: "Develop a Global Professional Mindset", desc: "Carry the cross-cultural awareness that international workplaces expect.", from: "#f59e0b", to: "#fbbf24" },
 ];
@@ -65,13 +65,13 @@ const PROFILES = [
 ];
 
 const FAQS = [
-  { q: "What is the ALB Global Confidence Program?", a: "The ALB Global Confidence Program is a 2-week live soft skills module included free with every language course at Academy of Languages and Beyond. It covers 6 sessions across confidence building, professional communication, public speaking, interview preparation, and personal branding, 6 hours of live, interactive training at zero extra cost." },
-  { q: "Is the +Beyond soft skills module really free?", a: "Yes, completely. The ALB Global Confidence Program is included with every language program at no extra cost. There are no add-on fees, no separate registration, and no conditions. Every ALB student receives the full 2-week module automatically as part of their enrolment." },
-  { q: "How many sessions are there and how long is each?", a: "The program includes 6 live sessions over 2 weeks, 3 sessions per week, each 1 hour long. All sessions are instructor-led, real-time, and fully interactive." },
-  { q: "What exactly will I learn across the 6 sessions?", a: "Week 1 covers Confidence and Communication Foundations: self-awareness and confidence building, effective communication and active listening, and public speaking fundamentals with live practice. Week 2 covers Professional Readiness: professional email and workplace communication, personal branding and interview skills, and a final capstone simulation with role plays, a mock interview, and individual feedback." },
-  { q: "Do I need any prior experience in public speaking or soft skills?", a: "None at all. The program is designed for learners at every level, whether you have never spoken in a group setting before or you're refining your professional communication for an international environment. The program starts from self-awareness and builds progressively." },
-  { q: "Are the sessions online or in person?", a: "All +Beyond sessions are conducted live online, real-time, instructor-led, and fully participatory. You attend from wherever you are and engage directly with the instructor and your cohort." },
-  { q: "How does +Beyond help with visa or job interviews specifically?", a: "Session 5 is dedicated entirely to personal branding and interview skills, covering preparation, common questions, and confidence under pressure. Session 6 is a live mock interview simulation with individual instructor feedback. The confidence and composure built across all 6 sessions directly prepares you for the pressured environment of a consular, embassy, or professional interview." },
+  { q: "What is a soft skills training programme and who is it for?", a: "A soft skills training programme builds the professional communication, confidence, and interpersonal skills that academic and technical qualifications alone don't teach. It's designed for anyone preparing for a global career, international university, or life abroad, where how you communicate matters as much as what you know. At ALB, this training is built directly into every language course through our +Beyond module, not sold separately." },
+  { q: "Can soft skills training genuinely help with visa interviews and job interviews abroad?", a: "Yes, significantly. Visa and job interviews abroad test more than language ability. They assess how clearly you express yourself under pressure, how confidently you handle unexpected questions, and how professionally you present your intent. ALB's +Beyond module specifically covers interview preparation, STAR-method responses, and high-pressure speaking scenarios so learners arrive at these moments practised, not just prepared in theory." },
+  { q: "What soft skills do Indian professionals need to work or study abroad?", a: "The most critical soft skills for working or studying abroad are professional communication (written and spoken), cultural adaptability, confident public speaking, and business email writing that meets international register standards. Indian professionals specifically often face gaps in formal presentation style and networking in cross-cultural environments. ALB's +Beyond module addresses each of these directly, in the context of the target language and destination country." },
+  { q: "How does a soft skills course improve professional communication in English?", a: "A structured soft skills course improves professional communication by moving beyond grammar into register, tone, and context, the things that determine whether an email gets acted on or ignored, whether a presentation persuades or just informs. ALB's +Beyond module covers professional email writing, presentation structure, and business communication across real workplace scenarios, specifically designed for learners targeting global roles or international study environments." },
+  { q: "What is the difference between language fluency and professional readiness?", a: "Language fluency means you can understand and produce the language accurately. Professional readiness means you can use it effectively under real-world pressure, in a visa interview, a client meeting, a university admissions conversation. Most language courses build fluency. Very few build readiness. ALB's +Beyond module exists specifically to close this gap, combining language training with the professional communication skills that determine real outcomes." },
+  { q: "How long does it take to improve professional communication and soft skills?", a: "Meaningful improvement in professional communication is achievable in two to four weeks of focused, structured practice, provided the training addresses specific scenarios rather than generic theory. ALB's +Beyond module runs intensively over two weeks, ten sessions, covering personal effectiveness in week one and professional communication in week two. Most learners notice a measurable shift in confidence and clarity within the first five sessions." },
+  { q: "Is online soft skills training as effective as in-person training?", a: "For most learners, yes, when the online format is live, structured, and cohort-based rather than self-paced. The key variables are real-time instructor feedback, peer interaction, and practised speaking under observation, all of which are replicable online. ALB's +Beyond sessions are fully live, capped at 20 students per cohort, and include recorded mock interviews and presentations so learners can review their own progress, something in-person training rarely offers." },
 ];
 
 /* ─────────────── page ─────────────── */
@@ -167,8 +167,8 @@ export default function BeyondPage() {
                   Explore the Module
                   <span className="w-9 h-9 rounded-full bg-white flex items-center justify-center" style={{ color: "#3b5bdb" }}><ArrowRight size={16} /></span>
                 </button>
-                <Link href="#structure" className="inline-flex items-center gap-2 text-ink font-bold text-sm border-b border-royal-300 pb-1 hover:text-royal-600 hover:border-royal-500 transition-colors">
-                  See the sessions
+                <Link href="#outcomes" className="inline-flex items-center gap-2 text-ink font-bold text-sm border-b border-royal-300 pb-1 hover:text-royal-600 hover:border-royal-500 transition-colors">
+                  See the Outcome
                   <motion.span animate={{ y: [0, 4, 0] }} transition={{ duration: 1.5, repeat: Infinity }}>
                     <ArrowDown size={15} />
                   </motion.span>
@@ -204,8 +204,8 @@ export default function BeyondPage() {
                   width={1600}
                   height={929}
                   priority
-                  quality={95}
-                  sizes="(max-width: 1024px) 100vw, 70vw"
+                  quality={100}
+                  sizes="(max-width: 1024px) 122vw, 88vw"
                   className="relative w-full h-auto select-none drop-shadow-[0_24px_60px_rgba(59,91,219,0.18)]"
                 />
               </div>
@@ -504,7 +504,7 @@ export default function BeyondPage() {
       </section>
 
       {/* ══════════════════ LEARNING OUTCOMES ══════════════════ */}
-      <section className="section-padding sec-light relative overflow-hidden">
+      <section id="outcomes" className="section-padding sec-light relative overflow-hidden">
         <div className="blob blob-sky w-[420px] h-[420px] bottom-0 right-[-8%] opacity-40 pointer-events-none" />
         <div className="container-max relative z-10">
           <AnimateOnView className="text-center max-w-2xl mx-auto mb-12">
@@ -656,7 +656,7 @@ export default function BeyondPage() {
               </div>
             </AnimateOnView>
 
-            {/* right, numbered Q&A accordion */}
+            {/* right, numbered Q and A accordion */}
             <StaggerContainer className="space-y-4" staggerDelay={0.07}>
               {FAQS.map((f, i) => {
                 const open = openFaq === i;

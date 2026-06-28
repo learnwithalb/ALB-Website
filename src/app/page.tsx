@@ -5,8 +5,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import {
-  ArrowRight, Star, CheckCircle, ChevronDown, Shield,
-  Users, Globe, Video, MessageCircle, Sparkles,
+  ArrowRight, Star, CheckCircle, ChevronDown, ChevronLeft, ChevronRight, Shield,
+  Users, Globe, Video, MessageCircle, Sparkles, Mic,
 } from "lucide-react";
 import { AnimateOnView, StaggerContainer, StaggerItem } from "@/components/shared/AnimateOnView";
 import { languages, testimonials, faqs } from "@/lib/constants";
@@ -18,7 +18,8 @@ const STAT_CARDS = [
   { title: "Live-Interactive Sessions", desc: "Real-time classes, never recordings",  Icon: Video,         iconColor: "#3b5bdb", lineColor: "#3b5bdb" },
   { title: "Small Cohorts",             desc: "Max 12 learners per batch",             Icon: Users,         iconColor: "#0ea5e9", lineColor: "#0ea5e9" },
   { title: "24×7 Doubt Support",        desc: "Help whenever you need it",             Icon: MessageCircle, iconColor: "#6d8bff", lineColor: "#6d8bff" },
-  { title: "Soft-Skills Included",      desc: "Confidence & communication built in",   Icon: Sparkles,      iconColor: "#3b5bdb", lineColor: "#3b5bdb" },
+  { title: "Soft-Skills Included",      desc: "Confidence and communication built in",   Icon: Sparkles,      iconColor: "#3b5bdb", lineColor: "#3b5bdb" },
+  { title: "Dedicated Communication Classes", desc: "Speak fluently with focused practice", Icon: Mic,        iconColor: "#0ea5e9", lineColor: "#0ea5e9" },
 ];
 
 const statCardsV = { hidden: {}, visible: { transition: { staggerChildren: 0.12, delayChildren: 0.55 } } };
@@ -33,7 +34,7 @@ const PREPARES: Record<string, string> = {
   de: "Goethe · TELC · TestDaF · DSH",
   es: "DELE · SIELE",
   jp: "JLPT (N5–N2)",
-  kr: "TOPIK I & II",
+  kr: "TOPIK I and II",
   en: "IELTS · PTE · TOEFL",
 };
 
@@ -53,7 +54,7 @@ const TRACKS = [
     title: "Immigration Track",
     badge: "Immigration",
     icon: "flight",
-    ideal: "Canada PR · France & Germany immigration · Work visas",
+    ideal: "Canada PR · France and Germany immigration · Work visas",
     different: "Visa interview simulations, official document vocabulary, and embassy communication in your target language.",
     exams: ["TEF Canada", "TCF Canada", "IELTS", "Goethe"],
   },
@@ -79,7 +80,7 @@ const TRACKS = [
     icon: "rocket",
     ideal: "Tight deadlines, visa filing, university intake, job change or relocation.",
     different: "An intensive schedule with more live classes per week, daily speaking practice, and tight progress checks.",
-    exams: ["TEF / TCF Canada", "DELF / Goethe", "IELTS (Acad. & Gen.)"],
+    exams: ["TEF / TCF Canada", "DELF / Goethe", "IELTS (Acad. and Gen.)"],
   },
 ];
 
@@ -88,10 +89,10 @@ const HEX = "polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)";
 
 /* Step-by-step learner journey */
 const JOURNEY = [
-  { n: "01", icon: "target",   title: "Choose Your Goal",      desc: "Immigration · Academic · Career. Pick the track that matches your destination." },
+  { n: "01", icon: "target",   title: "Choose Your Goal",      desc: "Immigration · Academic · Career · Sprint. Pick the track that matches your destination." },
   { n: "02", icon: "book",     title: "Select Your Programme", desc: "A standard 36-week path, or an intensive 14–16 week pathway for hard deadlines." },
-  { n: "03", icon: "computer", title: "Learn & Practice",      desc: "3 live classes a week · AI speaking portal · bi-weekly assessments · soft-skills sessions." },
-  { n: "04", icon: "trophy",   title: "Get Certified",         desc: "ALB Level Certificate · international exam readiness · CEFR-aligned credentials." },
+  { n: "03", icon: "computer", title: "Learn and Practice",      desc: "3 live-classes a week · Comm. Sessions · Bi-weekly assessments · Soft-skills sessions." },
+  { n: "04", icon: "trophy",   title: "Get Certified",         desc: "ALB Level Certificate · International exam readiness · CEFR-aligned credentials." },
 ];
 
 /* Faculty / mentors */
@@ -126,21 +127,24 @@ const TRAINERS: Record<TrainerLang, Trainer[]> = {
   ],
   de: [
     { init: "SA", name: "Shreya Agarwal", role: "German Immigration · Goethe B2/C1",         cred: "Goethe Certified", rating: "4.9", exp: "8+",  students: "1,100+" },
-    { init: "KS", name: "Kavita Singh",   role: "German General · Phonetics & Exams",        cred: "Goethe Certified", rating: "4.9", exp: "11+", students: "2,000+" },
+    { init: "KS", name: "Kavita Singh",   role: "German General · Phonetics and Exams",        cred: "Goethe Certified", rating: "4.9", exp: "11+", students: "2,000+" },
     { init: "PJ", name: "Pooja Joshi",    role: "Academic German · TestDaF / Studienkolleg", cred: "Goethe Certified", rating: "5.0", exp: "10+", students: "1,700+" },
     { init: "AK", name: "Amit Kumar",     role: "Sprint Track Lead · Goethe B1/B2",          cred: "Goethe Certified", rating: "4.9", exp: "9+",  students: "1,400+", img: "/images/mentor-images/Arjun Nair.png" },
     { init: "NS", name: "Nisha Sharma",   role: "Junior Track · Fit in Deutsch A1/A2",        cred: "Goethe Certified", rating: "4.8", exp: "7+",  students: "900+" },
     { init: "AN", name: "Arjun Nair",     role: "Career German · Business Communication",     cred: "Goethe Certified", rating: "4.8", exp: "6+",  students: "780+", img: "/images/mentor-images/Amit Kumar.png" },
   ],
   en: [
-    { init: "NK", name: "Neha Kapoor",   role: "IELTS Master Trainer · Academic & GT", cred: "IELTS Specialist", rating: "4.9", exp: "9+",  students: "1,600+" },
-    { init: "RK", name: "Rohit Kumar",   role: "IELTS Reading & Listening Strategy",    cred: "IELTS Specialist", rating: "4.9", exp: "8+",  students: "1,300+" },
+    { init: "NK", name: "Neha Kapoor",   role: "IELTS Master Trainer · Academic and GT", cred: "IELTS Specialist", rating: "4.9", exp: "9+",  students: "1,600+" },
+    { init: "RK", name: "Rohit Kumar",   role: "IELTS Reading and Listening Strategy",    cred: "IELTS Specialist", rating: "4.9", exp: "8+",  students: "1,300+" },
     { init: "PG", name: "Preeti Gupta",  role: "Career English · Business Writing",      cred: "CELTA Certified",  rating: "4.9", exp: "10+", students: "1,900+" },
-    { init: "AS", name: "Anita Sharma",  role: "IELTS Writing · Task 1 & Task 2",         cred: "IELTS Specialist", rating: "4.9", exp: "7+",  students: "1,050+" },
+    { init: "AS", name: "Anita Sharma",  role: "IELTS Writing · Task 1 and Task 2",         cred: "IELTS Specialist", rating: "4.9", exp: "7+",  students: "1,050+" },
     { init: "RJ", name: "Radhika Joshi", role: "Soft Skills · Professional English",      cred: "CELTA Certified",  rating: "4.9", exp: "8+",  students: "1,250+" },
     { init: "AB", name: "Aditya Bansal", role: "IELTS + Communication Confidence",        cred: "IELTS Specialist", rating: "4.9", exp: "7+",  students: "1,020+" },
   ],
 };
+
+/* All instructors across languages, shown together in one slider */
+const ALL_TRAINERS: Trainer[] = [...TRAINERS.fr, ...TRAINERS.de, ...TRAINERS.en];
 
 /* Cover images for the hero language cards (by language code) */
 const COVERS: Record<string, string> = {
@@ -149,12 +153,30 @@ const COVERS: Record<string, string> = {
   en: "/images/hero-images/homepage/english.png",
 };
 
+/* Hero card copy overrides */
+const HERO_TAGLINES: Record<string, string> = {
+  fr: "Study abroad. Immigration. International growth.",
+  de: "Europe's strongest economy starts with the language.",
+  en: "The skill behind every successful career.",
+};
+
+const HERO_TAGS: Record<string, string> = {
+  fr: "For Canada and Europe",
+  de: "For Germany and EU Careers",
+  en: "For Global Success",
+};
+
 /* ─────────────────────────── Page ─────────────────────────── */
 export default function HomePage() {
   const { openModal } = useBooking();
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [activeLang, setActiveLang] = useState(0);
-  const [trainerLang, setTrainerLang] = useState<TrainerLang>("fr");
+  const trainerScroll = useRef<HTMLDivElement>(null);
+  const scrollTrainers = (dir: number) => {
+    const el = trainerScroll.current;
+    if (!el) return;
+    el.scrollBy({ left: dir * el.clientWidth * 0.85, behavior: "smooth" });
+  };
 
   // Auto-cycle the hero language cards every 3s; pause while hovered.
   const heroLangs = languages.filter((l) => !l.comingSoon);
@@ -199,7 +221,7 @@ export default function HomePage() {
               >
                 Helping you
                 <br />
-                <span className="aurora-text inline-block pb-1">Speak, Connect &amp; Belong</span>
+                <span className="aurora-text inline-block pb-1">Speak, Connect and Belong</span>
               </motion.h1>
 
               <motion.p
@@ -283,16 +305,11 @@ export default function HomePage() {
                       >
                         <div className="flex items-start justify-between">
                           <Flag code={l.flagCode} size={46} rounded="rounded-xl" className="shadow-lg" />
-                          {l.tag && <span className="text-[10px] font-black uppercase tracking-wider text-white bg-white/15 border border-white/25 backdrop-blur-sm px-2.5 py-1 rounded-full">{l.tag}</span>}
+                          {(HERO_TAGS[l.code] ?? l.tag) && <span className="text-[10px] font-black uppercase tracking-wider text-white bg-white/15 border border-white/25 backdrop-blur-sm px-2.5 py-1 rounded-full">{HERO_TAGS[l.code] ?? l.tag}</span>}
                         </div>
                         <div>
                           <h3 className="text-3xl font-black text-white leading-none drop-shadow-lg">{l.name}</h3>
-                          <p className="text-white/85 text-sm mt-2 leading-relaxed max-w-[15rem]">{l.tagline}</p>
-                          <div className="flex flex-wrap gap-1.5 mt-4">
-                            {l.levels.map((lv) => (
-                              <span key={lv} className="text-[10.5px] font-bold text-white bg-white/[0.18] border border-white/20 backdrop-blur-sm px-2 py-0.5 rounded-full">{lv}</span>
-                            ))}
-                          </div>
+                          <p className="text-white/85 text-sm mt-2 leading-relaxed max-w-[15rem]">{HERO_TAGLINES[l.code] ?? l.tagline}</p>
                           <Link href={l.href} className="mt-5 inline-flex items-center gap-1.5 text-white font-bold text-sm hover:gap-2.5 transition-all">
                             View course <ArrowRight size={15} />
                           </Link>
@@ -316,7 +333,7 @@ export default function HomePage() {
             variants={statCardsV}
             initial="hidden"
             animate="visible"
-            className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 mt-14"
+            className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 md:gap-4 mt-14"
           >
             {STAT_CARDS.map((s, i) => {
               const glow = s.iconColor === "#3b5bdb" ? "#9bb2ff" : s.iconColor;
@@ -326,7 +343,7 @@ export default function HomePage() {
                   variants={statCardV}
                   whileHover={{ y: -6 }}
                   transition={{ type: "spring", stiffness: 300, damping: 22 }}
-                  className="group relative rounded-2xl p-5 overflow-hidden flex flex-col gap-3"
+                  className="group relative rounded-2xl px-4 py-7 overflow-hidden flex flex-col items-center text-center gap-4"
                   style={{ background: "#ffffff", border: "1px solid #e6ebf5", boxShadow: "0 1px 2px rgba(16,23,51,0.04), 0 8px 24px rgba(16,23,51,0.06)" }}
                 >
                   {/* hover glow wash */}
@@ -334,35 +351,42 @@ export default function HomePage() {
                     className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
                     style={{ background: `radial-gradient(120% 110% at 50% 0%, ${glow}26 0%, transparent 60%)` }}
                   />
-                  {/* top sheen line */}
-                  <div className="absolute top-0 left-0 right-0 h-px" style={{ background: `linear-gradient(90deg, transparent, ${glow}66, transparent)` }} />
 
-                  {/* icon tile, floats + glow pulse */}
+                  {/* circular gradient icon badge + dotted arc trail */}
+                  <div className="relative z-10">
+                    {/* dotted arc accent */}
+                    <svg className="absolute -right-5 -top-1 w-10 h-14 pointer-events-none" viewBox="0 0 40 56" fill="none">
+                      <path d="M6 4 A 24 24 0 0 1 6 52" stroke={s.iconColor} strokeWidth="2.5" strokeLinecap="round" strokeDasharray="0.5 6" opacity="0.45" />
+                    </svg>
+                    <motion.div
+                      className="relative w-14 h-14 rounded-full flex items-center justify-center"
+                      style={{
+                        background: `linear-gradient(140deg, ${s.iconColor} 0%, ${glow} 100%)`,
+                        boxShadow: `0 10px 22px ${s.iconColor}40`,
+                      }}
+                      animate={{ y: [0, -4, 0] }}
+                      transition={{ duration: 3 + i * 0.4, repeat: Infinity, ease: "easeInOut", delay: i * 0.3 }}
+                      whileHover={{ scale: 1.1 }}
+                    >
+                      <motion.span
+                        className="absolute inset-0 rounded-full"
+                        style={{ background: s.iconColor }}
+                        animate={{ opacity: [0, 0.3, 0], scale: [0.9, 1.4, 0.9] }}
+                        transition={{ duration: 2.6, repeat: Infinity, ease: "easeInOut", delay: i * 0.3 }}
+                      />
+                      <s.Icon size={24} className="relative z-10 text-white" />
+                    </motion.div>
+                  </div>
+
+                  <div className="relative z-10 text-sm md:text-[15px] font-black text-ink leading-snug">{s.title}</div>
+
+                  {/* bottom accent bar */}
                   <motion.div
-                    className="relative w-12 h-12 rounded-xl flex items-center justify-center"
-                    style={{ background: `${s.iconColor}26`, boxShadow: `inset 0 0 0 1px ${s.iconColor}33` }}
-                    animate={{ y: [0, -4, 0] }}
-                    transition={{ duration: 3 + i * 0.4, repeat: Infinity, ease: "easeInOut", delay: i * 0.3 }}
-                    whileHover={{ scale: 1.12, rotate: -6 }}
-                  >
-                    <motion.span
-                      className="absolute inset-0 rounded-xl"
-                      style={{ background: s.iconColor }}
-                      animate={{ opacity: [0, 0.28, 0], scale: [0.85, 1.35, 0.85] }}
-                      transition={{ duration: 2.6, repeat: Infinity, ease: "easeInOut", delay: i * 0.3 }}
-                    />
-                    <s.Icon size={20} style={{ color: s.iconColor }} className="relative z-10" />
-                  </motion.div>
-
-                  <div className="relative z-10 text-base md:text-lg font-black text-ink leading-tight">{s.title}</div>
-
-                  {/* accent line, grows in, stretches on hover */}
-                  <motion.div
-                    className="relative z-10 h-1 rounded-full mt-auto group-hover:w-12 transition-all duration-300"
-                    style={{ background: `linear-gradient(90deg, ${glow}, transparent)` }}
-                    initial={{ width: 0 }}
-                    animate={{ width: 32 }}
-                    transition={{ delay: 0.8 + i * 0.12, duration: 0.6, ease: "easeOut" }}
+                    className="absolute bottom-0 left-1/2 -translate-x-1/2 h-1.5 w-14 rounded-t-full origin-center"
+                    style={{ background: s.iconColor }}
+                    initial={{ scaleX: 0 }}
+                    animate={{ scaleX: 1 }}
+                    transition={{ delay: 0.7 + i * 0.12, duration: 0.6, ease: "easeOut" }}
                   />
                 </motion.div>
               );
@@ -732,8 +756,8 @@ export default function HomePage() {
                   {["AR", "PK", "SN", "RM"].map((x) => (
                     <div key={x} className="w-9 h-9 rounded-full border-2 border-white bg-gradient-to-br from-[#3b5bdb] to-[#6d8bff] flex items-center justify-center text-white font-black text-[10px]">{x}</div>
                   ))}
-                  <div className="w-9 h-9 rounded-full border-2 border-white bg-royal-50 flex items-center justify-center text-royal-700 font-black text-[10px]">+8</div>
-                  <span className="text-xs text-muted font-semibold !ml-3">Max 12 / batch</span>
+                  <div className="w-9 h-9 rounded-full border-2 border-white bg-royal-50 flex items-center justify-center text-royal-700 font-black text-[10px]">+4</div>
+                  <span className="text-xs text-muted font-semibold !ml-3">Min batch size</span>
                 </div>
               </div>
             </StaggerItem>
@@ -746,7 +770,7 @@ export default function HomePage() {
                 </div>
                 <h3 className="text-lg font-black text-ink">Goal-certified tracks</h3>
                 <p className="text-muted text-sm mt-1.5 leading-relaxed">
-                  Immigration, Academic, or Career, your path shapes everything from enrolment day.
+                  Immigration, Academic, Career or Sprint, your path shapes everything from enrolment day.
                 </p>
               </div>
             </StaggerItem>
@@ -759,7 +783,7 @@ export default function HomePage() {
                 </div>
                 <h3 className="text-lg font-black text-ink">International exam prep included</h3>
                 <p className="text-muted text-sm mt-1.5 leading-relaxed">
-                  DELF, IELTS &amp; Goethe prep built into the final two weeks. No bolt-on fees.
+                  DELF, IELTS and Goethe prep built into the curriculum. No bolt-on fees.
                 </p>
               </div>
             </StaggerItem>
@@ -777,25 +801,41 @@ export default function HomePage() {
               </div>
             </StaggerItem>
 
-            {/* India-first pedagogy, full width */}
+            {/* Dedicated speaking sessions, full width */}
             <StaggerItem className="lg:col-span-3">
-              <div className="card-hover rounded-2xl p-7 h-full flex flex-col md:flex-row md:items-center gap-7">
-                <div className="md:max-w-sm">
-                  <div className="w-11 h-11 rounded-xl bg-royal-50 flex items-center justify-center mb-3">
-                    <MuiIcon name="translate" size={22} style={{ color: "#3b5bdb" }} />
+              <div className="card-hover relative overflow-hidden rounded-2xl p-7 h-full flex flex-col md:flex-row md:items-center gap-8">
+                {/* soft accent wash */}
+                <div className="absolute -right-16 -top-16 w-64 h-64 rounded-full pointer-events-none" style={{ background: "radial-gradient(circle, rgba(109,139,255,0.10) 0%, transparent 70%)" }} />
+
+                <div className="relative md:max-w-sm">
+                  <div className="w-12 h-12 rounded-2xl flex items-center justify-center mb-4" style={{ background: "linear-gradient(135deg, #3b5bdb 0%, #6d8bff 100%)", boxShadow: "0 10px 22px rgba(59,91,219,0.32)" }}>
+                    <MuiIcon name="teacher" size={24} style={{ color: "#ffffff" }} />
                   </div>
-                  <h3 className="text-lg font-black text-ink">India-first pedagogy</h3>
-                  <p className="text-muted text-sm mt-1.5 leading-relaxed">
-                    Hindi cognates, India-relevant scenarios, and visa &amp; embassy vocabulary, not generic Western textbooks.
+                  <h3 className="text-xl font-black text-ink">Dedicated speaking sessions</h3>
+                  <p className="text-muted text-sm mt-2 leading-relaxed">
+                    Real conversation practice is built into every level, because reading about a language and speaking it are two different things.
                   </p>
                 </div>
-                <div className="flex-1 flex flex-wrap items-center gap-2 md:gap-3">
-                  {["Hindi cognates", "India-relevant scenarios", "Visa & embassy vocabulary", "Real interview prep"].map((c, idx, arr) => (
-                    <div key={c} className="flex items-center gap-2 md:gap-3">
-                      <span className="bg-royal-50 border border-royal-100 text-royal-700 px-3.5 py-2 rounded-xl text-xs font-semibold whitespace-nowrap">{c}</span>
-                      {idx < arr.length - 1 && <ArrowRight size={14} className="text-royal-300 hidden sm:block flex-shrink-0" />}
-                    </div>
-                  ))}
+
+                {/* step flow */}
+                <div className="relative flex-1 flex flex-wrap items-center gap-y-3">
+                  {["Listen", "Respond", "Get corrected", "Speak with confidence"].map((c, idx, arr) => {
+                    const last = idx === arr.length - 1;
+                    return (
+                      <div key={c} className="flex items-center">
+                        <div
+                          className={`flex items-center gap-2.5 rounded-xl pl-2 pr-4 py-2 text-sm font-bold whitespace-nowrap transition-transform hover:-translate-y-0.5 ${last ? "text-white shadow-lg" : "bg-white border border-royal-100 text-royal-700 shadow-sm"}`}
+                          style={last ? { background: "linear-gradient(135deg, #3b5bdb 0%, #6d8bff 100%)", boxShadow: "0 8px 20px rgba(59,91,219,0.30)" } : undefined}
+                        >
+                          <span className={`w-6 h-6 rounded-lg flex items-center justify-center text-[11px] font-black ${last ? "bg-white/25 text-white" : "bg-royal-50 text-royal-600"}`}>
+                            {idx + 1}
+                          </span>
+                          {c}
+                        </div>
+                        {idx < arr.length - 1 && <ArrowRight size={16} className="text-royal-300 mx-1.5 md:mx-2.5 hidden sm:block flex-shrink-0" />}
+                      </div>
+                    );
+                  })}
                 </div>
               </div>
             </StaggerItem>
@@ -943,7 +983,7 @@ export default function HomePage() {
           <AnimateOnView className="text-center max-w-2xl mx-auto mb-12">
             <div className="flex items-center justify-center gap-3 mb-4">
               <span className="h-px w-8 bg-royal-300" />
-              <span className="text-xs font-bold uppercase tracking-[0.22em] text-royal-600">Meet the Team</span>
+              <span className="text-xs font-bold uppercase tracking-[0.22em] text-royal-600">Meet the Instructors</span>
               <span className="h-px w-8 bg-royal-300" />
             </div>
             <h2 className="text-3xl md:text-5xl font-black text-ink leading-[1.12]">
@@ -955,90 +995,98 @@ export default function HomePage() {
             </p>
           </AnimateOnView>
 
-          {/* language filter tabs */}
-          <AnimateOnView className="flex items-center justify-center gap-2.5 mb-10">
-            {TRAINER_TABS.map((t) => {
-              const on = trainerLang === t.key;
-              return (
-                <button
-                  key={t.key}
-                  onClick={() => setTrainerLang(t.key)}
-                  className={`inline-flex items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-bold transition-all ${
-                    on
-                      ? "bg-ink text-white shadow-[0_10px_24px_-10px_rgba(14,23,51,0.6)]"
-                      : "bg-white text-body border border-line hover:border-royal-300 hover:text-royal-700"
-                  }`}
-                >
-                  <Flag code={t.flag} size={20} rounded="rounded" />
-                  {t.label}
-                </button>
-              );
-            })}
-          </AnimateOnView>
-
-          {/* trainer grid — re-keyed by language so it replays the reveal */}
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={trainerLang}
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -8 }}
-              transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-              className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 max-w-4xl mx-auto"
+          {/* instructor slider */}
+          <AnimateOnView className="relative max-w-6xl mx-auto px-2 sm:px-0">
+            {/* prev / next buttons */}
+            <button
+              type="button"
+              onClick={() => scrollTrainers(-1)}
+              aria-label="Previous instructors"
+              className="hidden sm:flex absolute -left-3 lg:-left-5 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-full bg-white border border-line shadow-lg items-center justify-center text-ink hover:bg-royal-50 hover:text-royal-700 transition-colors"
             >
-              {TRAINERS[trainerLang].map((m, i) => {
+              <ChevronLeft size={20} />
+            </button>
+            <button
+              type="button"
+              onClick={() => scrollTrainers(1)}
+              aria-label="Next instructors"
+              className="hidden sm:flex absolute -right-3 lg:-right-5 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-full bg-white border border-line shadow-lg items-center justify-center text-ink hover:bg-royal-50 hover:text-royal-700 transition-colors"
+            >
+              <ChevronRight size={20} />
+            </button>
+
+            <div
+              ref={trainerScroll}
+              className="flex gap-5 overflow-x-auto snap-x snap-mandatory scroll-smooth pb-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+            >
+              {ALL_TRAINERS.map((m, i) => {
                 const c = TRAINER_COLORS[i % TRAINER_COLORS.length];
                 return (
-                  <motion.div
+                  <div
                     key={m.name}
-                    initial={{ opacity: 0, y: 24 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: i * 0.06, ease: [0.22, 1, 0.36, 1] }}
-                    className="group card-hover rounded-3xl overflow-hidden h-full"
+                    className="group flex-shrink-0 w-[270px] h-[380px] snap-start [perspective:1600px]"
                   >
-                    {/* photo header */}
-                    <div
-                      className="relative h-[210px] overflow-hidden"
-                      style={{ background: `linear-gradient(155deg, ${c.from}, ${c.to})` }}
-                    >
-                      <Image
-                        src={encodeURI(m.img ?? `/images/mentor-images/${m.name}.png`)}
-                        alt={m.name}
-                        fill
-                        sizes="(max-width:640px) 100vw, (max-width:1024px) 50vw, 33vw"
-                        className="object-cover object-top group-hover:scale-105 transition-transform duration-500"
-                      />
-                      <span className="absolute top-3 left-3 bg-white/90 backdrop-blur-sm rounded-full px-3 py-1 text-[10px] font-bold text-ink shadow-sm">{m.cred}</span>
-                      <span className="absolute top-3 right-3 bg-white rounded-full px-2.5 py-1 text-[11px] font-bold text-ink flex items-center gap-1 shadow-sm">
-                        <Star size={11} className="text-amber-400 fill-amber-400" /> {m.rating}
-                      </span>
-                    </div>
-
-                    {/* info */}
-                    <div className="p-5">
-                      <div className="min-w-0">
-                        <h3 className="font-bold text-ink text-base leading-tight">{m.name}</h3>
-                        <p className="text-muted text-xs mt-0.5 leading-snug">{m.role}</p>
-                      </div>
-
-                      {/* stat boxes */}
-                      <div className="mt-4 grid grid-cols-2 gap-2">
-                        <div className="rounded-xl bg-royal-50 px-3 py-2.5 text-center">
-                          <p className="text-sm font-black text-royal-700">{m.exp}</p>
-                          <p className="text-[10px] text-muted font-semibold uppercase tracking-wide mt-0.5">Experience</p>
-                        </div>
-                        <div className="rounded-xl bg-royal-50 px-3 py-2.5 text-center">
-                          <p className="text-sm font-black text-royal-700">{m.students}</p>
-                          <p className="text-[10px] text-muted font-semibold uppercase tracking-wide mt-0.5">Students Taught</p>
+                    <div className="relative h-full w-full transition-transform duration-[700ms] ease-[cubic-bezier(0.22,1,0.36,1)] [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)]">
+                      {/* ── FRONT: photo + name ── */}
+                      <div
+                        className="absolute inset-0 [backface-visibility:hidden] rounded-3xl overflow-hidden"
+                        style={{ background: `linear-gradient(160deg, ${c.from}, ${c.to})` }}
+                      >
+                        <Image
+                          src={encodeURI(m.img ?? `/images/mentor-images/${m.name}.png`)}
+                          alt={m.name}
+                          fill
+                          sizes="270px"
+                          className="object-cover object-top"
+                        />
+                        {/* readability gradient */}
+                        <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, rgba(6,10,36,0.04) 38%, rgba(6,10,36,0.55) 72%, rgba(5,8,30,0.94) 100%)" }} />
+                        {/* rating */}
+                        <span className="absolute top-3 right-3 bg-white/90 backdrop-blur-sm rounded-full px-2.5 py-1 text-[11px] font-bold text-ink flex items-center gap-1 shadow-sm">
+                          <Star size={11} className="text-amber-400 fill-amber-400" /> {m.rating}
+                        </span>
+                        {/* name + role */}
+                        <div className="absolute inset-x-0 bottom-0 p-5 z-10">
+                          <h3 className="text-white font-black text-lg leading-tight drop-shadow">{m.name}</h3>
+                          <p className="text-white/70 text-xs mt-1 leading-snug">{m.role}</p>
                         </div>
                       </div>
+
+                      {/* ── BACK: details ── */}
+                      <div
+                        className="absolute inset-0 [backface-visibility:hidden] [transform:rotateY(180deg)] rounded-3xl overflow-hidden p-6 flex flex-col"
+                        style={{ background: `linear-gradient(160deg, ${c.from}, ${c.to})` }}
+                      >
+                        <div className="absolute inset-0 grid-dots-light opacity-20 pointer-events-none" />
+                        <span className="absolute inset-x-0 top-0 h-px" style={{ background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent)" }} />
+                        <div className="relative z-10 flex flex-col h-full">
+                          <h3 className="text-white font-black text-lg leading-tight">{m.name}</h3>
+                          <p className="text-white/70 text-xs mt-1 leading-snug">{m.role}</p>
+                          <div className="h-px bg-white/20 my-4" />
+                          <ul className="space-y-3">
+                            {[
+                              { k: "Credential", v: m.cred },
+                              { k: "Rating", v: `${m.rating} / 5` },
+                              { k: "Experience", v: `${m.exp} years` },
+                              { k: "Students Taught", v: m.students },
+                            ].map((d) => (
+                              <li key={d.k} className="flex items-center justify-between gap-3">
+                                <span className="text-white/55 text-xs font-semibold">{d.k}</span>
+                                <span className="text-white text-sm font-bold text-right">{d.v}</span>
+                              </li>
+                            ))}
+                          </ul>
+                          <span className="mt-auto inline-flex items-center gap-1.5 text-white/80 text-[11px] font-bold uppercase tracking-wider">
+                            <Star size={11} className="fill-white/80 text-white/80" /> Certified ALB Mentor
+                          </span>
+                        </div>
+                      </div>
                     </div>
-                  </motion.div>
+                  </div>
                 );
               })}
-            </motion.div>
-          </AnimatePresence>
+            </div>
+          </AnimateOnView>
         </div>
       </section>
 
@@ -1074,7 +1122,7 @@ export default function HomePage() {
                   transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
                   whileHover={{ rotate: -1.5, scale: 1.02 }}
                 >
-                  <Image src="/images/certificate.png" alt="ALB Level Certificate" width={1492} height={1054} className="w-full h-auto" />
+                  <Image src="/images/certificate/Alb-certificate.png" alt="ALB Level Certificate" width={1536} height={1024} className="w-full h-auto" />
                 </motion.div>
                 {/* floating verified badge */}
                 <motion.div
@@ -1257,7 +1305,7 @@ export default function HomePage() {
         <div className="container-max relative z-10">
           <div className="grid lg:grid-cols-[1fr_1.6fr] gap-16 items-start">
             <AnimateOnView direction="right" className="lg:sticky lg:top-28">
-              <span className="eyebrow">FAQ</span>
+              <span className="eyebrow">FAQs</span>
               <h2 className="text-3xl md:text-4xl font-black text-ink mt-1">
                 Got questions?
                 <br />

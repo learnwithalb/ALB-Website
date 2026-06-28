@@ -1,9 +1,9 @@
 export const siteConfig = {
-  name: "Academy of Languages & Beyond",
+  name: "Academy of Languages and Beyond",
   shortName: "ALB",
   tagline: "Go Global. Speak Fluent. Lead Bold.",
   description:
-    "India's premier language & soft skills academy helping ambitious learners unlock international opportunities.",
+    "India's premier language and soft skills academy helping ambitious learners unlock international opportunities.",
   email: "info@learnwithalb.com",
   phone: "+91 98212 75843",
   address: "6th Floor, Tower-B, Bhutani Alphathum, Unit 603-604, Sector 90, Noida, Uttar Pradesh 201305",
@@ -32,7 +32,7 @@ export const languages = [
     tagline: "Open Europe, speak with elegance",
     href: "/courses/french",
     color: "#003087",
-    levels: ["A1", "A2", "B1", "B2", "C1"],
+    levels: ["A1", "A2", "B1", "B2", "+Beyond"],
     tag: "Most Popular",
     comingSoon: false,
   },
@@ -40,10 +40,10 @@ export const languages = [
     code: "de",
     name: "German",
     flagCode: "DE",
-    tagline: "The language of precision & opportunity",
+    tagline: "The language of precision and opportunity",
     href: "/courses/german",
     color: "#DD0000",
-    levels: ["A1", "A2", "B1", "B2", "C1"],
+    levels: ["A1", "A2", "B1", "B2", "+Beyond"],
     tag: "High Demand",
     comingSoon: false,
   },
@@ -87,7 +87,7 @@ export const languages = [
     tagline: "Your passport to global education",
     href: "/courses/ielts",
     color: "#012169",
-    levels: ["Foundation", "Academic", "General"],
+    levels: ["A1", "A2", "B1", "B2", "+Beyond"],
     tag: "Exam-focused",
     comingSoon: false,
   },
@@ -257,7 +257,7 @@ export const testimonials = [
   {
     name: "Ananya Pillai",
     role: "Bengaluru",
-    course: "French & German · Career · Bengaluru",
+    course: "French and German · Career · Bengaluru",
     avatar: "AP",
     quote:
       "I completed the French Career track first and then started German, same institute, same teaching philosophy, different trainers. The CEFR-aligned progression means my French A2 concepts helped me understand the structural logic of German A1 more quickly, which sounds counterintuitive but genuinely worked. ALB has become my long-term language partner. I'm now in French B1 and German A2 simultaneously, which would have seemed impossible to me two years ago.",
@@ -285,36 +285,36 @@ export const testimonials = [
 
 export const faqs = [
   {
-    q: "Do I need any prior language knowledge to enroll?",
-    a: "Not at all. We welcome complete beginners. Our diagnostic placement test ensures you start at exactly the right level, whether that's A1 for total beginners or B1 if you have some prior exposure.",
+    q: "What languages does ALB teach?",
+    a: "ALB teaches French, German, and English, each as a structured online course running from beginner (A1) to upper-intermediate (B2) level. Every language is offered across three goal-specific tracks: Immigration, Academic, and Career, so the curriculum aligns with where you're actually headed. A Soft Skills module (+Beyond) is also included as part of every language course, not sold separately.",
   },
   {
-    q: "Are classes online or offline?",
-    a: "We offer both! Live online sessions (Zoom/Google Meet) with the same experienced faculty, plus offline batches at our Noida centre. Many learners prefer our hybrid model, attend from home on weekdays and come to the centre on weekends.",
+    q: "Can I learn French, German, or English online from India?",
+    a: "Yes, all ALB courses are delivered entirely online through live, instructor-led sessions three times a week. Every batch is capped at 12 students to ensure speaking time and personalised attention for every learner. Whether you're in a metro or a smaller city, the full ALB curriculum, including exam preparation and the +Beyond soft skills module, is accessible from anywhere in India.",
   },
   {
-    q: "How long does it take to reach B2 level in French?",
-    a: "With consistent practice, most dedicated learners reach B2 from scratch in 14–18 months. Our intensive tracks can compress this to 10–12 months. Individual pace varies, which is why we build personalised study plans for every learner.",
+    q: "How long does it take to go from beginner to B2 level in a language?",
+    a: "At ALB, the full journey from A1 beginner to B2 upper-intermediate takes 36 weeks across four levels for French and German, approximately nine months of consistent study. Each level runs eight to ten weeks, with three live sessions per week plus daily AI-powered speaking practice. Individual timelines vary based on prior language exposure and consistency of practice.",
   },
   {
-    q: "Do you offer exam preparation (DELF, DALF, Goethe, IELTS)?",
-    a: "Yes, exam prep is woven into every advanced batch. We offer dedicated DELF/DALF (French), Goethe-Institut (German), DELE (Spanish), JLPT (Japanese), TOPIK (Korean), and IELTS-specific programmes with past-paper analysis and mock tests.",
+    q: "What is the CEFR language level system, and which level do I need?",
+    a: "CEFR (Common European Framework of Reference for Languages) is the international standard for measuring language ability, running from A1 (complete beginner) to C2 (near-native). Most immigration pathways require B1 or B2. University admissions typically require B2. ALB's courses are fully aligned to CEFR levels, with each level ending in an ALB certificate matched to the corresponding CEFR standard.",
   },
   {
-    q: "What makes ALB different from apps like Duolingo or Babbel?",
-    a: "Apps are great for vocabulary drills. ALB gives you live human interaction, cultural nuance, exam strategy, speaking confidence, and a community. Our completion and goal-achievement rates are significantly higher because we hold you accountable and celebrate your milestones with you.",
+    q: "Which language should I learn for Canada immigration, French or English?",
+    a: "Both are valuable but serve different pathways. French carries additional Comprehensive Ranking System points in Express Entry and opens access to Quebec immigration streams. English, measured through IELTS or equivalent exams, is required for most federal immigration pathways. ALB teaches both, allowing learners to build a combined French and English profile for the strongest possible Canadian immigration outcome.",
   },
   {
-    q: "Can I switch batches or pause my course?",
-    a: "Yes. Life happens. You can switch batch timings with 48 hours' notice (subject to availability) and pause your course for up to 3 months for genuine emergencies. We're flexible because we've been students ourselves.",
+    q: "Does learning French or German improve my chances of getting a job abroad?",
+    a: "Yes, measurably. French opens career opportunities across Canada, France, Belgium, Switzerland, and Francophone Africa. German is increasingly required for skilled worker immigration, with B1 a formal entry requirement for many roles. Beyond visa pathways, multilingual professionals report broader role availability in international companies. ALB's Career Track builds language skills alongside the professional communication needed to use them effectively in a real workplace.",
   },
   {
-    q: "Is there an instalment payment option?",
-    a: "Absolutely. We offer 3-month EMI plans with zero interest on select courses. We believe cost should never be a barrier to language learning.",
+    q: "What exams can I prepare for at ALB?",
+    a: "ALB prepares learners for the full range of internationally recognised language examinations: DELF (A1 to B2) and DALF (C1) for French; Goethe-Zertifikat (A1 to B2), TestDaF, and DSH for German; and IELTS Academic and General Training for English. TEF Canada and TCF Canada preparation is built into the French B1 and B2 levels. Exam preparation is included in every course, not sold separately.",
   },
   {
-    q: "What are the +Beyond programmes?",
-    a: "+Beyond is our soft skills wing: Public Speaking, Business Communication, Personality Development, Leadership Presence, and Interview Mastery. These standalone courses are also available as add-ons for language students at a special bundled price.",
+    q: "What makes ALB different from language apps like Duolingo or Babbel?",
+    a: "Language apps build vocabulary and habit but have real limitations, no live instructor, no speaking practice under real conditions, no structured exam preparation, and no professional soft skills layer. ALB offers live instructor-led classes capped at 12 students, built-in preparation for internationally recognised certifications, and a +Beyond soft skills module, designed for learners with a real goal beyond the language itself.",
   },
 ] as const;
 
@@ -326,7 +326,7 @@ export const whyAlbPoints = [
   },
   {
     icon: "teacher",
-    title: "Native & Expert Faculty",
+    title: "Native and Expert Faculty",
     desc: "Teach with a mix of native-speaker authenticity and India-context pedagogy. Zero compromise on quality.",
   },
   {
@@ -336,7 +336,7 @@ export const whyAlbPoints = [
   },
   {
     icon: "handshake",
-    title: "Community & Support",
+    title: "Community and Support",
     desc: "Private Discord/WhatsApp communities, language exchange partners, and alumni networks spanning 30+ countries.",
   },
   {
@@ -392,7 +392,7 @@ export const beyondModules = [
 
 export const partnerTypes = [
   {
-    title: "School & College Partners",
+    title: "School and College Partners",
     desc: "Bring ALB's language and soft skills programmes to your campus. Custom curriculum, certified instruction.",
     icon: "institution",
   },
