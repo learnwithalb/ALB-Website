@@ -1055,10 +1055,12 @@ export default function HomePage() {
                       {/* ── BACK: details ── */}
                       <div
                         className="absolute inset-0 [backface-visibility:hidden] [transform:rotateY(180deg)] rounded-3xl overflow-hidden p-6 flex flex-col"
-                        style={{ background: `linear-gradient(160deg, ${c.from}, ${c.to})` }}
+                        style={{ background: "linear-gradient(160deg, #16203f 0%, #0a0f24 100%)" }}
                       >
                         <div className="absolute inset-0 grid-dots-light opacity-20 pointer-events-none" />
-                        <span className="absolute inset-x-0 top-0 h-px" style={{ background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent)" }} />
+                        {/* accent glow + top line in the mentor's colour */}
+                        <span className="absolute -top-12 -right-12 w-40 h-40 rounded-full blur-3xl opacity-30 pointer-events-none" style={{ background: c.from }} />
+                        <span className="absolute inset-x-0 top-0 h-px" style={{ background: `linear-gradient(90deg, transparent, ${c.from}, transparent)` }} />
                         <div className="relative z-10 flex flex-col h-full">
                           <h3 className="text-white font-black text-lg leading-tight">{m.name}</h3>
                           <p className="text-white/70 text-xs mt-1 leading-snug">{m.role}</p>
