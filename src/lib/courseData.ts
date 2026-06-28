@@ -135,7 +135,7 @@ export const FRENCH: CourseData = {
     { i: "edit", t: "International Exam Readiness", b: "Build confidence for DELF, TEF Canada, and TCF Canada through structured preparation integrated into your learning journey." },
     { i: "rocket", t: "Beyond Language: Global Readiness", b: "Exclusive to ALB, our +Beyond programme develops interview skills, presentation confidence, professional communication, workplace readiness, and personal branding." },
     { i: "teacher", t: "Communication and Fluency Labs", b: "Build confidence through guided conversations, speaking drills, role plays, discussions, presentations, and real-world communication practice integrated throughout the programme." },
-    { i: "chat", t: "Ongoing Doubt Support", b: "Questions shouldn't wait until the next class. Learners receive continuous support for grammar, vocabulary, assignments, pronunciation, and exam-related queries, ensuring steady progress throughout the programme." },
+    { i: "chat", t: "24X7 Doubt Support", b: "Questions shouldn't wait until the next class. Learners receive continuous support for grammar, vocabulary, assignments, pronunciation, and exam-related queries, ensuring steady progress throughout the programme." },
   ],
   comparison: [
     { f: "Learning pathways", g: "One generic French class", a: "Goal-based pathways aligned to your future" },
@@ -165,8 +165,6 @@ export const FRENCH: CourseData = {
     { q: "What level of French is required for studying in France?", a: "Requirements vary by institution and programme. Many universities require B2-level French proficiency, while some programmes taught in English may require lower levels or no French at all. ALB's Academic Track is designed to help learners work towards university language requirements." },
     { q: "What can I do with a B2 level in French?", a: "A B2 level allows learners to communicate confidently in academic, professional, and everyday situations. It is often accepted for university admissions, professional opportunities, and international mobility programmes." },
     { q: "Is French useful for career growth?", a: "Yes. French is used in international business, diplomacy, aviation, hospitality, education, technology, and multinational organisations. French proficiency can help professionals stand out in global job markets." },
-    { q: "Does ALB only teach French grammar?", a: "No. ALB combines language learning with communication practice, soft-skills development, interview preparation, presentation skills, and real-world conversation activities to help learners use French confidently." },
-    { q: "What makes ALB different from other French institutes?", a: "ALB offers specialised learning pathways, small cohorts, communication classes, continuous doubt support, integrated exam preparation, and a dedicated +Beyond programme focused on confidence, interviews, presentations, and workplace communication." },
   ],
   ctaH: "Your French Journey Starts Here.",
   ctaS: "Choose your pathway. Book a free demo class. Speak to an advisor. Zero commitment.",

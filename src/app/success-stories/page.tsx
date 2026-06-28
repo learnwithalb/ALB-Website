@@ -375,31 +375,6 @@ export default function SuccessStoriesPage() {
         </div>
       </section>
 
-      {/* ══════════ TRUST STRIP ══════════ */}
-      <section className="py-12 sec-mist border-y border-line relative overflow-hidden">
-        <div className="container-max px-5 md:px-8">
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 text-center">
-            {[
-              { n: "5–6", l: "Learners Per Batch" },
-              { n: "100%", l: "Live, Corrected Sessions" },
-              { n: "Free", l: "Soft Skills Woven In" },
-              { n: "4", l: "Goal-Based Tracks" },
-            ].map((s, i) => (
-              <motion.div
-                key={s.l}
-                initial={{ opacity: 0, y: 18 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: i * 0.08 }}
-              >
-                <div className="text-3xl md:text-4xl font-black gradient-text">{s.n}</div>
-                <div className="text-xs font-bold uppercase tracking-wider text-muted mt-1.5">{s.l}</div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* ══════════ CTA ══════════ */}
       <section className="section-padding sec-dark relative overflow-hidden">
         <div className="absolute inset-0 grid-dots-light opacity-30 pointer-events-none" />
