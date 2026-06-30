@@ -106,45 +106,78 @@ const TRAINER_COLORS = [
   { from: "#5fb89a", to: "#3c9779" }, // teal
 ];
 
-const TRAINER_TABS = [
-  { key: "fr", label: "French", flag: "FR" },
-  { key: "de", label: "German", flag: "DE" },
-  { key: "en", label: "English", flag: "EN" },
-] as const;
+interface Mentor { name: string; role: string; exp: string; qual: string; spec: string; tagline: string; linkedin?: string; img: string; }
 
-type TrainerLang = (typeof TRAINER_TABS)[number]["key"];
-
-interface Trainer { init: string; name: string; role: string; cred: string; rating: string; exp: string; students: string; img?: string; }
-
-const TRAINERS: Record<TrainerLang, Trainer[]> = {
-  fr: [
-    { init: "PN", name: "Priya Nair",       role: "Lead French Faculty · Immigration", cred: "TEF Certified",  rating: "4.9", exp: "8+",  students: "1,200+", img: "/images/mentor-images/Priya Nair 2.png" },
-    { init: "AD", name: "Ananya Desai",     role: "Academic French · DELF B2 / DALF",  cred: "DELF Certified", rating: "4.9", exp: "10+", students: "1,800+" },
-    { init: "MP", name: "Meera Pillai",     role: "Sprint Track Lead · TEF / DELF",     cred: "TEF Certified",  rating: "5.0", exp: "12+", students: "2,200+" },
-    { init: "SK", name: "Sunanda Krishnan", role: "Academic French · DALF C1",          cred: "DALF Certified", rating: "4.9", exp: "6+",  students: "850+" },
-    { init: "KM", name: "Kabir Mehta",      role: "Junior Track · DELF Prim A1/A2",      cred: "DELF Certified", rating: "4.8", exp: "4+",  students: "420+" },
-    { init: "DB", name: "Divya Bose",       role: "General French · DELF–DALF",          cred: "DALF Certified", rating: "4.9", exp: "9+",  students: "1,500+" },
-  ],
-  de: [
-    { init: "SA", name: "Shreya Agarwal", role: "German Immigration · Goethe B2/C1",         cred: "Goethe Certified", rating: "4.9", exp: "8+",  students: "1,100+" },
-    { init: "KS", name: "Kavita Singh",   role: "German General · Phonetics and Exams",        cred: "Goethe Certified", rating: "4.9", exp: "11+", students: "2,000+" },
-    { init: "PJ", name: "Pooja Joshi",    role: "Academic German · TestDaF / Studienkolleg", cred: "Goethe Certified", rating: "5.0", exp: "10+", students: "1,700+" },
-    { init: "AK", name: "Amit Kumar",     role: "Sprint Track Lead · Goethe B1/B2",          cred: "Goethe Certified", rating: "4.9", exp: "9+",  students: "1,400+", img: "/images/mentor-images/Arjun Nair.png" },
-    { init: "NS", name: "Nisha Sharma",   role: "Junior Track · Fit in Deutsch A1/A2",        cred: "Goethe Certified", rating: "4.8", exp: "7+",  students: "900+" },
-    { init: "AN", name: "Arjun Nair",     role: "Career German · Business Communication",     cred: "Goethe Certified", rating: "4.8", exp: "6+",  students: "780+", img: "/images/mentor-images/Amit Kumar.png" },
-  ],
-  en: [
-    { init: "NK", name: "Neha Kapoor",   role: "IELTS Master Trainer · Academic and GT", cred: "IELTS Specialist", rating: "4.9", exp: "9+",  students: "1,600+" },
-    { init: "RK", name: "Rohit Kumar",   role: "IELTS Reading and Listening Strategy",    cred: "IELTS Specialist", rating: "4.9", exp: "8+",  students: "1,300+" },
-    { init: "PG", name: "Preeti Gupta",  role: "Career English · Business Writing",      cred: "CELTA Certified",  rating: "4.9", exp: "10+", students: "1,900+" },
-    { init: "AS", name: "Anita Sharma",  role: "IELTS Writing · Task 1 and Task 2",         cred: "IELTS Specialist", rating: "4.9", exp: "7+",  students: "1,050+" },
-    { init: "RJ", name: "Radhika Joshi", role: "Soft Skills · Professional English",      cred: "CELTA Certified",  rating: "4.9", exp: "8+",  students: "1,250+" },
-    { init: "AB", name: "Aditya Bansal", role: "IELTS + Communication Confidence",        cred: "IELTS Specialist", rating: "4.9", exp: "7+",  students: "1,020+" },
-  ],
-};
-
-/* All instructors across languages, shown together in one slider */
-const ALL_TRAINERS: Trainer[] = [...TRAINERS.fr, ...TRAINERS.de, ...TRAINERS.en];
+const ALL_TRAINERS: Mentor[] = [
+  {
+    name: "Bhavika Jain",
+    role: "French Language Trainer",
+    exp: "5+ Years · International experience (France)",
+    qual: "DELF B2 Certified",
+    spec: "Beginner–Intermediate French • Conversation • Exam Preparation",
+    tagline: "Helping learners speak French with confidence through practical, interactive learning.",
+    linkedin: "https://www.linkedin.com/in/bhavika-jain-153451234/",
+    img: "/images/mentor-images/bhavika.png",
+  },
+  {
+    name: "Belhadj Moussa Garba",
+    role: "French Language Trainer",
+    exp: "5+ Years · International language educator",
+    qual: "UNESCO MGIEP Certified Master Trainer · Master's in Project Management",
+    spec: "French • ESP • CEFR A1–B2 • Cross-cultural Communication",
+    tagline: "International educator specializing in CEFR-based language training and global communication.",
+    linkedin: "https://www.linkedin.com/in/bel-hadj-moussa-garba/",
+    img: "/images/mentor-images/bel hadj.png",
+  },
+  {
+    name: "Meghasi Bhatt",
+    role: "Senior French Language Trainer",
+    exp: "15+ Years",
+    qual: "Diploma in French — Alliance Française, Ahmedabad",
+    spec: "French A1–B2 • DELF • TEF • School and University French",
+    tagline: "Helping learners build confidence and fluency in French through practical learning.",
+    linkedin: "https://www.linkedin.com/in/meghasi-bhatt-54b5b1112/",
+    img: "/images/mentor-images/Meghasi.png",
+  },
+  {
+    name: "Anna Becker",
+    role: "Senior German Language Trainer",
+    exp: "8+ Years",
+    qual: "Goethe-Zertifikat C2 · Master's in German Language and Literature",
+    spec: "German A1–C1 • Goethe Exam Prep • Business German • Conversational German",
+    tagline: "Helping learners master German with confidence, clarity, and cultural understanding.",
+    linkedin: "https://www.linkedin.com/in/anna-becker-4ab24a41a/",
+    img: "/images/mentor-images/Anna becker.png",
+  },
+  {
+    name: "Taranpreet Kaur",
+    role: "Senior French Language Trainer",
+    exp: "10+ Years",
+    qual: "DELF B2 Certified",
+    spec: "TEF Canada • TCF Canada • DELF • French A1–B2 • Conversational French",
+    tagline: "Helping learners achieve fluency and international exam success through practical French learning.",
+    linkedin: "https://www.linkedin.com/in/taranpreet-kaur-333651311/",
+    img: "/images/mentor-images/Taranpreet.png",
+  },
+  {
+    name: "Sukruti Desai",
+    role: "French and Spanish Language Trainer",
+    exp: "5+ Years",
+    qual: "French and Spanish Language Educator",
+    spec: "French • Spanish • DELF • DELE • TEF Preparation",
+    tagline: "Making language learning interactive, practical, and enjoyable for every learner.",
+    img: "/images/mentor-images/Sukruti.png",
+  },
+  {
+    name: "Dr. Gurdeep Kaur Tripathi",
+    role: "Senior English and Soft Skills Trainer",
+    exp: "18+ Years",
+    qual: "Ph.D. and M.Phil. in English Literature",
+    spec: "English Communication • Business English • Soft Skills • Interview Prep • Public Speaking",
+    tagline: "Empowering learners with confident English communication and professional skills.",
+    img: "/images/mentor-images/Gurdeep.png",
+  },
+];
 
 /* Cover images for the hero language cards (by language code) */
 const COVERS: Record<string, string> = {
@@ -1029,11 +1062,11 @@ export default function HomePage() {
                     <div className="relative h-full w-full transition-transform duration-[700ms] ease-[cubic-bezier(0.22,1,0.36,1)] [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)]">
                       {/* ── FRONT: photo + name ── */}
                       <div
-                        className="absolute inset-0 [backface-visibility:hidden] rounded-3xl overflow-hidden"
+                        className="absolute inset-0 [backface-visibility:hidden] group-hover:pointer-events-none rounded-3xl overflow-hidden"
                         style={{ background: `linear-gradient(160deg, ${c.from}, ${c.to})` }}
                       >
                         <Image
-                          src={encodeURI(m.img ?? `/images/mentor-images/${m.name}.png`)}
+                          src={encodeURI(m.img)}
                           alt={m.name}
                           fill
                           sizes="270px"
@@ -1041,9 +1074,9 @@ export default function HomePage() {
                         />
                         {/* readability gradient */}
                         <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, rgba(6,10,36,0.04) 38%, rgba(6,10,36,0.55) 72%, rgba(5,8,30,0.94) 100%)" }} />
-                        {/* rating */}
-                        <span className="absolute top-3 right-3 bg-white/90 backdrop-blur-sm rounded-full px-2.5 py-1 text-[11px] font-bold text-ink flex items-center gap-1 shadow-sm">
-                          <Star size={11} className="text-amber-400 fill-amber-400" /> {m.rating}
+                        {/* experience */}
+                        <span className="absolute top-3 right-3 bg-white/90 backdrop-blur-sm rounded-full px-2.5 py-1 text-[11px] font-bold text-ink shadow-sm">
+                          {m.exp.split("·")[0].trim()}
                         </span>
                         {/* name + role */}
                         <div className="absolute inset-x-0 bottom-0 p-5 z-10">
@@ -1054,7 +1087,7 @@ export default function HomePage() {
 
                       {/* ── BACK: details ── */}
                       <div
-                        className="absolute inset-0 [backface-visibility:hidden] [transform:rotateY(180deg)] rounded-3xl overflow-hidden p-6 flex flex-col"
+                        className="absolute inset-0 [backface-visibility:hidden] [transform:rotateY(180deg)] pointer-events-none group-hover:pointer-events-auto rounded-3xl overflow-hidden p-5 flex flex-col"
                         style={{ background: "linear-gradient(160deg, #16203f 0%, #0a0f24 100%)" }}
                       >
                         <div className="absolute inset-0 grid-dots-light opacity-20 pointer-events-none" />
@@ -1062,25 +1095,35 @@ export default function HomePage() {
                         <span className="absolute -top-12 -right-12 w-40 h-40 rounded-full blur-3xl opacity-30 pointer-events-none" style={{ background: c.from }} />
                         <span className="absolute inset-x-0 top-0 h-px" style={{ background: `linear-gradient(90deg, transparent, ${c.from}, transparent)` }} />
                         <div className="relative z-10 flex flex-col h-full">
-                          <h3 className="text-white font-black text-lg leading-tight">{m.name}</h3>
-                          <p className="text-white/70 text-xs mt-1 leading-snug">{m.role}</p>
-                          <div className="h-px bg-white/20 my-4" />
-                          <ul className="space-y-3">
+                          <h3 className="text-white font-black text-base leading-tight">{m.name}</h3>
+                          <p className="text-white/60 text-[11px] mt-0.5 leading-snug">{m.role}</p>
+                          <div className="h-px bg-white/15 my-3" />
+                          <div className="space-y-2.5">
                             {[
-                              { k: "Credential", v: m.cred },
-                              { k: "Rating", v: `${m.rating} / 5` },
-                              { k: "Experience", v: `${m.exp} years` },
-                              { k: "Students Taught", v: m.students },
+                              { k: "Experience", v: m.exp },
+                              { k: "Qualification", v: m.qual },
+                              { k: "Specialization", v: m.spec },
                             ].map((d) => (
-                              <li key={d.k} className="flex items-center justify-between gap-3">
-                                <span className="text-white/55 text-xs font-semibold">{d.k}</span>
-                                <span className="text-white text-sm font-bold text-right">{d.v}</span>
-                              </li>
+                              <div key={d.k}>
+                                <p className="text-white/40 text-[9.5px] font-bold uppercase tracking-wider">{d.k}</p>
+                                <p className="text-white/90 text-[12px] font-semibold leading-snug mt-0.5">{d.v}</p>
+                              </div>
                             ))}
-                          </ul>
-                          <span className="mt-auto inline-flex items-center gap-1.5 text-white/80 text-[11px] font-bold uppercase tracking-wider">
-                            <Star size={11} className="fill-white/80 text-white/80" /> Certified ALB Mentor
-                          </span>
+                          </div>
+                          <div className="mt-auto pt-3">
+                            <p className="text-white/55 text-[11px] italic leading-snug">{m.tagline}</p>
+                            {m.linkedin && (
+                              <a
+                                href={m.linkedin}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="mt-3 inline-flex items-center gap-1.5 text-white text-[11px] font-bold rounded-full px-3 py-1.5 transition-transform hover:-translate-y-0.5"
+                                style={{ background: c.from }}
+                              >
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.07 2.07 0 1 1 0-4.14 2.07 2.07 0 0 1 0 4.14zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.72V1.72C24 .77 23.2 0 22.22 0z"/></svg> Connect
+                              </a>
+                            )}
+                          </div>
                         </div>
                       </div>
                     </div>
