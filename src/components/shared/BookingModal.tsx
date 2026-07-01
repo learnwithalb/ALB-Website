@@ -7,6 +7,7 @@ import {
   ChevronDown, CalendarCheck, Shield, Zap, LayoutGrid,
 } from "lucide-react";
 import { useBooking } from "./BookingContext";
+import { submitLead } from "@/lib/google-sheet";
 
 const PROGRAMMES = [
   "French Language",
@@ -55,11 +56,12 @@ export function BookingModal() {
   const [errors, setErrors]   = useState<Partial<FormState>>({});
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
   useEffect(() => {
     if (isOpen && topic) setForm((f) => ({ ...f, programme: topic }));
     if (!isOpen) {
-      const t = setTimeout(() => { setForm(empty); setErrors({}); setSuccess(false); }, 300);
+      const t = setTimeout(() => { setForm(empty); setErrors({}); setSuccess(false); setSubmitError(null); }, 300);
       return () => clearTimeout(t);
     }
   }, [isOpen, topic]);
@@ -94,10 +96,17 @@ export function BookingModal() {
     const errs = validate();
     if (Object.keys(errs).length) { setErrors(errs); return; }
     setErrors({});
+    setSubmitError(null);
     setLoading(true);
-    await new Promise((r) => setTimeout(r, 1400));
-    setLoading(false);
-    setSuccess(true);
+    try {
+      await submitLead(form);
+      setSuccess(true);
+    } catch (err) {
+      console.error(err);
+      setSubmitError("Something went wrong. Please try again or message us on WhatsApp.");
+    } finally {
+      setLoading(false);
+    }
   }
 
   /* ── Field style helpers (right panel = white bg) ── */
@@ -360,6 +369,10 @@ export function BookingModal() {
                             </>
                           )}
                         </motion.button>
+
+                        {submitError && (
+                          <p className="text-center text-red-500 text-sm">{submitError}</p>
+                        )}
 
                         {/* Speed note */}
                         <p className="text-center text-gray-400 text-xs flex items-center justify-center gap-1">
