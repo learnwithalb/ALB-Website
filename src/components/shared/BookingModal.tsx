@@ -103,7 +103,7 @@ export function BookingModal() {
       setSuccess(true);
     } catch (err) {
       console.error(err);
-      setSubmitError("Something went wrong. Please try again or message us on WhatsApp.");
+      setSubmitError(err instanceof Error ? err.message : "Something went wrong. Please try again or message us on WhatsApp.");
     } finally {
       setLoading(false);
     }

@@ -7,18 +7,17 @@ export interface LeadData {
 }
 
 export async function submitLead(data: LeadData): Promise<{ success: boolean }> {
-  const url = process.env.NEXT_PUBLIC_GOOGLE_SCRIPT_URL;
-  if (!url) {
-    throw new Error("NEXT_PUBLIC_GOOGLE_SCRIPT_URL is not configured");
-  }
-
-  const response = await fetch(url, {
+  // Post to our own API route (same-origin, no CORS). The route forwards
+  // the payload to the Google Apps Script server-side.
+  const response = await fetch("/api/lead", {
     method: "POST",
-    headers: {
-      "Content-Type": "text/plain;charset=UTF-8",
-    },
+    headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data),
   });
 
-  return response.json();
+  const result = await response.json();
+  if (!result.success) {
+    throw new Error(result.error || "Submission failed");
+  }
+  return result;
 }
