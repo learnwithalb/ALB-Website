@@ -299,11 +299,14 @@ export default function SuccessStoriesPage() {
   const shown = filter === "All" ? STORIES : STORIES.filter((s) => s.lang === filter);
 
   // Responsive, full-bleed carousel sizing derived from viewport width.
+  // maxOff is computed so the outermost cards always reach past the screen
+  // edges (cropped), making the row span the full viewport width.
   const isMobile = vw < 640;
-  const cardW = Math.round(isMobile ? Math.min(150, vw * 0.42) : Math.min(210, vw / 6.6));
+  const cardW = Math.round(isMobile ? Math.min(148, vw * 0.4) : Math.min(240, vw / 6));
   const cardH = Math.round((cardW * 16) / 9);
-  const spacing = cardW * (isMobile ? 0.64 : 0.82);
-  const maxOff = isMobile ? 1 : 3;
+  const spacing = cardW * (isMobile ? 0.56 : 0.64);
+  const maxVisible = Math.floor((VIDEOS.length - 1) / 2);
+  const maxOff = Math.min(maxVisible, Math.ceil((vw / 2 + cardW / 2) / spacing));
 
   const counts: Record<string, number> = {
     All: STORIES.length,
@@ -398,9 +401,9 @@ export default function SuccessStoriesPage() {
                     aria-label={`Play story ${i + 1}`}
                     animate={{
                       x: off * spacing,
-                      rotateY: off * (isMobile ? 12 : 8),
-                      z: -a * (isMobile ? 40 : 75),
-                      scale: isActive ? 1 : 1 - a * (isMobile ? 0.12 : 0.07),
+                      rotateY: off * (isMobile ? 10 : 7),
+                      z: -a * (isMobile ? 35 : 45),
+                      scale: isActive ? 1 : 1 - a * (isMobile ? 0.09 : 0.05),
                       opacity: isHidden ? 0 : 1,
                     }}
                     transition={{ type: "spring", stiffness: 260, damping: 30 }}
