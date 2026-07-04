@@ -6,30 +6,30 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { MuiIcon } from "@/lib/icons";
 import { AnimateOnView } from "@/components/shared/AnimateOnView";
+import { getAllPosts, getCategories, type BlogPost } from "@/lib/blog";
 
-const posts = [
-  { category: "Learning Tips", color: "#3b5bdb", title: "The 5 Habits That Separate B2 Achievers from Eternal Beginners", excerpt: "After 5,000+ learners, the pattern is clear: the students who reach their goal don't work harder, they work smarter.", readTime: "7 min", date: "May 28, 2026", icon: "target" },
-  { category: "French", color: "#0ea5e9", title: "DELF B2: The Complete 2026 Preparation Guide", excerpt: "Everything you need to register, prepare, and pass the DELF B2, from someone who has coached 200+ candidates through it.", readTime: "12 min", date: "May 20, 2026", icon: "translate" },
-  { category: "Career", color: "#6d8bff", title: "Why Learning German in 2026 Is a Career Game-Changer", excerpt: "Germany is actively recruiting skilled workers. Here's why B1 German might be your golden ticket.", readTime: "9 min", date: "May 14, 2026", icon: "trending" },
-  { category: "+Beyond", color: "#2f49c0", title: "The Real Reason You Freeze During Presentations", excerpt: "Public speaking anxiety is wildly misunderstood. Here's the actual mechanism, and the 3-step fix.", readTime: "6 min", date: "May 7, 2026", icon: "mic" },
-  { category: "Culture", color: "#38bdf8", title: "La Vie Française: 10 Concepts No Textbook Will Teach You", excerpt: "Joie de vivre, savoir-faire, and flânerie, these untranslatable ideas reveal more about France than any grammar rule.", readTime: "8 min", date: "Apr 30, 2026", icon: "theater" },
-  { category: "Junior", color: "#0284c7", title: "When Should Your Child Start a Second Language?", excerpt: "The science is clear. Here's the critical window explained, and a practical framework for choosing the right language.", readTime: "5 min", date: "Apr 22, 2026", icon: "baby" },
-];
+const ALL_POSTS = getAllPosts();
+const CATEGORIES = getCategories();
 
-const categories = ["All", "Learning Tips", "French", "Career", "+Beyond", "Culture", "Junior"];
+const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+function fmtDate(iso: string): string {
+  const [y, m, d] = iso.split("-").map(Number);
+  return `${MONTHS[m - 1]} ${d}, ${y}`;
+}
 
 const BG_PILLS = [
-  { label: "Learning Tips", top: "20%", left: "8%",   delay: 0 },
-  { label: "French",        top: "15%", right: "12%", delay: 0.3 },
-  { label: "German",        bottom: "35%", left: "5%", delay: 0.6 },
-  { label: "+Beyond",       top: "60%", right: "8%",  delay: 0.9 },
-  { label: "Culture",       bottom: "20%", right: "20%", delay: 1.2 },
+  { label: "French for Canada", top: "20%", left: "8%", delay: 0 },
+  { label: "DELF & DALF", top: "15%", right: "12%", delay: 0.3 },
+  { label: "German", bottom: "35%", left: "5%", delay: 0.6 },
+  { label: "IELTS", top: "60%", right: "8%", delay: 0.9 },
+  { label: "For Indians", bottom: "20%", right: "20%", delay: 1.2 },
 ];
 
 export default function BlogPage() {
   const [activeCategory, setActiveCategory] = useState("All");
 
-  const filtered = activeCategory === "All" ? posts : posts.filter((p) => p.category === activeCategory);
+  const filtered: BlogPost[] =
+    activeCategory === "All" ? ALL_POSTS : ALL_POSTS.filter((p) => p.category === activeCategory);
   const [featured, ...rest] = filtered;
 
   return (
@@ -40,7 +40,6 @@ export default function BlogPage() {
         <div className="blob blob-royal w-[400px] h-[400px] top-0 right-0 pointer-events-none" />
         <div className="blob blob-sky w-[320px] h-[320px] bottom-0 left-1/4 pointer-events-none" />
 
-        {/* Floating background category pills */}
         {BG_PILLS.map((pill, i) => (
           <motion.div
             key={i}
@@ -61,7 +60,7 @@ export default function BlogPage() {
               <span className="gradient-text">Think global.</span>
             </h1>
             <p className="mt-4 text-body text-lg max-w-xl leading-relaxed">
-              Language tips, culture deep-dives, exam strategies, and career insights, straight from the ALB faculty.
+              Exam strategies, immigration language guides, and India-first learning tips, straight from the ALB faculty.
             </p>
           </AnimateOnView>
         </div>
@@ -71,7 +70,7 @@ export default function BlogPage() {
       <section className="bg-white/85 backdrop-blur-md border-y border-line sticky top-[64px] md:top-[80px] z-30">
         <div className="container-max px-5 md:px-8">
           <div className="flex gap-2 overflow-x-auto py-4 scrollbar-none">
-            {categories.map((cat) => (
+            {CATEGORIES.map((cat) => (
               <button
                 key={cat}
                 onClick={() => setActiveCategory(cat)}
@@ -102,80 +101,83 @@ export default function BlogPage() {
             >
               {/* Featured post */}
               {featured && (
-                <motion.article
-                  className="rounded-2xl card overflow-hidden mb-8"
-                  style={{ borderTop: `3px solid ${featured.color}` }}
-                  whileHover={{ y: -4 }}
-                  transition={{ type: "spring", stiffness: 300, damping: 22 }}
-                >
-                  <div className="grid md:grid-cols-[240px_1fr] items-stretch">
-                    <div
-                      className="p-10 flex items-center justify-center"
-                      style={{ background: `linear-gradient(135deg, ${featured.color}10, ${featured.color}22)` }}
-                    >
-                      <MuiIcon name={featured.icon} size={72} style={{ color: featured.color }} />
-                    </div>
-                    <div className="p-8 flex flex-col justify-center">
-                      <div className="flex items-center gap-2 mb-3">
-                        <span className="text-xs font-bold uppercase tracking-wider" style={{ color: featured.color }}>{featured.category}</span>
-                        <span className="text-royal-200">·</span>
-                        <span className="text-xs text-muted">{featured.readTime} read</span>
-                        <span className="text-royal-200">·</span>
-                        <span className="text-xs text-muted">{featured.date}</span>
+                <motion.div whileHover={{ y: -4 }} transition={{ type: "spring", stiffness: 300, damping: 22 }} className="mb-8">
+                  <Link
+                    href={`/blog/${featured.slug}`}
+                    className="block rounded-2xl card overflow-hidden"
+                    style={{ borderTop: `3px solid ${featured.accent}` }}
+                  >
+                    <div className="grid md:grid-cols-[240px_1fr] items-stretch">
+                      <div
+                        className="p-10 flex items-center justify-center"
+                        style={{ background: `linear-gradient(135deg, ${featured.accent}10, ${featured.accent}22)` }}
+                      >
+                        <MuiIcon name={featured.icon} size={72} style={{ color: featured.accent }} />
                       </div>
-                      <h2 className="font-black text-ink text-2xl md:text-3xl leading-tight">{featured.title}</h2>
-                      <p className="text-body mt-3 leading-relaxed">{featured.excerpt}</p>
-                      <button className="mt-5 inline-flex items-center gap-1.5 font-bold text-sm" style={{ color: featured.color }}>
-                        Read article <ArrowRight size={14} />
-                      </button>
+                      <div className="p-8 flex flex-col justify-center">
+                        <div className="flex items-center gap-2 mb-3">
+                          <span className="text-xs font-bold uppercase tracking-wider" style={{ color: featured.accent }}>{featured.category}</span>
+                          <span className="text-royal-200">·</span>
+                          <span className="text-xs text-muted">{featured.readingMinutes} min read</span>
+                          <span className="text-royal-200">·</span>
+                          <span className="text-xs text-muted">{fmtDate(featured.publishedAt)}</span>
+                        </div>
+                        <h2 className="font-black text-ink text-2xl md:text-3xl leading-tight">{featured.title}</h2>
+                        <p className="text-body mt-3 leading-relaxed">{featured.excerpt}</p>
+                        <span className="mt-5 inline-flex items-center gap-1.5 font-bold text-sm" style={{ color: featured.accent }}>
+                          Read article <ArrowRight size={14} />
+                        </span>
+                      </div>
                     </div>
-                  </div>
-                </motion.article>
+                  </Link>
+                </motion.div>
               )}
 
               {/* Remaining posts grid */}
               {rest.length > 0 && (
                 <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
                   {rest.map((post) => (
-                    <motion.article
-                      key={post.title}
-                      className="rounded-2xl card overflow-hidden flex flex-col"
-                      style={{ borderTop: `3px solid ${post.color}` }}
+                    <motion.div
+                      key={post.slug}
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
                       whileHover={{ y: -6 }}
                       transition={{ type: "spring", stiffness: 280, damping: 22 }}
                     >
-                      <div
-                        className="p-8 flex items-center justify-center"
-                        style={{ background: `linear-gradient(135deg, ${post.color}0c, ${post.color}1c)` }}
+                      <Link
+                        href={`/blog/${post.slug}`}
+                        className="rounded-2xl card overflow-hidden flex flex-col h-full"
+                        style={{ borderTop: `3px solid ${post.accent}` }}
                       >
-                        <MuiIcon name={post.icon} size={56} style={{ color: post.color }} />
-                      </div>
-                      <div className="p-6 flex flex-col flex-1">
-                        <div className="flex items-center gap-2 mb-3">
-                          <span className="text-xs font-bold uppercase tracking-wider" style={{ color: post.color }}>{post.category}</span>
-                          <span className="text-royal-200">·</span>
-                          <span className="text-xs text-muted">{post.readTime} read</span>
+                        <div
+                          className="p-8 flex items-center justify-center"
+                          style={{ background: `linear-gradient(135deg, ${post.accent}0c, ${post.accent}1c)` }}
+                        >
+                          <MuiIcon name={post.icon} size={56} style={{ color: post.accent }} />
                         </div>
-                        <h2 className="font-black text-ink text-lg leading-tight flex-1">{post.title}</h2>
-                        <p className="text-sm text-muted mt-3 leading-relaxed">{post.excerpt}</p>
-                        <div className="flex items-center justify-between mt-5 pt-4 border-t border-line">
-                          <span className="text-xs text-muted">{post.date}</span>
-                          <button className="flex items-center gap-1 font-bold text-sm" style={{ color: post.color }}>
-                            Read <ArrowRight size={13} />
-                          </button>
+                        <div className="p-6 flex flex-col flex-1">
+                          <div className="flex items-center gap-2 mb-3">
+                            <span className="text-xs font-bold uppercase tracking-wider" style={{ color: post.accent }}>{post.category}</span>
+                            <span className="text-royal-200">·</span>
+                            <span className="text-xs text-muted">{post.readingMinutes} min read</span>
+                          </div>
+                          <h2 className="font-black text-ink text-lg leading-tight flex-1">{post.title}</h2>
+                          <p className="text-sm text-muted mt-3 leading-relaxed line-clamp-3">{post.excerpt}</p>
+                          <div className="flex items-center justify-between mt-5 pt-4 border-t border-line">
+                            <span className="text-xs text-muted">{fmtDate(post.publishedAt)}</span>
+                            <span className="flex items-center gap-1 font-bold text-sm" style={{ color: post.accent }}>
+                              Read <ArrowRight size={13} />
+                            </span>
+                          </div>
                         </div>
-                      </div>
-                    </motion.article>
+                      </Link>
+                    </motion.div>
                   ))}
                 </div>
               )}
 
               {filtered.length === 0 && (
-                <div className="text-center py-20 text-muted">
-                  No posts in this category yet.
-                </div>
+                <div className="text-center py-20 text-muted">No posts in this category yet.</div>
               )}
             </motion.div>
           </AnimatePresence>
@@ -211,7 +213,6 @@ export default function BlogPage() {
           </AnimateOnView>
         </div>
       </section>
-
     </>
   );
 }

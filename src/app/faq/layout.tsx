@@ -1,11 +1,24 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo-config";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { faqSchema, breadcrumbSchema } from "@/lib/schema";
+import { faqs } from "@/lib/constants";
 
-export const metadata: Metadata = {
-  title: "FAQs",
-  description:
-    "Frequently asked questions about Academy of Languages and Beyond, our French, German, and English programmes, exams, fees, online classes, and more.",
-};
+export const metadata: Metadata = pageMetadata("faq");
 
 export default function FaqLayout({ children }: { children: React.ReactNode }) {
-  return children;
+  return (
+    <>
+      <JsonLd
+        data={[
+          faqSchema(faqs),
+          breadcrumbSchema([
+            { name: "Home", path: "/" },
+            { name: "FAQs", path: "/faq" },
+          ]),
+        ]}
+      />
+      {children}
+    </>
+  );
 }

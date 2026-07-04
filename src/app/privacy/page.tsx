@@ -1,10 +1,8 @@
 import type { Metadata } from "next";
 import { AnimateOnView } from "@/components/shared/AnimateOnView";
+import { pageMetadata } from "@/lib/seo-config";
 
-export const metadata: Metadata = {
-  title: "Privacy Policy",
-  description: "Privacy policy for Academy of Languages and Beyond, how we collect, use, and protect your personal data.",
-};
+export const metadata: Metadata = pageMetadata("privacy");
 
 const sections = [
   {

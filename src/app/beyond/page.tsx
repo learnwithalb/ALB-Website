@@ -9,6 +9,8 @@ import { AnimateOnView, StaggerContainer, StaggerItem } from "@/components/share
 import { MuiIcon } from "@/lib/icons";
 import { CountUp } from "@/components/shared/CountUp";
 import { useBooking } from "@/components/shared/BookingContext";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { faqSchema } from "@/lib/schema";
 
 /* ─────────────── data ─────────────── */
 
@@ -65,13 +67,13 @@ const PROFILES = [
 ];
 
 const FAQS = [
-  { q: "What is a soft skills training programme and who is it for?", a: "A soft skills training programme builds the professional communication, confidence, and interpersonal skills that academic and technical qualifications alone don't teach. It's designed for anyone preparing for a global career, international university, or life abroad, where how you communicate matters as much as what you know. At ALB, this training is built directly into every language course through our +Beyond module, not sold separately." },
-  { q: "Can soft skills training genuinely help with visa interviews and job interviews abroad?", a: "Yes, significantly. Visa and job interviews abroad test more than language ability. They assess how clearly you express yourself under pressure, how confidently you handle unexpected questions, and how professionally you present your intent. ALB's +Beyond module specifically covers interview preparation, STAR-method responses, and high-pressure speaking scenarios so learners arrive at these moments practised, not just prepared in theory." },
-  { q: "What soft skills do Indian professionals need to work or study abroad?", a: "The most critical soft skills for working or studying abroad are professional communication (written and spoken), cultural adaptability, confident public speaking, and business email writing that meets international register standards. Indian professionals specifically often face gaps in formal presentation style and networking in cross-cultural environments. ALB's +Beyond module addresses each of these directly, in the context of the target language and destination country." },
-  { q: "How does a soft skills course improve professional communication in English?", a: "A structured soft skills course improves professional communication by moving beyond grammar into register, tone, and context, the things that determine whether an email gets acted on or ignored, whether a presentation persuades or just informs. ALB's +Beyond module covers professional email writing, presentation structure, and business communication across real workplace scenarios, specifically designed for learners targeting global roles or international study environments." },
-  { q: "What is the difference between language fluency and professional readiness?", a: "Language fluency means you can understand and produce the language accurately. Professional readiness means you can use it effectively under real-world pressure, in a visa interview, a client meeting, a university admissions conversation. Most language courses build fluency. Very few build readiness. ALB's +Beyond module exists specifically to close this gap, combining language training with the professional communication skills that determine real outcomes." },
-  { q: "How long does it take to improve professional communication and soft skills?", a: "Meaningful improvement in professional communication is achievable in two to four weeks of focused, structured practice, provided the training addresses specific scenarios rather than generic theory. ALB's +Beyond module runs intensively over two weeks, ten sessions, covering personal effectiveness in week one and professional communication in week two. Most learners notice a measurable shift in confidence and clarity within the first five sessions." },
-  { q: "Is online soft skills training as effective as in-person training?", a: "For most learners, yes, when the online format is live, structured, and cohort-based rather than self-paced. The key variables are real-time instructor feedback, peer interaction, and practised speaking under observation, all of which are replicable online. ALB's +Beyond sessions are fully live, capped at 20 students per cohort, and include recorded mock interviews and presentations so learners can review their own progress, something in-person training rarely offers." },
+  { q: "What is the +Beyond programme and who is it for?", a: "The +Beyond programme at Academy of Languages and Beyond (ALB) is a soft skills training programme that builds the professional communication, confidence, and interpersonal skills that academic and technical qualifications alone don't teach. It's designed for anyone preparing for a global career, international university, or life abroad, where how you communicate matters as much as what you know. At Academy of Languages and Beyond (ALB), this training is built directly into every language course through our +Beyond module, not sold separately." },
+  { q: "Can soft skills training genuinely help with visa interviews and job interviews abroad?", a: "Yes, significantly. Visa and job interviews abroad test more than language ability. They assess how clearly you express yourself under pressure, how confidently you handle unexpected questions, and how professionally you present your intent. Academy of Languages and Beyond (ALB)'s +Beyond module specifically covers interview preparation, STAR-method responses, and high-pressure speaking scenarios so learners arrive at these moments practised, not just prepared in theory." },
+  { q: "What soft skills do Indian professionals need to work or study abroad?", a: "The most critical soft skills for working or studying abroad are professional communication (written and spoken), cultural adaptability, confident public speaking, and business email writing that meets international register standards. Indian professionals specifically often face gaps in formal presentation style and networking in cross-cultural environments. Academy of Languages and Beyond (ALB)'s +Beyond module addresses each of these directly, in the context of the target language and destination country." },
+  { q: "How does a soft skills course improve professional communication in English?", a: "A structured soft skills course improves professional communication by moving beyond grammar into register, tone, and context, the things that determine whether an email gets acted on or ignored, whether a presentation persuades or just informs. Academy of Languages and Beyond (ALB)'s +Beyond module covers professional email writing, presentation structure, and business communication across real workplace scenarios, specifically designed for learners targeting global roles or international study environments." },
+  { q: "What is the difference between language fluency and professional readiness?", a: "Language fluency means you can understand and produce the language accurately. Professional readiness means you can use it effectively under real-world pressure, in a visa interview, a client meeting, a university admissions conversation. Most language courses build fluency. Very few build readiness. Academy of Languages and Beyond (ALB)'s +Beyond module exists specifically to close this gap, combining language training with the professional communication skills that determine real outcomes." },
+  { q: "How long does it take to improve professional communication and soft skills?", a: "Meaningful improvement in professional communication is achievable in two to four weeks of focused, structured practice, provided the training addresses specific scenarios rather than generic theory. Academy of Languages and Beyond (ALB)'s +Beyond module runs intensively over two weeks, ten sessions, covering personal effectiveness in week one and professional communication in week two. Most learners notice a measurable shift in confidence and clarity within the first five sessions." },
+  { q: "Is online soft skills training as effective as in-person training?", a: "For most learners, yes, when the online format is live, structured, and cohort-based rather than self-paced. The key variables are real-time instructor feedback, peer interaction, and practised speaking under observation, all of which are replicable online. Academy of Languages and Beyond (ALB)'s +Beyond sessions are fully live, capped at 20 students per cohort, and include recorded mock interviews and presentations so learners can review their own progress, something in-person training rarely offers." },
 ];
 
 /* ─────────────── page ─────────────── */
@@ -82,6 +84,7 @@ export default function BeyondPage() {
 
   return (
     <>
+      <JsonLd data={faqSchema(FAQS)} />
       {/* ══════════════════ HERO ══════════════════ */}
       <section
         className="relative overflow-hidden pt-32 pb-16 lg:pb-20 flex items-center min-h-[90vh]"
@@ -111,9 +114,9 @@ export default function BeyondPage() {
                 transition={{ duration: 0.7, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
                 className="text-4xl sm:text-5xl xl:text-[3.7rem] font-black text-ink leading-[1.04] tracking-tight mt-6"
               >
-                Beyond Language.
+                Soft Skills Training That Takes You
                 <br />
-                Beyond <span className="gradient-text">Limits.</span>
+                <span className="gradient-text">Beyond Language Learning.</span>
               </motion.h1>
 
               <motion.p

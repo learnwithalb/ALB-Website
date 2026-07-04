@@ -285,36 +285,36 @@ export const testimonials = [
 
 export const faqs = [
   {
-    q: "What languages does ALB teach?",
-    a: "ALB teaches French, German, and English, each as a structured online course running from beginner (A1) to upper-intermediate (B2) level. Every language is offered across three goal-specific tracks: Immigration, Academic, and Career, so the curriculum aligns with where you're actually headed. A Soft Skills module (+Beyond) is also included as part of every language course, not sold separately.",
+    q: "What languages does Academy of Languages and Beyond (ALB) teach?",
+    a: "Academy of Languages and Beyond (ALB) teaches French, German, and English, each as a structured online course running from beginner (A1) to upper-intermediate (B2) level. Every language is offered across three goal-specific tracks: Immigration, Academic, and Career, so the curriculum aligns with where you're actually headed. A Soft Skills module (+Beyond) is also included as part of every language course, not sold separately.",
   },
   {
     q: "Can I learn French, German, or English online from India?",
-    a: "Yes, all ALB courses are delivered entirely online through live, instructor-led sessions three times a week. Every batch is capped at 12 students to ensure speaking time and personalised attention for every learner. Whether you're in a metro or a smaller city, the full ALB curriculum, including exam preparation and the +Beyond soft skills module, is accessible from anywhere in India.",
+    a: "Yes, all Academy of Languages and Beyond (ALB) courses are delivered entirely online through live, instructor-led sessions three times a week. Every batch is capped at 12 students to ensure speaking time and personalised attention for every learner. Whether you're in a metro or a smaller city, the full Academy of Languages and Beyond (ALB) curriculum, including exam preparation and the +Beyond soft skills module, is accessible from anywhere in India.",
   },
   {
     q: "How long does it take to go from beginner to B2 level in a language?",
-    a: "At ALB, the full journey from A1 beginner to B2 upper-intermediate takes 36 weeks across four levels for French and German, approximately nine months of consistent study. Each level runs eight to ten weeks, with three live sessions per week plus daily AI-powered speaking practice. Individual timelines vary based on prior language exposure and consistency of practice.",
+    a: "At Academy of Languages and Beyond (ALB), the full journey from A1 beginner to B2 upper-intermediate takes 36 weeks across four levels for French and German, approximately nine months of consistent study. Each level runs eight to ten weeks, with three live sessions per week plus daily AI-powered speaking practice. Individual timelines vary based on prior language exposure and consistency of practice.",
   },
   {
     q: "What is the CEFR language level system, and which level do I need?",
-    a: "CEFR (Common European Framework of Reference for Languages) is the international standard for measuring language ability, running from A1 (complete beginner) to C2 (near-native). Most immigration pathways require B1 or B2. University admissions typically require B2. ALB's courses are fully aligned to CEFR levels, with each level ending in an ALB certificate matched to the corresponding CEFR standard.",
+    a: "CEFR (Common European Framework of Reference for Languages) is the international standard for measuring language ability, running from A1 (complete beginner) to C2 (near-native). Most immigration pathways require B1 or B2. University admissions typically require B2. Academy of Languages and Beyond (ALB)'s courses are fully aligned to CEFR levels, with each level ending in an Academy of Languages and Beyond (ALB) certificate matched to the corresponding CEFR standard.",
   },
   {
     q: "Which language should I learn for Canada immigration, French or English?",
-    a: "Both are valuable but serve different pathways. French carries additional Comprehensive Ranking System points in Express Entry and opens access to Quebec immigration streams. English, measured through IELTS or equivalent exams, is required for most federal immigration pathways. ALB teaches both, allowing learners to build a combined French and English profile for the strongest possible Canadian immigration outcome.",
+    a: "Both are valuable but serve different pathways. French carries additional Comprehensive Ranking System points in Express Entry and opens access to Quebec immigration streams. English, measured through IELTS or equivalent exams, is required for most federal immigration pathways. Academy of Languages and Beyond (ALB) teaches both, allowing learners to build a combined French and English profile for the strongest possible Canadian immigration outcome.",
   },
   {
     q: "Does learning French or German improve my chances of getting a job abroad?",
-    a: "Yes, measurably. French opens career opportunities across Canada, France, Belgium, Switzerland, and Francophone Africa. German is increasingly required for skilled worker immigration, with B1 a formal entry requirement for many roles. Beyond visa pathways, multilingual professionals report broader role availability in international companies. ALB's Career Track builds language skills alongside the professional communication needed to use them effectively in a real workplace.",
+    a: "Yes, measurably. French opens career opportunities across Canada, France, Belgium, Switzerland, and Francophone Africa. German is increasingly required for skilled worker immigration, with B1 a formal entry requirement for many roles. Beyond visa pathways, multilingual professionals report broader role availability in international companies. Academy of Languages and Beyond (ALB)'s Career Track builds language skills alongside the professional communication needed to use them effectively in a real workplace.",
   },
   {
-    q: "What exams can I prepare for at ALB?",
-    a: "ALB prepares learners for the full range of internationally recognised language examinations: DELF (A1 to B2) and DALF (C1) for French; Goethe-Zertifikat (A1 to B2), TestDaF, and DSH for German; and IELTS Academic and General Training for English. TEF Canada and TCF Canada preparation is built into the French B1 and B2 levels. Exam preparation is included in every course, not sold separately.",
+    q: "What exams can I prepare for at Academy of Languages and Beyond (ALB)?",
+    a: "Academy of Languages and Beyond (ALB) prepares learners for the full range of internationally recognised language examinations: DELF (A1 to B2) and DALF (C1) for French; Goethe-Zertifikat (A1 to B2), TestDaF, and DSH for German; and IELTS Academic and General Training for English. TEF Canada and TCF Canada preparation is built into the French B1 and B2 levels. Exam preparation is included in every course, not sold separately.",
   },
   {
-    q: "What makes ALB different from language apps like Duolingo or Babbel?",
-    a: "Language apps build vocabulary and habit but have real limitations, no live instructor, no speaking practice under real conditions, no structured exam preparation, and no professional soft skills layer. ALB offers live instructor-led classes capped at 12 students, built-in preparation for internationally recognised certifications, and a +Beyond soft skills module, designed for learners with a real goal beyond the language itself.",
+    q: "What makes Academy of Languages and Beyond (ALB) different from language apps like Duolingo or Babbel?",
+    a: "Language apps build vocabulary and habit but have real limitations, no live instructor, no speaking practice under real conditions, no structured exam preparation, and no professional soft skills layer. Academy of Languages and Beyond (ALB) offers live instructor-led classes capped at 12 students, built-in preparation for internationally recognised certifications, and a +Beyond soft skills module, designed for learners with a real goal beyond the language itself.",
   },
 ] as const;
 

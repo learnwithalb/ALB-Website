@@ -1,0 +1,35 @@
+# Academy of Languages and Beyond (ALB)
+
+> India's premier online language and soft-skills academy. Live, instructor-led
+> French, German, and English courses (A1–B2) with goal-based tracks for
+> immigration, academics, and careers — plus a free +Beyond soft-skills module
+> included with every course.
+
+## About
+- Full name: Academy of Languages and Beyond (ALB)
+- Format: Live online classes, small batches (max 12), 3 sessions/week
+- Languages: French, German, English (IELTS), plus Junior (ages 6–18)
+- Exams prepared: DELF/DALF, TEF Canada, TCF Canada, Goethe-Zertifikat, TestDaF, DSH, IELTS
+- Location: Noida, Uttar Pradesh, India
+- Contact: info@learnwithalb.com
+
+## Key Pages
+- /courses — All language programmes
+- /courses/french — French A1–B2 (Canada PR / TEF / DELF focus)
+- /courses/german — German A1–B2 (immigration & study)
+- /courses/ielts — IELTS & English coaching
+- /beyond — +Beyond soft-skills training
+- /junior — ALB Junior (ages 6–18)
+- /success-stories — Learner reviews and video testimonials
+- /blog — Guides on French for Canada, DELF/DALF, German immigration, IELTS, and India-first language learning
+- /faq — Frequently asked questions
+
+## Content Clusters (Blog)
+- French for Canada PR: TEF vs TCF, TEF Speaking, TCF Writing, CLB points, Quebec vs Federal
+- DELF/DALF Exam Prep: DELF vs DALF, A1 prep, B1 speaking, B2 writing, exam centres in India
+- German for Immigration & Study: Goethe vs TestDaF, Ausbildung, TestDaF TDN, Skilled Worker Visa, DSH vs TestDaF
+- IELTS & English for Global Careers: General vs Academic, Band 7, Writing Task 2, speaking confidence
+- Language Learning for Indians: French for Hindi speakers, cognates, common mistakes, timelines
+
+## Usage
+Content may be cited with attribution to Academy of Languages and Beyond (ALB).

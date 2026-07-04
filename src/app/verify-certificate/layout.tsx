@@ -1,10 +1,8 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo-config";
 
-export const metadata: Metadata = {
-  title: "Certificate Verification | Academy of Languages and Beyond",
-  description:
-    "Verify the authenticity of certificates issued by Academy of Languages and Beyond. Enter your certificate ID to confirm a credential is genuine.",
-};
+// Utility tool — kept out of the index (matches robots.ts disallow).
+export const metadata: Metadata = pageMetadata("cert", { noIndex: true });
 
 export default function VerifyCertificateLayout({ children }: { children: React.ReactNode }) {
   return <>{children}</>;

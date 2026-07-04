@@ -6,6 +6,9 @@ import { Footer } from "@/components/layout/Footer";
 import { LenisProvider } from "@/components/shared/LenisProvider";
 import { BookingProvider } from "@/components/shared/BookingContext";
 import { BookingModal } from "@/components/shared/BookingModal";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { organizationSchema, websiteSchema } from "@/lib/schema";
+import { SITE_URL, DEFAULT_OG_IMAGE } from "@/lib/seo";
 
 const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
@@ -16,6 +19,7 @@ const cormorant = Cormorant_Garamond({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   title: {
     default: "Online foreign language courses with free soft-skills | ALB",
     template: "%s | ALB",
@@ -23,10 +27,17 @@ export const metadata: Metadata = {
   description:
     "Academy of Languages and Beyond offers online foreign language courses with live classes, regular speaking sessions | Free online soft-skills certification",
   keywords: ["French course India", "IELTS coaching", "soft skills", "language academy", "German course"],
+  alternates: { canonical: "/" },
   openGraph: {
     siteName: "Academy of Languages and Beyond",
     type: "website",
     locale: "en_IN",
+    url: SITE_URL,
+    images: [{ url: DEFAULT_OG_IMAGE, width: 1200, height: 630 }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    images: [DEFAULT_OG_IMAGE],
   },
 };
 
@@ -40,6 +51,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
       </head>
       <body className="font-sans antialiased">
+        {/* Global structured data — Organization + WebSite (E-E-A-T signals) */}
+        <JsonLd data={[organizationSchema(), websiteSchema()]} />
         <BookingProvider>
           <LenisProvider>
             <Navbar />

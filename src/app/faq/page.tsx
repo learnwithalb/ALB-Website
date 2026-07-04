@@ -13,7 +13,7 @@ import { FRENCH, GERMAN, ENGLISH } from "@/lib/courseData";
 
 const GENERAL = faqs.filter((f) =>
   [
-    "What languages does ALB teach?",
+    "What languages does Academy of Languages and Beyond (ALB) teach?",
     "Can I learn French, German, or English online from India?",
     "What is the CEFR language level system, and which level do I need?",
     "Which language should I learn for Canada immigration, French or English?",
@@ -22,19 +22,19 @@ const GENERAL = faqs.filter((f) =>
 );
 
 const ABOUT = [
-  { q: "What makes ALB different from language apps like Duolingo or Babbel?", a: "Language apps build vocabulary and habit but have real limitations, no live instructor, no speaking practice under real conditions, no structured exam preparation, and no professional soft skills layer. ALB offers live instructor-led classes capped at 12 students, built-in preparation for internationally recognised certifications, and a +Beyond soft skills module, designed for learners with a real goal beyond the language itself." },
-  { q: "What is the +Beyond Global Confidence Programme?", a: "+Beyond is ALB's signature soft-skills programme. It focuses on public speaking, presentation skills, interview readiness, professional communication, personal branding, and confidence-building to help learners succeed beyond language learning." },
+  { q: "What makes Academy of Languages and Beyond (ALB) different from language apps like Duolingo or Babbel?", a: "Language apps build vocabulary and habit but have real limitations, no live instructor, no speaking practice under real conditions, no structured exam preparation, and no professional soft skills layer. Academy of Languages and Beyond (ALB) offers live instructor-led classes capped at 12 students, built-in preparation for internationally recognised certifications, and a +Beyond soft skills module, designed for learners with a real goal beyond the language itself." },
+  { q: "What is the +Beyond Global Confidence Programme?", a: "+Beyond is Academy of Languages and Beyond (ALB)'s signature soft-skills programme. It focuses on public speaking, presentation skills, interview readiness, professional communication, personal branding, and confidence-building to help learners succeed beyond language learning." },
   { q: "Are classes live or recorded?", a: "All classes are conducted live by experienced instructors in small batches. Session recordings are also shared with enrolled learners for revision and practice." },
-  { q: "How many students are there in each batch?", a: "ALB maintains small cohorts to ensure personalised attention, speaking opportunities, individual feedback, and active participation for every learner." },
-  { q: "Will I receive a certificate after completing the programme?", a: "Yes. Learners receive ALB completion certificates at milestone levels. Students pursuing exam preparation also receive mock assessment reports and performance feedback throughout the programme." },
-  { q: "Can I attend a trial class before enrolling?", a: "Yes. ALB offers a free trial class so learners can experience the teaching methodology, meet the instructor, and understand the programme before making a decision." },
+  { q: "How many students are there in each batch?", a: "Academy of Languages and Beyond (ALB) maintains small cohorts to ensure personalised attention, speaking opportunities, individual feedback, and active participation for every learner." },
+  { q: "Will I receive a certificate after completing the programme?", a: "Yes. Learners receive Academy of Languages and Beyond (ALB) completion certificates at milestone levels. Students pursuing exam preparation also receive mock assessment reports and performance feedback throughout the programme." },
+  { q: "Can I attend a trial class before enrolling?", a: "Yes. Academy of Languages and Beyond (ALB) offers a free trial class so learners can experience the teaching methodology, meet the instructor, and understand the programme before making a decision." },
 ];
 
 const PROGRAMMES = [
-  { q: "How long does it take to go from beginner to B2 level in a language?", a: "At ALB, the full journey from A1 beginner to B2 upper-intermediate takes 36 weeks across four levels for French and German, approximately nine months of consistent study. Each level runs eight to ten weeks, with three live sessions per week plus daily AI-powered speaking practice. Individual timelines vary based on prior language exposure and consistency of practice." },
-  { q: "What exams can I prepare for at ALB?", a: "ALB prepares learners for the full range of internationally recognised language examinations: DELF (A1 to B2) and DALF (C1) for French; Goethe-Zertifikat (A1 to B2), TestDaF, and DSH for German; and IELTS Academic and General Training for English. TEF Canada and TCF Canada preparation is built into the French B1 and B2 levels. Exam preparation is included in every course, not sold separately." },
-  { q: "Do I need perfect grammar before I start speaking?", a: "No. One of the biggest misconceptions is that learners must master grammar before speaking. At ALB, learners begin speaking from the start while improving grammar naturally through structured communication practice and feedback." },
-  { q: "Why do many learners understand a language but struggle to speak it?", a: "This usually happens because learners spend years studying a language academically without sufficient speaking practice. ALB focuses on active communication, helping learners convert passive knowledge into real-world speaking ability." },
+  { q: "How long does it take to go from beginner to B2 level in a language?", a: "At Academy of Languages and Beyond (ALB), the full journey from A1 beginner to B2 upper-intermediate takes 36 weeks across four levels for French and German, approximately nine months of consistent study. Each level runs eight to ten weeks, with three live sessions per week plus daily AI-powered speaking practice. Individual timelines vary based on prior language exposure and consistency of practice." },
+  { q: "What exams can I prepare for at Academy of Languages and Beyond (ALB)?", a: "Academy of Languages and Beyond (ALB) prepares learners for the full range of internationally recognised language examinations: DELF (A1 to B2) and DALF (C1) for French; Goethe-Zertifikat (A1 to B2), TestDaF, and DSH for German; and IELTS Academic and General Training for English. TEF Canada and TCF Canada preparation is built into the French B1 and B2 levels. Exam preparation is included in every course, not sold separately." },
+  { q: "Do I need perfect grammar before I start speaking?", a: "No. One of the biggest misconceptions is that learners must master grammar before speaking. At Academy of Languages and Beyond (ALB), learners begin speaking from the start while improving grammar naturally through structured communication practice and feedback." },
+  { q: "Why do many learners understand a language but struggle to speak it?", a: "This usually happens because learners spend years studying a language academically without sufficient speaking practice. Academy of Languages and Beyond (ALB) focuses on active communication, helping learners convert passive knowledge into real-world speaking ability." },
 ];
 
 type Cat = {

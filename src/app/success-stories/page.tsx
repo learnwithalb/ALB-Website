@@ -1,13 +1,30 @@
 "use client";
 
-import { useState } from "react";
-import Image from "next/image";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { motion, AnimatePresence, useScroll, useSpring } from "framer-motion";
-import { ArrowRight, Quote, Star, MapPin, Sparkles } from "lucide-react";
+import { ArrowRight, Quote, Star, MapPin, Sparkles, Play, ChevronLeft, ChevronRight } from "lucide-react";
 import { AnimateOnView } from "@/components/shared/AnimateOnView";
-import { CountUp } from "@/components/shared/CountUp";
-import { Flag, MuiIcon } from "@/lib/icons";
+import { Flag } from "@/lib/icons";
 import { useBooking } from "@/components/shared/BookingContext";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { reviewSchema } from "@/lib/schema";
+
+/* Minimal YouTube IFrame API typings (only what we use) */
+type YTPlayer = {
+  loadVideoById: (id: string) => void;
+  playVideo: () => void;
+  unMute: () => void;
+  destroy: () => void;
+};
+declare global {
+  interface Window {
+    YT?: {
+      Player: new (el: string | HTMLElement, opts: unknown) => YTPlayer;
+      PlayerState: { ENDED: number };
+    };
+    onYouTubeIframeAPIReady?: () => void;
+  }
+}
 
 /* ─────────────────────────  DATA  ───────────────────────── */
 
@@ -62,12 +79,17 @@ const FILTERS: { key: "All" | Lang; label: string }[] = [
   { key: "Multi", label: "Multilingual" },
 ];
 
-const HERO_STATS = [
-  { n: "3", l: "Languages", icon: "language", color: "#3b5bdb" },
-  { n: "4", l: "Goal-Based Tracks", icon: "target", color: "#0ea5e9" },
-  { n: "+Beyond", l: "Soft Skills Included", icon: "sparkle", color: "#8b5cf6" },
-  { n: "1 Community", l: "Learners Growing Globally", icon: "people", color: "#f59e0b" },
+/* YouTube Shorts — learner success stories, played inline in the hero carousel.
+   First entry plays first on load (Jasmeet — the girl in the black top). */
+const VIDEOS = [
+  "cOCET-r7ZBs", // Jasmeet — France admission (plays first, centre)
+  "l9zL8_Olw1g", "ZQ6KzcxhGSU", "zyu7vOwR6sg", "CaVjCYreDog",
+  "qn8nEVg2jnI", "tfIEqrVO8cY", "pyQhGEPL_wQ",
+  "ibmz8qFM4y0", // Tanishk — pink t-shirt (corner)
+  "fpAK_nXI7AY", "takWPxrE6E8",
 ];
+const ROYAL = "#3b5bdb";
+const ytThumb = (id: string) => `https://i.ytimg.com/vi/${id}/hqdefault.jpg`;
 
 /* ─────────────────────────  PIECES  ───────────────────────── */
 
@@ -177,11 +199,111 @@ function StoryCard({ s, index }: { s: Story; index: number }) {
 export default function SuccessStoriesPage() {
   const { openModal } = useBooking();
   const [filter, setFilter] = useState<"All" | Lang>("All");
+  const [current, setCurrent] = useState(0);
+  const [vw, setVw] = useState(1280);
+  const hostRef = useRef<HTMLDivElement>(null);
+  const playerRef = useRef<YTPlayer | null>(null);
+  const currentRef = useRef(0);
+
+  // Track viewport width so the full-bleed carousel sizes/spreads responsively.
+  useEffect(() => {
+    const onResize = () => setVw(window.innerWidth);
+    onResize();
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  }, []);
+
+  const goTo = useCallback(
+    (dir: 1 | -1) => setCurrent((c) => (c + dir + VIDEOS.length) % VIDEOS.length),
+    [],
+  );
+
+  // Load the YouTube IFrame API once and build the inline (on-page) player.
+  useEffect(() => {
+    let cancelled = false;
+    const host = hostRef.current;
+    const build = () => {
+      if (cancelled || playerRef.current || !window.YT || !host) return;
+      // Give YT its own child node so it never fights React over the DOM.
+      const mount = document.createElement("div");
+      mount.style.width = "100%";
+      mount.style.height = "100%";
+      host.innerHTML = "";
+      host.appendChild(mount);
+
+      playerRef.current = new window.YT.Player(mount, {
+        videoId: VIDEOS[currentRef.current],
+        width: "100%",
+        height: "100%",
+        // Muted autoplay is the only kind browsers permit on load; we unmute on first interaction.
+        playerVars: { autoplay: 1, mute: 1, playsinline: 1, controls: 1, rel: 0, modestbranding: 1 },
+        events: {
+          onReady: (e: { target: YTPlayer }) => e.target.playVideo(),
+          onStateChange: (e: { data: number }) => {
+            // Auto-advance to the next story when the current one finishes.
+            if (window.YT && e.data === window.YT.PlayerState.ENDED) {
+              setCurrent((c) => (c + 1) % VIDEOS.length);
+            }
+          },
+        },
+      });
+    };
+
+    if (window.YT && window.YT.Player) {
+      build();
+    } else {
+      if (!document.getElementById("yt-iframe-api")) {
+        const tag = document.createElement("script");
+        tag.id = "yt-iframe-api";
+        tag.src = "https://www.youtube.com/iframe_api";
+        document.body.appendChild(tag);
+      }
+      window.onYouTubeIframeAPIReady = build;
+    }
+
+    return () => {
+      cancelled = true;
+      playerRef.current?.destroy();
+      playerRef.current = null;
+      if (host) host.innerHTML = "";
+    };
+  }, []);
+
+  // Swap the playing video whenever the active card changes.
+  useEffect(() => {
+    currentRef.current = current;
+    playerRef.current?.loadVideoById(VIDEOS[current]);
+  }, [current]);
+
+  // Unmute the player the first time the visitor interacts with the page.
+  useEffect(() => {
+    const unmute = () => {
+      playerRef.current?.unMute();
+      window.removeEventListener("pointerdown", unmute);
+      window.removeEventListener("keydown", unmute);
+      window.removeEventListener("touchstart", unmute);
+    };
+    window.addEventListener("pointerdown", unmute);
+    window.addEventListener("keydown", unmute);
+    window.addEventListener("touchstart", unmute);
+    return () => {
+      window.removeEventListener("pointerdown", unmute);
+      window.removeEventListener("keydown", unmute);
+      window.removeEventListener("touchstart", unmute);
+    };
+  }, []);
 
   const { scrollYProgress } = useScroll();
   const progress = useSpring(scrollYProgress, { stiffness: 120, damping: 30, mass: 0.4 });
 
   const shown = filter === "All" ? STORIES : STORIES.filter((s) => s.lang === filter);
+
+  // Responsive, full-bleed carousel sizing derived from viewport width.
+  const isMobile = vw < 640;
+  const cardW = Math.round(isMobile ? Math.min(150, vw * 0.42) : Math.min(210, vw / 6.6));
+  const cardH = Math.round((cardW * 16) / 9);
+  const spacing = cardW * (isMobile ? 0.64 : 0.82);
+  const maxOff = isMobile ? 1 : 3;
 
   const counts: Record<string, number> = {
     All: STORIES.length,
@@ -193,6 +315,7 @@ export default function SuccessStoriesPage() {
 
   return (
     <>
+      <JsonLd data={reviewSchema(STORIES.map((s) => ({ author: s.name, body: s.text })))} />
       {/* scroll progress bar */}
       <motion.div
         className="fixed top-0 left-0 right-0 h-1 z-[60] origin-left"
@@ -200,109 +323,167 @@ export default function SuccessStoriesPage() {
       />
 
       {/* ══════════ HERO ══════════ */}
-      <section className="relative hero-light overflow-hidden pt-24 md:pt-28 pb-16 md:pb-20">
+      <section className="relative hero-light overflow-hidden pt-24 md:pt-28 pb-14 md:pb-16">
         <div className="absolute inset-0 grid-lines opacity-40 pointer-events-none" />
 
         <div className="container-max px-5 md:px-8 relative z-10">
-          {/* scattered portrait arc */}
-          <motion.div
-            initial={{ opacity: 0, y: 18, scale: 0.985 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
-            className="relative w-full mx-auto max-w-6xl"
-          >
-            <Image
-              src="/images/ss-hero-image.png"
-              alt="ALB learners from various backgrounds"
-              width={3063}
-              height={957}
-              priority
-              sizes="100vw"
-              className="w-full h-auto select-none pointer-events-none [mask-image:linear-gradient(to_bottom,#000_70%,transparent)]"
-            />
+          {/* headline */}
+          <div className="relative z-10 mx-auto max-w-3xl text-center">
+            <motion.span
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              className="inline-flex items-center gap-1.5 rounded-full bg-royal-50 border border-royal-100 px-3.5 py-1.5 text-[11px] font-bold uppercase tracking-[0.16em] text-royal-700"
+            >
+              <Sparkles size={12} /> Success Stories
+            </motion.span>
 
-            {/* copy tucked under the arch, flanked by the lower portraits */}
-            <div className="relative -mt-8 md:-mt-16 lg:-mt-20">
-              <div className="max-w-2xl mx-auto text-center px-2">
-                <motion.span
-                  initial={{ opacity: 0, y: 12 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: 0.5 }}
-                  className="inline-flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-[0.16em] text-royal-700 bg-royal-50 border border-royal-100 rounded-full px-3.5 py-1.5"
-                >
-                  <Sparkles size={12} /> Success Stories
-                </motion.span>
+            <motion.h1
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.65, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+              className="mt-5 text-4xl sm:text-5xl md:text-6xl font-black text-ink leading-[1.03] tracking-tight"
+            >
+              Hear It Straight,
+              <br />
+              <span className="gradient-text">From Our Learners.</span>
+            </motion.h1>
 
-                <motion.h1
-                  initial={{ opacity: 0, y: 22 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.7, delay: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                  className="text-4xl sm:text-5xl md:text-6xl font-black text-ink leading-[1.05] tracking-tight mt-4"
-                >
-                  Trusted by learners
-                  <br />
-                  <span className="text-muted">chasing bigger goals.</span>
-                </motion.h1>
+            <motion.p
+              initial={{ opacity: 0, y: 14 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.55, delay: 0.2 }}
+              className="mx-auto mt-4 max-w-xl text-base md:text-lg text-body leading-relaxed"
+            >
+              Real ALB students on how they cleared exams, moved abroad, and found their confidence.
+            </motion.p>
 
-                <motion.p
-                  initial={{ opacity: 0, y: 14 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 0.75 }}
-                  className="mt-5 text-base md:text-lg text-body max-w-xl mx-auto leading-relaxed"
-                >
-                  From immigration files and university admissions to first confident client calls, see why learners across French, German, and English choose ALB.
-                </motion.p>
+            <motion.div
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+              className="mt-7 flex justify-center"
+            >
+              <button
+                onClick={() => openModal()}
+                className="group inline-flex items-center gap-2.5 rounded-full bg-ink px-7 py-3.5 text-base font-bold text-white shadow-[0_14px_34px_-12px_rgba(14,23,51,0.7)] transition-transform hover:-translate-y-0.5"
+              >
+                Book a Free Trial
+                <span className="flex h-6 w-6 items-center justify-center rounded-full bg-white/15 transition-transform group-hover:translate-x-0.5">
+                  <ArrowRight size={14} />
+                </span>
+              </button>
+            </motion.div>
+          </div>
 
-                <motion.div
-                  initial={{ opacity: 0, y: 12 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: 0.9 }}
-                  className="mt-7 flex justify-center"
-                >
-                  <a
-                    href="#stories"
-                    className="group inline-flex items-center gap-2.5 rounded-full bg-ink text-white font-bold text-base px-7 py-3.5 shadow-[0_14px_34px_-12px_rgba(14,23,51,0.7)] transition-transform hover:-translate-y-0.5"
+          {/* inline autoplay carousel — full-bleed */}
+          <div className="relative z-10 mt-12 md:mt-14">
+            <div
+              className="relative left-1/2 w-screen -translate-x-1/2 overflow-hidden [perspective:1700px]"
+              style={{ height: cardH + 48 }}
+            >
+              {VIDEOS.map((id, i) => {
+                const N = VIDEOS.length;
+                let off = i - current;
+                if (off > N / 2) off -= N;
+                if (off < -N / 2) off += N;
+                const a = Math.min(Math.abs(off), maxOff + 1);
+                const isHidden = Math.abs(off) > maxOff;
+                const isActive = off === 0;
+                return (
+                  <motion.button
+                    key={id}
+                    type="button"
+                    onClick={() => setCurrent(i)}
+                    aria-label={`Play story ${i + 1}`}
+                    animate={{
+                      x: off * spacing,
+                      rotateY: off * (isMobile ? 12 : 8),
+                      z: -a * (isMobile ? 40 : 75),
+                      scale: isActive ? 1 : 1 - a * (isMobile ? 0.12 : 0.07),
+                      opacity: isHidden ? 0 : 1,
+                    }}
+                    transition={{ type: "spring", stiffness: 260, damping: 30 }}
+                    className="group absolute overflow-hidden rounded-2xl bg-black ring-2 ring-white shadow-[0_24px_50px_-18px_rgba(14,23,51,0.55)]"
+                    style={{
+                      width: cardW,
+                      height: cardH,
+                      left: "50%",
+                      top: "50%",
+                      marginLeft: -cardW / 2,
+                      marginTop: -cardH / 2,
+                      transformStyle: "preserve-3d",
+                      zIndex: 20 - a,
+                      pointerEvents: isHidden ? "none" : "auto",
+                    }}
                   >
-                    Read Success Stories
-                    <ArrowRight size={17} className="transition-transform group-hover:translate-x-1" />
-                  </a>
-                </motion.div>
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={ytThumb(id)}
+                      alt="ALB learner success story"
+                      className="absolute inset-0 h-full w-full object-cover"
+                      loading="lazy"
+                    />
+                    {!isActive && (
+                      <>
+                        <span className="absolute inset-0 bg-black/30 transition-colors group-hover:bg-black/10" />
+                        <span className="absolute inset-0 flex items-center justify-center opacity-0 transition-opacity group-hover:opacity-100">
+                          <span className="flex h-11 w-11 items-center justify-center rounded-full bg-white/90 shadow-lg">
+                            <Play size={17} className="ml-0.5 text-ink" fill="currentColor" />
+                          </span>
+                        </span>
+                      </>
+                    )}
+                  </motion.button>
+                );
+              })}
+
+              {/* persistent inline player over the centre slot */}
+              <div
+                className="absolute left-1/2 top-1/2 z-30 overflow-hidden rounded-2xl bg-black ring-2 ring-white shadow-[0_28px_60px_-18px_rgba(14,23,51,0.6)]"
+                style={{ width: cardW, height: cardH, marginLeft: -cardW / 2, marginTop: -cardH / 2 }}
+              >
+                <div ref={hostRef} className="h-full w-full" />
               </div>
             </div>
-          </motion.div>
 
-          {/* stat strip */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 1 }}
-            className="mt-12 md:mt-16 grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto"
-          >
-            {HERO_STATS.map((s, i) => (
-              <motion.div
-                key={s.l}
-                className="group relative card rounded-2xl text-center px-4 py-6 overflow-hidden"
-                whileHover={{ y: -5 }}
-                transition={{ duration: 0.25, delay: i * 0.02 }}
+            {/* slide controls */}
+            <div className="mt-7 flex items-center justify-center gap-4">
+              <button
+                type="button"
+                onClick={() => goTo(-1)}
+                aria-label="Previous story"
+                className="flex h-11 w-11 items-center justify-center rounded-full border border-line bg-white text-ink shadow-sm transition-all hover:-translate-y-0.5 hover:border-royal-300 hover:text-royal-600"
               >
-                {/* top accent line */}
-                <span className="absolute top-0 left-0 right-0 h-1" style={{ background: `linear-gradient(90deg, ${s.color}, ${s.color}33)` }} />
-                {/* hover glow */}
-                <span className="absolute -top-10 left-1/2 -translate-x-1/2 w-24 h-24 rounded-full blur-2xl opacity-0 group-hover:opacity-30 transition-opacity duration-300 pointer-events-none" style={{ background: s.color }} />
-                {/* icon badge */}
-                <span
-                  className="relative z-10 mx-auto mb-3 w-11 h-11 rounded-xl flex items-center justify-center transition-transform duration-300 group-hover:scale-110"
-                  style={{ background: `${s.color}1a`, boxShadow: `inset 0 0 0 1px ${s.color}33` }}
-                >
-                  <MuiIcon name={s.icon} size={20} style={{ color: s.color }} />
-                </span>
-                <div className="relative z-10 text-xl md:text-2xl font-black gradient-text leading-tight">
-                  <CountUp value={s.n} duration={1600} />
-                </div>
-                <div className="relative z-10 text-[10.5px] md:text-xs font-bold uppercase tracking-wider text-muted mt-1.5">{s.l}</div>
-              </motion.div>
-            ))}
-          </motion.div>
+                <ChevronLeft size={20} />
+              </button>
+
+              <div className="flex items-center gap-1.5">
+                {VIDEOS.map((id, i) => (
+                  <button
+                    key={id}
+                    type="button"
+                    onClick={() => setCurrent(i)}
+                    aria-label={`Go to story ${i + 1}`}
+                    className="h-2 rounded-full transition-all"
+                    style={{
+                      width: i === current ? 22 : 8,
+                      background: i === current ? ROYAL : "#d5dbe8",
+                    }}
+                  />
+                ))}
+              </div>
+
+              <button
+                type="button"
+                onClick={() => goTo(1)}
+                aria-label="Next story"
+                className="flex h-11 w-11 items-center justify-center rounded-full border border-line bg-white text-ink shadow-sm transition-all hover:-translate-y-0.5 hover:border-royal-300 hover:text-royal-600"
+              >
+                <ChevronRight size={20} />
+              </button>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -407,6 +588,7 @@ export default function SuccessStoriesPage() {
           </AnimateOnView>
         </div>
       </section>
+
     </>
   );
 }

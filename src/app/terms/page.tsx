@@ -1,10 +1,8 @@
 import type { Metadata } from "next";
 import { AnimateOnView } from "@/components/shared/AnimateOnView";
+import { pageMetadata } from "@/lib/seo-config";
 
-export const metadata: Metadata = {
-  title: "Terms and Conditions | Academy of Languages and Beyond",
-  description: "Terms and Conditions for Academy of Languages and Beyond, enrolment, payment, refund and cancellation policy, conduct, intellectual property, privacy, and more.",
-};
+export const metadata: Metadata = pageMetadata("terms");
 
 const EMAIL = "info@learnwithalb.com";
 const REFUND_EMAIL = "refund@learnwithalb.com";
