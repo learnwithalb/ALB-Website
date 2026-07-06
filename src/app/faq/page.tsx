@@ -2,40 +2,13 @@
 
 import { useMemo, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronDown, Search, Sparkles, Globe, GraduationCap, ArrowRight, MessageCircleQuestion } from "lucide-react";
+import { ChevronDown, Search, Sparkles, Globe, BookOpen, Rocket, Award, CreditCard, ShieldCheck, ArrowRight, MessageCircleQuestion } from "lucide-react";
 import { AnimateOnView } from "@/components/shared/AnimateOnView";
 import { useBooking } from "@/components/shared/BookingContext";
 import { Flag } from "@/lib/icons";
-import { faqs } from "@/lib/constants";
-import { FRENCH, GERMAN, ENGLISH } from "@/lib/courseData";
+import { FAQ_CATEGORIES } from "@/lib/faqData";
 
-/* ─────────────── curated cross-site FAQ groups ─────────────── */
-
-const GENERAL = faqs.filter((f) =>
-  [
-    "What languages does Academy of Languages and Beyond (ALB) teach?",
-    "Can I learn French, German, or English online from India?",
-    "What is the CEFR language level system, and which level do I need?",
-    "Which language should I learn for Canada immigration, French or English?",
-    "Does learning French or German improve my chances of getting a job abroad?",
-  ].includes(f.q),
-);
-
-const ABOUT = [
-  { q: "What makes Academy of Languages and Beyond (ALB) different from language apps like Duolingo or Babbel?", a: "Language apps build vocabulary and habit but have real limitations, no live instructor, no speaking practice under real conditions, no structured exam preparation, and no professional soft skills layer. Academy of Languages and Beyond (ALB) offers live instructor-led classes capped at 12 students, built-in preparation for internationally recognised certifications, and a +Beyond soft skills module, designed for learners with a real goal beyond the language itself." },
-  { q: "What is the +Beyond Global Confidence Programme?", a: "+Beyond is Academy of Languages and Beyond (ALB)'s signature soft-skills programme. It focuses on public speaking, presentation skills, interview readiness, professional communication, personal branding, and confidence-building to help learners succeed beyond language learning." },
-  { q: "Are classes live or recorded?", a: "All classes are conducted live by experienced instructors in small batches. Session recordings are also shared with enrolled learners for revision and practice." },
-  { q: "How many students are there in each batch?", a: "Academy of Languages and Beyond (ALB) maintains small cohorts to ensure personalised attention, speaking opportunities, individual feedback, and active participation for every learner." },
-  { q: "Will I receive a certificate after completing the programme?", a: "Yes. Learners receive Academy of Languages and Beyond (ALB) completion certificates at milestone levels. Students pursuing exam preparation also receive mock assessment reports and performance feedback throughout the programme." },
-  { q: "Can I attend a trial class before enrolling?", a: "Yes. Academy of Languages and Beyond (ALB) offers a free trial class so learners can experience the teaching methodology, meet the instructor, and understand the programme before making a decision." },
-];
-
-const PROGRAMMES = [
-  { q: "How long does it take to go from beginner to B2 level in a language?", a: "At Academy of Languages and Beyond (ALB), the full journey from A1 beginner to B2 upper-intermediate takes 36 weeks across four levels for French and German, approximately nine months of consistent study. Each level runs eight to ten weeks, with three live sessions per week plus daily AI-powered speaking practice. Individual timelines vary based on prior language exposure and consistency of practice." },
-  { q: "What exams can I prepare for at Academy of Languages and Beyond (ALB)?", a: "Academy of Languages and Beyond (ALB) prepares learners for the full range of internationally recognised language examinations: DELF (A1 to B2) and DALF (C1) for French; Goethe-Zertifikat (A1 to B2), TestDaF, and DSH for German; and IELTS Academic and General Training for English. TEF Canada and TCF Canada preparation is built into the French B1 and B2 levels. Exam preparation is included in every course, not sold separately." },
-  { q: "Do I need perfect grammar before I start speaking?", a: "No. One of the biggest misconceptions is that learners must master grammar before speaking. At Academy of Languages and Beyond (ALB), learners begin speaking from the start while improving grammar naturally through structured communication practice and feedback." },
-  { q: "Why do many learners understand a language but struggle to speak it?", a: "This usually happens because learners spend years studying a language academically without sufficient speaking practice. Academy of Languages and Beyond (ALB) focuses on active communication, helping learners convert passive knowledge into real-world speaking ability." },
-];
+/* ─────────────── category presentation (accent + icon/flag) ─────────────── */
 
 type Cat = {
   key: string;
@@ -46,14 +19,23 @@ type Cat = {
   flag?: string;
 };
 
-const CATEGORIES: Cat[] = [
-  { key: "general", label: "General", accent: "#3b5bdb", Icon: Globe, items: GENERAL },
-  { key: "about", label: "About ALB", accent: "#8b5cf6", Icon: Sparkles, items: ABOUT },
-  { key: "programmes", label: "Programmes", accent: "#0ea5e9", Icon: GraduationCap, items: PROGRAMMES },
-  { key: "french", label: "French Programme", accent: "#2563EB", flag: "FR", items: [...FRENCH.faq] },
-  { key: "german", label: "German Programme", accent: "#B45309", flag: "DE", items: [...GERMAN.faq] },
-  { key: "english", label: "English Programme", accent: "#012169", flag: "EN", items: [...ENGLISH.faq] },
-];
+const CAT_META: Record<string, { accent: string; Icon?: typeof Globe; flag?: string }> = {
+  general: { accent: "#3b5bdb", Icon: Globe },
+  about: { accent: "#8b5cf6", Icon: Sparkles },
+  admissions: { accent: "#0ea5e9", Icon: BookOpen },
+  french: { accent: "#2563EB", flag: "FR" },
+  german: { accent: "#d97706", flag: "DE" },
+  english: { accent: "#059669", flag: "EN" },
+  beyond: { accent: "#db2777", Icon: Rocket },
+  exams: { accent: "#6366f1", Icon: Award },
+  payments: { accent: "#0891b2", Icon: CreditCard },
+  verify: { accent: "#64748b", Icon: ShieldCheck },
+};
+
+const CATEGORIES: Cat[] = FAQ_CATEGORIES.map((c) => {
+  const meta = CAT_META[c.key] ?? { accent: "#3b5bdb" };
+  return { key: c.key, label: c.label, items: c.items, ...meta };
+});
 
 /* ─────────────── page ─────────────── */
 

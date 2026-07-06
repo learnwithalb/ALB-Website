@@ -4,7 +4,6 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import { motion, AnimatePresence, useScroll, useSpring } from "framer-motion";
 import { ArrowRight, Quote, Star, MapPin, Sparkles, Play, ChevronLeft, ChevronRight } from "lucide-react";
 import { AnimateOnView } from "@/components/shared/AnimateOnView";
-import { Flag } from "@/lib/icons";
 import { useBooking } from "@/components/shared/BookingContext";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { reviewSchema } from "@/lib/schema";
@@ -111,17 +110,6 @@ function Stars({ color = "#fbbf24", size = 14 }: { color?: string; size?: number
   );
 }
 
-function LangBadge({ flags }: { flags: string[] }) {
-  return (
-    <span className="flex -space-x-2">
-      {flags.map((f, i) => (
-        <span key={f} className="rounded-full ring-2 ring-white shadow-sm" style={{ zIndex: flags.length - i }}>
-          <Flag code={f} size={26} rounded="rounded-full" />
-        </span>
-      ))}
-    </span>
-  );
-}
 
 function StoryCard({ s, index }: { s: Story; index: number }) {
   const meta = LANG_META[s.lang];
@@ -177,7 +165,6 @@ function StoryCard({ s, index }: { s: Story; index: number }) {
               <span className="truncate">{s.location}</span>
             </p>
           </div>
-          <LangBadge flags={meta.flags} />
         </div>
 
         <div className="mt-4 flex items-center justify-between gap-2">
@@ -224,29 +211,38 @@ export default function SuccessStoriesPage() {
     const host = hostRef.current;
     const build = () => {
       if (cancelled || playerRef.current || !window.YT || !host) return;
-      // Give YT its own child node so it never fights React over the DOM.
-      const mount = document.createElement("div");
-      mount.style.width = "100%";
-      mount.style.height = "100%";
-      host.innerHTML = "";
-      host.appendChild(mount);
+      // The YouTube IFrame API can throw synchronously (e.g. on client-side
+      // navigation when it is already cached); guard so it can never crash the
+      // page — the worst case is the video quietly failing to initialise.
+      try {
+        // Give YT its own child node so it never fights React over the DOM.
+        const mount = document.createElement("div");
+        mount.style.width = "100%";
+        mount.style.height = "100%";
+        host.innerHTML = "";
+        host.appendChild(mount);
 
-      playerRef.current = new window.YT.Player(mount, {
-        videoId: VIDEOS[currentRef.current],
-        width: "100%",
-        height: "100%",
-        // Muted autoplay is the only kind browsers permit on load; we unmute on first interaction.
-        playerVars: { autoplay: 1, mute: 1, playsinline: 1, controls: 1, rel: 0, modestbranding: 1 },
-        events: {
-          onReady: (e: { target: YTPlayer }) => e.target.playVideo(),
-          onStateChange: (e: { data: number }) => {
-            // Auto-advance to the next story when the current one finishes.
-            if (window.YT && e.data === window.YT.PlayerState.ENDED) {
-              setCurrent((c) => (c + 1) % VIDEOS.length);
-            }
+        playerRef.current = new window.YT.Player(mount, {
+          videoId: VIDEOS[currentRef.current],
+          width: "100%",
+          height: "100%",
+          // Muted autoplay is the only kind browsers permit on load; we unmute on first interaction.
+          playerVars: { autoplay: 1, mute: 1, playsinline: 1, controls: 1, rel: 0, modestbranding: 1 },
+          events: {
+            onReady: (e: { target: YTPlayer }) => {
+              try { e.target.playVideo(); } catch { /* autoplay blocked */ }
+            },
+            onStateChange: (e: { data: number }) => {
+              // Auto-advance to the next story when the current one finishes.
+              if (window.YT && e.data === window.YT.PlayerState.ENDED) {
+                setCurrent((c) => (c + 1) % VIDEOS.length);
+              }
+            },
           },
-        },
-      });
+        });
+      } catch (err) {
+        console.error("YouTube player init failed", err);
+      }
     };
 
     if (window.YT && window.YT.Player) {
@@ -263,7 +259,7 @@ export default function SuccessStoriesPage() {
 
     return () => {
       cancelled = true;
-      playerRef.current?.destroy();
+      try { playerRef.current?.destroy(); } catch { /* ignore */ }
       playerRef.current = null;
       if (host) host.innerHTML = "";
     };
@@ -272,13 +268,13 @@ export default function SuccessStoriesPage() {
   // Swap the playing video whenever the active card changes.
   useEffect(() => {
     currentRef.current = current;
-    playerRef.current?.loadVideoById(VIDEOS[current]);
+    try { playerRef.current?.loadVideoById(VIDEOS[current]); } catch { /* player not ready */ }
   }, [current]);
 
   // Unmute the player the first time the visitor interacts with the page.
   useEffect(() => {
     const unmute = () => {
-      playerRef.current?.unMute();
+      try { playerRef.current?.unMute(); } catch { /* ignore */ }
       window.removeEventListener("pointerdown", unmute);
       window.removeEventListener("keydown", unmute);
       window.removeEventListener("touchstart", unmute);

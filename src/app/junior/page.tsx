@@ -30,23 +30,6 @@ const REASONS = [
 
 const COURSES = [
   {
-    code: "ALB Junior, English",
-    flagCode: "GB",
-    name: "English Junior",
-    popular: false,
-    tagline: "They already know English. Now let's make them brilliant at it.",
-    from: "#0ea5e9", to: "#0284c7",
-    levels: "Foundation → Intermediate → Advanced",
-    exam: ["IELTS 5.5", "6.5", "7.5+"],
-    points: [
-      "Tackles Indian-English challenges, pronunciation, hesitation, grammar in speech",
-      "Builds reading, writing, listening AND speaking, all four IELTS skills",
-      "Prepares for competitive schools, Model UN, debate, and interviews",
-      "Foundation → Advanced track targets IELTS bands 5.5 through 7.5+",
-    ],
-    bestFor: "International schools, abroad applications, competitive exams, or real everyday confidence.",
-  },
-  {
     code: "ALB Junior, French",
     flagCode: "FR",
     name: "French Junior",
@@ -391,7 +374,7 @@ export default function JuniorPage() {
           <AnimateOnView className="text-center max-w-2xl mx-auto mb-12">
             <span className="eyebrow-pill-outline">Choose a Language</span>
             <h2 className="text-3xl md:text-5xl font-black text-ink mt-1 leading-tight">
-              Three languages. One academy.{" "}
+              Two world languages. One academy.{" "}
               <span className="gradient-text">A lifetime of doors.</span>
             </h2>
             <p className="mt-5 text-body text-base md:text-lg leading-relaxed">
@@ -399,57 +382,53 @@ export default function JuniorPage() {
             </p>
           </AnimateOnView>
 
-          <StaggerContainer className="grid lg:grid-cols-3 gap-6 lg:gap-7 items-stretch" staggerDelay={0.1}>
+          <StaggerContainer className="grid sm:grid-cols-2 gap-6 lg:gap-10 max-w-5xl mx-auto items-stretch" staggerDelay={0.12}>
             {COURSES.map((c) => (
               <StaggerItem key={c.code} className="h-full">
                 <div
-                  className={`group relative h-full flex flex-col rounded-3xl overflow-hidden bg-white transition-all duration-300 ${
-                    c.popular ? "lg:-translate-y-5 lg:scale-[1.03] z-10" : "hover:-translate-y-1.5"
-                  }`}
-                  style={{
-                    border: c.popular ? `2px solid ${c.from}` : "1px solid #e6ebf5",
-                    boxShadow: c.popular
-                      ? `0 32px 64px -24px ${c.from}cc`
-                      : "0 14px 40px -20px rgba(16,23,51,0.22)",
-                  }}
+                  className="group relative h-full flex flex-col rounded-2xl overflow-hidden bg-white border border-line transition-all duration-300 hover:-translate-y-2"
+                  style={{ boxShadow: "0 18px 46px -22px rgba(16,23,51,0.28)" }}
                 >
-                  {/* MOST POPULAR badge, centered tab */}
+                  {/* colour ribbon on top edge */}
+                  <span className="absolute top-0 inset-x-0 h-1.5 z-20" style={{ background: `linear-gradient(90deg, ${c.from}, ${c.to})` }} />
+
                   {c.popular && (
-                    <div className="absolute top-0 left-1/2 -translate-x-1/2 z-30">
-                      <span className="inline-flex items-center gap-1 bg-amber-400 text-ink text-[10px] font-black uppercase tracking-wider px-4 py-1.5 rounded-b-xl shadow-lg">
-                        ★ Most Popular
-                      </span>
-                    </div>
+                    <span
+                      className="absolute top-4 right-4 z-30 inline-flex items-center gap-1 text-white text-[10px] font-black uppercase tracking-wider px-3 py-1 rounded-full shadow-md"
+                      style={{ background: c.from }}
+                    >
+                      ★ Popular
+                    </span>
                   )}
 
                   {/* gradient header */}
-                  <div className="relative px-6 pt-9 pb-7 overflow-hidden" style={{ background: `linear-gradient(150deg, ${c.from}, ${c.to})` }}>
+                  <div className="relative px-7 pt-9 pb-7 overflow-hidden" style={{ background: `linear-gradient(150deg, ${c.from}, ${c.to})` }}>
                     <div className="absolute inset-0 grid-dots-light opacity-20 pointer-events-none" />
-                    <div className="absolute -top-12 -right-10 w-44 h-44 rounded-full bg-white/15 blur-2xl pointer-events-none" />
+                    <div className="absolute -top-12 -right-10 w-48 h-48 rounded-full bg-white/15 blur-2xl pointer-events-none" />
                     <motion.div className="relative z-10 inline-flex" animate={{ y: [0, -8, 0] }} transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}>
-                      <Flag code={c.flagCode} size={56} rounded="rounded-2xl" className="shadow-xl" />
+                      <Flag code={c.flagCode} size={54} rounded="rounded-2xl" className="shadow-xl ring-2 ring-white/40" />
                     </motion.div>
-                    <h3 className="relative z-10 text-2xl font-black text-white mt-3">{c.name}</h3>
-                    <p className="relative z-10 text-white/80 text-sm mt-1.5 leading-relaxed">{c.tagline}</p>
+                    <h3 className="relative z-10 text-[1.7rem] font-black text-white mt-4 leading-none">{c.name}</h3>
+                    <p className="relative z-10 text-white/85 text-sm mt-2.5 leading-relaxed">{c.tagline}</p>
                   </div>
 
                   {/* body */}
-                  <div className="p-6 flex flex-col flex-1">
-                    {/* meta */}
-                    <div className="grid grid-cols-2 gap-2.5 mb-5">
-                      {[["Ages", "6–16"], ["Levels", c.levels], ["Sessions", "3 / week · 90 min"], ["Batch", "Max 12"]].map(([k, v]) => (
-                        <div key={k} className="rounded-xl px-3 py-2.5 border border-line bg-mist">
+                  <div className="p-7 flex flex-col flex-1">
+                    {/* stat strip */}
+                    <div className="grid grid-cols-2 gap-x-5 gap-y-4 pb-6 mb-6 border-b border-line">
+                      {[["Ages", "6–16"], ["Batch", "Max 12"], ["Sessions", "3 / week · 90 min"], ["Levels", c.levels]].map(([k, v]) => (
+                        <div key={k}>
                           <p className="text-[10px] font-extrabold uppercase tracking-wide" style={{ color: c.from }}>{k}</p>
-                          <p className="text-xs font-bold text-ink mt-0.5 leading-tight">{v}</p>
+                          <p className="text-[13px] font-bold text-ink mt-1 leading-tight">{v}</p>
                         </div>
                       ))}
                     </div>
 
-                    <ul className="space-y-2.5 flex-1">
+                    <ul className="space-y-3 flex-1">
                       {c.points.map((p) => (
-                        <li key={p} className="flex items-start gap-2.5 text-sm text-body leading-relaxed">
-                          <span className="mt-0.5 flex-shrink-0 w-4 h-4 rounded-full flex items-center justify-center" style={{ background: `${c.from}1f` }}>
-                            <Check size={11} strokeWidth={3.5} style={{ color: c.from }} />
+                        <li key={p} className="flex items-start gap-3 text-sm text-body leading-relaxed">
+                          <span className="mt-0.5 flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center" style={{ background: `${c.from}1f` }}>
+                            <Check size={12} strokeWidth={3.5} style={{ color: c.from }} />
                           </span>
                           {p}
                         </li>
@@ -457,19 +436,17 @@ export default function JuniorPage() {
                     </ul>
 
                     {/* exam-ready chips */}
-                    <div className="mt-5">
-                      <p className="text-[10px] font-bold uppercase tracking-wide text-muted mb-2">Exam Ready</p>
-                      <div className="flex flex-wrap gap-1.5">
-                        {c.exam.map((e) => (
-                          <span
-                            key={e}
-                            className="text-[11px] font-semibold px-2.5 py-1 rounded-lg border"
-                            style={{ color: c.to, borderColor: `${c.from}33`, background: `${c.from}0f` }}
-                          >
-                            {e}
-                          </span>
-                        ))}
-                      </div>
+                    <div className="mt-6 flex flex-wrap items-center gap-1.5">
+                      <span className="text-[10px] font-bold uppercase tracking-wide text-muted mr-1">Exam Ready</span>
+                      {c.exam.map((e) => (
+                        <span
+                          key={e}
+                          className="text-[11px] font-semibold px-2.5 py-1 rounded-lg border"
+                          style={{ color: c.to, borderColor: `${c.from}33`, background: `${c.from}0f` }}
+                        >
+                          {e}
+                        </span>
+                      ))}
                     </div>
 
                     <p className="text-xs text-muted mt-5 leading-relaxed"><span className="font-bold text-ink">Best for:</span> {c.bestFor}</p>

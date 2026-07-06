@@ -11,7 +11,15 @@ import { useBooking } from "@/components/shared/BookingContext";
 import { MuiIcon } from "@/lib/icons";
 import type { CourseData } from "@/lib/courseData";
 
-export function CourseLanding({ data }: { data: CourseData }) {
+export function CourseLanding({
+  data,
+  // When true, per-track "Download curriculum" buttons are hidden in favour of a
+  // single button below the grid (used only on the English programme page).
+  singleDownload = false,
+}: {
+  data: CourseData;
+  singleDownload?: boolean;
+}) {
   const { openModal } = useBooking();
   const [mod, setMod] = useState(0);
   const [openFaq, setOpenFaq] = useState<number | null>(0);
@@ -238,20 +246,22 @@ export function CourseLanding({ data }: { data: CourseData }) {
                       </div>
                     )}
 
-                    {/* download CTA */}
-                    <button
-                      onClick={() => openModal(data.modalKey)}
-                      className="mt-auto pt-6"
-                    >
-                      <span
-                        className="flex w-full items-center justify-center gap-2 rounded-full font-bold text-sm py-2.5 transition-colors"
-                        style={t.pop
-                          ? { background: acc, color: "#ffffff", boxShadow: `0 10px 24px -8px ${acc}aa` }
-                          : { color: acc, border: `1.5px solid ${acc}40` }}
+                    {/* download CTA (per-card, unless the page uses a single one) */}
+                    {!singleDownload && (
+                      <button
+                        onClick={() => openModal(data.modalKey)}
+                        className="mt-auto pt-6"
                       >
-                        <Download size={14} /> Download curriculum
-                      </span>
-                    </button>
+                        <span
+                          className="flex w-full items-center justify-center gap-2 rounded-full font-bold text-sm py-2.5 transition-colors"
+                          style={t.pop
+                            ? { background: acc, color: "#ffffff", boxShadow: `0 10px 24px -8px ${acc}aa` }
+                            : { color: acc, border: `1.5px solid ${acc}40` }}
+                        >
+                          <Download size={14} /> Download curriculum
+                        </span>
+                      </button>
+                    )}
                   </div>
 
                   {/* colored bottom accent grows in on hover */}
@@ -261,6 +271,19 @@ export function CourseLanding({ data }: { data: CourseData }) {
               );
             })}
           </StaggerContainer>
+
+          {/* single download CTA below the grid (English programme) */}
+          {singleDownload && (
+            <AnimateOnView className="mt-10 flex justify-center">
+              <button
+                onClick={() => openModal(data.modalKey)}
+                className="inline-flex items-center justify-center gap-2 rounded-full font-bold text-white text-sm px-8 py-3.5 transition-transform hover:-translate-y-0.5"
+                style={{ background: `linear-gradient(135deg, ${a}, ${a}cc)`, boxShadow: `0 14px 30px -10px ${a}aa` }}
+              >
+                <Download size={16} /> Download curriculum
+              </button>
+            </AnimateOnView>
+          )}
         </div>
       </section>
 
