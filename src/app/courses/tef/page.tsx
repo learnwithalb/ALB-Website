@@ -62,7 +62,7 @@ export default function TefPage() {
         highlights={HIGHLIGHTS}
         faqs={FAQS}
         relatedPosts={relatedPosts}
-        courseHref="/courses/french"
+        courseHref="/courses/french-language-course-online"
         courseLabel="Explore the French Course"
         topic="TEF Canada Preparation"
       />

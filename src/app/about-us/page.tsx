@@ -283,7 +283,7 @@ export default function AboutPage() {
                 ))}
               </ul>
               <Link
-                href="/beyond"
+                href="/soft-skills-training-online"
                 className="relative z-10 mt-auto inline-flex items-center gap-2.5 self-start pl-6 pr-2.5 py-2.5 rounded-full font-black text-white text-sm transition-transform hover:-translate-y-0.5"
                 style={{ background: "#3b5bdb" }}
               >

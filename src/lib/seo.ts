@@ -19,7 +19,7 @@ export function absoluteUrl(path = "/"): string {
 export interface BuildMetadataArgs {
   title?: string;
   description?: string;
-  /** Site-relative canonical path, e.g. "/courses/french". */
+  /** Site-relative canonical path, e.g. "/courses/french-language-course-online". */
   path?: string;
   keywords?: string[];
   ogImage?: string;

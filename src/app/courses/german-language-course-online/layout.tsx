@@ -11,7 +11,7 @@ export default function GermanLayout({ children }: { children: React.ReactNode }
       <CourseSchema
         name="German Language Course (A1–B2)"
         description="German course from A1 to B2 for immigration and study in Germany, with Goethe, TestDaF, and DSH preparation."
-        path="/courses/german"
+        path="/courses/german-language-course-online"
         about="German language"
         faqs={GERMAN.faq}
       />

@@ -11,9 +11,9 @@ import { articleSchema, breadcrumbSchema, faqSchema } from "@/lib/schema";
 import { ArticleView } from "@/components/blog/ArticleView";
 
 const COURSE_LABELS: Record<string, string> = {
-  "/courses/french": "French Course",
-  "/courses/german": "German Course",
-  "/courses/ielts": "IELTS & English",
+  "/courses/french-language-course-online": "French Course",
+  "/courses/german-language-course-online": "German Course",
+  "/courses/english-speaking-course-online-india": "IELTS & English",
 };
 
 export function generateStaticParams() {

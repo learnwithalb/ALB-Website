@@ -62,7 +62,7 @@ export default function DelfPage() {
         highlights={HIGHLIGHTS}
         faqs={FAQS}
         relatedPosts={relatedPosts}
-        courseHref="/courses/french"
+        courseHref="/courses/french-language-course-online"
         courseLabel="Explore the French Course"
         topic="DELF Preparation"
       />

@@ -12,9 +12,9 @@ import { useBooking } from "@/components/shared/BookingContext";
 
 /* Featured cards for the Courses mega-dropdown */
 const COURSE_CARDS = [
-  { name: "French", sub: "Open Europe, immigration, study and career.", meta: "A1 → B2 · DELF · TEF · TCF", href: "/courses/french", color: "#3b5bdb", icon: "/icons/france.png", curve: "M0 60 C 40 24 70 24 110 46 S 170 38 200 26" },
-  { name: "German", sub: "Study, work and life across German-speaking Europe.", meta: "A1 → B2 · Goethe · TestDaF · DSH", href: "/courses/german", color: "#f59e0b", icon: "/icons/germany.png", curve: "M0 50 C 45 78 80 70 120 46 S 175 30 200 50" },
-  { name: "English", sub: "Speak with confidence and clear every exam.", meta: "IELTS · PTE · Foundation → Advanced", href: "/courses/ielts", color: "#10b981", icon: "/icons/uk.png", curve: "M0 38 C 50 78 90 64 135 50 S 180 56 200 60" },
+  { name: "French", sub: "Open Europe, immigration, study and career.", meta: "A1 → B2 · DELF · TEF · TCF", href: "/courses/french-language-course-online", color: "#3b5bdb", icon: "/icons/france.png", curve: "M0 60 C 40 24 70 24 110 46 S 170 38 200 26" },
+  { name: "German", sub: "Study, work and life across German-speaking Europe.", meta: "A1 → B2 · Goethe · TestDaF · DSH", href: "/courses/german-language-course-online", color: "#f59e0b", icon: "/icons/germany.png", curve: "M0 50 C 45 78 80 70 120 46 S 175 30 200 50" },
+  { name: "English", sub: "Speak with confidence and clear every exam.", meta: "IELTS · PTE · Foundation → Advanced", href: "/courses/english-speaking-course-online-india", color: "#10b981", icon: "/icons/uk.png", curve: "M0 38 C 50 78 90 64 135 50 S 180 56 200 60" },
 ];
 
 export function Navbar() {

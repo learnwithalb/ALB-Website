@@ -35,8 +35,8 @@ export function Footer() {
   // Hide the footer CTA banner where the page already ends with its own CTA:
   // /beyond, /about, /success-stories, and every language course detail page (/courses/<lang>).
   const showCta =
-    pathname !== "/beyond" &&
-    pathname !== "/about" &&
+    pathname !== "/soft-skills-training-online" &&
+    pathname !== "/about-us" &&
     pathname !== "/success-stories" &&
     !pathname.startsWith("/courses/");
 
@@ -140,9 +140,9 @@ export function Footer() {
             <h4 className="text-white font-bold text-xs uppercase tracking-widest mb-4">Languages</h4>
             <ul className="space-y-2.5">
               {[
-                { label: "French",   href: "/courses/french",   soon: false },
-                { label: "German",   href: "/courses/german",   soon: false },
-                { label: "English",  href: "/courses/ielts",    soon: false },
+                { label: "French",   href: "/courses/french-language-course-online",   soon: false },
+                { label: "German",   href: "/courses/german-language-course-online",   soon: false },
+                { label: "English",  href: "/courses/english-speaking-course-online-india",    soon: false },
                 { label: "Spanish",  href: "/courses/spanish",  soon: true },
                 { label: "Japanese", href: "/courses/japanese", soon: true },
                 { label: "Korean",   href: "/courses/korean",   soon: true },
@@ -171,7 +171,7 @@ export function Footer() {
             <ul className="space-y-2.5">
               {beyondModules.slice(0, 6).map(m => (
                 <li key={m.title}>
-                  <Link href="/beyond" className="text-xs text-white/50 hover:text-white transition-colors inline-block">
+                  <Link href="/soft-skills-training-online" className="text-xs text-white/50 hover:text-white transition-colors inline-block">
                     {m.title}
                   </Link>
                 </li>
@@ -184,14 +184,14 @@ export function Footer() {
             <h4 className="text-white font-bold text-xs uppercase tracking-widest mb-4">Company</h4>
             <ul className="space-y-2.5">
               {[
-                { label: "About Us",         href: "/about" },
-                { label: "Partner with ALB", href: "/partner" },
-                { label: "Junior Programme", href: "/junior" },
-                { label: "FAQs",             href: "/faq" },
+                { label: "About Us",         href: "/about-us" },
+                { label: "Partner with ALB", href: "/partner-with-academy-of-languages-and-beyond" },
+                { label: "Junior Programme", href: "/language-classes-kids-online" },
+                { label: "FAQs",             href: "/frequently-asked-questions" },
                 { label: "Verify Certificate", href: "/verify-certificate" },
                 { label: "Blog",             href: "/blog" },
-                { label: "Privacy Policy",   href: "/privacy" },
-                { label: "Terms and Conditions", href: "/terms" },
+                { label: "Privacy Policy",   href: "/privacy-policy" },
+                { label: "Terms and Conditions", href: "/terms-and-condition" },
               ].map(item => (
                 <li key={item.href}>
                   <Link href={item.href} className="text-xs text-white/50 hover:text-white transition-colors inline-block">

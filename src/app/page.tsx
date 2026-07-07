@@ -11,6 +11,8 @@ import {
 import { AnimateOnView, StaggerContainer, StaggerItem } from "@/components/shared/AnimateOnView";
 import { languages, testimonials, faqs } from "@/lib/constants";
 import { MuiIcon, Flag, flagSrc } from "@/lib/icons";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { faqSchema } from "@/lib/schema";
 import { useBooking } from "@/components/shared/BookingContext";
 
 /* ─────────────────────────── Stat Cards ─────────────────────────── */
@@ -921,7 +923,7 @@ export default function HomePage() {
           </StaggerContainer>
 
           <AnimateOnView className="mt-10">
-            <Link href="/beyond" className="btn-white">
+            <Link href="/soft-skills-training-online" className="btn-white">
               Explore +Beyond <ArrowRight size={15} />
             </Link>
             <p className="mt-4 text-white/40 text-xs flex items-center justify-center gap-1.5">
@@ -1346,6 +1348,7 @@ export default function HomePage() {
       </section>
 
       {/* ══════════════════════ FAQ ══════════════════════ */}
+      <JsonLd data={faqSchema(faqs)} />
       <section className="section-padding sec-mist relative overflow-hidden">
         <div className="container-max relative z-10">
           <div className="grid lg:grid-cols-[1fr_1.6fr] gap-16 items-start">

@@ -30,12 +30,6 @@ export function CourseLanding({
   const activeBadge = active.badge.replace(/^((?:Pre-)?[A-C][12])\s*·\s*(?=.*\b\1\b)/, "");
   const statIcons = [GraduationCap, Clock, Users, BookOpen, Trophy];
 
-  const instructors = [
-    { icon: "school", role: `Lead ${data.lang} Language Mentor`, desc: "CEFR-aligned trainer focused on speaking confidence, grammar clarity, pronunciation correction, and structured progression across every level." },
-    { icon: "edit", role: data.examRole, desc: "Specialist in exam task strategy, mock testing, writing correction, oral performance, and score improvement for immigration and academic outcomes." },
-    { icon: "mic", role: "Soft Skills and Interview Mentor", desc: "Trainer focused on public speaking, email etiquette, presentation delivery, personal branding, and interview performance in professional settings." },
-  ];
-
   return (
     <>
       {/* ══════════ HERO ══════════ */}
@@ -601,51 +595,6 @@ export function CourseLanding({
           <AnimateOnView className="mt-6 max-w-3xl mx-auto">
             <p className="text-white/45 text-xs text-center leading-relaxed">Note: Third-party examination registration fees (DELF, Goethe, IELTS, TEF, TCF, etc.) are charged separately by the respective examination bodies and are not included in ALB&apos;s programme fees.</p>
           </AnimateOnView>
-        </div>
-      </section>
-
-      {/* ══════════ INSTRUCTORS ══════════ */}
-      <section className="section-padding sec-mist relative overflow-hidden">
-        <div className="container-max relative z-10">
-          <AnimateOnView className="text-center max-w-2xl mx-auto mb-12">
-            <span className="eyebrow" style={{ color: a }}>{data.sections?.instructors?.eyebrow ?? "The Experts Behind Your Journey"}</span>
-            <h2 className="text-3xl md:text-4xl font-black text-ink leading-tight">{data.sections?.instructors?.a ?? "Mentors who know "}<span style={{ color: a }}>{data.sections?.instructors?.b ?? "both the language and the goal."}</span></h2>
-            {data.sections?.instructors?.sub && <p className="text-body text-base md:text-lg mt-4 leading-relaxed">{data.sections.instructors.sub}</p>}
-          </AnimateOnView>
-          <StaggerContainer className="grid md:grid-cols-3 gap-5 items-stretch" staggerDelay={0.1}>
-            {instructors.map((m, i) => {
-              const g = [
-                { from: "#3b5bdb", to: "#6d8bff" }, // blue
-                { from: "#7c3aed", to: "#a78bfa" }, // purple
-                { from: "#0d9488", to: "#2dd4bf" }, // teal
-              ][i % 3];
-              return (
-                <StaggerItem key={m.role} className="h-full">
-                  <div className="group rounded-2xl overflow-hidden h-full flex flex-col bg-white border border-line shadow-sm transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_24px_50px_-22px_rgba(16,23,51,0.25)]">
-                    {/* tinted header with curved bottom */}
-                    <div className="relative h-32 overflow-hidden" style={{ background: `linear-gradient(150deg, ${g.from}, ${g.to})` }}>
-                      <div className="absolute inset-0 grid-dots-light opacity-20 pointer-events-none" />
-                      <div className="absolute -top-8 -right-6 w-28 h-28 rounded-full bg-white/15 blur-2xl pointer-events-none" />
-                      {/* glass icon tile */}
-                      <span className="absolute top-4 left-5 w-11 h-11 rounded-xl bg-white/20 border border-white/30 backdrop-blur flex items-center justify-center transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-6">
-                        <MuiIcon name={m.icon} size={22} style={{ color: "#ffffff" }} />
-                      </span>
-                      {/* white curve */}
-                      <svg className="absolute bottom-0 left-0 w-full h-6" viewBox="0 0 100 20" preserveAspectRatio="none">
-                        <path d="M0 0 Q 50 18 100 0 L 100 20 L 0 20 Z" fill="#ffffff" />
-                      </svg>
-                    </div>
-                    {/* body */}
-                    <div className="px-6 pb-6 pt-2 flex-1 flex flex-col">
-                      <p className="text-[10.5px] font-bold uppercase tracking-widest mb-1.5" style={{ color: g.from }}>Faculty</p>
-                      <h3 className="font-black text-ink text-lg leading-snug">{m.role}</h3>
-                      <p className="text-muted text-sm mt-2 leading-relaxed">{m.desc}</p>
-                    </div>
-                  </div>
-                </StaggerItem>
-              );
-            })}
-          </StaggerContainer>
         </div>
       </section>
 

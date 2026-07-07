@@ -12,7 +12,7 @@ export default function IeltsLayout({ children }: { children: React.ReactNode })
       <CourseSchema
         name="IELTS & English Coaching"
         description="Online IELTS coaching with live classes and mock tests for Academic and General Training, targeting your required band."
-        path="/courses/ielts"
+        path="/courses/english-speaking-course-online-india"
         about="English language and IELTS"
         faqs={ENGLISH.faq}
       />

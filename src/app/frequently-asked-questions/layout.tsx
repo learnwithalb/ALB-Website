@@ -14,7 +14,7 @@ export default function FaqLayout({ children }: { children: React.ReactNode }) {
           faqSchema(ALL_FAQS),
           breadcrumbSchema([
             { name: "Home", path: "/" },
-            { name: "FAQs", path: "/faq" },
+            { name: "FAQs", path: "/frequently-asked-questions" },
           ]),
         ]}
       />

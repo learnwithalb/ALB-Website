@@ -195,9 +195,9 @@ export default function JuniorPage() {
             </div>
             <div className="grid grid-cols-3 gap-3">
               {[
-                { flag: "FR", name: "French", href: "/courses/french" },
-                { flag: "EN", name: "English", href: "/courses/ielts" },
-                { flag: "DE", name: "German", href: "/courses/german" },
+                { flag: "FR", name: "French", href: "/courses/french-language-course-online" },
+                { flag: "EN", name: "English", href: "/courses/english-speaking-course-online-india" },
+                { flag: "DE", name: "German", href: "/courses/german-language-course-online" },
               ].map((p) => (
                 <Link
                   key={p.name}

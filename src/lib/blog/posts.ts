@@ -57,11 +57,11 @@ export const CLUSTERS: Record<ClusterId, Cluster> = {
 };
 
 const COURSE_BY_CLUSTER: Record<ClusterId, string[]> = {
-  "french-canada": ["/courses/french"],
-  "delf-dalf": ["/courses/french"],
-  "german-immigration": ["/courses/german"],
-  "ielts-english": ["/courses/ielts"],
-  "india-learning": ["/courses/french", "/courses/german"],
+  "french-canada": ["/courses/french-language-course-online"],
+  "delf-dalf": ["/courses/french-language-course-online"],
+  "german-immigration": ["/courses/german-language-course-online"],
+  "ielts-english": ["/courses/english-speaking-course-online-india"],
+  "india-learning": ["/courses/french-language-course-online", "/courses/german-language-course-online"],
 };
 
 interface PostInput {

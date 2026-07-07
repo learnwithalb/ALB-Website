@@ -35,7 +35,7 @@ export const PAGE_SEO = {
     keywords: ["online language courses", "learn languages online", "language classes india"],
   },
   french: {
-    path: "/courses/french",
+    path: "/courses/french-language-course-online",
     seoSlug: "/courses/french-language-course-online",
     title: "French Language Course Online | DELF, TCF, TEF Classes | ALB",
     description:
@@ -43,7 +43,7 @@ export const PAGE_SEO = {
     keywords: ["french course online", "DELF classes", "TEF Canada", "TCF Canada", "learn french india"],
   },
   german: {
-    path: "/courses/german",
+    path: "/courses/german-language-course-online",
     seoSlug: "/courses/german-language-course-online",
     title: "Online German Language Course | Goethe German Classes | ALB",
     description:
@@ -51,7 +51,7 @@ export const PAGE_SEO = {
     keywords: ["german course online", "goethe zertifikat", "testdaf preparation", "learn german india"],
   },
   english: {
-    path: "/courses/ielts",
+    path: "/courses/english-speaking-course-online-india",
     seoSlug: "/courses/english-speaking-course-online-india",
     title: "Learn English Online with Academy of Languages and Beyond | ALB",
     description:
@@ -59,7 +59,7 @@ export const PAGE_SEO = {
     keywords: ["english speaking course online", "ielts coaching", "spoken english india", "english classes"],
   },
   junior: {
-    path: "/junior",
+    path: "/language-classes-kids-online",
     seoSlug: "/language-classes-kids-online",
     title: "Foreign Language Classes for Kids | Academy of Languages and Beyond",
     description:
@@ -67,7 +67,7 @@ export const PAGE_SEO = {
     keywords: ["language classes for kids", "french for children", "german for kids", "online kids language"],
   },
   beyond: {
-    path: "/beyond",
+    path: "/soft-skills-training-online",
     seoSlug: "/soft-skills-training-online",
     title: "Beyond | Soft Skills Training | Academy of Languages and Beyond",
     description:
@@ -75,7 +75,7 @@ export const PAGE_SEO = {
     keywords: ["soft skills training online", "communication skills", "interview preparation", "professional readiness"],
   },
   about: {
-    path: "/about",
+    path: "/about-us",
     seoSlug: "/about-us",
     title: "About ALB | Academy of Languages and Beyond",
     description:
@@ -83,7 +83,7 @@ export const PAGE_SEO = {
     keywords: ["about ALB", "academy of languages and beyond", "language academy india"],
   },
   partner: {
-    path: "/partner",
+    path: "/partner-with-academy-of-languages-and-beyond",
     seoSlug: "/partner-with-academy-of-languages-and-beyond",
     title: "Language Training Partner for Schools & Businesses | ALB",
     description:
@@ -98,7 +98,7 @@ export const PAGE_SEO = {
     keywords: ["student success stories", "ALB reviews", "learner testimonials"],
   },
   faq: {
-    path: "/faq",
+    path: "/frequently-asked-questions",
     seoSlug: "/frequently-asked-questions",
     title: "Frequently Asked Questions | Academy of Languages and Beyond",
     description:
@@ -106,14 +106,14 @@ export const PAGE_SEO = {
     keywords: ["language course faq", "ALB questions", "admissions certifications exams"],
   },
   privacy: {
-    path: "/privacy",
+    path: "/privacy-policy",
     seoSlug: "/privacy-policy",
     title: "Privacy Policy | Academy of Languages and Beyond",
     description:
       "Read the Privacy Policy of Academy of Languages and Beyond to understand how we collect, use and protect your personal information.",
   },
   terms: {
-    path: "/terms",
+    path: "/terms-and-condition",
     seoSlug: "/terms-and-condition",
     title: "Terms & Conditions | Academy of Languages and Beyond",
     description:

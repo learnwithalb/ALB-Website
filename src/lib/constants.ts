@@ -17,11 +17,11 @@ export const siteConfig = {
 
 export const navItems = [
   { label: "Courses", href: "/courses" },
-  { label: "+Beyond", href: "/beyond" },
-  { label: "Junior", href: "/junior" },
+  { label: "+Beyond", href: "/soft-skills-training-online" },
+  { label: "Junior", href: "/language-classes-kids-online" },
   { label: "Success Stories", href: "/success-stories" },
-  { label: "Partner with ALB", href: "/partner" },
-  { label: "About Us", href: "/about" },
+  { label: "Partner with ALB", href: "/partner-with-academy-of-languages-and-beyond" },
+  { label: "About Us", href: "/about-us" },
 ] as const;
 
 export const languages = [
@@ -30,7 +30,7 @@ export const languages = [
     name: "French",
     flagCode: "FR",
     tagline: "Open Europe, speak with elegance",
-    href: "/courses/french",
+    href: "/courses/french-language-course-online",
     color: "#003087",
     levels: ["A1", "A2", "B1", "B2", "+Beyond"],
     tag: "Most Popular",
@@ -41,7 +41,7 @@ export const languages = [
     name: "German",
     flagCode: "DE",
     tagline: "The language of precision and opportunity",
-    href: "/courses/german",
+    href: "/courses/german-language-course-online",
     color: "#DD0000",
     levels: ["A1", "A2", "B1", "B2", "+Beyond"],
     tag: "High Demand",
@@ -85,7 +85,7 @@ export const languages = [
     name: "English",
     flagCode: "EN",
     tagline: "Your passport to global education",
-    href: "/courses/ielts",
+    href: "/courses/english-speaking-course-online-india",
     color: "#012169",
     levels: ["A1", "A2", "B1", "B2", "+Beyond"],
     tag: "Exam-focused",

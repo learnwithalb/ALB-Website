@@ -78,6 +78,16 @@ export function BookingModal() {
     return () => { document.body.style.overflow = ""; };
   }, [isOpen]);
 
+  // On mobile the modal fills the screen, so auto-close it a few seconds after a
+  // successful submission (desktop keeps the success screen + WhatsApp CTA).
+  useEffect(() => {
+    if (!success) return;
+    const isMobile = typeof window !== "undefined" && window.matchMedia("(max-width: 767px)").matches;
+    if (!isMobile) return;
+    const t = setTimeout(() => closeModal(), 2600);
+    return () => clearTimeout(t);
+  }, [success, closeModal]);
+
   const set = (k: keyof FormState) =>
     (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) =>
       setForm((f) => ({ ...f, [k]: e.target.value }));

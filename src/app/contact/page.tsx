@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation";
 
 export default function ContactPage() {
-  redirect("/partner");
+  redirect("/partner-with-academy-of-languages-and-beyond");
 }
