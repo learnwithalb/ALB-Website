@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowRight, CheckCircle, Check, ChevronDown, Users, Globe } from "lucide-react";
+import { ArrowRight, CheckCircle, Check, ChevronDown, Users, Globe, Download } from "lucide-react";
 import { AnimateOnView, StaggerContainer, StaggerItem } from "@/components/shared/AnimateOnView";
 import { CountUp } from "@/components/shared/CountUp";
 import { useBooking } from "@/components/shared/BookingContext";
@@ -28,7 +28,15 @@ const REASONS = [
   { icon: "rocket", edge: "Confidence and Growth Mindset", stat: "Making mistakes in a new language builds resilience, a skill that transfers to everything.", from: "#f59e0b", to: "#f97316" },
 ];
 
-const COURSES = [
+type JuniorCourse = {
+  code: string; flagCode: string; name: string; popular: boolean; tagline: string;
+  from: string; to: string; levels: string; exam: string[]; points: string[];
+  bestFor: string;
+  /** Optional brochure PDF; when set the card shows a "Download brochure" link. */
+  brochure?: string;
+};
+
+const COURSES: JuniorCourse[] = [
   {
     code: "ALB Junior, French",
     flagCode: "FR",
@@ -62,6 +70,7 @@ const COURSES = [
       "Perfect for future engineering, medicine, or business students",
     ],
     bestFor: "Ambitious, long-term thinkers → Germany, Austria, Switzerland, and the EU job market.",
+    brochure: "https://drive.google.com/file/d/1LsBCxrumgxWS0B_upyIKlS5mbs_Gaw72/view?usp=sharing",
   },
 ];
 
@@ -458,6 +467,18 @@ export default function JuniorPage() {
                     >
                       Enroll Now <ArrowRight size={15} className="transition-transform group-hover/btn:translate-x-1" />
                     </button>
+
+                    {c.brochure && (
+                      <a
+                        href={c.brochure}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="mt-3 w-full inline-flex items-center justify-center gap-2 rounded-full font-bold text-sm py-3 transition-colors"
+                        style={{ color: c.to, border: `1.5px solid ${c.from}40` }}
+                      >
+                        <Download size={15} /> Download brochure
+                      </a>
+                    )}
                   </div>
                 </div>
               </StaggerItem>

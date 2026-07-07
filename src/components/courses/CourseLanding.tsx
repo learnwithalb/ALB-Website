@@ -241,11 +241,8 @@ export function CourseLanding({
                     )}
 
                     {/* download CTA (per-card, unless the page uses a single one) */}
-                    {!singleDownload && (
-                      <button
-                        onClick={() => openModal(data.modalKey)}
-                        className="mt-auto pt-6"
-                      >
+                    {!singleDownload && (() => {
+                      const label = (
                         <span
                           className="flex w-full items-center justify-center gap-2 rounded-full font-bold text-sm py-2.5 transition-colors"
                           style={t.pop
@@ -254,8 +251,18 @@ export function CourseLanding({
                         >
                           <Download size={14} /> Download curriculum
                         </span>
-                      </button>
-                    )}
+                      );
+                      // A track with a brochure links straight to the PDF; otherwise open the booking modal.
+                      return t.brochure ? (
+                        <a href={t.brochure} target="_blank" rel="noopener noreferrer" className="mt-auto pt-6 block">
+                          {label}
+                        </a>
+                      ) : (
+                        <button onClick={() => openModal(data.modalKey)} className="mt-auto pt-6">
+                          {label}
+                        </button>
+                      );
+                    })()}
                   </div>
 
                   {/* colored bottom accent grows in on hover */}
@@ -269,13 +276,17 @@ export function CourseLanding({
           {/* single download CTA below the grid (English programme) */}
           {singleDownload && (
             <AnimateOnView className="mt-10 flex justify-center">
-              <button
-                onClick={() => openModal(data.modalKey)}
-                className="inline-flex items-center justify-center gap-2 rounded-full font-bold text-white text-sm px-8 py-3.5 transition-transform hover:-translate-y-0.5"
-                style={{ background: `linear-gradient(135deg, ${a}, ${a}cc)`, boxShadow: `0 14px 30px -10px ${a}aa` }}
-              >
-                <Download size={16} /> Download curriculum
-              </button>
+              {(() => {
+                const cls = "inline-flex items-center justify-center gap-2 rounded-full font-bold text-white text-sm px-8 py-3.5 transition-transform hover:-translate-y-0.5";
+                const style = { background: `linear-gradient(135deg, ${a}, ${a}cc)`, boxShadow: `0 14px 30px -10px ${a}aa` };
+                const inner = <><Download size={16} /> Download curriculum</>;
+                // Links to the course brochure when set, otherwise opens the booking modal.
+                return data.brochure ? (
+                  <a href={data.brochure} target="_blank" rel="noopener noreferrer" className={cls} style={style}>{inner}</a>
+                ) : (
+                  <button onClick={() => openModal(data.modalKey)} className={cls} style={style}>{inner}</button>
+                );
+              })()}
             </AnimateOnView>
           )}
         </div>

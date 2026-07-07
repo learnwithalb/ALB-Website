@@ -8,13 +8,13 @@ export const STATIC_ROUTES: { path: string; priority: number; changeFrequency: "
   { path: "/language-classes-kids-online", priority: 0.8, changeFrequency: "monthly" },
   { path: "/success-stories", priority: 0.7, changeFrequency: "weekly" },
   { path: "/partner-with-academy-of-languages-and-beyond", priority: 0.6, changeFrequency: "monthly" },
-  { path: "/about-us", priority: 0.6, changeFrequency: "monthly" },
+  { path: "/about-us", priority: 0.8, changeFrequency: "monthly" },
   { path: "/frequently-asked-questions", priority: 0.7, changeFrequency: "monthly" },
   { path: "/blog", priority: 0.8, changeFrequency: "daily" },
   { path: "/services", priority: 0.5, changeFrequency: "monthly" },
   { path: "/contact", priority: 0.5, changeFrequency: "monthly" },
-  { path: "/privacy-policy", priority: 0.2, changeFrequency: "monthly" },
-  { path: "/terms-and-condition", priority: 0.2, changeFrequency: "monthly" },
+  { path: "/privacy-policy", priority: 0.6, changeFrequency: "monthly" },
+  { path: "/terms-and-condition", priority: 0.6, changeFrequency: "monthly" },
 ];
 
 export const COURSE_ROUTES = [

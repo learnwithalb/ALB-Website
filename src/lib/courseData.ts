@@ -1,4 +1,4 @@
-export interface CourseTrack { icon: string; name: string; color: string; pop: boolean; forText: string; exams: string[]; bestFor?: string[]; outcome?: string; }
+export interface CourseTrack { icon: string; name: string; color: string; pop: boolean; forText: string; exams: string[]; bestFor?: string[]; outcome?: string; /** If set, the track's "Download curriculum" button links to this brochure instead of opening the booking modal. */ brochure?: string; }
 export interface CourseJourney { l: string; w: string; t: string; s: string; }
 export interface CurriculumTopic { t: string; i: string[]; }
 export interface CurriculumModule { label: string; title: string; badge: string; weeks: string; desc: string; topics: CurriculumTopic[]; assess: string; }
@@ -45,6 +45,8 @@ export interface CourseData {
   faq: CourseFaq[];
   ctaH: string;
   ctaS: string;
+  /** Course-level brochure PDF for the single "Download curriculum" button (singleDownload pages). */
+  brochure?: string;
 }
 
 const SOFT_SKILLS_MODULE: CurriculumModule = {
@@ -172,6 +174,7 @@ export const FRENCH: CourseData = {
 
 export const ENGLISH: CourseData = {
   lang: "English", modalKey: "IELTS Coaching",
+  brochure: "https://drive.google.com/file/d/1NXrJ8f2Frceh3kfFbuPLIIWIHBWTpBaD/view?usp=drive_link",
   accent: "#059669", al: "#6EE7B7",
   heroImage: "/images/hero-images/english.png",
   ew: "English · Module 0 to Advanced · Three Tracks",
@@ -310,10 +313,10 @@ export const GERMAN: CourseData = {
     instructors: { eyebrow: "Learn From Experts", a: "Language Coaches. ", b: "Communication Mentors.", sub: "Our instructors help you develop not only language proficiency, but also the confidence and communication skills needed to succeed in academic, professional, and international environments." },
   },
   tracks: [
-    { icon: "flight", name: "Immigration Track", color: "#B45309", pop: true, forText: "Germany work visa, Blue Card, Opportunity Card, Ausbildung, and family reunion applicants needing Goethe A1, B1, or B2 as recognised documentation for their pathway.", exams: ["Goethe A1", "Goethe B1", "Goethe B2"] },
-    { icon: "school", name: "Academic Track", color: "#7C3AED", pop: false, forText: "Students targeting German universities, TU Munich, LMU, RWTH Aachen, for Bachelor's or Master's programmes requiring DSH 2 or TestDaF TDN 4.", exams: ["Goethe B2", "TestDaF", "DSH"] },
-    { icon: "work", name: "Career Track", color: "#059669", pop: false, forText: "Working professionals in German-speaking companies, global roles with German clients, or multilingual environments needing professional-grade German.", exams: ["Goethe B1", "Goethe B2", "TELC"] },
-    { icon: "rocket", name: "Sprint Track", color: "#D97706", pop: false, forText: "Learners with a fixed deadline, a visa window, admission cut-off, or job offer, who need to reach their target German level fast, without sacrificing depth or confidence.", exams: ["Goethe A1–B2", "Fast-track"] },
+    { icon: "flight", name: "Immigration Track", color: "#B45309", pop: true, forText: "Germany work visa, Blue Card, Opportunity Card, Ausbildung, and family reunion applicants needing Goethe A1, B1, or B2 as recognised documentation for their pathway.", exams: ["Goethe A1", "Goethe B1", "Goethe B2"], brochure: "https://drive.google.com/file/d/1Zh0YTpTn9iKzIUw5QE5nMnHTnNkQfVpb/view?usp=drive_link" },
+    { icon: "school", name: "Academic Track", color: "#7C3AED", pop: false, forText: "Students targeting German universities, TU Munich, LMU, RWTH Aachen, for Bachelor's or Master's programmes requiring DSH 2 or TestDaF TDN 4.", exams: ["Goethe B2", "TestDaF", "DSH"], brochure: "https://drive.google.com/file/d/11lhbj5PB66zITC0X6z7qxs_q9NQ1JHWY/view?usp=drive_link" },
+    { icon: "work", name: "Career Track", color: "#059669", pop: false, forText: "Working professionals in German-speaking companies, global roles with German clients, or multilingual environments needing professional-grade German.", exams: ["Goethe B1", "Goethe B2", "TELC"], brochure: "https://drive.google.com/file/d/1owIz0qE568RKVaT1H7zHvy61hA_Kcm_E/view?usp=drive_link" },
+    { icon: "rocket", name: "Sprint Track", color: "#D97706", pop: false, forText: "Learners with a fixed deadline, a visa window, admission cut-off, or job offer, who need to reach their target German level fast, without sacrificing depth or confidence.", exams: ["Goethe A1–B2", "Fast-track"], brochure: "https://drive.google.com/file/d/1NiUwld37lo5_TBIjaNyoSp3SDI_3gowE/view?usp=sharing" },
   ],
   journey: [
     { l: "A1", w: "8 Weeks", t: "Foundations", s: "Build essential vocabulary, pronunciation, and everyday communication skills." },
