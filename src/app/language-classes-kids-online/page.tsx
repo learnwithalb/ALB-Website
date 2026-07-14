@@ -53,6 +53,7 @@ const COURSES: JuniorCourse[] = [
       "Absolute beginners welcome, zero prior knowledge needed",
     ],
     bestFor: "A head start in board exams, the Canada immigration pathway, or simply a love for France.",
+    brochure: "https://drive.google.com/file/d/1HB7F68OzFWHcVnHAX0TTFoBR3QheMfnO/view?usp=sharing",
   },
   {
     code: "ALB Junior, German",
