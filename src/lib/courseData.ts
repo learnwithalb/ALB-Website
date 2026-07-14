@@ -1,4 +1,4 @@
-export interface CourseTrack { icon: string; name: string; color: string; pop: boolean; forText: string; exams: string[]; bestFor?: string[]; outcome?: string; /** If set, the track's "Download curriculum" button links to this brochure instead of opening the booking modal. */ brochure?: string; }
+export interface CourseTrack { icon: string; name: string; color: string; pop: boolean; forText: string; exams: string[]; bestFor?: string[]; outcome?: string; /** If set, the track's "Download curriculum" button opens the brochure-request form. */ brochure?: string; }
 export interface CourseJourney { l: string; w: string; t: string; s: string; }
 export interface CurriculumTopic { t: string; i: string[]; }
 export interface CurriculumModule { label: string; title: string; badge: string; weeks: string; desc: string; topics: CurriculumTopic[]; assess: string; }
@@ -45,7 +45,7 @@ export interface CourseData {
   faq: CourseFaq[];
   ctaH: string;
   ctaS: string;
-  /** Course-level brochure PDF for the single "Download curriculum" button (singleDownload pages). */
+  /** Course-level brochure PDF revealed after the single curriculum-request form is submitted. */
   brochure?: string;
 }
 
@@ -80,8 +80,8 @@ export const FRENCH: CourseData = {
   },
   tracks: [
     { icon: "flight", name: "Immigration Track", color: "#2563EB", pop: true, forText: "Canada PR applicants, Express Entry (FSW, CEC, FST), PNP, Quebec Skilled Worker Program, LMIA, and work permit candidates needing a recognised French score for IRCC.", exams: ["TEF Canada", "TCF Canada", "CLB 7+"], brochure: "https://drive.google.com/file/d/1P8tOM494joipFl58eCo1Od3Re5qb5h5-/view?usp=sharing" },
-    { icon: "school", name: "Academic Track", color: "#7C3AED", pop: false, forText: "Students applying to French-medium universities in France, Belgium, Switzerland, or Quebec, needing DELF B2 or DALF C1 for university admission.", exams: ["DELF B2", "DALF C1"], brochure: "https://drive.google.com/file/d/1A93-1q7dJ-dUG2mFww79x3iJgzruJyWG/view?usp=sharing" },
-    { icon: "work", name: "Career Track", color: "#059669", pop: false, forText: "Working professionals in multilingual or international environments needing professional-grade French for workplace advancement and global career goals.", exams: ["DELF B1", "DELF B2"], brochure: "https://drive.google.com/file/d/1i0Fj8KFLkPVa-IcEsRL04j97h1Z6Lnuo/view?usp=sharing" },
+    { icon: "school", name: "Academic Track", color: "#7C3AED", pop: false, forText: "Students applying to French-medium universities in France, Belgium, Switzerland, or Quebec, needing DELF B2 or DALF C1 for university admission.", exams: ["DELF", "DALF"], brochure: "https://drive.google.com/file/d/1A93-1q7dJ-dUG2mFww79x3iJgzruJyWG/view?usp=sharing" },
+    { icon: "work", name: "Career Track", color: "#059669", pop: false, forText: "Working professionals in multilingual or international environments needing professional-grade French for workplace advancement and global career goals.", exams: ["DELF"], brochure: "https://drive.google.com/file/d/1i0Fj8KFLkPVa-IcEsRL04j97h1Z6Lnuo/view?usp=sharing" },
     { icon: "rocket", name: "Sprint Track", color: "#D97706", pop: false, forText: "Designed for learners with urgent goals, visa deadlines, university applications, job opportunities, or upcoming exams, who need structured French learning at an accelerated pace.", exams: ["TEF", "TCF", "DELF"], brochure: "https://drive.google.com/file/d/19k6PKZ4IldfR1sYVwktXmcCxrhdWXPGU/view?usp=sharing" },
   ],
   journey: [

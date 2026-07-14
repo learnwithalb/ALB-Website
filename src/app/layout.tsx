@@ -6,6 +6,8 @@ import { Footer } from "@/components/layout/Footer";
 import { LenisProvider } from "@/components/shared/LenisProvider";
 import { BookingProvider } from "@/components/shared/BookingContext";
 import { BookingModal } from "@/components/shared/BookingModal";
+import { BrochureProvider } from "@/components/shared/BrochureContext";
+import { BrochureModal } from "@/components/shared/BrochureModal";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { organizationSchema, websiteSchema } from "@/lib/schema";
 import { SITE_URL, DEFAULT_OG_IMAGE } from "@/lib/seo";
@@ -54,12 +56,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {/* Global structured data — Organization + WebSite (E-E-A-T signals) */}
         <JsonLd data={[organizationSchema(), websiteSchema()]} />
         <BookingProvider>
-          <LenisProvider>
-            <Navbar />
-            <main>{children}</main>
-            <Footer />
-          </LenisProvider>
-          <BookingModal />
+          <BrochureProvider>
+            <LenisProvider>
+              <Navbar />
+              <main>{children}</main>
+              <Footer />
+            </LenisProvider>
+            <BookingModal />
+            <BrochureModal />
+          </BrochureProvider>
         </BookingProvider>
       </body>
     </html>

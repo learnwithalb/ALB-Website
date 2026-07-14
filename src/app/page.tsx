@@ -112,6 +112,36 @@ interface Mentor { name: string; role: string; exp: string; qual: string; spec: 
 
 const ALL_TRAINERS: Mentor[] = [
   {
+    name: "Aditi Jain",
+    role: "Senior French Language Trainer",
+    exp: "19+ Years · CBSE, IGCSE and IB",
+    qual: "French C1 Certified",
+    spec: "School French • DELF • TEF Canada • TCF Canada • Exam Preparation",
+    tagline: "Helping learners achieve fluency through structured, practical, and result-oriented French training.",
+    linkedin: "https://www.linkedin.com/in/aditi-jain-thebest/",
+    img: "/images/mentor-images/Aditi Jain.png",
+  },
+  {
+    name: "Pranika Bindra",
+    role: "French Language Trainer",
+    exp: "3.5+ Years · TEF and TCF Specialist",
+    qual: "DELF B2 Certified",
+    spec: "TEF Canada • TCF Canada • Adult Learning • Children's French",
+    tagline: "Creating confident French speakers through practical learning, cultural immersion, and consistent guidance.",
+    linkedin: "https://www.linkedin.com/in/pranika-bindra-62239a209",
+    img: "/images/mentor-images/Pranika Bindra.png",
+  },
+  {
+    name: "Prachi Verma",
+    role: "French Language Trainer",
+    exp: "French Language Trainer",
+    qual: "DELF B2 Certified",
+    spec: "Beginner and Intermediate French • Conversation • Grammar • DELF Preparation",
+    tagline: "Making French learning engaging, interactive, and practical for every learner.",
+    linkedin: "https://www.linkedin.com/in/prachi-verma-b730741a0",
+    img: "/images/mentor-images/Prachi Verma.png",
+  },
+  {
     name: "Bhavika Jain",
     role: "French Language Trainer",
     exp: "5+ Years · International experience (France)",

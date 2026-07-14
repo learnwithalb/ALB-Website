@@ -8,6 +8,7 @@ import { ArrowRight, ArrowDown, CheckCircle, Check, ChevronDown, ChevronRight, D
 import { AnimateOnView, StaggerContainer, StaggerItem } from "@/components/shared/AnimateOnView";
 import { CountUp } from "@/components/shared/CountUp";
 import { useBooking } from "@/components/shared/BookingContext";
+import { useBrochure } from "@/components/shared/BrochureContext";
 import { MuiIcon } from "@/lib/icons";
 import type { CourseData } from "@/lib/courseData";
 
@@ -21,6 +22,7 @@ export function CourseLanding({
   singleDownload?: boolean;
 }) {
   const { openModal } = useBooking();
+  const { openBrochureForm } = useBrochure();
   const [mod, setMod] = useState(0);
   const [openFaq, setOpenFaq] = useState<number | null>(0);
   const a = data.accent;
@@ -252,11 +254,11 @@ export function CourseLanding({
                           <Download size={14} /> Download curriculum
                         </span>
                       );
-                      // A track with a brochure links straight to the PDF; otherwise open the booking modal.
+                      // Brochure requests collect contact details before revealing the download.
                       return t.brochure ? (
-                        <a href={t.brochure} target="_blank" rel="noopener noreferrer" className="mt-auto pt-6 block">
+                        <button onClick={() => openBrochureForm(`${t.name} curriculum`, t.brochure!)} className="mt-auto pt-6 block w-full">
                           {label}
-                        </a>
+                        </button>
                       ) : (
                         <button onClick={() => openModal(data.modalKey)} className="mt-auto pt-6">
                           {label}
@@ -280,9 +282,9 @@ export function CourseLanding({
                 const cls = "inline-flex items-center justify-center gap-2 rounded-full font-bold text-white text-sm px-8 py-3.5 transition-transform hover:-translate-y-0.5";
                 const style = { background: `linear-gradient(135deg, ${a}, ${a}cc)`, boxShadow: `0 14px 30px -10px ${a}aa` };
                 const inner = <><Download size={16} /> Download curriculum</>;
-                // Links to the course brochure when set, otherwise opens the booking modal.
+                // Brochure requests collect contact details before revealing the download.
                 return data.brochure ? (
-                  <a href={data.brochure} target="_blank" rel="noopener noreferrer" className={cls} style={style}>{inner}</a>
+                  <button onClick={() => openBrochureForm(`${data.lang} curriculum`, data.brochure!)} className={cls} style={style}>{inner}</button>
                 ) : (
                   <button onClick={() => openModal(data.modalKey)} className={cls} style={style}>{inner}</button>
                 );

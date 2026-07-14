@@ -8,6 +8,7 @@ import { ArrowRight, CheckCircle, Check, ChevronDown, Users, Globe, Download } f
 import { AnimateOnView, StaggerContainer, StaggerItem } from "@/components/shared/AnimateOnView";
 import { CountUp } from "@/components/shared/CountUp";
 import { useBooking } from "@/components/shared/BookingContext";
+import { useBrochure } from "@/components/shared/BrochureContext";
 import { MuiIcon, Flag } from "@/lib/icons";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { faqSchema } from "@/lib/schema";
@@ -32,7 +33,7 @@ type JuniorCourse = {
   code: string; flagCode: string; name: string; popular: boolean; tagline: string;
   from: string; to: string; levels: string; exam: string[]; points: string[];
   bestFor: string;
-  /** Optional brochure PDF; when set the card shows a "Download brochure" link. */
+  /** Optional brochure PDF; when set the card opens a brochure-request form. */
   brochure?: string;
 };
 
@@ -92,6 +93,7 @@ const FAQS = [
 
 export default function JuniorPage() {
   const { openModal } = useBooking();
+  const { openBrochureForm } = useBrochure();
   const [openFaq, setOpenFaq] = useState<number | null>(0);
 
   return (
@@ -470,15 +472,13 @@ export default function JuniorPage() {
                     </button>
 
                     {c.brochure && (
-                      <a
-                        href={c.brochure}
-                        target="_blank"
-                        rel="noopener noreferrer"
+                      <button
+                        onClick={() => openBrochureForm(`${c.name} brochure`, c.brochure!)}
                         className="mt-3 w-full inline-flex items-center justify-center gap-2 rounded-full font-bold text-sm py-3 transition-colors"
                         style={{ color: c.to, border: `1.5px solid ${c.from}40` }}
                       >
                         <Download size={15} /> Download brochure
-                      </a>
+                      </button>
                     )}
                   </div>
                 </div>
