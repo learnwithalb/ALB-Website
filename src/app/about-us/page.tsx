@@ -87,6 +87,15 @@ export default function AboutPage() {
   const { openModal } = useBooking();
 
   const [slide, setSlide] = useState(0);
+  // Tap-to-flip for the story cards (hover flips on desktop; touch has no hover).
+  const [flipped, setFlipped] = useState<Set<number>>(new Set());
+  const toggleFlip = (i: number) =>
+    setFlipped((prev) => {
+      const next = new Set(prev);
+      if (next.has(i)) next.delete(i);
+      else next.add(i);
+      return next;
+    });
   const slidePaused = useRef(false);
   useEffect(() => {
     const id = setInterval(() => {
@@ -334,14 +343,21 @@ export default function AboutPage() {
           <StaggerContainer className="grid md:grid-cols-3 gap-5 lg:gap-6" staggerDelay={0.1}>
             {BEATS.map((b, i) => (
               <StaggerItem key={i} className="h-full">
-                <div className="group relative h-[500px] [perspective:2000px] transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-2">
+                <div
+                  onClick={() => toggleFlip(i)}
+                  role="button"
+                  tabIndex={0}
+                  onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); toggleFlip(i); } }}
+                  aria-pressed={flipped.has(i)}
+                  className="group relative h-[500px] cursor-pointer [perspective:2000px] transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-2"
+                >
                   {/* colored glow that blooms on hover */}
                   <div
                     className="absolute -inset-3 rounded-[28px] opacity-0 group-hover:opacity-50 blur-2xl transition-opacity duration-500 pointer-events-none"
                     style={{ background: `linear-gradient(150deg, ${b.from}, ${b.to})` }}
                   />
                   <div
-                    className="relative h-full w-full transition-transform duration-[750ms] ease-[cubic-bezier(0.34,1.2,0.4,1)] [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)]"
+                    className={`relative h-full w-full transition-transform duration-[750ms] ease-[cubic-bezier(0.34,1.2,0.4,1)] [transform-style:preserve-3d] ${flipped.has(i) ? "[transform:rotateY(180deg)]" : "group-hover:[transform:rotateY(180deg)]"}`}
                   >
                     {/* FRONT — cover image + heading */}
                     <div className="absolute inset-0 [backface-visibility:hidden] rounded-2xl overflow-hidden shadow-[0_24px_50px_-24px_rgba(0,0,0,0.7)]">

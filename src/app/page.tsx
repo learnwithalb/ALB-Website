@@ -9,7 +9,7 @@ import {
   Users, Globe, Video, MessageCircle, Sparkles, Mic,
 } from "lucide-react";
 import { AnimateOnView, StaggerContainer, StaggerItem } from "@/components/shared/AnimateOnView";
-import { languages, testimonials, faqs } from "@/lib/constants";
+import { languages, testimonials, faqs, siteConfig } from "@/lib/constants";
 import { MuiIcon, Flag, flagSrc } from "@/lib/icons";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { faqSchema } from "@/lib/schema";
@@ -122,16 +122,6 @@ const ALL_TRAINERS: Mentor[] = [
     img: "/images/mentor-images/Aditi Jain.png",
   },
   {
-    name: "Pranika Bindra",
-    role: "French Language Trainer",
-    exp: "3.5+ Years · TEF and TCF Specialist",
-    qual: "DELF B2 Certified",
-    spec: "TEF Canada • TCF Canada • Adult Learning • Children's French",
-    tagline: "Creating confident French speakers through practical learning, cultural immersion, and consistent guidance.",
-    linkedin: "https://www.linkedin.com/in/pranika-bindra-62239a209",
-    img: "/images/mentor-images/Pranika Bindra.png",
-  },
-  {
     name: "Prachi Verma",
     role: "French Language Trainer",
     exp: "French Language Trainer",
@@ -235,6 +225,15 @@ const HERO_TAGS: Record<string, string> = {
 export default function HomePage() {
   const { openModal } = useBooking();
   const [openFaq, setOpenFaq] = useState<number | null>(null);
+  // Tap-to-flip for the mentor cards (hover flips on desktop; touch has no hover).
+  const [flippedMentor, setFlippedMentor] = useState<Set<number>>(new Set());
+  const toggleMentor = (i: number) =>
+    setFlippedMentor((prev) => {
+      const next = new Set(prev);
+      if (next.has(i)) next.delete(i);
+      else next.add(i);
+      return next;
+    });
   const [activeLang, setActiveLang] = useState(0);
   const trainerScroll = useRef<HTMLDivElement>(null);
   const scrollTrainers = (dir: number) => {
@@ -519,24 +518,34 @@ export default function HomePage() {
                   <h3 className="mt-2 text-xl font-black text-ink leading-snug">{c.title}</h3>
                   <p className="mt-3 text-muted text-sm leading-relaxed italic">&ldquo;{c.quote}&rdquo;</p>
 
-                  {/* decorative visual, animates in on view */}
-                  <div className="mt-auto pt-8">
+                  {/* Decorative visual, animates in on view.
+                      The IntersectionObserver is attached to this wrapper div rather than to
+                      the SVG shapes themselves: observing SVG geometry elements (rect/circle/
+                      polyline) is unreliable in some engines (notably iOS Safari), which left
+                      the shapes stuck at their hidden initial state and the card looking blank.
+                      Children now animate via variants cascading from this wrapper. */}
+                  <motion.div
+                    className="mt-auto pt-8"
+                    initial="hidden"
+                    whileInView="show"
+                    viewport={{ once: true, amount: 0.2 }}
+                  >
                     {i === 0 && (
                       <svg viewBox="0 0 240 80" className="w-full h-20" fill="none" preserveAspectRatio="none">
                         <motion.polyline
                           points="6,54 46,42 86,20 126,26 166,54 234,68"
                           stroke="#3b5bdb" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"
-                          initial={{ pathLength: 0 }} whileInView={{ pathLength: 1 }} viewport={{ once: true }}
+                          variants={{ hidden: { pathLength: 0 }, show: { pathLength: 1 } }}
                           transition={{ duration: 1.1, ease: "easeInOut" }}
                         />
                         <motion.circle cx="86" cy="20" r="4" fill="#3b5bdb"
                           style={{ transformBox: "fill-box", transformOrigin: "center" }}
-                          initial={{ scale: 0 }} whileInView={{ scale: 1 }} viewport={{ once: true }}
+                          variants={{ hidden: { scale: 0 }, show: { scale: 1 } }}
                           transition={{ delay: 0.6, type: "spring", stiffness: 320, damping: 16 }}
                         />
                         <motion.circle cx="234" cy="68" r="5" fill="#f43f5e"
                           style={{ transformBox: "fill-box", transformOrigin: "center" }}
-                          initial={{ scale: 0 }} whileInView={{ scale: [0, 1.5, 1] }} viewport={{ once: true }}
+                          variants={{ hidden: { scale: 0 }, show: { scale: [0, 1.5, 1] } }}
                           transition={{ delay: 1.05, duration: 0.4 }}
                         />
                       </svg>
@@ -548,7 +557,7 @@ export default function HomePage() {
                             key={idx} x={idx * 24 + 6} y={72 - h} width="11" height={h} rx="3"
                             fill={idx < 5 ? "#3b5bdb" : "#cdd9f7"}
                             style={{ transformBox: "fill-box", transformOrigin: "bottom" }}
-                            initial={{ scaleY: 0 }} whileInView={{ scaleY: 1 }} viewport={{ once: true }}
+                            variants={{ hidden: { scaleY: 0 }, show: { scaleY: 1 } }}
                             transition={{ duration: 0.5, delay: idx * 0.06, ease: "easeOut" }}
                           />
                         ))}
@@ -558,7 +567,7 @@ export default function HomePage() {
                       <svg viewBox="0 0 240 80" className="w-full h-20" fill="none">
                         <motion.line
                           x1="16" y1="40" x2="224" y2="40" stroke="#dbe6ff" strokeWidth="2" strokeDasharray="2 9" strokeLinecap="round"
-                          initial={{ pathLength: 0 }} whileInView={{ pathLength: 1 }} viewport={{ once: true }}
+                          variants={{ hidden: { pathLength: 0 }, show: { pathLength: 1 } }}
                           transition={{ duration: 0.9, ease: "easeInOut" }}
                         />
                         {[16, 68, 120, 172, 224].map((x, idx) => (
@@ -566,13 +575,13 @@ export default function HomePage() {
                             key={idx} cx={x} cy="40" r={idx === 4 ? 7 : 6}
                             fill={idx < 4 ? "#3b5bdb" : "#ffffff"} stroke={idx === 4 ? "#9bb2ff" : "none"} strokeWidth="2"
                             style={{ transformBox: "fill-box", transformOrigin: "center" }}
-                            initial={{ scale: 0 }} whileInView={{ scale: 1 }} viewport={{ once: true }}
+                            variants={{ hidden: { scale: 0 }, show: { scale: 1 } }}
                             transition={{ delay: 0.3 + idx * 0.12, type: "spring", stiffness: 320, damping: 16 }}
                           />
                         ))}
                       </svg>
                     )}
-                  </div>
+                  </motion.div>
                 </div>
               </StaggerItem>
             ))}
@@ -817,13 +826,6 @@ export default function HomePage() {
                 <p className="text-muted text-sm mt-1.5 leading-relaxed">
                   Real speaking time, real feedback, no hiding at the back of a 60-person class.
                 </p>
-                <div className="flex items-center -space-x-2 mt-auto pt-5">
-                  {["AR", "PK", "SN", "RM"].map((x) => (
-                    <div key={x} className="w-9 h-9 rounded-full border-2 border-white bg-gradient-to-br from-[#3b5bdb] to-[#6d8bff] flex items-center justify-center text-white font-black text-[10px]">{x}</div>
-                  ))}
-                  <div className="w-9 h-9 rounded-full border-2 border-white bg-royal-50 flex items-center justify-center text-royal-700 font-black text-[10px]">+4</div>
-                  <span className="text-xs text-muted font-semibold !ml-3">Min batch size</span>
-                </div>
               </div>
             </StaggerItem>
 
@@ -1089,12 +1091,17 @@ export default function HomePage() {
                 return (
                   <div
                     key={m.name}
-                    className="group flex-shrink-0 w-[270px] h-[380px] snap-start [perspective:1600px]"
+                    onClick={() => toggleMentor(i)}
+                    role="button"
+                    tabIndex={0}
+                    onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); toggleMentor(i); } }}
+                    aria-pressed={flippedMentor.has(i)}
+                    className="group flex-shrink-0 w-[270px] h-[380px] snap-start cursor-pointer [perspective:1600px]"
                   >
-                    <div className="relative h-full w-full transition-transform duration-[700ms] ease-[cubic-bezier(0.22,1,0.36,1)] [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)]">
+                    <div className={`relative h-full w-full transition-transform duration-[700ms] ease-[cubic-bezier(0.22,1,0.36,1)] [transform-style:preserve-3d] ${flippedMentor.has(i) ? "[transform:rotateY(180deg)]" : "group-hover:[transform:rotateY(180deg)]"}`}>
                       {/* ── FRONT: photo + name ── */}
                       <div
-                        className="absolute inset-0 [backface-visibility:hidden] group-hover:pointer-events-none rounded-3xl overflow-hidden"
+                        className={`absolute inset-0 [backface-visibility:hidden] rounded-3xl overflow-hidden ${flippedMentor.has(i) ? "pointer-events-none" : "group-hover:pointer-events-none"}`}
                         style={{ background: `linear-gradient(160deg, ${c.from}, ${c.to})` }}
                       >
                         <Image
@@ -1119,7 +1126,7 @@ export default function HomePage() {
 
                       {/* ── BACK: details ── */}
                       <div
-                        className="absolute inset-0 [backface-visibility:hidden] [transform:rotateY(180deg)] pointer-events-none group-hover:pointer-events-auto rounded-3xl overflow-hidden p-5 flex flex-col"
+                        className={`absolute inset-0 [backface-visibility:hidden] [transform:rotateY(180deg)] rounded-3xl overflow-hidden p-5 flex flex-col ${flippedMentor.has(i) ? "pointer-events-auto" : "pointer-events-none group-hover:pointer-events-auto"}`}
                         style={{ background: "linear-gradient(160deg, #16203f 0%, #0a0f24 100%)" }}
                       >
                         <div className="absolute inset-0 grid-dots-light opacity-20 pointer-events-none" />
@@ -1144,17 +1151,16 @@ export default function HomePage() {
                           </div>
                           <div className="mt-auto pt-3">
                             <p className="text-white/55 text-[11px] italic leading-snug">{m.tagline}</p>
-                            {m.linkedin && (
-                              <a
-                                href={m.linkedin}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="mt-3 inline-flex items-center gap-1.5 text-white text-[11px] font-bold rounded-full px-3 py-1.5 transition-transform hover:-translate-y-0.5"
-                                style={{ background: c.from }}
-                              >
-                                <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.07 2.07 0 1 1 0-4.14 2.07 2.07 0 0 1 0 4.14zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.72V1.72C24 .77 23.2 0 22.22 0z"/></svg> Connect
-                              </a>
-                            )}
+                            <a
+                              href={m.linkedin ?? siteConfig.socials.linkedin}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              onClick={(e) => e.stopPropagation()}
+                              className="mt-3 inline-flex items-center gap-1.5 text-white text-[11px] font-bold rounded-full px-3 py-1.5 transition-transform hover:-translate-y-0.5"
+                              style={{ background: "#0A66C2" }}
+                            >
+                              <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.07 2.07 0 1 1 0-4.14 2.07 2.07 0 0 1 0 4.14zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.72V1.72C24 .77 23.2 0 22.22 0z"/></svg> Connect
+                            </a>
                           </div>
                         </div>
                       </div>
