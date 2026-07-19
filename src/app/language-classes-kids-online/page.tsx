@@ -308,13 +308,13 @@ export default function JuniorPage() {
                     </motion.div>
                   </div>
                 </div>
-                <div className="grid grid-cols-3 gap-3">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                   {SCIENCE_STATS.map((s) => (
-                    <div key={s.label} className="card-dark rounded-2xl p-4 text-center flex flex-col">
-                      <div className="text-base md:text-lg font-black gradient-text-light leading-tight">
+                    <div key={s.label} className="card-dark rounded-2xl p-4 flex items-center gap-4 text-left sm:flex-col sm:items-center sm:text-center sm:gap-0">
+                      <div className="flex-shrink-0 basis-[42%] sm:basis-auto text-lg font-black gradient-text-light leading-tight">
                         <CountUp value={s.value} duration={1600} />
                       </div>
-                      <div className="text-white/50 text-[11px] font-semibold mt-2 leading-snug">{s.label}</div>
+                      <div className="text-white/50 text-xs sm:text-[11px] font-semibold leading-snug sm:mt-2">{s.label}</div>
                     </div>
                   ))}
                 </div>

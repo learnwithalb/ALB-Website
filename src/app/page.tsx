@@ -124,7 +124,7 @@ const ALL_TRAINERS: Mentor[] = [
   {
     name: "Prachi Verma",
     role: "French Language Trainer",
-    exp: "French Language Trainer",
+    exp: "3+ Years",
     qual: "DELF B2 Certified",
     spec: "Beginner and Intermediate French • Conversation • Grammar • DELF Preparation",
     tagline: "Making French learning engaging, interactive, and practical for every learner.",
@@ -652,7 +652,7 @@ export default function HomePage() {
                         </>
                       )}
                       <div className="absolute inset-0 grid-dots-light opacity-20 pointer-events-none" />
-                      <h3 className="relative z-10 font-display text-3xl font-semibold text-white tracking-wide leading-none">{lang.name}</h3>
+                      <h3 className="relative z-10 text-3xl font-black text-white tracking-tight leading-none">{lang.name}</h3>
                       <Flag code={lang.flagCode} size={30} rounded="rounded-md" className="relative z-10 shadow-md" />
                     </div>
 
@@ -925,7 +925,7 @@ export default function HomePage() {
             </h2>
             <p className="mt-4 text-white/55 max-w-xl mx-auto">
               Public Speaking, Business Communication, Leadership, Personality Development
-             , standalone or bundled with any language course.
+              - standalone or bundled with any language course.
             </p>
           </AnimateOnView>
 
@@ -1098,10 +1098,10 @@ export default function HomePage() {
                     aria-pressed={flippedMentor.has(i)}
                     className="group flex-shrink-0 w-[270px] h-[380px] snap-start cursor-pointer [perspective:1600px]"
                   >
-                    <div className={`relative h-full w-full transition-transform duration-[700ms] ease-[cubic-bezier(0.22,1,0.36,1)] [transform-style:preserve-3d] ${flippedMentor.has(i) ? "[transform:rotateY(180deg)]" : "group-hover:[transform:rotateY(180deg)]"}`}>
+                    <div className={`relative h-full w-full transition-transform duration-[700ms] ease-[cubic-bezier(0.22,1,0.36,1)] [transform-style:preserve-3d] [-webkit-transform-style:preserve-3d] ${flippedMentor.has(i) ? "[transform:rotateY(180deg)]" : "group-hover:[transform:rotateY(180deg)]"}`}>
                       {/* ── FRONT: photo + name ── */}
                       <div
-                        className={`absolute inset-0 [backface-visibility:hidden] rounded-3xl overflow-hidden ${flippedMentor.has(i) ? "pointer-events-none" : "group-hover:pointer-events-none"}`}
+                        className={`absolute inset-0 [backface-visibility:hidden] [-webkit-backface-visibility:hidden] rounded-3xl overflow-hidden ${flippedMentor.has(i) ? "pointer-events-none" : "group-hover:pointer-events-none"}`}
                         style={{ background: `linear-gradient(160deg, ${c.from}, ${c.to})` }}
                       >
                         <Image
@@ -1126,7 +1126,7 @@ export default function HomePage() {
 
                       {/* ── BACK: details ── */}
                       <div
-                        className={`absolute inset-0 [backface-visibility:hidden] [transform:rotateY(180deg)] rounded-3xl overflow-hidden p-5 flex flex-col ${flippedMentor.has(i) ? "pointer-events-auto" : "pointer-events-none group-hover:pointer-events-auto"}`}
+                        className={`absolute inset-0 [backface-visibility:hidden] [-webkit-backface-visibility:hidden] [transform:rotateY(180deg)] rounded-3xl overflow-hidden p-5 flex flex-col ${flippedMentor.has(i) ? "pointer-events-auto" : "pointer-events-none group-hover:pointer-events-auto"}`}
                         style={{ background: "linear-gradient(160deg, #16203f 0%, #0a0f24 100%)" }}
                       >
                         <div className="absolute inset-0 grid-dots-light opacity-20 pointer-events-none" />

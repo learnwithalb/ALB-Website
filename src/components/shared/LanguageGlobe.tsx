@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { Flag } from "@/lib/icons";
@@ -72,9 +73,23 @@ const SPOKE_LINES = [0, 60, 120, 180, 240, 300].map((angle) => {
 });
 
 export function LanguageGlobe() {
+  // On mobile the container is narrow, so pull the orbits in and shrink the globe
+  // so the fixed-width language pills stay on-screen instead of being cropped.
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 640px)");
+    const update = () => setIsMobile(mq.matches);
+    update();
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
+  }, []);
+  const scale = isMobile ? 0.74 : 1;
+  const globeWidth = isMobile ? "56%" : "72%";
+
   return (
     <motion.div
       className="relative w-full aspect-square max-w-[540px] mx-auto select-none"
+      style={{ containerType: "inline-size" }}
       animate={{ y: [0, -10, 0] }}
       transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
     >
@@ -92,7 +107,7 @@ export function LanguageGlobe() {
         {ORBIT_CONFIG.map((o) => (
           <circle
             key={o.radius}
-            cx="270" cy="270" r={o.radius}
+            cx="270" cy="270" r={o.radius * scale}
             fill="none"
             stroke={o.trackColor}
             strokeWidth="0.6"
@@ -127,7 +142,7 @@ export function LanguageGlobe() {
               transition={{ duration: orbit.duration, repeat: Infinity, ease: "linear" }}
             >
               <motion.div
-                style={{ position: "absolute", left: 0, top: -orbit.radius, x: "-50%", y: "-50%" }}
+                style={{ position: "absolute", left: 0, top: `${(-orbit.radius * scale) / 5.4}cqw`, x: "-50%", y: "-50%" }}
                 initial={{ rotate: -tag.start }}
                 animate={{ rotate: -(tag.start + orbit.dir * 360) }}
                 transition={{ duration: orbit.duration, repeat: Infinity, ease: "linear" }}
@@ -175,14 +190,14 @@ export function LanguageGlobe() {
 
       {/* Central hub – globe */}
       <div
-        style={{ position: "absolute", top: "50%", left: "50%", width: "72%", aspectRatio: "1", transform: "translate(-50%, -50%)", zIndex: 10 }}
+        style={{ position: "absolute", top: "50%", left: "50%", width: globeWidth, aspectRatio: "1", transform: "translate(-50%, -50%)", zIndex: 10 }}
       >
         {/* the globe — PNG already carries its own atmosphere, so no frame/clip */}
         <Image
           src="/images/hero-images/globe-light.png"
           alt="Globe"
           fill
-          sizes="(min-width:1024px) 390px, 1px"
+          sizes="(min-width:1024px) 390px, (min-width:640px) 45vw, 72vw"
           className="relative object-contain"
         />
       </div>

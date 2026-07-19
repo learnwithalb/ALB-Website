@@ -17,9 +17,13 @@ export function CourseLanding({
   // When true, per-track "Download curriculum" buttons are hidden in favour of a
   // single button below the grid (used only on the English programme page).
   singleDownload = false,
+  // Optional content rendered just above the "Your Journey" section
+  // (e.g. the French Fluency Clinic on the French page).
+  beforeJourney,
 }: {
   data: CourseData;
   singleDownload?: boolean;
+  beforeJourney?: React.ReactNode;
 }) {
   const { openModal } = useBooking();
   const { openBrochureForm } = useBrochure();
@@ -27,7 +31,7 @@ export function CourseLanding({
   const [openFaq, setOpenFaq] = useState<number | null>(0);
   const a = data.accent;
   const al = data.al;
-  const active = data.curriculum[mod];
+  const active = data.curriculum[mod] ?? data.curriculum[0]; // mod can be -1 when the mobile accordion is fully collapsed
   // drop a leading CEFR level when it already repeats later in the badge (e.g. "A1 · DELF A1" → "DELF A1")
   const activeBadge = active.badge.replace(/^((?:Pre-)?[A-C][12])\s*·\s*(?=.*\b\1\b)/, "");
   const statIcons = [GraduationCap, Clock, Users, BookOpen, Trophy];
@@ -294,6 +298,8 @@ export function CourseLanding({
         </div>
       </section>
 
+      {beforeJourney}
+
       {/* ══════════ JOURNEY ══════════ */}
       <section className="section-padding sec-mist relative overflow-hidden">
         <div className="blob blob-royal w-[420px] h-[420px] bottom-0 left-[-8%] opacity-40 pointer-events-none" />
@@ -337,7 +343,79 @@ export function CourseLanding({
             {data.sections?.curriculum?.sub && <p className="text-white/60 text-base md:text-lg mt-4 leading-relaxed max-w-2xl mx-auto">{data.sections.curriculum.sub}</p>}
           </AnimateOnView>
 
-          <div className="grid lg:grid-cols-[0.92fr_1.08fr] gap-8 lg:gap-12 items-start">
+          {/* ── MOBILE: accordion (one module open at a time) ── */}
+          <div className="lg:hidden space-y-3">
+            {data.curriculum.map((m, i) => {
+              const on = mod === i;
+              const mBadge = m.badge.replace(/^((?:Pre-)?[A-C][12])\s*·\s*(?=.*\b\1\b)/, "");
+              return (
+                <div
+                  key={m.label}
+                  className="rounded-2xl overflow-hidden border bg-white/[0.04] backdrop-blur-xl transition-colors duration-300"
+                  style={on ? { border: `1px solid ${a}66`, boxShadow: `0 24px 50px -30px ${a}99` } : { borderColor: "rgba(255,255,255,0.1)" }}
+                >
+                  <button
+                    onClick={() => setMod(on ? -1 : i)}
+                    aria-expanded={on}
+                    className="w-full flex items-center gap-3.5 text-left px-4 py-4"
+                  >
+                    <span
+                      className="flex-shrink-0 w-10 h-10 rounded-xl flex items-center justify-center font-black text-sm transition-all duration-300"
+                      style={on ? { background: a, color: "#fff", boxShadow: `0 10px 24px ${a}88` } : { background: "rgba(255,255,255,0.06)", color: "rgba(255,255,255,0.5)", border: "1px solid rgba(255,255,255,0.1)" }}
+                    >
+                      {i + 1}
+                    </span>
+                    <span className="min-w-0 flex-1">
+                      <span className="text-[10px] font-bold uppercase tracking-wide block" style={{ color: on ? a : "rgba(255,255,255,0.45)" }}>{m.label}</span>
+                      <span className="text-base font-black block leading-snug mt-0.5" style={on ? { color: a } : { color: "#fff" }}>{m.title}</span>
+                    </span>
+                    <ChevronRight
+                      size={20}
+                      className={`flex-shrink-0 transition-transform duration-300 ${on ? "rotate-90" : ""}`}
+                      style={{ color: on ? a : "rgba(255,255,255,0.4)" }}
+                    />
+                  </button>
+
+                  <AnimatePresence initial={false}>
+                    {on && (
+                      <motion.div
+                        key="body"
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: "auto", opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
+                        className="overflow-hidden"
+                      >
+                        <div className="px-4 pb-5 pt-1">
+                          <div className="flex flex-wrap items-center gap-2 mb-3">
+                            <span className="text-[10.5px] font-bold uppercase tracking-widest" style={{ color: a }}>{mBadge}</span>
+                            <span className="text-xs font-bold text-white px-2.5 py-1 rounded-full whitespace-nowrap" style={{ background: a }}>{m.weeks}</span>
+                          </div>
+                          <p className="text-white/65 text-sm leading-relaxed">{m.desc}</p>
+
+                          <div className="grid gap-3 mt-5">
+                            {m.topics.map((tp) => (
+                              <div key={tp.t} className="rounded-xl p-4 bg-white/[0.04] border border-white/10" style={{ borderLeft: `3px solid ${a}` }}>
+                                <p className="font-bold text-white text-sm mb-2">{tp.t}</p>
+                                <ul className="space-y-1">
+                                  {tp.i.map((it) => (<li key={it} className="text-xs text-white/55 flex items-start gap-1.5"><span style={{ color: a }}>·</span>{it}</li>))}
+                                </ul>
+                              </div>
+                            ))}
+                          </div>
+                          <div className="mt-4 rounded-xl px-4 py-3 text-sm text-white/60 leading-relaxed bg-white/[0.04] border border-white/10">
+                            <strong className="text-white">Assessments:</strong> {m.assess}
+                          </div>
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              );
+            })}
+          </div>
+
+          <div className="hidden lg:grid lg:grid-cols-[0.92fr_1.08fr] gap-8 lg:gap-12 items-start">
             {/* ── right: the module "screen" ── */}
             <AnimatePresence mode="wait">
               <motion.div

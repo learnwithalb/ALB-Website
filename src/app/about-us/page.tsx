@@ -357,10 +357,10 @@ export default function AboutPage() {
                     style={{ background: `linear-gradient(150deg, ${b.from}, ${b.to})` }}
                   />
                   <div
-                    className={`relative h-full w-full transition-transform duration-[750ms] ease-[cubic-bezier(0.34,1.2,0.4,1)] [transform-style:preserve-3d] ${flipped.has(i) ? "[transform:rotateY(180deg)]" : "group-hover:[transform:rotateY(180deg)]"}`}
+                    className={`relative h-full w-full transition-transform duration-[750ms] ease-[cubic-bezier(0.34,1.2,0.4,1)] [transform-style:preserve-3d] [-webkit-transform-style:preserve-3d] ${flipped.has(i) ? "[transform:rotateY(180deg)]" : "group-hover:[transform:rotateY(180deg)]"}`}
                   >
                     {/* FRONT — cover image + heading */}
-                    <div className="absolute inset-0 [backface-visibility:hidden] rounded-2xl overflow-hidden shadow-[0_24px_50px_-24px_rgba(0,0,0,0.7)]">
+                    <div className="absolute inset-0 [backface-visibility:hidden] [-webkit-backface-visibility:hidden] rounded-2xl overflow-hidden shadow-[0_24px_50px_-24px_rgba(0,0,0,0.7)]">
                       {/* cover image */}
                       <Image src={b.cover} alt="" fill sizes="(max-width:768px) 100vw, 33vw" className="object-cover transition-transform duration-700 group-hover:scale-105" />
                       {/* dark gradient overlay for legibility */}
@@ -389,7 +389,7 @@ export default function AboutPage() {
 
                     {/* BACK — body */}
                     <div
-                      className="absolute inset-0 [backface-visibility:hidden] [transform:rotateY(180deg)] rounded-2xl overflow-hidden p-7 flex flex-col shadow-[0_24px_50px_-24px_rgba(0,0,0,0.7)]"
+                      className="absolute inset-0 [backface-visibility:hidden] [-webkit-backface-visibility:hidden] [transform:rotateY(180deg)] rounded-2xl overflow-hidden p-7 flex flex-col shadow-[0_24px_50px_-24px_rgba(0,0,0,0.7)]"
                       style={{ background: `linear-gradient(150deg, ${b.from}, ${b.to})` }}
                     >
                       <div className="absolute inset-0 bg-[#00082a]/55 pointer-events-none" />
