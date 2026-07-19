@@ -9,6 +9,9 @@ import { Menu, X, ChevronDown, ArrowRight, Sparkles } from "lucide-react";
 import { navItems, languages } from "@/lib/constants";
 import { Flag } from "@/lib/icons";
 import { useBooking } from "@/components/shared/BookingContext";
+import { StudentLoginButton } from "@/components/StudentLoginButton";
+import { MyAccountButton } from "@/components/MyAccountButton";
+import { LogoutButton } from "@/components/LogoutButton";
 
 /* Featured cards for the Courses mega-dropdown */
 const COURSE_CARDS = [
@@ -185,12 +188,11 @@ export function Navbar() {
 
             {/* CTAs */}
             <div className="hidden lg:flex items-center gap-3">
-              <Link
-                href="/courses"
-                className="text-body hover:text-royal-700 text-sm font-medium transition-colors px-2"
-              >
-                Student Login
-              </Link>
+              {/* Edmingle SDK controls these three: Student Login shows when logged out;
+                  My Account + Logout appear after login. No onClick — SDK binds them. */}
+              <StudentLoginButton className="text-body hover:text-royal-700 text-sm font-medium transition-colors px-2" />
+              <MyAccountButton className="text-body hover:text-royal-700 text-sm font-medium transition-colors px-2" />
+              <LogoutButton className="text-body hover:text-royal-700 text-sm font-medium transition-colors px-2" />
               <button
                 onClick={() => openModal()}
                 className="btn-primary text-sm px-5 py-2.5 rounded-full font-semibold"

@@ -14,6 +14,7 @@ import { MuiIcon, Flag, flagSrc } from "@/lib/icons";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { faqSchema } from "@/lib/schema";
 import { useBooking } from "@/components/shared/BookingContext";
+import { PricingBanner } from "@/components/shared/PricingBanner";
 
 /* ─────────────────────────── Stat Cards ─────────────────────────── */
 const STAT_CARDS = [
@@ -1464,6 +1465,8 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* ══════════════════════ AFFORDABILITY BANNER ══════════════════════ */}
+      <PricingBanner />
     </div>
   );
 }

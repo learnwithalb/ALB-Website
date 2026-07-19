@@ -7,6 +7,7 @@ import { AnimateOnView, StaggerContainer, StaggerItem } from "@/components/share
 import { languages } from "@/lib/constants";
 import { CountryBadge } from "@/lib/icons";
 import { useBooking } from "@/components/shared/BookingContext";
+import { PricingBanner } from "@/components/shared/PricingBanner";
 
 const features = [
   "CEFR-aligned curriculum",
@@ -497,6 +498,8 @@ export default function CoursesPage() {
         </div>
       </section>
 
+      {/* ─── AFFORDABILITY BANNER ─── */}
+      <PricingBanner />
     </>
   );
 }
