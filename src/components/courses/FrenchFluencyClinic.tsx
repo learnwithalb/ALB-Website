@@ -9,7 +9,7 @@ import { useBrochure } from "@/components/shared/BrochureContext";
 /**
  * French-only standalone offering shown above the "Your Journey" section on the
  * French course page. Passed to <CourseLanding> via its `beforeJourney` slot.
- * On-brand dark section: Satoshi type + royal/sky palette (no serif, no gold).
+ * On-brand dark section: Inter type + royal/sky palette (no serif, no gold).
  * Presented as a highlighted, framed panel with an animated glow border,
  * flowing background lines and a drawn timeline through the feature list.
  */

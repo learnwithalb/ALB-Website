@@ -26,10 +26,10 @@ const IFRAME_SRC = `https://login.learnwithalb.com/js-sdks/signup-sdk/iframe.php
 
 /** On-brand restyle for the Edmingle login/signup modal (injected into the iframe). */
 const MODAL_CSS = `
-@import url('https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 
 .modal-content *, .modal-body *, .sdk-form-heading, .form-control, .sdk-btn-style, .hr-text, .brandColor, label {
-  font-family:'Satoshi', system-ui, -apple-system, sans-serif !important;
+  font-family:'Inter', system-ui, -apple-system, sans-serif !important;
 }
 
 /* dim the page behind the popup */

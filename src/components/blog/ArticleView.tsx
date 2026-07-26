@@ -7,7 +7,6 @@ import type { BlogPost } from "@/lib/blog";
 import { headingId } from "@/lib/blog";
 import { MuiIcon } from "@/lib/icons";
 import { Breadcrumb, type Crumb } from "@/components/shared/Breadcrumb";
-import { CtaBand } from "@/components/shared/CtaBand";
 import { TableOfContents } from "./TableOfContents";
 import { SectionBlocks } from "./ContentBlocks";
 import { FaqAccordion } from "./FaqAccordion";
@@ -181,14 +180,6 @@ export function ArticleView({ post, related, breadcrumbs, courseLinks }: Article
         </section>
       )}
 
-      {/* ── CTA ── */}
-      <section className="container-max px-5 md:px-8 pb-16">
-        <CtaBand
-          heading="Turn this guide into a plan."
-          sub="Book a free counselling session and map your fastest route to the score you need."
-          topic={post.category}
-        />
-      </section>
     </article>
   );
 }

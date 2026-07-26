@@ -7,7 +7,7 @@ import { useBooking } from "@/components/shared/BookingContext";
 /**
  * Affordability banner — value headline + CTA on the left, a price card on the
  * right. Used on the home page and the courses page only. On-brand: royal/sky
- * palette, Satoshi type.
+ * palette, Inter type.
  */
 
 const CARD_POINTS = [
