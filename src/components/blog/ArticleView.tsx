@@ -1,13 +1,15 @@
 "use client";
 
 import Link from "next/link";
-import { Clock, CalendarDays, RefreshCw, ArrowRight } from "lucide-react";
+import Image from "next/image";
+import { Clock, CalendarDays, RefreshCw, ArrowRight, GraduationCap } from "lucide-react";
 import type { BlogPost } from "@/lib/blog";
 import { headingId } from "@/lib/blog";
 import { MuiIcon } from "@/lib/icons";
 import { Breadcrumb, type Crumb } from "@/components/shared/Breadcrumb";
 import { CtaBand } from "@/components/shared/CtaBand";
 import { TableOfContents } from "./TableOfContents";
+import { SectionBlocks } from "./ContentBlocks";
 import { FaqAccordion } from "./FaqAccordion";
 import { ShareButtons } from "./ShareButtons";
 import { RelatedPosts } from "./RelatedPosts";
@@ -33,13 +35,14 @@ export function ArticleView({ post, related, breadcrumbs, courseLinks }: Article
   return (
     <article>
       {/* ── Hero ── */}
-      <header className="relative hero-light pt-28 pb-12 overflow-hidden">
+      <header className="relative hero-light pt-28 pb-10 overflow-hidden">
         <div className="absolute inset-0 grid-lines pointer-events-none opacity-60" />
         <div
           className="blob w-[420px] h-[420px] top-0 right-[-6%] pointer-events-none opacity-30"
           style={{ background: post.accent }}
         />
-        <div className="container-max px-5 md:px-8 relative z-10 max-w-3xl">
+        <div className="container-max px-5 md:px-8 relative z-10">
+          <div className="max-w-3xl">
           <Breadcrumb items={breadcrumbs} />
           <div className="mt-5 flex items-center gap-2">
             <span
@@ -58,22 +61,35 @@ export function ArticleView({ post, related, breadcrumbs, courseLinks }: Article
           <h1 className="mt-4 text-3xl md:text-5xl font-black text-ink leading-[1.08] tracking-tight">
             {post.title}
           </h1>
-          <p className="mt-4 text-body text-lg leading-relaxed">{post.excerpt}</p>
 
-          <div className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-muted">
-            <span className="font-semibold text-ink">{post.author}</span>
-            <span className="inline-flex items-center gap-1.5">
-              <CalendarDays size={14} /> {fmtDate(post.publishedAt)}
+          {/* author byline */}
+          <div className="mt-6 flex items-center gap-3.5">
+            <span className="flex-shrink-0 w-11 h-11 rounded-full bg-gradient-to-br from-[#3b5bdb] to-[#6d8bff] text-white flex items-center justify-center shadow-md">
+              <GraduationCap size={20} />
             </span>
-            <span className="inline-flex items-center gap-1.5">
-              <RefreshCw size={14} /> Updated {fmtDate(post.updatedAt)}
-            </span>
-            <span className="inline-flex items-center gap-1.5">
-              <Clock size={14} /> {post.readingMinutes} min read
-            </span>
+            <div>
+              <p className="font-bold text-ink text-sm">By {post.author}</p>
+              <p className="text-muted text-xs mt-0.5 flex flex-wrap items-center gap-x-2 gap-y-0.5">
+                <span className="inline-flex items-center gap-1.5"><CalendarDays size={12} /> {fmtDate(post.publishedAt)}</span>
+                <span className="text-royal-200">·</span>
+                <span className="inline-flex items-center gap-1.5"><RefreshCw size={12} /> Updated {fmtDate(post.updatedAt)}</span>
+                <span className="text-royal-200">·</span>
+                <span className="inline-flex items-center gap-1.5"><Clock size={12} /> {post.readingMinutes} min read</span>
+              </p>
+            </div>
+          </div>
           </div>
         </div>
       </header>
+
+      {/* ── Cover image (full-width, prominent) ── */}
+      {post.coverImage && (
+        <div className="container-max px-5 md:px-8 pb-2">
+          <div className="relative aspect-[16/7] rounded-3xl overflow-hidden border border-line shadow-[0_28px_70px_-34px_rgba(16,23,51,0.45)]">
+            <Image src={encodeURI(post.coverImage)} alt={post.title} fill sizes="(min-width:1280px) 1200px, 100vw" className="object-cover" priority />
+          </div>
+        </div>
+      )}
 
       {/* ── Body + sidebar ── */}
       <div className="container-max px-5 md:px-8 py-12">
@@ -86,20 +102,25 @@ export function ArticleView({ post, related, breadcrumbs, courseLinks }: Article
                   <h2 className="text-2xl md:text-[1.7rem] font-black text-ink leading-tight">
                     {section.h2}
                   </h2>
-                  {section.body.split("\n\n").map((para, i) => (
+                  {section.body?.split("\n\n").map((para, i) => (
                     <p key={i} className="mt-3 text-body leading-relaxed">
                       {para}
                     </p>
                   ))}
+                  {section.blocks && section.blocks.length > 0 && (
+                    <SectionBlocks blocks={section.blocks} accent={post.accent} />
+                  )}
                 </section>
               ))}
             </div>
 
-            {/* Placeholder notice — professional skeleton, replace with full content */}
-            <p className="mt-10 text-xs text-muted italic border-l-2 border-line pl-4">
-              This is a structured outline for an in-depth guide. Full content is being expanded by
-              the {post.author}.
-            </p>
+            {/* Placeholder notice — only for outline-stage articles */}
+            {!post.complete && (
+              <p className="mt-10 text-xs text-muted italic border-l-2 border-line pl-4">
+                This is a structured outline for an in-depth guide. Full content is being expanded by
+                the {post.author}.
+              </p>
+            )}
 
             {/* Related courses (internal linking → conversion) */}
             {courseLinks.length > 0 && (

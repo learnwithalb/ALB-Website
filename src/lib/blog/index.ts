@@ -1,7 +1,7 @@
 import type { BlogPost, Cluster, ClusterId } from "./types";
 import { POSTS, CLUSTERS } from "./posts";
 
-export type { BlogPost, Cluster, ClusterId, BlogFaq, BlogSection } from "./types";
+export type { BlogPost, Cluster, ClusterId, BlogFaq, BlogSection, ContentBlock } from "./types";
 export { CLUSTERS, DEFAULT_AUTHOR } from "./posts";
 
 /** All posts, newest first. */

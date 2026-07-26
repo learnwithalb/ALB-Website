@@ -48,9 +48,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className={cormorant.variable}>
       <head>
+        {/* Satoshi as a VARIABLE font (continuous 300–900). The static build only
+            ships 300/400/500/700/900, so font-semibold (600) snapped up to 700 and
+            made small/medium text look too bold — the variable font renders every
+            weight truthfully. */}
         <link
           rel="stylesheet"
-          href="https://api.fontshare.com/v2/css?f[]=satoshi@300,400,500,700,900&display=swap"
+          href="https://api.fontshare.com/v2/css?f[]=satoshi@1&display=swap"
         />
       </head>
       <body className="font-sans antialiased">

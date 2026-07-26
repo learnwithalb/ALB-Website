@@ -25,7 +25,7 @@ export function RelatedPosts({ posts }: { posts: BlogPost[] }) {
             <span className="text-[11px] font-bold uppercase tracking-wider" style={{ color: post.accent }}>
               {post.category}
             </span>
-            <h3 className="font-black text-ink text-base leading-snug mt-2 flex-1">{post.title}</h3>
+            <h3 className="font-bold text-ink text-base leading-snug mt-2 flex-1">{post.title}</h3>
             <span className="mt-4 inline-flex items-center gap-1 font-bold text-sm group-hover:gap-2 transition-all" style={{ color: post.accent }}>
               Read <ArrowRight size={13} />
             </span>

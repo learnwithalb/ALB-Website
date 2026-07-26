@@ -223,7 +223,7 @@ export function CourseLanding({
                     </div>
 
                     {/* title */}
-                    <h3 className="text-xl font-black leading-tight" style={{ color: acc }}>{t.name}</h3>
+                    <h3 className="text-xl font-bold leading-tight" style={{ color: acc }}>{t.name}</h3>
 
                     {/* description */}
                     <p className="text-muted text-sm leading-relaxed mt-2.5">{t.forText}</p>
@@ -318,7 +318,7 @@ export function CourseLanding({
                   <StaggerItem key={j.t} className="text-center">
                     <div className="relative z-10 w-14 h-14 mx-auto rounded-full flex items-center justify-center font-black shadow-md mb-4" style={edge ? { background: a, color: "#fff" } : { background: "#fff", border: `2px solid ${a}33`, color: a }}>{j.l}</div>
                     <p className="text-[10px] font-bold uppercase tracking-widest mb-1" style={{ color: a }}>{j.w}</p>
-                    <h3 className="font-black text-ink text-sm">{j.t}</h3>
+                    <h3 className="font-bold text-ink text-sm">{j.t}</h3>
                     <p className="text-muted text-xs mt-1 leading-snug">{j.s}</p>
                   </StaggerItem>
                 );
@@ -367,7 +367,7 @@ export function CourseLanding({
                     </span>
                     <span className="min-w-0 flex-1">
                       <span className="text-[10px] font-bold uppercase tracking-wide block" style={{ color: on ? a : "rgba(255,255,255,0.45)" }}>{m.label}</span>
-                      <span className="text-base font-black block leading-snug mt-0.5" style={on ? { color: a } : { color: "#fff" }}>{m.title}</span>
+                      <span className="text-base font-bold block leading-snug mt-0.5" style={on ? { color: a } : { color: "#fff" }}>{m.title}</span>
                     </span>
                     <ChevronRight
                       size={20}
@@ -504,7 +504,7 @@ export function CourseLanding({
                       >
                         <span className="min-w-0">
                           <span className="text-[10px] font-bold uppercase tracking-wide block" style={{ color: on ? a : "rgba(255,255,255,0.45)" }}>{m.label}</span>
-                          <span className={`text-base md:text-lg font-black block leading-snug mt-0.5 ${on ? "" : "text-white"}`} style={on ? { color: a } : undefined}>{m.title}</span>
+                          <span className={`text-base md:text-lg font-bold block leading-snug mt-0.5 ${on ? "" : "text-white"}`} style={on ? { color: a } : undefined}>{m.title}</span>
                         </span>
                         <span className="flex items-center gap-2.5 flex-shrink-0">
                           <span
@@ -576,7 +576,7 @@ export function CourseLanding({
                   <div className="w-11 h-11 rounded-xl bg-white/10 border border-white/15 flex items-center justify-center mb-5">
                     <MuiIcon name={u.i} size={22} style={{ color: "#ffffff" }} />
                   </div>
-                  <h3 className="text-lg font-black text-white leading-snug">{u.t}</h3>
+                  <h3 className="text-lg font-bold text-white leading-snug">{u.t}</h3>
                   <p className="text-white/60 text-sm mt-2 leading-relaxed">{u.b}</p>
                 </div>
               </StaggerItem>

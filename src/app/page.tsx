@@ -473,7 +473,7 @@ export default function HomePage() {
                     </motion.div>
                   </div>
 
-                  <div className="relative z-10 text-sm md:text-[15px] font-black text-ink leading-snug">{s.title}</div>
+                  <div className="relative z-10 text-sm md:text-[15px] font-bold text-ink leading-snug">{s.title}</div>
 
                   {/* bottom accent bar */}
                   <motion.div
@@ -546,7 +546,7 @@ export default function HomePage() {
               <StaggerItem key={c.title}>
                 <div className="card-feature rounded-2xl p-7 flex flex-col h-full min-h-[330px]">
                   <span className="text-[11px] font-bold uppercase tracking-widest text-rose-500">{c.tag}</span>
-                  <h3 className="mt-2 text-xl font-black text-ink leading-snug">{c.title}</h3>
+                  <h3 className="mt-2 text-xl font-bold text-ink leading-snug">{c.title}</h3>
                   <p className="mt-3 text-muted text-sm leading-relaxed italic">&ldquo;{c.quote}&rdquo;</p>
 
                   {/* Decorative visual, animates in on view.
@@ -777,7 +777,7 @@ export default function HomePage() {
                     Track {i + 1}
                   </span>
 
-                  <h3 className="relative z-10 text-2xl font-black text-ink mt-5 leading-tight">{t.title}</h3>
+                  <h3 className="relative z-10 text-2xl font-black gradient-text w-fit mt-5 leading-tight" style={{ backgroundImage: "linear-gradient(120deg, #1b2a63 0%, #283c9e 50%, #3b5bdb 100%)" }}>{t.title}</h3>
 
                   <p className="relative z-10 text-xs text-muted mt-3 leading-relaxed">
                     <span className="font-bold text-ink">Ideal for:</span> {t.ideal}
@@ -827,7 +827,7 @@ export default function HomePage() {
                   <div className="w-11 h-11 rounded-xl bg-royal-50 flex items-center justify-center mb-3">
                     <MuiIcon name="chat" size={22} style={{ color: "#3b5bdb" }} />
                   </div>
-                  <h3 className="text-lg font-black text-ink">Live interactive learning</h3>
+                  <h3 className="text-lg font-bold text-ink">Live interactive learning</h3>
                   <p className="text-muted text-sm mt-1.5 leading-relaxed">
                     3 live sessions a week with a qualified mentor, plus regular speaking practice, never pre-recorded.
                   </p>
@@ -853,7 +853,7 @@ export default function HomePage() {
                 <div className="w-11 h-11 rounded-xl bg-royal-50 flex items-center justify-center mb-3">
                   <MuiIcon name="people" size={22} style={{ color: "#3b5bdb" }} />
                 </div>
-                <h3 className="text-lg font-black text-ink">Small cohorts</h3>
+                <h3 className="text-lg font-bold text-ink">Small cohorts</h3>
                 <p className="text-muted text-sm mt-1.5 leading-relaxed">
                   Real speaking time, real feedback, no hiding at the back of a 60-person class.
                 </p>
@@ -866,7 +866,7 @@ export default function HomePage() {
                 <div className="w-11 h-11 rounded-xl bg-royal-50 flex items-center justify-center mb-3">
                   <MuiIcon name="target" size={22} style={{ color: "#3b5bdb" }} />
                 </div>
-                <h3 className="text-lg font-black text-ink">Goal-certified tracks</h3>
+                <h3 className="text-lg font-bold text-ink">Goal-certified tracks</h3>
                 <p className="text-muted text-sm mt-1.5 leading-relaxed">
                   Immigration, Academic, Career or Sprint, your path shapes everything from enrolment day.
                 </p>
@@ -879,7 +879,7 @@ export default function HomePage() {
                 <div className="w-11 h-11 rounded-xl bg-royal-50 flex items-center justify-center mb-3">
                   <MuiIcon name="article" size={22} style={{ color: "#3b5bdb" }} />
                 </div>
-                <h3 className="text-lg font-black text-ink">International exam prep included</h3>
+                <h3 className="text-lg font-bold text-ink">International exam prep included</h3>
                 <p className="text-muted text-sm mt-1.5 leading-relaxed">
                   DELF, IELTS and Goethe prep built into the curriculum. No bolt-on fees.
                 </p>
@@ -892,7 +892,7 @@ export default function HomePage() {
                 <div className="w-11 h-11 rounded-xl bg-royal-50 flex items-center justify-center mb-3">
                   <MuiIcon name="sparkle" size={22} style={{ color: "#3b5bdb" }} />
                 </div>
-                <h3 className="text-lg font-black text-ink">Soft skills in every batch</h3>
+                <h3 className="text-lg font-bold text-ink">Soft skills in every batch</h3>
                 <p className="text-muted text-sm mt-1.5 leading-relaxed">
                   Confidence, communication, and professional presence, not optional. Built in.
                 </p>
@@ -909,7 +909,7 @@ export default function HomePage() {
                   <div className="w-12 h-12 rounded-2xl flex items-center justify-center mb-4" style={{ background: "linear-gradient(135deg, #3b5bdb 0%, #6d8bff 100%)", boxShadow: "0 10px 22px rgba(59,91,219,0.32)" }}>
                     <MuiIcon name="teacher" size={24} style={{ color: "#ffffff" }} />
                   </div>
-                  <h3 className="text-xl font-black text-ink">Dedicated speaking sessions</h3>
+                  <h3 className="text-xl font-bold text-ink">Dedicated speaking sessions</h3>
                   <p className="text-muted text-sm mt-2 leading-relaxed">
                     Real conversation practice is built into every level, because reading about a language and speaking it are two different things.
                   </p>
@@ -1150,7 +1150,7 @@ export default function HomePage() {
                         </span>
                         {/* name + role */}
                         <div className="absolute inset-x-0 bottom-0 p-5 z-10">
-                          <h3 className="text-white font-black text-lg leading-tight drop-shadow">{m.name}</h3>
+                          <h3 className="text-white font-bold text-lg leading-tight drop-shadow">{m.name}</h3>
                           <p className="text-white/70 text-xs mt-1 leading-snug">{m.role}</p>
                         </div>
                       </div>
@@ -1165,7 +1165,7 @@ export default function HomePage() {
                         <span className="absolute -top-12 -right-12 w-40 h-40 rounded-full blur-3xl opacity-30 pointer-events-none" style={{ background: c.from }} />
                         <span className="absolute inset-x-0 top-0 h-px" style={{ background: `linear-gradient(90deg, transparent, ${c.from}, transparent)` }} />
                         <div className="relative z-10 flex flex-col h-full">
-                          <h3 className="text-white font-black text-base leading-tight">{m.name}</h3>
+                          <h3 className="text-white font-bold text-base leading-tight">{m.name}</h3>
                           <p className="text-white/60 text-[11px] mt-0.5 leading-snug">{m.role}</p>
                           <div className="h-px bg-white/15 my-3" />
                           <div className="space-y-2.5">
@@ -1260,7 +1260,7 @@ export default function HomePage() {
                   <div className="w-11 h-11 rounded-xl bg-white/10 flex items-center justify-center">
                     <MuiIcon name="grade" size={22} style={{ color: "#7dd3fc" }} />
                   </div>
-                  <h3 className="text-white font-black text-lg">ALB Level Certificate</h3>
+                  <h3 className="text-white font-bold text-lg">ALB Level Certificate</h3>
                 </div>
                 <div className="flex flex-wrap gap-2">
                   {["CEFR level", "Exam-readiness score", "Can-do statements"].map((c) => (
@@ -1275,7 +1275,7 @@ export default function HomePage() {
                   <div className="w-11 h-11 rounded-xl bg-white/10 flex items-center justify-center">
                     <MuiIcon name="globe" size={22} style={{ color: "#9bb2ff" }} />
                   </div>
-                  <h3 className="text-white font-black text-lg">International Exams</h3>
+                  <h3 className="text-white font-bold text-lg">International Exams</h3>
                 </div>
                 <div className="flex flex-wrap gap-2">
                   {["DELF", "DALF", "TEF Canada", "TCF Canada", "Goethe-Zertifikat", "TestDaF", "IELTS", "PTE", "TOEFL"].map((c) => (
@@ -1385,7 +1385,7 @@ export default function HomePage() {
 
                     {/* text above (high) or below (low) the node */}
                     <div className="absolute left-0 right-0 px-3 text-center" style={high ? { bottom: 378 } : { top: 378 }}>
-                      <h3 className="font-black text-ink text-lg">{s.title}</h3>
+                      <h3 className="font-bold text-ink text-lg">{s.title}</h3>
                       <p className="mt-2 text-muted text-sm leading-relaxed">{s.desc}</p>
                     </div>
                   </div>
@@ -1405,7 +1405,7 @@ export default function HomePage() {
                       <MuiIcon name={s.icon} size={26} style={{ color: "#3b5bdb" }} />
                     </div>
                   </div>
-                  <h3 className="relative z-10 mt-4 font-black text-ink text-lg">{s.title}</h3>
+                  <h3 className="relative z-10 mt-4 font-bold text-ink text-lg">{s.title}</h3>
                   <p className="relative z-10 mt-2 text-muted text-sm leading-relaxed max-w-[280px] mx-auto">{s.desc}</p>
                 </StaggerItem>
               ))}
