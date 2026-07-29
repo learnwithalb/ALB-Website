@@ -79,7 +79,7 @@ export function Navbar() {
             </Link>
 
             {/* Desktop Nav */}
-            <nav className="hidden lg:flex items-center gap-0.5">
+            <nav className="hidden xl:flex items-center gap-0.5">
               {navItems.map((item) => {
                 const active = pathname.startsWith(item.href);
 
@@ -94,7 +94,7 @@ export function Navbar() {
                     >
                       <Link
                         href={item.href}
-                        className={`flex items-center gap-1 px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
+                        className={`flex items-center gap-1 px-3 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-all duration-200 ${
                           active
                             ? "text-royal-700 bg-royal-50"
                             : "text-body hover:text-royal-700 hover:bg-royal-50/60"
@@ -174,7 +174,7 @@ export function Navbar() {
                   <Link
                     key={item.href}
                     href={item.href}
-                    className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
+                    className={`px-3 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-all duration-200 ${
                       active
                         ? "text-royal-700 bg-royal-50"
                         : "text-body hover:text-royal-700 hover:bg-royal-50/60"
@@ -187,15 +187,15 @@ export function Navbar() {
             </nav>
 
             {/* CTAs */}
-            <div className="hidden lg:flex items-center gap-3">
+            <div className="hidden xl:flex items-center gap-2">
               {/* Edmingle SDK controls these three: Student Login shows when logged out;
                   My Account + Logout appear after login. No onClick — SDK binds them. */}
-              <StudentLoginButton className="text-body hover:text-royal-700 text-sm font-medium transition-colors px-2" />
-              <MyAccountButton className="text-body hover:text-royal-700 text-sm font-medium transition-colors px-2" />
-              <LogoutButton className="text-body hover:text-royal-700 text-sm font-medium transition-colors px-2" />
+              <StudentLoginButton className="text-body hover:text-royal-700 text-sm font-medium whitespace-nowrap transition-colors px-1.5" />
+              <MyAccountButton className="text-body hover:text-royal-700 text-sm font-medium whitespace-nowrap transition-colors px-1.5" />
+              <LogoutButton className="text-body hover:text-royal-700 text-sm font-medium whitespace-nowrap transition-colors px-1.5" />
               <button
                 onClick={() => openModal()}
-                className="btn-primary text-sm px-5 py-2.5 rounded-full font-semibold"
+                className="btn-primary text-sm px-5 py-2.5 rounded-full font-semibold whitespace-nowrap"
               >
                 Book a Free Demo
               </button>
@@ -204,7 +204,7 @@ export function Navbar() {
             {/* Hamburger */}
             <button
               onClick={() => setMobileOpen(v => !v)}
-              className="lg:hidden text-ink p-2 rounded-xl hover:bg-royal-50 transition-colors"
+              className="xl:hidden text-ink p-2 rounded-xl hover:bg-royal-50 transition-colors"
               aria-label="Toggle menu"
             >
               {mobileOpen ? <X size={22} /> : <Menu size={22} />}
@@ -221,7 +221,7 @@ export function Navbar() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
-            className="fixed inset-0 z-40 lg:hidden"
+            className="fixed inset-0 z-40 xl:hidden"
           >
             <div
               className="absolute inset-0 bg-ink/30 backdrop-blur-sm"

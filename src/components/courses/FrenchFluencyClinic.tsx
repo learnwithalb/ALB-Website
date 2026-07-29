@@ -17,8 +17,7 @@ import { useBrochure } from "@/components/shared/BrochureContext";
 const ROYAL = "#3b5bdb";
 const SKY = "#38bdf8";
 const MODAL_KEY = "French Communication Lab (1:1)";
-// TODO: replace with the French Communication Lab curriculum PDF link.
-const CURRICULUM_URL = "https://drive.google.com/file/d/1NiUwld37lo5_TBIjaNyoSp3SDI_3gowE/view?usp=sharing";
+const CURRICULUM_URL = "https://drive.google.com/file/d/19svtnZz0eUl61Jr7t9Z5YETp8CvSOlL6/view?usp=sharing";
 
 const CHIPS = ["1:1 only", "2 sessions / week", "2 hours / session", "Free demo included"];
 
