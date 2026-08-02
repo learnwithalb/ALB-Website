@@ -65,7 +65,7 @@ export const FRENCH: CourseData = {
   heroImage: "/images/hero-images/french.png",
   ew: "French · For Immigration, Study and Career Growth",
   h1a: "French That Takes You", h1b: "Further.",
-  hs: "A1 to B2 in 36 weeks. Choose the pathway that fits your future and learn French with a purpose.",
+  hs: "From an intensive 14-week Sprint Track to a comprehensive 36-week programme, choose the A1–B2 journey that works for you.",
   chips: ["36 Weeks", "Certified Trainers", "Small Cohorts", "Soft Skills", "Communication Classes"],
   stats: [{ n: "36", l: "Weeks" }, { n: "Certified", l: "Trainers" }, { n: "Small", l: "Cohorts" }, { n: "Soft-skills", l: "Included" }, { n: "Communication", l: "Classes" }],
   sections: {
@@ -82,7 +82,7 @@ export const FRENCH: CourseData = {
     { icon: "flight", name: "Immigration Track", color: "#2563EB", pop: true, forText: "Canada PR applicants, Express Entry (FSW, CEC, FST), PNP, Quebec Skilled Worker Program, LMIA, and work permit candidates needing a recognised French score for IRCC.", exams: ["TEF Canada", "TCF Canada", "CLB 7+"], brochure: "https://drive.google.com/file/d/1P8tOM494joipFl58eCo1Od3Re5qb5h5-/view?usp=sharing" },
     { icon: "school", name: "Academic Track", color: "#7C3AED", pop: false, forText: "Students applying to French-medium universities in France, Belgium, Switzerland, or Quebec, needing DELF B2 or DALF C1 for university admission.", exams: ["DELF", "DALF"], brochure: "https://drive.google.com/file/d/1A93-1q7dJ-dUG2mFww79x3iJgzruJyWG/view?usp=sharing" },
     { icon: "work", name: "Career Track", color: "#059669", pop: false, forText: "Working professionals in multilingual or international environments needing professional-grade French for workplace advancement and global career goals.", exams: ["DELF"], brochure: "https://drive.google.com/file/d/1i0Fj8KFLkPVa-IcEsRL04j97h1Z6Lnuo/view?usp=sharing" },
-    { icon: "rocket", name: "Sprint Track", color: "#D97706", pop: false, forText: "Designed for learners with urgent goals, visa deadlines, university applications, job opportunities, or upcoming exams, who need structured French learning at an accelerated pace.", exams: ["TEF", "TCF", "DELF"], brochure: "https://drive.google.com/file/d/19k6PKZ4IldfR1sYVwktXmcCxrhdWXPGU/view?usp=sharing" },
+    { icon: "rocket", name: "Sprint Track", color: "#D97706", pop: false, forText: "Designed for learners with urgent goals, visa deadlines, university applications, job opportunities, or upcoming exams, who need structured French learning at an accelerated pace.", exams: ["TEF", "TCF", "DELF"], brochure: "https://drive.google.com/file/d/1xxnfaFc3RgsI_oiI0ipYjZNS3WT-KTUL/view?usp=sharing" },
   ],
   journey: [
     { l: "A1", w: "8 Weeks", t: "Foundations", s: "DELF A1" },
