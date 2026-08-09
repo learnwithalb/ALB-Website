@@ -44,6 +44,12 @@ export function edmingleAccount(): void {
 }
 
 export function edmingleLogout(): void {
+  // Mark this as a user-initiated logout so EdmingleProvider reloads the page
+  // exactly once (to reset the iframe session) — without this flag, the iframe's
+  // passive processLogout on every load would cause an infinite reload loop.
+  try {
+    sessionStorage.setItem("alb-logout-pending", "1");
+  } catch {}
   const w = window as EdmingleWindow;
   if (typeof w.logoutApp === "function") {
     w.logoutApp();

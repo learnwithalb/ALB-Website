@@ -109,7 +109,7 @@ const TRAINER_COLORS = [
   { from: "#5fb89a", to: "#3c9779" }, // teal
 ];
 
-interface Mentor { name: string; role: string; exp: string; qual: string; spec: string; tagline: string; linkedin?: string; img: string; }
+interface Mentor { name: string; role: string; exp: string; expBadge?: string; qual: string; spec: string; tagline: string; linkedin?: string; img: string; }
 
 const ALL_TRAINERS: Mentor[] = [
   {
@@ -121,6 +121,39 @@ const ALL_TRAINERS: Mentor[] = [
     tagline: "Helping learners achieve fluency through structured, practical, and result-oriented French training.",
     linkedin: "https://www.linkedin.com/in/aditi-jain-thebest/",
     img: "/images/mentor-images/Aditi Jain.png",
+  },
+  {
+    name: "Dipikaa",
+    role: "Senior French Language Trainer",
+    exp: "Based in Lyon, France • International French Mentor",
+    expBadge: "International French Trainer",
+    qual: "DALF C2 Certified",
+    spec: "A1–C2 • DELF • DALF • TEF/TCF • Academic French • Workplace French • Conversational French",
+    tagline: "Helping learners build confidence to communicate naturally in French inside and outside the classroom.",
+    linkedin: "https://www.linkedin.com/in/dipikaa-sc/",
+    img: "/images/mentor-images/Dipikaa.png",
+  },
+  {
+    name: "Ketki Sane",
+    role: "Senior French Language Trainer",
+    exp: "12+ Years • CAIE French Educator",
+    expBadge: "12+ Years",
+    qual: "DALF C2 Certified",
+    spec: "CAIE French • DELF • DALF • School French • Curriculum Design • Teacher Training",
+    tagline: "Empowering learners through structured, immersive, and globally aligned French education.",
+    linkedin: "https://www.linkedin.com/in/ketki-sane-702749242/",
+    img: "/images/mentor-images/Ketki Sane.png",
+  },
+  {
+    name: "Shivam Lekhwar",
+    role: "French Language Trainer",
+    exp: "5+ Years • Exam & Academic French",
+    expBadge: "5+ Years",
+    qual: "DALF C1 Certified",
+    spec: "TEF Canada • TCF Canada • DELF • Academic French • Professional French",
+    tagline: "Focused on helping learners achieve exam success with practical communication skills.",
+    linkedin: "https://www.linkedin.com/in/shivam-lekhwar-6b9520319/",
+    img: "/images/mentor-images/Shivam Lekhwar.png",
   },
   {
     name: "Prachi Verma",
@@ -1132,7 +1165,7 @@ export default function HomePage() {
                     <div className={`relative h-full w-full transition-transform duration-[700ms] ease-[cubic-bezier(0.22,1,0.36,1)] [transform-style:preserve-3d] [-webkit-transform-style:preserve-3d] ${flippedMentor.has(i) ? "[transform:rotateY(180deg)]" : "group-hover:[transform:rotateY(180deg)]"}`}>
                       {/* ── FRONT: photo + name ── */}
                       <div
-                        className={`absolute inset-0 [backface-visibility:hidden] [-webkit-backface-visibility:hidden] rounded-3xl overflow-hidden ${flippedMentor.has(i) ? "pointer-events-none" : "group-hover:pointer-events-none"}`}
+                        className={`absolute inset-0 [backface-visibility:hidden] [-webkit-backface-visibility:hidden] [transform:rotateY(0deg)] [-webkit-transform:rotateY(0deg)] rounded-3xl overflow-hidden ${flippedMentor.has(i) ? "pointer-events-none" : "group-hover:pointer-events-none"}`}
                         style={{ background: `linear-gradient(160deg, ${c.from}, ${c.to})` }}
                       >
                         <Image
@@ -1146,7 +1179,7 @@ export default function HomePage() {
                         <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, rgba(6,10,36,0.04) 38%, rgba(6,10,36,0.55) 72%, rgba(5,8,30,0.94) 100%)" }} />
                         {/* experience */}
                         <span className="absolute top-3 right-3 bg-white/90 backdrop-blur-sm rounded-full px-2.5 py-1 text-[11px] font-bold text-ink shadow-sm">
-                          {m.exp.split("·")[0].trim()}
+                          {m.expBadge ?? m.exp.split("·")[0].trim()}
                         </span>
                         {/* name + role */}
                         <div className="absolute inset-x-0 bottom-0 p-5 z-10">
@@ -1157,7 +1190,7 @@ export default function HomePage() {
 
                       {/* ── BACK: details ── */}
                       <div
-                        className={`absolute inset-0 [backface-visibility:hidden] [-webkit-backface-visibility:hidden] [transform:rotateY(180deg)] rounded-3xl overflow-hidden p-5 flex flex-col ${flippedMentor.has(i) ? "pointer-events-auto" : "pointer-events-none group-hover:pointer-events-auto"}`}
+                        className={`absolute inset-0 [backface-visibility:hidden] [-webkit-backface-visibility:hidden] [transform:rotateY(180deg)] [-webkit-transform:rotateY(180deg)] rounded-3xl overflow-hidden p-5 flex flex-col ${flippedMentor.has(i) ? "pointer-events-auto" : "pointer-events-none group-hover:pointer-events-auto"}`}
                         style={{ background: "linear-gradient(160deg, #16203f 0%, #0a0f24 100%)" }}
                       >
                         <div className="absolute inset-0 grid-dots-light opacity-20 pointer-events-none" />

@@ -174,7 +174,12 @@ export function EdmingleProvider() {
       // the user on our site and replicate the logged-out UI reset ourselves.
       // (This does NOT affect the login → LMS redirect, which has no processLogout.)
       if (data.processLogout) {
+        // Block the SDK's off-site redirect (to the Edmingle domain).
         event.stopImmediatePropagation();
+        ["apikey", "name", "role", "username", "curr_org_id"].forEach((k) =>
+          localStorage.removeItem(k)
+        );
+        // Reset the logged-out UI in place (Student Login shows, post-login hides).
         document.querySelectorAll<HTMLElement>(".postLogin").forEach((el) => {
           el.style.display = "none";
         });
@@ -182,9 +187,16 @@ export function EdmingleProvider() {
           el.style.display = "inline-block";
           el.classList.remove("disabled");
         });
-        ["apikey", "name", "role", "username", "curr_org_id"].forEach((k) =>
-          localStorage.removeItem(k)
-        );
+        // Reload ONCE, only for a user-initiated logout, to reset the iframe
+        // session so the next login works without a manual refresh. The iframe
+        // also posts processLogout passively on every load — without this guard
+        // that would reload infinitely.
+        let userInitiated = false;
+        try {
+          userInitiated = sessionStorage.getItem("alb-logout-pending") === "1";
+          if (userInitiated) sessionStorage.removeItem("alb-logout-pending");
+        } catch {}
+        if (userInitiated) window.location.reload();
       }
     };
 
