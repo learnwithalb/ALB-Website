@@ -731,4 +731,14 @@
       animation: none !important;
     }
   }
+
+  /* ── tunnel grid: square rings receding to a central vanishing point ── */
+  @keyframes tunnel-ring {
+    0%   { transform: translate(-50%, -50%) scale(0.06); opacity: 0; }
+    12%  { opacity: 0.5; }
+    100% { transform: translate(-50%, -50%) scale(1.7); opacity: 0; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .tunnel-ring { animation: none !important; opacity: 0.12 !important; }
+  }
 }

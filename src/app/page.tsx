@@ -15,6 +15,7 @@ import { JsonLd } from "@/components/seo/JsonLd";
 import { faqSchema } from "@/lib/schema";
 import { useBooking } from "@/components/shared/BookingContext";
 import { PricingBanner } from "@/components/shared/PricingBanner";
+import { HomeVideoSection } from "@/components/sections/HomeVideoSection";
 
 /* ─────────────────────────── Stat Cards ─────────────────────────── */
 const STAT_CARDS = [
@@ -529,6 +530,9 @@ export default function HomePage() {
           </motion.div>
         </motion.div>
       </section>
+
+      {/* ══════════════════════ VIDEO ══════════════════════ */}
+      <HomeVideoSection />
 
       {/* ══════════════════════ MARQUEE ══════════════════════ */}
       <section className="py-6 border-y border-line bg-white overflow-hidden">
