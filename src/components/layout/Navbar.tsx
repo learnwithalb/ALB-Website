@@ -12,6 +12,7 @@ import { useBooking } from "@/components/shared/BookingContext";
 import { StudentLoginButton } from "@/components/StudentLoginButton";
 import { MyAccountButton } from "@/components/MyAccountButton";
 import { LogoutButton } from "@/components/LogoutButton";
+import { edmingleLogin, edmingleAccount, edmingleLogout } from "@/components/edmingleActions";
 
 /* Featured cards for the Courses mega-dropdown */
 const COURSE_CARDS = [
@@ -25,6 +26,8 @@ export function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [coursesOpen, setCoursesOpen] = useState(false);
   const [mobileCoursesOpen, setMobileCoursesOpen] = useState(false);
+  // Edmingle login state for the mobile drawer (SDK stores `apikey` on login).
+  const [loggedIn, setLoggedIn] = useState(false);
   const pathname = usePathname();
   const { openModal } = useBooking();
 
@@ -40,6 +43,24 @@ export function Navbar() {
   }, []);
 
   useEffect(() => { setMobileOpen(false); }, [pathname]);
+
+  // Track Edmingle login state so the mobile drawer shows the right buttons.
+  useEffect(() => {
+    const read = () => setLoggedIn(!!localStorage.getItem("apikey"));
+    read();
+    const onMessage = (event: MessageEvent) => {
+      const data = event?.data;
+      if (!data || typeof data !== "object") return;
+      if (data.usermeta) setLoggedIn(true);
+      if (data.processLogout) setLoggedIn(false);
+    };
+    window.addEventListener("message", onMessage);
+    window.addEventListener("storage", read);
+    return () => {
+      window.removeEventListener("message", onMessage);
+      window.removeEventListener("storage", read);
+    };
+  }, []);
 
   useEffect(() => {
     document.body.style.overflow = mobileOpen ? "hidden" : "";
@@ -338,6 +359,31 @@ export function Navbar() {
               </div>
 
               <div className="px-5 pb-8 space-y-3">
+                {/* Edmingle login — state-driven so it works in the conditionally
+                    mounted drawer (the SDK's DOM toggling can't reach it). */}
+                {loggedIn ? (
+                  <div className="flex gap-3">
+                    <button
+                      className="btn-outline flex-1 justify-center"
+                      onClick={() => { setMobileOpen(false); edmingleAccount(); }}
+                    >
+                      My Account
+                    </button>
+                    <button
+                      className="btn-outline flex-1 justify-center"
+                      onClick={() => { setMobileOpen(false); edmingleLogout(); }}
+                    >
+                      Log out
+                    </button>
+                  </div>
+                ) : (
+                  <button
+                    className="btn-outline w-full justify-center"
+                    onClick={() => { setMobileOpen(false); edmingleLogin(); }}
+                  >
+                    Student Login
+                  </button>
+                )}
                 <button
                   className="btn-primary w-full justify-center"
                   onClick={() => { setMobileOpen(false); openModal(); }}

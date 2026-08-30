@@ -15,9 +15,18 @@ export async function submitLead(data: LeadData): Promise<{ success: boolean }> 
     body: JSON.stringify(data),
   });
 
-  const result = await response.json();
-  if (!result.success) {
-    throw new Error(result.error || "Submission failed");
+  let result: { success?: boolean; error?: string; message?: string };
+  try {
+    result = await response.json();
+  } catch {
+    throw new Error("The lead service returned an invalid response. Please try again shortly.");
   }
-  return result;
+
+  if (!response.ok || !result.success) {
+    // Google Apps Script commonly returns failures in `message`, while the
+    // Next.js route uses `error`. Preserve either one instead of replacing a
+    // useful configuration error with the generic "Submission failed".
+    throw new Error(result.error || result.message || "Submission failed");
+  }
+  return { success: true };
 }
