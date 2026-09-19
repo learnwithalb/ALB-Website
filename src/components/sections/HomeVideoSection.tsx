@@ -68,7 +68,7 @@ export function HomeVideoSection() {
         {RINGS.map((r) => (
           <span
             key={r}
-            className="tunnel-ring absolute left-1/2 top-1/2 w-[120vmax] h-[120vmax] rounded-[3rem] border border-white/25"
+            className="tunnel-ring absolute left-1/2 top-1/2 w-[120vmax] h-[120vmax] rounded-[3rem] border border-white/50"
             style={{
               animation: `tunnel-ring ${RING_DURATION}s linear infinite`,
               animationDelay: `${(-RING_DURATION / RINGS.length) * r}s`,

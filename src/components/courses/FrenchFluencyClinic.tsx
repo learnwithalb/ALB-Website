@@ -17,24 +17,24 @@ import { useBrochure } from "@/components/shared/BrochureContext";
 const ROYAL = "#3b5bdb";
 const SKY = "#38bdf8";
 const MODAL_KEY = "French Communication Lab (1:1)";
-const CURRICULUM_URL = "https://drive.google.com/file/d/19svtnZz0eUl61Jr7t9Z5YETp8CvSOlL6/view?usp=sharing";
+const CURRICULUM_URL = "https://drive.google.com/file/d/1oenNqJrliN3lNuTUwATrUsviw2kOkRes/view?usp=sharing";
 
-const CHIPS = ["1:1 only", "2 sessions / week", "2 hours / session", "Free demo included"];
+const CHIPS = ["1:1 only", "Monday–Friday", "1 hour / session", "Free demo included"];
 
 const FEATURES = [
-  "Every session is 100% dedicated to your learning — 1:1 with a Native Trainer",
-  "Dedicated speaking tasks and intensive listening comprehension drills",
-  "TEF Canada Expression Orale and Compréhension Orale preparation on request",
-  "Same trainer from your free demo through every session — no hand-offs",
-  "Real-time correction, verbal feedback report, and between-session assignment",
+  "Every session is 100% dedicated to your preparation — 1:1 with your instructor",
+  "A customised learning plan based on your target exam and current level",
+  "Focused preparation for Speaking, Writing, Listening & Reading",
+  "Exam-specific practice, corrections and targeted feedback",
+  "Regular assignments and practice between sessions to keep your preparation on track",
 ];
 
 const FOR_YOU = [
-  "You freeze when someone speaks French to you — even though you know the grammar",
-  "Your TEF Canada Expression Orale or Compréhension Orale is holding your CLB score below 7",
-  "You understand French well but can't produce it spontaneously in real conversation",
-  "You studied French before and want to revive your speaking — without starting from A1",
-  "You've been self-learning and have had almost no real live conversation practice",
+  "You already know some French but need focused preparation for DELF, TEF Canada or TCF Canada",
+  "You know the language but are not confident about your exam performance",
+  "You need help identifying and improving your specific weak areas",
+  "You want 1-on-1 attention instead of a general classroom programme",
+  "You have a specific exam date or target score and need a structured preparation plan",
 ];
 
 /** Right-column card shell: royal→sky top accent + hover border, matching the site. */
@@ -159,9 +159,12 @@ export function FrenchFluencyClinic() {
                     <span className="gradient-text-light">Focus on what&apos;s holding you back.</span>
                   </h2>
                   <p className="mt-5 text-white/60 text-base md:text-lg leading-relaxed max-w-xl">
-                    A dedicated 1-on-1 programme for people who already have French knowledge but struggle to
-                    speak and listen fluently. Not a track. A standalone product — personalised, intensive, and
-                    built around your exact gaps.
+                    A dedicated 1-on-1 exam preparation programme for learners who already have French knowledge
+                    and want focused, personalised preparation for DELF, TEF Canada, or TCF Canada.
+                  </p>
+                  <p className="mt-3 text-white/60 text-base md:text-lg leading-relaxed max-w-xl">
+                    Your sessions are built around your target exam, current level, specific gaps, and preparation
+                    goals — without having to start from basics again.
                   </p>
 
                   {/* chips */}
@@ -216,16 +219,6 @@ export function FrenchFluencyClinic() {
                       ))}
                     </ul>
                   </div>
-
-                  {/* CTAs */}
-                  <div className="mt-9 flex flex-wrap gap-3">
-                    <button onClick={() => openModal(MODAL_KEY)} className="btn-white text-sm px-7 py-3.5">
-                      Book a demo <ArrowRight size={15} />
-                    </button>
-                    <button onClick={() => openBrochureForm("French Communication Lab curriculum", CURRICULUM_URL)} className="btn-outline-light text-sm px-7 py-3.5">
-                      <Download size={15} /> Download curriculum
-                    </button>
-                  </div>
                 </AnimateOnView>
 
                 {/* ── RIGHT ── */}
@@ -271,6 +264,21 @@ export function FrenchFluencyClinic() {
                   </AccentCard>
                 </AnimateOnView>
               </div>
+
+              {/* bottom CTA */}
+              <AnimateOnView className="mt-12 text-center">
+                <h3 className="text-2xl md:text-[1.7rem] font-black text-white leading-tight">
+                  Ready to prepare with a <span className="gradient-text-light">plan built for you?</span>
+                </h3>
+                <div className="mt-6 flex flex-wrap justify-center gap-3">
+                  <button onClick={() => openModal(MODAL_KEY)} className="btn-white text-sm px-7 py-3.5">
+                    Book a FREE demo <ArrowRight size={15} />
+                  </button>
+                  <button onClick={() => openBrochureForm("French Communication Lab curriculum", CURRICULUM_URL)} className="btn-outline-light text-sm px-7 py-3.5">
+                    <Download size={15} /> Download curriculum
+                  </button>
+                </div>
+              </AnimateOnView>
 
               {/* footer note */}
               <AnimateOnView className="mt-12 pt-6 border-t border-white/10 flex items-start gap-2.5 text-white/45 text-xs md:text-sm leading-relaxed">
