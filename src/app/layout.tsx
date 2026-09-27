@@ -5,6 +5,7 @@ import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { LenisProvider } from "@/components/shared/LenisProvider";
 import { BookingProvider } from "@/components/shared/BookingContext";
+import { UtmCapture } from "@/components/shared/UtmCapture";
 import { BookingModal } from "@/components/shared/BookingModal";
 import { BrochureProvider } from "@/components/shared/BrochureContext";
 import { BrochureModal } from "@/components/shared/BrochureModal";
@@ -84,6 +85,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <JsonLd data={[organizationSchema(), websiteSchema()]} />
         {/* Edmingle Login SDK — global iframe + jQuery + signup-sdk.js */}
         <EdmingleProvider />
+        <UtmCapture />
         <BookingProvider>
           <BrochureProvider>
             <LenisProvider>

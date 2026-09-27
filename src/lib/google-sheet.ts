@@ -1,3 +1,5 @@
+import { getUtm } from "@/lib/utm";
+
 export interface LeadData {
   name: string;
   phone: string;
@@ -12,18 +14,35 @@ declare global {
   }
 }
 
-// Push a successful lead to the GTM dataLayer. In GTM, create Data Layer
-// Variables for these keys and a Custom Event trigger on "lead_form_submit".
-function pushLeadToDataLayer(data: LeadData, formName: string) {
+// Push a successful lead to the GTM dataLayer.
+function pushLeadToDataLayer(
+  data: LeadData,
+  formName: string,
+  utmData: ReturnType<typeof getUtm>
+) {
   if (typeof window === "undefined") return;
+
   window.dataLayer = window.dataLayer || [];
+
   window.dataLayer.push({
     event: "lead_form_submit",
+
     form_name: formName,
     programme: data.programme,
     goal: data.goal,
-    // Personal data: use only for Google Ads enhanced conversions / Meta
-    // advanced matching. Do NOT send these to GA4 (against Google's policy).
+
+    // UTM / attribution data
+    utm_source: utmData.utm_source || "",
+    utm_medium: utmData.utm_medium || "",
+    utm_campaign: utmData.utm_campaign || "",
+    utm_term: utmData.utm_term || "",
+    utm_content: utmData.utm_content || "",
+    gclid: utmData.gclid || "",
+    fbclid: utmData.fbclid || "",
+    landing_page: utmData.landing_page || "",
+    referrer: utmData.referrer || "",
+
+    // Personal data: do NOT send these to GA4.
     user_data: {
       name: data.name,
       email: data.email,
@@ -36,27 +55,41 @@ export async function submitLead(
   data: LeadData,
   formName: string = "lead_form",
 ): Promise<{ success: boolean }> {
-  // Post to our own API route (same-origin, no CORS). The route forwards
-  // the payload to the Google Apps Script server-side.
+
+  // Get UTM data once
+  const utmData = getUtm();
+
+  // Send lead + UTM data to our API route
   const response = await fetch("/api/lead", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(data),
+    body: JSON.stringify({
+      ...data,
+      formName,
+      ...utmData,
+    }),
   });
 
   let result: { success?: boolean; error?: string; message?: string };
+
   try {
     result = await response.json();
   } catch {
-    throw new Error("The lead service returned an invalid response. Please try again shortly.");
+    throw new Error(
+      "The lead service returned an invalid response. Please try again shortly."
+    );
   }
 
   if (!response.ok || !result.success) {
-    // Google Apps Script commonly returns failures in `message`, while the
-    // Next.js route uses `error`. Preserve either one instead of replacing a
-    // useful configuration error with the generic "Submission failed".
-    throw new Error(result.error || result.message || "Submission failed");
+    throw new Error(
+      result.error ||
+      result.message ||
+      "Submission failed"
+    );
   }
-  pushLeadToDataLayer(data, formName);
+
+  // Only push to GTM after the lead was successfully saved
+  pushLeadToDataLayer(data, formName, utmData);
+
   return { success: true };
 }
