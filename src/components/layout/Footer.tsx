@@ -33,12 +33,14 @@ export function Footer() {
   const year = new Date().getFullYear();
   const pathname = usePathname();
   // Hide the footer CTA banner where the page already ends with its own CTA:
-  // /beyond, /about, /success-stories, and every language course detail page (/courses/<lang>).
+  // /beyond, /about, /success-stories, every language course detail page (/courses/<lang>)
+  // and every landing page (/landing-pages/<name>).
   const showCta =
     pathname !== "/soft-skills-training-online" &&
     pathname !== "/about-us" &&
     pathname !== "/success-stories" &&
-    !pathname.startsWith("/courses/");
+    !pathname.startsWith("/courses/") &&
+    !pathname.startsWith("/landing-pages/");
 
   return (
     <footer className="sec-dark text-white/55 relative overflow-hidden">
