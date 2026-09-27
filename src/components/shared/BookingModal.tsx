@@ -109,7 +109,7 @@ export function BookingModal() {
     setSubmitError(null);
     setLoading(true);
     try {
-      await submitLead(form);
+      await submitLead(form, "booking_form");
       setSuccess(true);
     } catch (err) {
       console.error(err);

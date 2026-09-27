@@ -47,7 +47,7 @@ export function BrochureModal() {
 
     setErrors({}); setLoading(true); setSubmitError(null);
     try {
-      await submitLead({ ...form, programme: request.title, goal: "Brochure download request" });
+      await submitLead({ ...form, programme: request.title, goal: "Brochure download request" }, "brochure_form");
       setSuccess(true);
     } catch (error) {
       console.error(error);
