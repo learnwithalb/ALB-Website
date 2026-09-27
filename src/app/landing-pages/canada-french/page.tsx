@@ -515,14 +515,14 @@ export default function CanadaFrenchLandingPage() {
                 whileHover={{ y: -6 }}
                 className="group relative min-h-[320px] md:min-h-[380px] lg:min-h-0 rounded-3xl overflow-hidden p-7 flex flex-col justify-between text-white shadow-lift bg-royal-950"
               >
-                {/* zoomed crop on the Toronto skyline / CN Tower */}
+                {/* Toronto skyline and Canadian flag */}
                 <div className="absolute inset-0 overflow-hidden">
                   <Image
-                    src="/images/canada-french-hero.png"
-                    alt=""
+                    src="/images/journey-canada.png"
+                    alt="Toronto skyline and the Canadian flag"
                     fill
                     sizes="(max-width:768px) 100vw, 900px"
-                    className="object-cover object-[76%_0%] scale-[2.1] origin-[76%_0%] transition-transform duration-[1.2s] group-hover:scale-[2.25]"
+                    className="object-cover object-[38%_center] transition-transform duration-[1.2s] group-hover:scale-105"
                   />
                 </div>
                 <div className="absolute inset-0 bg-gradient-to-b from-[#1a1446]/75 via-[#c2410c]/15 to-[#0b1433]/90" />
