@@ -18,7 +18,30 @@ const LEGACY_REDIRECTS: { source: string; destination: string }[] = [
   { source: "/terms", destination: "/terms-and-condition" },
 ];
 
+/**
+ * Security headers applied to every response. The CSP deliberately leaves
+ * script/style sources open so Google Tag Manager and its tags keep working,
+ * but locks down the directives that block clickjacking, plugin injection,
+ * <base> hijacking and form hijacking.
+ */
+const SECURITY_HEADERS = [
+  { key: "Strict-Transport-Security", value: "max-age=63072000; includeSubDomains; preload" },
+  { key: "X-Content-Type-Options", value: "nosniff" },
+  { key: "X-Frame-Options", value: "SAMEORIGIN" },
+  { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+  { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=(), browsing-topics=()" },
+  { key: "Cross-Origin-Opener-Policy", value: "same-origin-allow-popups" },
+  {
+    key: "Content-Security-Policy",
+    value: "base-uri 'self'; object-src 'none'; frame-ancestors 'self'; form-action 'self'; upgrade-insecure-requests",
+  },
+];
+
 const nextConfig: NextConfig = {
+  poweredByHeader: false,
+  async headers() {
+    return [{ source: "/:path*", headers: SECURITY_HEADERS }];
+  },
   async redirects() {
     return LEGACY_REDIRECTS.map((r) => ({ ...r, permanent: true }));
   },

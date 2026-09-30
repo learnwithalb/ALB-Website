@@ -22,7 +22,8 @@ import { useEffect, useRef, useState } from "react";
  */
 
 const SUBDOMAIN = "academyoflanguagesandbeyond";
-const IFRAME_SRC = `https://login.learnwithalb.com/js-sdks/signup-sdk/iframe.php?subdomain=${SUBDOMAIN}`;
+const EDMINGLE_ORIGIN = "https://login.learnwithalb.com";
+const IFRAME_SRC = `${EDMINGLE_ORIGIN}/js-sdks/signup-sdk/iframe.php?subdomain=${SUBDOMAIN}`;
 
 /** On-brand restyle for the Edmingle login/signup modal (injected into the iframe). */
 const MODAL_CSS = `
@@ -176,6 +177,8 @@ export function EdmingleProvider() {
       if (data.processLogout) {
         // Block the SDK's off-site redirect (to the Edmingle domain).
         event.stopImmediatePropagation();
+        // Ignore forged logout messages from any window other than the login iframe.
+        if (event.origin !== EDMINGLE_ORIGIN) return;
         ["apikey", "name", "role", "username", "curr_org_id"].forEach((k) =>
           localStorage.removeItem(k)
         );
@@ -244,6 +247,8 @@ export function EdmingleProvider() {
       <Script
         id="edmingle-jquery"
         src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+        crossOrigin="anonymous"
         strategy="afterInteractive"
         onLoad={() => setJqueryLoaded(true)}
       />
