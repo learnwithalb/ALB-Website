@@ -41,6 +41,19 @@ export function Footer() {
     pathname !== "/success-stories" &&
     !pathname.startsWith("/courses/") &&
     !pathname.startsWith("/landing-pages/");
+  // Ad landing pages keep visitors on the page: no site links, socials or logo link
+  // (only the legal links in the bottom bar).
+  const isLanding = pathname.startsWith("/landing-pages/");
+
+  const brand = (
+    <>
+      <Image src="/images/alb-white.svg" alt="Academy of Languages and Beyond" width={1622} height={940} className="h-10 w-auto" />
+      <div>
+        <div className="text-white font-bold text-sm leading-tight">Academy of Languages</div>
+        <div className="text-royal-200 font-semibold text-xs">and Beyond</div>
+      </div>
+    </>
+  );
 
   return (
     <footer className="sec-dark text-white/55 relative overflow-hidden">
@@ -81,17 +94,15 @@ export function Footer() {
 
       {/* Main Footer */}
       <div className="container-max px-5 md:px-8 pt-14 pb-8 relative z-10">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
+        <div className={isLanding ? "mb-12" : "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 mb-12"}>
 
           {/* Brand */}
           <div className="lg:col-span-1">
-            <Link href="/" className="inline-flex items-center gap-2.5 mb-4">
-              <Image src="/images/alb-white.svg" alt="Academy of Languages and Beyond" width={1622} height={940} className="h-10 w-auto" />
-              <div>
-                <div className="text-white font-bold text-sm leading-tight">Academy of Languages</div>
-                <div className="text-royal-200 font-semibold text-xs">and Beyond</div>
-              </div>
-            </Link>
+            {isLanding ? (
+              <div className="inline-flex items-center gap-2.5 mb-4">{brand}</div>
+            ) : (
+              <Link href="/" className="inline-flex items-center gap-2.5 mb-4">{brand}</Link>
+            )}
             <div className="mb-5 space-y-2">
               <p className="text-xs leading-relaxed text-white/60 font-semibold">
                 The language academy that goes beyond the certificate.
@@ -117,6 +128,7 @@ export function Footer() {
                 {siteConfig.address}
               </p>
             </div>
+            {!isLanding && (
             <div className="flex gap-2.5 mt-5">
               {[
                 { href: siteConfig.socials.instagram, label: "Instagram", Icon: InstagramIcon },
@@ -135,8 +147,10 @@ export function Footer() {
                 </a>
               ))}
             </div>
+            )}
           </div>
 
+          {!isLanding && (<>
           {/* Languages */}
           <div>
             <h4 className="text-white font-bold text-xs uppercase tracking-widest mb-4">Languages</h4>
@@ -203,11 +217,19 @@ export function Footer() {
               ))}
             </ul>
           </div>
+          </>)}
         </div>
 
         {/* Bottom bar */}
         <div className="border-t border-white/10 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-[11px] text-white/35">
           <p>© {year} Academy of Languages and Beyond. All rights reserved.</p>
+          {/* Landing pages keep only the legal links (open in a new tab). */}
+          {isLanding && (
+            <p className="flex gap-4">
+              <Link href="/privacy-policy" target="_blank" className="text-white/60 hover:text-white transition-colors">Privacy Policy</Link>
+              <Link href="/terms-and-condition" target="_blank" className="text-white/60 hover:text-white transition-colors">Terms and Conditions</Link>
+            </p>
+          )}
           <p>Made with ❤️ in India · Go Global. Speak Fluent. Lead Bold.</p>
         </div>
       </div>

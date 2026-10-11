@@ -1,6 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   X, CheckCircle, ArrowRight, Lock, Phone, Mail, User,
@@ -51,6 +53,9 @@ const empty: FormState = { name: "", phone: "", email: "", programme: "", goal: 
 
 export function BookingModal() {
   const { isOpen, topic, closeModal } = useBooking();
+  // Ad landing pages state how the details are used and link the privacy policy
+  // (Google Ads landing-page transparency guidelines).
+  const isLanding = usePathname().startsWith("/landing-pages/");
 
   const [form, setForm]       = useState<FormState>(empty);
   const [errors, setErrors]   = useState<Partial<FormState>>({});
@@ -349,10 +354,20 @@ export function BookingModal() {
                         {/* Privacy box */}
                         <div className="flex items-center gap-3 bg-[#eef2ff] border border-[#c2d2ff] rounded-xl px-4 py-3">
                           <Lock size={14} className="text-[#3b5bdb] flex-shrink-0" />
-                          <div>
-                            <p className="text-sm font-semibold text-gray-700">Your details are never shared.</p>
-                            <p className="text-xs text-gray-500">We hate spam too.</p>
-                          </div>
+                          {isLanding ? (
+                            <div>
+                              <p className="text-sm font-semibold text-gray-700">Your details are only used to arrange your free demo.</p>
+                              <p className="text-xs text-gray-500">
+                                We never share them. See our{" "}
+                                <Link href="/privacy-policy" target="_blank" className="font-semibold text-[#3b5bdb] underline">Privacy Policy</Link>.
+                              </p>
+                            </div>
+                          ) : (
+                            <div>
+                              <p className="text-sm font-semibold text-gray-700">Your details are never shared.</p>
+                              <p className="text-xs text-gray-500">We hate spam too.</p>
+                            </div>
+                          )}
                         </div>
 
                         {/* Submit */}

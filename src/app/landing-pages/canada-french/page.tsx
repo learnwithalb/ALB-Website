@@ -3,11 +3,8 @@
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import {
-  AnimatePresence,
   MotionConfig,
-  animate,
   motion,
-  useInView,
   useMotionTemplate,
   useMotionValue,
   useScroll,
@@ -20,7 +17,6 @@ import {
   Award,
   BookOpen,
   Check,
-  ChevronDown,
   ChevronLeft,
   ChevronRight,
   Headphones,
@@ -51,7 +47,7 @@ const faqs = [
   ["Can I join as a complete beginner?", "Yes. Start at A1 and build your foundations before moving into exam preparation."],
   ["How long does preparation take?", "It depends on your starting level, target, study time and the score you need. We assess your current French and help map a realistic learning path."],
   ["Are classes online?", "Yes. Classes are live online, with trainer interaction, guided practice and feedback."],
-  ["What are the class timings?", "Timings depend on the current batch schedule. Book a free demo and our team can share suitable options."],
+  ["What are the class timings?", "Evening IST and Canada-friendly morning batches. Book a free demo and our team can share suitable options."],
   ["What does NCLC 7 mean?", "NCLC 7 is a Canadian language benchmark level. For the French-language proficiency category in Express Entry, the current requirement includes NCLC 7 in all four French abilities, subject to other applicable criteria."],
   ["Does ALB register me for the exam?", "ALB prepares learners for TEF Canada and TCF Canada. Exam registration is handled with the official exam provider; fees are separate."],
   ["Will learning French guarantee PR or an invitation?", "No. French study or a test score does not guarantee permanent residence, an invitation or any immigration outcome. Eligibility and selection depend on your individual profile and current IRCC requirements."],
@@ -109,8 +105,6 @@ const features: [LucideIcon, string, string][] = [
   [Check, "Personal guidance", "Feedback shaped around your goals."],
 ];
 
-const skills: [string, number][] = [["Listening", 78], ["Speaking", 62], ["Reading", 71], ["Writing", 58]];
-
 const comparison = [
   ["Know your current level", "Guesswork", "Guided assessment"],
   ["Practise speaking regularly", "Hard to stay consistent", "Live speaking practice"],
@@ -118,22 +112,15 @@ const comparison = [
   ["Prepare for TEF / TCF", "Build your own plan", "Structured exam practice and mock tests"],
 ];
 
+// Hero headline: exam-focused when the URL query mentions TEF or TCF
+// (e.g. ?utm_term=tef-canada), Canada PR-focused otherwise. Both are rendered;
+// the "lp-exam" class set by the layout's inline script picks one before first paint.
+const HEADLINES = [
+  { lines: ["Learn French for", "Canada PR: Up to"], highlight: "50 Extra CRS Points", className: "block [.lp-exam_&]:hidden" },
+  { lines: ["TEF & TCF Canada", "Preparation Online:"], highlight: "Score NCLC 7+", className: "hidden [.lp-exam_&]:block" },
+];
 
 /* ─────────────── small pieces ─────────────── */
-
-function CountUp({ to, duration = 1.6 }: { to: number; duration?: number }) {
-  const ref = useRef<HTMLSpanElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-60px 0px" });
-  const [value, setValue] = useState(0);
-
-  useEffect(() => {
-    if (!inView) return;
-    const controls = animate(0, to, { duration, ease: EASE, onUpdate: (v) => setValue(Math.round(v)) });
-    return () => controls.stop();
-  }, [inView, to, duration]);
-
-  return <span ref={ref}>{value}</span>;
-}
 
 // Ring that fills to NCLC 7 of 12 when scrolled into view.
 function SkillRing({ label, delay }: { label: string; delay: number }) {
@@ -245,7 +232,6 @@ function AudienceCard({ a, index, onBook }: { a: Audience; index: number; onBook
 export default function CanadaFrenchLandingPage() {
   const { openModal } = useBooking();
   const book = () => openModal("Canada French — Free Demo");
-  const [openFaq, setOpenFaq] = useState<number | null>(0);
   const [playingStory, setPlayingStory] = useState<string | null>(null);
 
   // Video story scroller: arrow buttons, edge state and progress bar
@@ -285,8 +271,6 @@ export default function CanadaFrenchLandingPage() {
   const { scrollYProgress: pathProgress } = useScroll({ target: pathRef, offset: ["start 80%", "end 55%"] });
   const pathLine = useSpring(pathProgress, { stiffness: 120, damping: 30 });
 
-  const headline = ["Your Canada Plan", "Could Start With"];
-
   return (
     <MotionConfig reducedMotion="user">
       <div className="overflow-x-clip bg-white">
@@ -299,59 +283,40 @@ export default function CanadaFrenchLandingPage() {
           />
 
           <div className="container-max relative">
-            {/* top row: headline + copy/CTA */}
+            {/* top row: headline + copy/CTA. Visible on first paint (no entrance
+                animation) so Largest Contentful Paint doesn't wait for hydration. */}
             <div className="grid lg:grid-cols-[1.35fr_1fr] gap-8 lg:gap-12 items-end">
               <div>
-                <motion.span
-                  initial={{ opacity: 0, y: 12 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, ease: EASE }}
-                  className="inline-block rounded-full bg-royal-50 px-4 py-1.5 text-[11px] font-bold uppercase tracking-[0.18em] text-ink"
-                >
+                <span className="inline-block rounded-full bg-royal-50 px-4 py-1.5 text-[11px] font-bold uppercase tracking-[0.18em] text-ink">
                   French for your Canada journey
-                </motion.span>
+                </span>
 
-                <h1 className="mt-5 text-[44px] leading-[1] sm:text-6xl lg:text-[clamp(52px,min(5.6vw,8svh),84px)] font-black text-ink tracking-tight">
-                  {headline.map((line, i) => (
-                    <span key={line} className="block overflow-hidden pb-1">
-                      <motion.span
-                        className="block"
-                        initial={{ y: "110%" }}
-                        animate={{ y: 0 }}
-                        transition={{ duration: 0.8, delay: 0.1 + i * 0.12, ease: EASE }}
-                      >
-                        {line}
-                      </motion.span>
+                <h1 className="mt-5 text-[clamp(30px,8.6vw,44px)] leading-[1.04] sm:text-5xl lg:text-[clamp(44px,min(4.4vw,7.2svh),66px)] font-black text-ink tracking-tight">
+                  {HEADLINES.map((h) => (
+                    <span key={h.highlight} className={h.className}>
+                      {h.lines.map((line) => (
+                        <span key={line} className="block pb-1">{line}{" "}</span>
+                      ))}
+                      <span className="block pb-4">
+                        <span className="relative inline-block text-royal-500">
+                          {h.highlight}
+                          <svg className="absolute left-[6%] -bottom-3 w-full h-5" viewBox="0 0 200 20" preserveAspectRatio="none" aria-hidden>
+                            <motion.path
+                              d="M2 17 C 60 6, 130 2, 198 6"
+                              fill="none" stroke="#6d8bff" strokeWidth="4" strokeLinecap="round"
+                              initial={{ pathLength: 0 }}
+                              animate={{ pathLength: 1 }}
+                              transition={{ duration: 0.9, delay: 0.3, ease: EASE }}
+                            />
+                          </svg>
+                        </span>
+                      </span>
                     </span>
                   ))}
-                  <span className="block overflow-hidden pb-4">
-                    <motion.span
-                      className="relative inline-block text-royal-500"
-                      initial={{ y: "110%" }}
-                      animate={{ y: 0 }}
-                      transition={{ duration: 0.8, delay: 0.34, ease: EASE }}
-                    >
-                      French.
-                      <svg className="absolute left-[18%] -bottom-3 w-[105%] h-5" viewBox="0 0 200 20" preserveAspectRatio="none" aria-hidden>
-                        <motion.path
-                          d="M2 17 C 60 6, 130 2, 198 6"
-                          fill="none" stroke="#6d8bff" strokeWidth="4" strokeLinecap="round"
-                          initial={{ pathLength: 0 }}
-                          animate={{ pathLength: 1 }}
-                          transition={{ duration: 0.9, delay: 1, ease: EASE }}
-                        />
-                      </svg>
-                    </motion.span>
-                  </span>
                 </h1>
               </div>
 
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.5, ease: EASE }}
-                className="lg:pb-6"
-              >
+              <div className="lg:pb-6">
                 <p className="max-w-md text-lg text-body leading-relaxed">
                   Build the French skills you need for TEF Canada or TCF Canada — and work towards the score your Canada journey demands.
                 </p>
@@ -380,7 +345,7 @@ export default function CanadaFrenchLandingPage() {
                     </motion.span>
                   ))}
                 </motion.div>
-              </motion.div>
+              </div>
             </div>
 
             {/* bottom row: three showcase cards */}
@@ -390,17 +355,15 @@ export default function CanadaFrenchLandingPage() {
               variants={{ visible: { transition: { staggerChildren: 0.12, delayChildren: 0.6 } } }}
               className="mt-10 lg:mt-8 grid md:grid-cols-2 lg:grid-cols-[2.1fr_.62fr_.6fr] lg:h-[clamp(340px,44svh,480px)] gap-4"
             >
-              {/* main card */}
-              <motion.article
-                variants={{ hidden: { opacity: 0, y: 40 }, visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: EASE } } }}
-                className="group relative md:col-span-2 lg:col-span-1 min-h-[480px] lg:min-h-0 rounded-3xl overflow-hidden shadow-lift"
-              >
+              {/* main card: visible on first paint, its photo is the usual LCP element */}
+              <article className="group relative md:col-span-2 lg:col-span-1 min-h-[480px] lg:min-h-0 rounded-3xl overflow-hidden shadow-lift">
                 <motion.div className="absolute inset-0" style={{ y: heroImgY, scale: heroImgScale }}>
                   <Image
                     src="/images/canada-french-hero.png"
                     alt="Learners studying French in a Toronto café"
                     fill
                     priority
+                    fetchPriority="high"
                     sizes="(max-width:1024px) 92vw, 820px"
                     className="object-cover object-[72%_center] transition-transform duration-[1.2s] group-hover:scale-105"
                   />
@@ -429,7 +392,7 @@ export default function CanadaFrenchLandingPage() {
                       <span className="w-1.5 h-1.5 rounded-full bg-sky-300" /> Canada French programme
                     </span>
                     <h2 className="mt-4 text-3xl md:text-[42px] lg:text-[clamp(28px,4.4svh,42px)] font-black leading-[1.06] text-white">
-                      Study French for Your <span className="text-sky-300">Canada Goals</span>
+                      TEF Canada &amp; TCF Canada Preparation, <span className="text-sky-300">Live Online</span>
                     </h2>
                     <p className="mt-4 max-w-md text-white/85 md:text-lg leading-snug">
                       From foundational French to TEF/TCF preparation — a structured, mentor-led path to help you study, work, and settle in Canada.
@@ -476,7 +439,7 @@ export default function CanadaFrenchLandingPage() {
                     </button>
                   </div>
                 </div>
-              </motion.article>
+              </article>
 
               {/* learn french card */}
               <motion.a
@@ -603,7 +566,7 @@ export default function CanadaFrenchLandingPage() {
           </svg>
           <div className="container-max relative grid lg:grid-cols-[1fr_1.25fr] gap-12 items-center">
             <div>
-              <SectionHead light eyebrow="Market trends" title="French can strengthen your Express Entry profile." />
+              <SectionHead light eyebrow="Market trends" title={<><span className="block gradient-text-light">French for Canada PR</span>French can strengthen your Express Entry profile.</>} />
               <AnimateOnView delay={0.2}>
                 <div className="mt-8 flex items-end gap-2.5 h-32" aria-hidden>
                   {[25, 38, 31, 55, 68, 83, 100].map((h, i) => (
@@ -625,7 +588,7 @@ export default function CanadaFrenchLandingPage() {
             <div className="grid sm:grid-cols-2 gap-5">
               <AnimateOnView className="rounded-3xl p-7 bg-white/[0.06] border border-white/10 backdrop-blur">
                 <p className="text-6xl md:text-7xl font-black tracking-tight">
-                  <span className="gradient-text-light">+<CountUp to={50} /></span>
+                  <span className="gradient-text-light">+50</span>
                 </p>
                 <p className="mt-3 font-black text-white text-lg">Additional CRS points</p>
                 <p className="mt-2 text-sm text-white/65 leading-relaxed">French-language proficiency can provide up to 50 additional CRS points when the applicable requirements are met.</p>
@@ -692,7 +655,7 @@ export default function CanadaFrenchLandingPage() {
         {/* ══════════════ LEARNING PATH ══════════════ */}
         <section id="pathway" className="section-padding sec-light scroll-mt-24">
           <div className="container-max">
-            <SectionHead center eyebrow="The ALB learning path" title={<>A clearer route from <span className="gradient-text">A1 to your target.</span></>} />
+            <SectionHead center eyebrow="The ALB learning path" title={<>From A1 to NCLC 7: <span className="gradient-text">your TEF/TCF Canada study plan</span></>} />
 
             <div ref={pathRef} className="relative mt-14">
               <div className="hidden lg:block absolute left-[8%] right-[8%] top-7 h-1 rounded-full bg-royal-50" />
@@ -744,7 +707,7 @@ export default function CanadaFrenchLandingPage() {
           <div className="container-max">
             <SectionHead eyebrow="The ALB experience" title={<>Live. Small. <span className="gradient-text">Interactive.</span></>} />
 
-            <div className="mt-12 grid lg:grid-cols-[1fr_1.15fr_.9fr] gap-6 items-stretch">
+            <div className="mt-12 grid lg:grid-cols-[1fr_1.15fr] gap-6 items-stretch">
               <StaggerContainer className="grid grid-cols-2 gap-4" staggerDelay={0.08}>
                 {features.map(([Icon, title, desc]) => (
                   <StaggerItem key={title}>
@@ -760,7 +723,7 @@ export default function CanadaFrenchLandingPage() {
               </StaggerContainer>
 
               <AnimateOnView delay={0.1} className="relative min-h-[340px] rounded-3xl overflow-hidden shadow-lift">
-                <Image src="/images/live-classes-panel.png" alt="A learner in a live online French class" fill sizes="(max-width:1024px) 92vw, 460px" className="object-cover object-[center_60%]" />
+                <Image src="/images/live-classes-panel.png" alt="A learner in a live online French class" fill sizes="(max-width:1024px) 92vw, 680px" className="object-cover object-[center_60%]" />
                 <div className="absolute inset-0 bg-gradient-to-t from-ink/60 to-transparent" />
                 <span className="absolute top-4 left-4 inline-flex items-center gap-2 rounded-full bg-red-500 px-3 py-1 text-xs font-black text-white">
                   <motion.span className="w-2 h-2 rounded-full bg-white" animate={{ opacity: [1, 0.2, 1] }} transition={{ duration: 1.2, repeat: Infinity }} />
@@ -781,31 +744,6 @@ export default function CanadaFrenchLandingPage() {
                   Très bien !
                 </motion.span>
                 <p className="absolute bottom-4 left-4 right-4 text-white font-black">Live French class</p>
-              </AnimateOnView>
-
-              <AnimateOnView delay={0.2} className="rounded-3xl bg-white p-7 border border-line shadow-soft">
-                <span className="eyebrow">TEF / TCF practice</span>
-                <h3 className="text-2xl font-black text-ink leading-tight">Train for the test.<br />Not just the language.</h3>
-                <div className="mt-6 space-y-4">
-                  {skills.map(([s, pct], i) => (
-                    <div key={s}>
-                      <div className="flex justify-between text-sm font-bold text-ink">
-                        <span>{s}</span>
-                        <span className="text-muted">{pct}%</span>
-                      </div>
-                      <div className="mt-1.5 h-2 rounded-full bg-royal-50 overflow-hidden">
-                        <motion.div
-                          className="h-full rounded-full"
-                          style={{ background: "linear-gradient(90deg,#3b5bdb,#38bdf8)" }}
-                          initial={{ width: 0 }}
-                          whileInView={{ width: `${pct}%` }}
-                          viewport={{ once: true }}
-                          transition={{ duration: 1.1, delay: 0.3 + i * 0.12, ease: EASE }}
-                        />
-                      </div>
-                    </div>
-                  ))}
-                </div>
               </AnimateOnView>
             </div>
           </div>
@@ -981,7 +919,7 @@ export default function CanadaFrenchLandingPage() {
                     style={{ scaleX: storyProgress, background: "linear-gradient(90deg,#3b5bdb,#38bdf8)" }}
                   />
                 </div>
-                <span className="text-sm font-bold text-muted tabular-nums">{videoStories.length} stories</span>
+                <span className="text-sm font-bold text-body tabular-nums">{videoStories.length} stories</span>
                 <div className="flex gap-2">
                   {([[-1, ChevronLeft, "Previous stories", storyEdges.atStart], [1, ChevronRight, "Next stories", storyEdges.atEnd]] as [number, LucideIcon, string, boolean][]).map(([dir, Icon, label, disabled]) => (
                     <button
@@ -1047,38 +985,14 @@ export default function CanadaFrenchLandingPage() {
               <SectionHead eyebrow="Good questions" title="Before you begin." lead="Clear answers for your French and Canada plan." />
             </div>
             <StaggerContainer className="space-y-3" staggerDelay={0.05}>
-              {faqs.map(([q, a], i) => {
-                const open = openFaq === i;
-                return (
-                  <StaggerItem key={q}>
-                    <article className={`rounded-2xl border transition-colors ${open ? "border-royal-200 bg-royal-50/60" : "border-line bg-white hover:border-royal-200"}`}>
-                      <button
-                        onClick={() => setOpenFaq(open ? null : i)}
-                        aria-expanded={open}
-                        className="w-full flex items-center justify-between gap-4 text-left px-5 md:px-6 py-5 font-bold text-ink"
-                      >
-                        {q}
-                        <motion.span animate={{ rotate: open ? 180 : 0 }} transition={{ duration: 0.3 }} className="shrink-0 grid place-items-center w-8 h-8 rounded-full bg-royal-50 text-royal-500">
-                          <ChevronDown size={18} />
-                        </motion.span>
-                      </button>
-                      <AnimatePresence initial={false}>
-                        {open && (
-                          <motion.div
-                            initial={{ height: 0, opacity: 0 }}
-                            animate={{ height: "auto", opacity: 1 }}
-                            exit={{ height: 0, opacity: 0 }}
-                            transition={{ duration: 0.35, ease: EASE }}
-                            className="overflow-hidden"
-                          >
-                            <p className="px-5 md:px-6 pb-5 text-body leading-relaxed">{a}</p>
-                          </motion.div>
-                        )}
-                      </AnimatePresence>
-                    </article>
-                  </StaggerItem>
-                );
-              })}
+              {faqs.map(([q, a]) => (
+                <StaggerItem key={q}>
+                  <article className="rounded-2xl border border-royal-200 bg-royal-50/60 px-5 md:px-6 py-5">
+                    <h3 className="font-bold text-ink">{q}</h3>
+                    <p className="mt-2 text-body leading-relaxed">{a}</p>
+                  </article>
+                </StaggerItem>
+              ))}
             </StaggerContainer>
           </div>
         </section>

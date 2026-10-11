@@ -30,6 +30,8 @@ export function Navbar() {
   const [loggedIn, setLoggedIn] = useState(false);
   const pathname = usePathname();
   const { openModal } = useBooking();
+  // Ad landing pages keep visitors on the page: no menu, student login or logo link.
+  const isLanding = pathname.startsWith("/landing-pages/");
 
   // available languages first, "coming soon" pushed to the bottom (stable order)
   const orderedLanguages = [...languages].sort(
@@ -67,10 +69,28 @@ export function Navbar() {
     return () => { document.body.style.overflow = ""; };
   }, [mobileOpen]);
 
+  const logo = (
+    <>
+      <Image
+        src="/images/alb-blue.svg"
+        alt="Academy of Languages and Beyond"
+        width={1625}
+        height={942}
+        priority
+        className="h-9 w-auto group-hover:scale-105 transition-transform"
+      />
+      <div className="hidden sm:block">
+        <div className="text-ink font-bold text-sm leading-tight">Academy of Languages</div>
+        <div className="text-royal-500 font-semibold text-xs">and Beyond</div>
+      </div>
+    </>
+  );
+
   return (
     <>
       <motion.header
-        initial={{ y: -80, opacity: 0 }}
+        // Landing pages render the header immediately (faster first paint for ad traffic).
+        initial={isLanding ? false : { y: -80, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
         className="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
@@ -84,22 +104,14 @@ export function Navbar() {
           <div className="flex items-center justify-between h-16 md:h-20">
 
             {/* Logo */}
-            <Link href="/" className="flex items-center gap-2.5 group">
-              <Image
-                src="/images/alb-blue.svg"
-                alt="Academy of Languages and Beyond"
-                width={1625}
-                height={942}
-                priority
-                className="h-9 w-auto group-hover:scale-105 transition-transform"
-              />
-              <div className="hidden sm:block">
-                <div className="text-ink font-bold text-sm leading-tight">Academy of Languages</div>
-                <div className="text-royal-500 font-semibold text-xs">and Beyond</div>
-              </div>
-            </Link>
+            {isLanding ? (
+              <div className="flex items-center gap-2.5">{logo}</div>
+            ) : (
+              <Link href="/" className="flex items-center gap-2.5 group">{logo}</Link>
+            )}
 
             {/* Desktop Nav */}
+            {!isLanding && (
             <nav className="hidden xl:flex items-center gap-0.5">
               {navItems.map((item) => {
                 const active = pathname.startsWith(item.href);
@@ -206,14 +218,19 @@ export function Navbar() {
                 );
               })}
             </nav>
+            )}
 
-            {/* CTAs */}
-            <div className="hidden xl:flex items-center gap-2">
+            {/* CTAs — landing pages show only "Book a Free Demo", on every screen size */}
+            <div className={`${isLanding ? "flex" : "hidden xl:flex"} items-center gap-2`}>
               {/* Edmingle SDK controls these three: Student Login shows when logged out;
                   My Account + Logout appear after login. No onClick — SDK binds them. */}
-              <StudentLoginButton className="text-body hover:text-royal-700 text-sm font-medium whitespace-nowrap transition-colors px-1.5" />
-              <MyAccountButton className="text-body hover:text-royal-700 text-sm font-medium whitespace-nowrap transition-colors px-1.5" />
-              <LogoutButton className="text-body hover:text-royal-700 text-sm font-medium whitespace-nowrap transition-colors px-1.5" />
+              {!isLanding && (
+                <>
+                  <StudentLoginButton className="text-body hover:text-royal-700 text-sm font-medium whitespace-nowrap transition-colors px-1.5" />
+                  <MyAccountButton className="text-body hover:text-royal-700 text-sm font-medium whitespace-nowrap transition-colors px-1.5" />
+                  <LogoutButton className="text-body hover:text-royal-700 text-sm font-medium whitespace-nowrap transition-colors px-1.5" />
+                </>
+              )}
               <button
                 onClick={() => openModal()}
                 className="btn-primary text-sm px-5 py-2.5 rounded-full font-semibold whitespace-nowrap"
@@ -222,14 +239,16 @@ export function Navbar() {
               </button>
             </div>
 
-            {/* Hamburger */}
-            <button
-              onClick={() => setMobileOpen(v => !v)}
-              className="xl:hidden text-ink p-2 rounded-xl hover:bg-royal-50 transition-colors"
-              aria-label="Toggle menu"
-            >
-              {mobileOpen ? <X size={22} /> : <Menu size={22} />}
-            </button>
+            {/* Hamburger (landing pages have no menu) */}
+            {!isLanding && (
+              <button
+                onClick={() => setMobileOpen(v => !v)}
+                className="xl:hidden text-ink p-2 rounded-xl hover:bg-royal-50 transition-colors"
+                aria-label="Toggle menu"
+              >
+                {mobileOpen ? <X size={22} /> : <Menu size={22} />}
+              </button>
+            )}
           </div>
         </div>
       </motion.header>

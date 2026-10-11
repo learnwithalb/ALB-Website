@@ -1,6 +1,7 @@
 "use client";
 
 import Script from "next/script";
+import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
 /**
@@ -154,6 +155,7 @@ export function EdmingleProvider() {
   // Only render signup-sdk.js after jQuery has finished loading so `$` exists.
   const [jqueryLoaded, setJqueryLoaded] = useState(false);
   const iframeRef = useRef<HTMLIFrameElement>(null);
+  const pathname = usePathname();
 
   // Inject our on-brand CSS into the cross-origin login iframe via the SDK's
   // supported `{ addStyles }` postMessage channel, once the iframe is ready.
@@ -217,6 +219,10 @@ export function EdmingleProvider() {
       window.clearTimeout(t2);
     };
   }, []);
+
+  // Ad landing pages show no student login, so skip jQuery, the SDK and the
+  // login iframe there (~200 KB of third-party requests on a speed-critical page).
+  if (pathname.startsWith("/landing-pages/")) return null;
 
   return (
     <>
