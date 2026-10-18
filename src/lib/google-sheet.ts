@@ -1,4 +1,4 @@
-import { getUtm } from "@/lib/utm";
+import { getUtm, UTM_KEYS } from "@/lib/utm";
 
 export interface LeadData {
   name: string;
@@ -32,13 +32,7 @@ function pushLeadToDataLayer(
     goal: data.goal,
 
     // UTM / attribution data
-    utm_source: utmData.utm_source || "",
-    utm_medium: utmData.utm_medium || "",
-    utm_campaign: utmData.utm_campaign || "",
-    utm_term: utmData.utm_term || "",
-    utm_content: utmData.utm_content || "",
-    gclid: utmData.gclid || "",
-    fbclid: utmData.fbclid || "",
+    ...Object.fromEntries(UTM_KEYS.map((key) => [key, utmData[key] || ""])),
     landing_page: utmData.landing_page || "",
     referrer: utmData.referrer || "",
 

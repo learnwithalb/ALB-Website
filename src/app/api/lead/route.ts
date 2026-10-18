@@ -1,10 +1,21 @@
 import { NextRequest, NextResponse } from "next/server";
+import { UTM_KEYS } from "@/lib/utm";
 
 // Server-only: never expose this through a NEXT_PUBLIC_ variable.
 const SCRIPT_URL = process.env.GOOGLE_SCRIPT_URL;
 
 const MAX_BODY_BYTES = 8 * 1024;
 const GENERIC_ERROR = "Submission failed. Please try again shortly.";
+
+// Tracking fields are set by the browser (URLs can be long), so they are
+// truncated rather than rejected: a long ad-click URL must never block a lead.
+// Derived from UTM_KEYS so every captured param is forwarded to the sheet.
+const TRACKING_LIMITS: Record<string, number> = {
+  ...Object.fromEntries(UTM_KEYS.map((key) => [key, 200])),
+  landing_page: 500,
+  referrer: 500,
+};
+const TRUNCATED_FIELDS = new Set(Object.keys(TRACKING_LIMITS));
 
 // Only these fields are forwarded to the sheet, each capped at a max length.
 // Anything else in the request body is dropped.
@@ -15,23 +26,8 @@ const FIELD_LIMITS: Record<string, number> = {
   programme: 150,
   goal: 300,
   formName: 50,
-  utm_source: 200,
-  utm_medium: 200,
-  utm_campaign: 200,
-  utm_term: 200,
-  utm_content: 200,
-  gclid: 200,
-  fbclid: 200,
-  landing_page: 500,
-  referrer: 500,
+  ...TRACKING_LIMITS,
 };
-
-// Tracking fields are set by the browser (URLs can be long), so they are
-// truncated rather than rejected: a long ad-click URL must never block a lead.
-const TRUNCATED_FIELDS = new Set([
-  "utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content",
-  "gclid", "fbclid", "landing_page", "referrer",
-]);
 
 // Letters (any script), spaces and . ' ’ - ; must start with a letter.
 const NAME_RE = /^\p{L}[\p{L}\p{M} .'’-]*$/u;
@@ -195,10 +191,24 @@ export async function POST(req: NextRequest) {
       cache: "no-store",
     });
 
-    const result = await upstream.json().catch(() => null);
-    if (result?.success === true) return NextResponse.json({ success: true });
+    const text = await upstream.text().catch(() => "");
+    let result: { success?: unknown } | null = null;
+    try {
+      result = JSON.parse(text);
+    } catch {
+      /* not JSON — logged below */
+    }
+    // Apps Script may serialise the flag as a string; the browser fires the
+    // lead_form_submit conversion only when this returns success.
+    if (result?.success === true || result?.success === "true") {
+      return NextResponse.json({ success: true });
+    }
 
-    console.error("[lead] Apps Script rejected the submission", { status: upstream.status });
+    // Log what came back (never sent to the browser) so a broken script is visible.
+    console.error("[lead] Apps Script rejected the submission", {
+      status: upstream.status,
+      response: text.slice(0, 300),
+    });
     return fail(GENERIC_ERROR, 502);
   } catch (err) {
     console.error("[lead] Apps Script request failed", {

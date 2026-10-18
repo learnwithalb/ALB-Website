@@ -5,14 +5,27 @@
 const STORAGE_KEY = "alb-utm";
 const TTL_MS = 30 * 24 * 60 * 60 * 1000; // 30 days
 
+// utm_* come from tagged links (and the Google Ads final URL suffix, which also
+// supplies matchtype/adgroupid/device/network via ValueTrack). gclid, gbraid,
+// wbraid and gad_* are added by Google Ads auto-tagging; fbclid by Meta.
+// The lead API allow-lists exactly these keys, so add new ones here only.
 export const UTM_KEYS = [
   "utm_source",
   "utm_medium",
   "utm_campaign",
   "utm_term",
   "utm_content",
+  "utm_id",
   "gclid",
+  "gbraid",
+  "wbraid",
+  "gad_source",
+  "gad_campaignid",
   "fbclid",
+  "matchtype",
+  "adgroupid",
+  "device",
+  "network",
 ] as const;
 
 export type UtmData = Partial<Record<(typeof UTM_KEYS)[number], string>> & {
@@ -23,6 +36,16 @@ export type UtmData = Partial<Record<(typeof UTM_KEYS)[number], string>> & {
 interface StoredUtm {
   data: UtmData;
   savedAt: number;
+}
+
+// Google Ads auto-tagging adds click IDs but no UTMs. Label that traffic the
+// way GA4 does (google / cpc, campaign ID) so a paid lead is never blank.
+function fillGoogleAdsDefaults(data: UtmData) {
+  if (data.utm_source) return;
+  if (!(data.gclid || data.gbraid || data.wbraid || data.gad_source)) return;
+  data.utm_source = "google";
+  data.utm_medium ||= "cpc";
+  if (!data.utm_campaign && data.gad_campaignid) data.utm_campaign = data.gad_campaignid;
 }
 
 // Call once per page load. Only overwrites the stored values when the URL
@@ -58,7 +81,9 @@ export function getUtm(): UtmData {
       localStorage.removeItem(STORAGE_KEY);
       return {};
     }
-    return stored.data;
+    const data = { ...stored.data };
+    fillGoogleAdsDefaults(data);
+    return data;
   } catch {
     return {};
   }
