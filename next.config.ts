@@ -23,6 +23,10 @@ const LEGACY_REDIRECTS: { source: string; destination: string }[] = [
  * script/style sources open so Google Tag Manager and its tags keep working,
  * but locks down the directives that block clickjacking, plugin injection,
  * <base> hijacking and form hijacking.
+ *
+ * No Cross-Origin-Opener-Policy: GTM Preview (Tag Assistant) opens the site in
+ * a popup and talks to it through that window reference, which any COOP value
+ * other than unsafe-none severs, so Preview could never connect.
  */
 const SECURITY_HEADERS = [
   { key: "Strict-Transport-Security", value: "max-age=63072000; includeSubDomains; preload" },
@@ -30,7 +34,6 @@ const SECURITY_HEADERS = [
   { key: "X-Frame-Options", value: "SAMEORIGIN" },
   { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
   { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=(), browsing-topics=()" },
-  { key: "Cross-Origin-Opener-Policy", value: "same-origin-allow-popups" },
   {
     key: "Content-Security-Policy",
     value: "base-uri 'self'; object-src 'none'; frame-ancestors 'self'; form-action 'self'; upgrade-insecure-requests",
