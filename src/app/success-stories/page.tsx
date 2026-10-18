@@ -2,16 +2,19 @@
 
 import { useState, useEffect, useRef, useCallback } from "react";
 import { motion, AnimatePresence, useScroll, useSpring } from "framer-motion";
-import { ArrowRight, Quote, Star, MapPin, Sparkles, Play, ChevronLeft, ChevronRight } from "lucide-react";
+import Link from "next/link";
+import { ArrowRight, ArrowDown, Quote, Star, MapPin, Sparkles, Play, ChevronLeft, ChevronRight, Clapperboard, VolumeX } from "lucide-react";
 import { AnimateOnView } from "@/components/shared/AnimateOnView";
 import { useBooking } from "@/components/shared/BookingContext";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { reviewSchema } from "@/lib/schema";
+import { ytCommand } from "@/lib/youtube";
 
 /* Minimal YouTube IFrame API typings (only what we use) */
 type YTPlayer = {
   loadVideoById: (id: string) => void;
   playVideo: () => void;
+  pauseVideo: () => void;
   unMute: () => void;
   destroy: () => void;
 };
@@ -89,6 +92,42 @@ const VIDEOS = [
 ];
 const ROYAL = "#3b5bdb";
 const ytThumb = (id: string) => `https://i.ytimg.com/vi/${id}/hqdefault.jpg`;
+
+/* "The Story Behind ALB" film, screened between the hero carousel and the written stories */
+const STORY_FILM_ID = "jom-tSTal14";
+
+// Results learners describe in their stories below, run along the film strips
+const WINS = [
+  { win: "Got into a programme in France", who: "Rohan, Kolkata" },
+  { win: "Followed a whole client call in French", who: "Neha, Mumbai" },
+  { win: "Cleared the target IELTS band", who: "Meera, Bengaluru" },
+  { win: "B1 German in six months", who: "Arjun, Gurgaon" },
+  { win: "French B1 in four months", who: "Priya, Toronto" },
+  { win: "Handled a client presentation in English", who: "Sana, Lucknow" },
+  { win: "French B1 and German A2, side by side", who: "Ananya, Bengaluru" },
+];
+
+// Viewfinder brackets framing the film; each slides in from its own corner
+const VIEWFINDER = [
+  { cls: "top-0 left-0 border-t-2 border-l-2 rounded-tl-xl", x: -14, y: -14 },
+  { cls: "top-0 right-0 border-t-2 border-r-2 rounded-tr-xl", x: 14, y: -14 },
+  { cls: "bottom-0 left-0 border-b-2 border-l-2 rounded-bl-xl", x: -14, y: 14 },
+  { cls: "bottom-0 right-0 border-b-2 border-r-2 rounded-br-xl", x: 14, y: 14 },
+];
+
+// Dust motes drifting up through the spotlight
+const MOTES = [
+  { left: "46%", top: "34%", delay: 0 },
+  { left: "53%", top: "48%", delay: 1.6 },
+  { left: "49%", top: "20%", delay: 3.1 },
+  { left: "56%", top: "28%", delay: 0.9 },
+  { left: "43%", top: "54%", delay: 2.3 },
+];
+
+const SPROCKETS = {
+  backgroundImage: "linear-gradient(90deg, rgba(255,255,255,0.14) 0 12px, transparent 12px)",
+  backgroundSize: "26px 100%",
+};
 
 /* ─────────────────────────  PIECES  ───────────────────────── */
 
@@ -181,6 +220,29 @@ function StoryCard({ s, index }: { s: Story; index: number }) {
   );
 }
 
+/** Film-strip ribbon: sprocket holes and frames of learner wins, scrolling endlessly. */
+function FilmStrip({ reverse = false }: { reverse?: boolean }) {
+  const frames = reverse ? [...WINS].reverse() : WINS;
+  return (
+    <div aria-hidden className="relative z-20 overflow-hidden border-y border-white/[0.06] bg-[#050a1f]">
+      <div
+        className={`relative flex w-max animate-[marquee_70s_linear_infinite] motion-reduce:animate-none ${reverse ? "[animation-direction:reverse]" : ""}`}
+      >
+        {/* sprocket holes travel with the frames */}
+        <span className="absolute inset-x-0 top-1.5 h-1.5" style={SPROCKETS} />
+        <span className="absolute inset-x-0 bottom-1.5 h-1.5" style={SPROCKETS} />
+        {[...frames, ...frames].map((f, i) => (
+          <div key={i} className="flex items-center gap-3 whitespace-nowrap border-r border-white/10 px-7 py-[1.15rem]">
+            <Star size={13} fill="#fbbf24" className="shrink-0 text-amber-400" />
+            <span className="text-sm font-bold text-white">{f.win}</span>
+            <span className="text-xs text-white/40">{f.who}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 /* ─────────────────────────  PAGE  ───────────────────────── */
 
 export default function SuccessStoriesPage() {
@@ -191,6 +253,54 @@ export default function SuccessStoriesPage() {
   const hostRef = useRef<HTMLDivElement>(null);
   const playerRef = useRef<YTPlayer | null>(null);
   const currentRef = useRef(0);
+  const carouselRef = useRef<HTMLDivElement>(null);
+  const heroInView = useRef(true);
+  const filmBoxRef = useRef<HTMLDivElement>(null);
+  const filmRef = useRef<HTMLIFrameElement>(null);
+  const filmInView = useRef(false);
+  // How the film's player was first mounted: muted on scroll-in, or with sound if the visitor asked first
+  const [filmMount, setFilmMount] = useState<"muted" | "sound" | null>(null);
+  const [filmSound, setFilmSound] = useState(false);
+
+  // One video at a time: the hero carousel plays while it is on screen, and the
+  // story film takes over once it scrolls into view (mounting on first view, so
+  // its own autoplay starts it there), pausing again when it leaves.
+  useEffect(() => {
+    const hero = carouselRef.current;
+    const film = filmBoxRef.current;
+    if (!hero || !film) return;
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) {
+          if (e.target === hero) {
+            heroInView.current = e.isIntersecting;
+          } else {
+            filmInView.current = e.isIntersecting;
+            if (e.isIntersecting) setFilmMount((m) => m ?? "muted");
+            ytCommand(filmRef.current, e.isIntersecting ? "playVideo" : "pauseVideo");
+          }
+        }
+        try {
+          if (heroInView.current && !filmInView.current) playerRef.current?.playVideo();
+          else playerRef.current?.pauseVideo();
+        } catch { /* player not ready */ }
+      },
+      { threshold: 0.5 }
+    );
+    io.observe(hero);
+    io.observe(film);
+    return () => io.disconnect();
+  }, []);
+
+  const turnOnFilmSound = () => {
+    setFilmSound(true);
+    if (filmRef.current) {
+      ytCommand(filmRef.current, "unMute");
+      ytCommand(filmRef.current, "playVideo");
+    } else {
+      setFilmMount((m) => m ?? "sound");
+    }
+  };
 
   // Track viewport width so the full-bleed carousel sizes/spreads responsively.
   useEffect(() => {
@@ -227,10 +337,14 @@ export default function SuccessStoriesPage() {
           width: "100%",
           height: "100%",
           // Muted autoplay is the only kind browsers permit on load; we unmute on first interaction.
-          playerVars: { autoplay: 1, mute: 1, playsinline: 1, controls: 1, rel: 0, modestbranding: 1 },
+          // Skip it if the visitor has already scrolled past the carousel (e.g. a restored scroll position).
+          playerVars: { autoplay: heroInView.current && !filmInView.current ? 1 : 0, mute: 1, playsinline: 1, controls: 1, rel: 0, modestbranding: 1 },
           events: {
             onReady: (e: { target: YTPlayer }) => {
-              try { e.target.playVideo(); } catch { /* autoplay blocked */ }
+              try {
+                if (heroInView.current && !filmInView.current) e.target.playVideo();
+                else e.target.pauseVideo();
+              } catch { /* autoplay blocked */ }
             },
             onStateChange: (e: { data: number }) => {
               // Auto-advance to the next story when the current one finishes.
@@ -378,6 +492,7 @@ export default function SuccessStoriesPage() {
           {/* inline autoplay carousel — full-bleed */}
           <div className="relative z-10 mt-12 md:mt-14">
             <div
+              ref={carouselRef}
               className="relative left-1/2 w-screen -translate-x-1/2 overflow-hidden [perspective:1700px]"
               style={{ height: cardH + 48 }}
             >
@@ -484,6 +599,152 @@ export default function SuccessStoriesPage() {
             </div>
           </div>
         </div>
+      </section>
+
+      {/* ══════════ THE STORY BEHIND ALB (film screening) ══════════ */}
+      <section
+        className="relative overflow-hidden"
+        style={{ background: "radial-gradient(ellipse 60% 55% at 50% 0%, #1c2b6e 0%, transparent 70%), #0a1029" }}
+      >
+        <FilmStrip />
+
+        {/* spotlight beam falling onto the screen, with drifting dust */}
+        <motion.div
+          aria-hidden
+          className="absolute inset-x-0 top-0 h-[80%] flex justify-center pointer-events-none"
+          style={{ filter: "blur(26px)" }}
+          animate={{ opacity: [0.7, 1, 0.82, 1, 0.7] }}
+          transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+        >
+          <div
+            className="w-[1100px] h-full shrink-0"
+            style={{
+              background: "linear-gradient(180deg, rgba(125,160,255,0.30), rgba(125,160,255,0) 90%)",
+              clipPath: "polygon(42% 0, 58% 0, 100% 100%, 0 100%)",
+            }}
+          />
+        </motion.div>
+        {MOTES.map((m, i) => (
+          <motion.span
+            key={i}
+            aria-hidden
+            className="absolute w-1 h-1 rounded-full bg-white pointer-events-none"
+            style={{ left: m.left, top: m.top }}
+            animate={{ y: [0, -36], opacity: [0, 0.7, 0] }}
+            transition={{ duration: 6, repeat: Infinity, ease: "easeOut", delay: m.delay }}
+          />
+        ))}
+
+        <div className="container-max relative z-10 px-5 md:px-8 pt-16 md:pt-20 pb-16 md:pb-20">
+          {/* header: chapter numeral, title, intro */}
+          <div className="grid lg:grid-cols-[1fr_minmax(0,21rem)] xl:grid-cols-[auto_1fr_minmax(0,21rem)] items-end gap-5 lg:gap-10">
+            <motion.span
+              aria-hidden
+              className="hidden xl:block text-[11rem] font-black leading-[0.78] tracking-tighter select-none"
+              style={{ color: "transparent", WebkitTextStroke: "1.5px rgba(155,178,255,0.38)" }}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+            >
+              00
+            </motion.span>
+            <AnimateOnView>
+              <span className="inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.2em] text-sky-300">
+                <Clapperboard size={14} /> Chapter 00 · The Story Behind ALB
+              </span>
+              <h2 className="mt-3 text-3xl sm:text-4xl md:text-5xl font-black text-white leading-[1.05] tracking-tight">
+                Before their stories,
+                <br />
+                <span className="gradient-text-light">there was ours.</span>
+              </h2>
+            </AnimateOnView>
+            <AnimateOnView delay={0.1}>
+              <p className="text-white/60 leading-relaxed">
+                Every learner on this page started with a goal. So did we. Hear why Academy of Languages and Beyond
+                was built, and why every course comes with more than a language.
+              </p>
+            </AnimateOnView>
+          </div>
+
+          {/* the screen */}
+          <div className="relative mx-auto mt-12 md:mt-14 max-w-5xl">
+            <div className="mb-3 flex items-center justify-between gap-4 px-1 text-[11px] font-bold uppercase tracking-[0.2em] text-white/50">
+              <span className="inline-flex items-center gap-2">
+                <span className="relative flex w-2 h-2">
+                  <span className="absolute inset-0 rounded-full bg-sky-400 opacity-75 animate-ping" />
+                  <span className="relative w-2 h-2 rounded-full bg-sky-400" />
+                </span>
+                Now Showing
+              </span>
+              <span className="hidden sm:inline">#SuccessStories</span>
+            </div>
+
+            <div className="relative p-2.5 sm:p-3.5">
+              {VIEWFINDER.map((c, i) => (
+                <motion.span
+                  key={i}
+                  aria-hidden
+                  className={`absolute w-8 h-8 sm:w-10 sm:h-10 border-sky-300 ${c.cls}`}
+                  initial={{ opacity: 0, x: c.x, y: c.y }}
+                  whileInView={{ opacity: 1, x: 0, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.7, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
+                />
+              ))}
+
+              <motion.div
+                ref={filmBoxRef}
+                className="relative aspect-video overflow-hidden rounded-xl bg-black ring-1 ring-white/10"
+                style={{ boxShadow: "0 50px 120px -40px rgba(59,91,219,0.7)" }}
+                initial={{ opacity: 0, scale: 0.94 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true, margin: "-60px" }}
+                transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+              >
+                {/* poster, covered by the player once it loads */}
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={`https://i.ytimg.com/vi/${STORY_FILM_ID}/maxresdefault.jpg`}
+                  alt=""
+                  loading="lazy"
+                  className="absolute inset-0 w-full h-full object-cover"
+                />
+                {filmMount && (
+                  <iframe
+                    ref={filmRef}
+                    src={`https://www.youtube-nocookie.com/embed/${STORY_FILM_ID}?enablejsapi=1&autoplay=1&mute=${filmMount === "sound" ? 0 : 1}&playsinline=1&rel=0&modestbranding=1`}
+                    title="The Story Behind Academy of Languages and Beyond"
+                    allow="autoplay; encrypted-media; picture-in-picture"
+                    allowFullScreen
+                    onLoad={() => { if (filmMount === "muted" && !filmInView.current) ytCommand(filmRef.current, "pauseVideo"); }}
+                    className="absolute inset-0 w-full h-full"
+                  />
+                )}
+              </motion.div>
+            </div>
+
+            <div className="mt-4 flex flex-wrap items-center justify-between gap-4 px-1">
+              <Link href="#stories" className="inline-flex items-center gap-2 text-sm font-bold text-white/75 hover:text-white transition-colors">
+                Now read their stories
+                <motion.span animate={{ y: [0, 4, 0] }} transition={{ duration: 1.5, repeat: Infinity }}>
+                  <ArrowDown size={15} />
+                </motion.span>
+              </Link>
+              {!filmSound && (
+                <button
+                  type="button"
+                  onClick={turnOnFilmSound}
+                  className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-xs font-bold text-ink shadow-[0_10px_30px_-10px_rgba(255,255,255,0.45)] transition-transform hover:-translate-y-0.5"
+                >
+                  <VolumeX size={14} /> Tap for sound
+                </button>
+              )}
+            </div>
+          </div>
+        </div>
+
+        <FilmStrip reverse />
       </section>
 
       {/* ══════════ STORIES + FILTER ══════════ */}
