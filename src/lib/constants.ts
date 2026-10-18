@@ -15,6 +15,28 @@ export const siteConfig = {
   },
 } as const;
 
+const founderNames = ["Mankiran Malhotra", "Jasmine Kaur"] as const;
+
+/** ALB's founders: shared by the About Us and Partner pages and certificate verification. */
+export const founders = {
+  names: founderNames,
+  // Non-breaking spaces inside each name, so a wrapped line only breaks between the two founders
+  byline: founderNames.map((n) => n.replace(/ /g, " ")).join(" & "),
+  title: "Co-Founders, ALB",
+  photo: "/images/hero-images/founders.png",
+  // "In the founders' words"; the paragraph at `highlight` is shown as the key line
+  note: [
+    "When we first began exploring the language-learning industry, we noticed a pattern.",
+    "Students were spending months preparing for language exams and certifications. Many achieved impressive scores. Many completed their courses successfully.",
+    "But when real opportunities arrived, an interview, a university admission process, a client meeting, a visa interaction, or life in a new country, they often lacked the confidence to communicate effectively.",
+    "That observation became the starting point for the Academy of Languages and Beyond.",
+    "We didn't want to create another language institute focused only on grammar, vocabulary, and examination scores. We wanted to build a learning experience that prepares people for what comes after the certificate.",
+    "That's why every ALB programme focuses not only on language proficiency, but also on communication, confidence, critical thinking, and professional readiness.",
+    "Because we believe learning a language should do more than earn you a certificate. It should open doors to opportunities, experiences, and possibilities you once only imagined.",
+  ],
+  highlight: 3,
+} as const;
+
 export const navItems = [
   { label: "Courses", href: "/courses" },
   { label: "+Beyond", href: "/soft-skills-training-online" },

@@ -5,7 +5,7 @@ import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { Search, ArrowRight, ShieldCheck, CheckCircle, QrCode, XCircle } from "lucide-react";
 import { AnimateOnView } from "@/components/shared/AnimateOnView";
-import { siteConfig } from "@/lib/constants";
+import { siteConfig, founders } from "@/lib/constants";
 
 interface Cert {
   name: string;
@@ -179,7 +179,7 @@ export default function VerifyCertificatePage() {
                           </span>
                         </Field>
                         <Field label="Issued By">Academy of Languages and Beyond</Field>
-                        <Field label="Founder">Jasmine Kaur</Field>
+                        <Field label="Founders">{founders.byline}</Field>
                       </div>
 
                       <div className="mt-8 flex flex-wrap items-center gap-4">

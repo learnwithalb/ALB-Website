@@ -8,6 +8,7 @@ import { ArrowRight, Award, Globe, Quote, Sparkles, PenLine, Check } from "lucid
 import { AnimateOnView, StaggerContainer, StaggerItem } from "@/components/shared/AnimateOnView";
 import { MuiIcon } from "@/lib/icons";
 import { useBooking } from "@/components/shared/BookingContext";
+import { founders } from "@/lib/constants";
 
 /* ─────────────── data ─────────────── */
 
@@ -413,7 +414,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* ══════════════════ FOUNDER'S NOTE ══════════════════ */}
+      {/* ══════════════════ FOUNDERS' NOTE ══════════════════ */}
       <section className="section-padding sec-light relative overflow-hidden">
         <div className="absolute inset-0 grid-dots opacity-50 pointer-events-none" />
         <div className="blob blob-royal w-[480px] h-[480px] -top-24 right-[-10%] opacity-30 pointer-events-none" />
@@ -436,11 +437,11 @@ export default function AboutPage() {
                 <div className="relative rounded-[1.6rem] overflow-hidden bg-white border border-line shadow-[0_34px_80px_-34px_rgba(16,23,51,0.5)]">
                   <div className="relative aspect-[4/5]">
                     <Image
-                      src="/images/hero-images/Founder.png"
-                      alt="Jasmine Kaur, Founder of ALB"
+                      src={founders.photo}
+                      alt={`${founders.names.join(" and ")}, Co-Founders of ALB`}
                       fill
                       sizes="(max-width:1024px) 90vw, 400px"
-                      className="object-cover object-top"
+                      className="object-cover object-center"
                     />
                     {/* legibility gradient at the base */}
                     <div className="absolute inset-0 bg-gradient-to-t from-ink/70 via-transparent to-transparent pointer-events-none" />
@@ -466,8 +467,8 @@ export default function AboutPage() {
                     {/* glass name plate */}
                     <div className="absolute inset-x-3 bottom-3 flex items-center justify-between gap-3 rounded-2xl bg-ink/65 backdrop-blur-md border border-white/15 px-4 py-3">
                       <div className="min-w-0">
-                        <p className="text-white font-black text-base leading-tight">Jasmine Kaur</p>
-                        <p className="text-white/60 text-xs font-semibold">Founder, ALB</p>
+                        <p className="text-white font-black text-base leading-tight">{founders.byline}</p>
+                        <p className="text-white/60 text-xs font-semibold mt-0.5">{founders.title}</p>
                       </div>
                       <span className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg" style={{ background: "linear-gradient(135deg,#3b5bdb,#6d8bff)" }}>
                         <PenLine size={16} className="text-white" />
@@ -480,10 +481,10 @@ export default function AboutPage() {
 
             {/* ── Founder's words ── */}
             <AnimateOnView direction="left">
-              <span className="eyebrow-pill-outline">Founder&apos;s Note</span>
+              <span className="eyebrow-pill-outline">Founders&apos; Note</span>
 
               <h2 className="text-3xl md:text-5xl font-black text-ink mt-4 leading-[1.12]">
-                In the <span className="gradient-text">founder&apos;s words.</span>
+                In the <span className="gradient-text">founders&apos; words.</span>
               </h2>
               <motion.div
                 initial={{ scaleX: 0 }}
@@ -498,42 +499,19 @@ export default function AboutPage() {
                 <Quote size={46} className="absolute -top-3 -left-1 text-royal-100 -z-0" fill="currentColor" />
 
                 <StaggerContainer className="relative space-y-4" staggerDelay={0.12}>
-                  <StaggerItem>
-                    <p className="text-body leading-relaxed">
-                      When I first began exploring the language-learning industry, I noticed a pattern.
-                    </p>
-                  </StaggerItem>
-                  <StaggerItem>
-                    <p className="text-body leading-relaxed">
-                      Students were spending months preparing for language exams and certifications. Many achieved impressive scores. Many completed their courses successfully.
-                    </p>
-                  </StaggerItem>
-                  <StaggerItem>
-                    <p className="text-body leading-relaxed">
-                      But when real opportunities arrived, an interview, a university admission process, a client meeting, a visa interaction, or life in a new country, they often lacked the confidence to communicate effectively.
-                    </p>
-                  </StaggerItem>
-
-                  {/* highlighted founding line */}
-                  <StaggerItem>
-                    <div className="flex gap-3.5 my-5">
-                      <span className="w-1 rounded-full flex-shrink-0 self-stretch" style={{ background: "linear-gradient(to bottom,#3b5bdb,#6d8bff)" }} />
-                      <p className="text-lg md:text-xl font-black text-ink leading-snug">
-                        That observation became the starting point for the Academy of Languages and Beyond.
-                      </p>
-                    </div>
-                  </StaggerItem>
-
-                  <StaggerItem>
-                    <p className="text-body leading-relaxed">
-                      I didn&apos;t want to create another language institute focused only on grammar, vocabulary, and examination scores. I wanted to build a learning experience that prepared people for what happens after the certificate.
-                    </p>
-                  </StaggerItem>
-                  <StaggerItem>
-                    <p className="text-body leading-relaxed">
-                      That&apos;s why every ALB programme focuses not only on language proficiency, but also on communication, confidence, critical thinking, and professional readiness.
-                    </p>
-                  </StaggerItem>
+                  {founders.note.map((p, i) => (
+                    <StaggerItem key={i}>
+                      {i === founders.highlight ? (
+                        /* highlighted founding line */
+                        <div className="flex gap-3.5 my-5">
+                          <span className="w-1 rounded-full flex-shrink-0 self-stretch" style={{ background: "linear-gradient(to bottom,#3b5bdb,#6d8bff)" }} />
+                          <p className="text-lg md:text-xl font-black text-ink leading-snug">{p}</p>
+                        </div>
+                      ) : (
+                        <p className="text-body leading-relaxed">{p}</p>
+                      )}
+                    </StaggerItem>
+                  ))}
                 </StaggerContainer>
               </div>
 
@@ -543,10 +521,10 @@ export default function AboutPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.3 }}
-                className="mt-8 flex items-center gap-4 pt-6 border-t border-line"
+                className="mt-8 flex flex-wrap items-center gap-x-4 gap-y-2 pt-6 border-t border-line"
               >
-                <span className="font-display text-3xl md:text-4xl text-ink leading-none italic">Jasmine Kaur</span>
-                <span className="text-muted text-sm font-semibold">Founder and Director, ALB</span>
+                <span className="font-display text-3xl md:text-4xl text-ink leading-none italic">{founders.byline}</span>
+                <span className="text-muted text-sm font-semibold">{founders.title}</span>
               </motion.div>
             </AnimateOnView>
           </div>

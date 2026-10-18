@@ -8,6 +8,7 @@ import { AnimateOnView, StaggerContainer, StaggerItem } from "@/components/share
 import { MuiIcon, Flag } from "@/lib/icons";
 import { LanguageGlobe } from "@/components/shared/LanguageGlobe";
 import { useBooking } from "@/components/shared/BookingContext";
+import { founders } from "@/lib/constants";
 
 const WA = "https://wa.me/919821275843";
 const PARTNER_EMAIL = "partners@learnwithalb.com";
@@ -103,15 +104,6 @@ const SOLUTIONS = [
   { icon: "handshake", tint: "#22c55e", title: "Immigration Consultants", subtitle: "Language and CLB readiness for PR and work-permit clients.",  challenges: "CLB/CEFR requirements, TEF/TCF and IELTS timelines, settlement communication.",  tracks: "French Immigration Track · German Immigration Track · IELTS Advantage" },
   { icon: "school",    tint: "#f5b81a", title: "Schools and Colleges",      subtitle: "Global languages and communication labs for your campus.", challenges: "Faculty bandwidth, global language pathways, placements and study abroad.",    tracks: "French/German Junior · French/German Academic · ECP · IELTS Advantage · Career English Lab" },
   { icon: "business",  tint: "#3b82f6", title: "Corporates and Training",   subtitle: "Career English and communication skills for high-performing teams.", challenges: "Client communication, leadership communication, global mobility.",          tracks: "Career English Lab (corporate) · ECP for teams · French Career Track · German Career Track" },
-];
-
-const FOUNDER = [
-  "Education has been part of my family's legacy for more than five decades. From principals to teachers, I grew up watching how learning can transform lives and create opportunities.",
-  "When I explored the education industry, I noticed a gap. Many students were learning languages and preparing for exams, yet they often lacked the confidence to communicate in real-world situations.",
-  "That's why I founded ALB, Academy of Languages and Beyond.",
-  "Our mission goes beyond helping students learn a language. We help them build the confidence, communication skills, and professional readiness needed to thrive in a global world.",
-  "Every ALB program combines language learning with practical soft skills, because success is not just about what you know, it is about how effectively you can communicate it.",
-  "Whether your goal is higher education, immigration, career growth, or personal development, we're here to help you move beyond language barriers and closer to the opportunities you deserve.",
 ];
 
 const HERO_STATS = [
@@ -574,7 +566,7 @@ export default function PartnerPage() {
         </div>
       </section>
 
-      {/* ══════════════════ FOUNDER'S NOTE ══════════════════ */}
+      {/* ══════════════════ FOUNDERS' NOTE ══════════════════ */}
       <section className="section-padding sec-mist relative overflow-hidden">
         <div className="blob blob-sky w-[420px] h-[420px] top-0 left-[-8%] opacity-40 pointer-events-none" />
         <div className="container-max relative z-10">
@@ -587,8 +579,8 @@ export default function PartnerPage() {
                 <div className="relative rounded-3xl bg-white border border-line shadow-[0_30px_70px_-32px_rgba(16,23,51,0.45)] p-2.5">
                   <div className="relative rounded-2xl overflow-hidden aspect-[4/5]">
                     <Image
-                      src="/images/hero-images/Founder.png"
-                      alt="Jasmine Kaur, Founder of ALB"
+                      src={founders.photo}
+                      alt={`${founders.names.join(" and ")}, Co-Founders of ALB`}
                       fill
                       sizes="(min-width:1024px) 400px, 90vw"
                       className="object-cover"
@@ -603,8 +595,8 @@ export default function PartnerPage() {
                     {/* frosted name bar */}
                     <div className="absolute inset-x-2.5 bottom-2.5 rounded-xl bg-white/85 backdrop-blur-md border border-white/60 px-4 py-3 flex items-center justify-between shadow-lg">
                       <div className="min-w-0">
-                        <p className="font-black text-ink text-base leading-tight">Jasmine Kaur</p>
-                        <p className="text-muted text-xs mt-0.5">Founder, ALB</p>
+                        <p className="font-black text-ink text-base leading-tight">{founders.byline}</p>
+                        <p className="text-muted text-xs mt-0.5">{founders.title}</p>
                       </div>
                       <span className="w-9 h-9 rounded-lg flex items-center justify-center text-white flex-shrink-0" style={{ background: "#0e1733" }}>
                         <Sparkles size={16} />
@@ -619,12 +611,12 @@ export default function PartnerPage() {
             <AnimateOnView direction="left">
               <span className="eyebrow-pill-outline">Our Mission</span>
               <h2 className="text-3xl md:text-4xl font-black text-ink mt-1 leading-tight">
-                In the <span className="gradient-text">founder&apos;s words.</span>
+                In the <span className="gradient-text">founders&apos; words.</span>
               </h2>
               <div className="relative mt-6 space-y-4">
                 <span aria-hidden className="absolute -top-8 -left-2 font-display text-7xl text-royal-200 leading-none select-none">&ldquo;</span>
-                {FOUNDER.map((p, i) => (
-                  <p key={i} className={`relative leading-relaxed ${i === 2 ? "text-ink font-bold text-lg" : "text-body"}`}>{p}</p>
+                {founders.note.map((p, i) => (
+                  <p key={i} className={`relative leading-relaxed ${i === founders.highlight ? "text-ink font-bold text-lg" : "text-body"}`}>{p}</p>
                 ))}
               </div>
             </AnimateOnView>
