@@ -1,16 +1,17 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowRight, ArrowDown, CheckCircle, ChevronDown, Hourglass, Video, Clock, Gift, Sparkles } from "lucide-react";
+import { ArrowRight, ArrowDown, CheckCircle, ChevronDown, Hourglass, Video, Clock, Gift, Sparkles, CalendarDays } from "lucide-react";
 import { AnimateOnView, StaggerContainer, StaggerItem } from "@/components/shared/AnimateOnView";
 import { MuiIcon } from "@/lib/icons";
 import { CountUp } from "@/components/shared/CountUp";
 import { useBooking } from "@/components/shared/BookingContext";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { faqSchema } from "@/lib/schema";
+import { ytCommand } from "@/lib/youtube";
 
 /* ─────────────── data ─────────────── */
 
@@ -19,6 +20,16 @@ const HERO_STATS = [
   { Icon: Video, value: "6", unit: "Live Sessions" },
   { Icon: Clock, value: "6", unit: "Hours" },
   { Icon: Gift, value: "₹0", unit: "Extra Cost" },
+];
+
+// +Beyond intro video (YouTube), shown under the hero
+const BEYOND_VIDEO_ID = "tfcoDDKIAls";
+
+const VIDEO_STATS = [
+  { Icon: CalendarDays, title: "2 Weeks",         sub: "Program Duration" },
+  { Icon: Video,        title: "6 Live Sessions", sub: "Interactive & Practical" },
+  { Icon: Clock,        title: "6 Hours",         sub: "Total Learning Time" },
+  { Icon: Gift,         title: "₹0 Extra Cost",   sub: "Included with your course" },
 ];
 
 // Floating gradient icon tiles that frame the hero image
@@ -81,6 +92,28 @@ const FAQS = [
 export default function BeyondPage() {
   const { openModal } = useBooking();
   const [openFaq, setOpenFaq] = useState<number | null>(0);
+  const videoBoxRef = useRef<HTMLDivElement>(null);
+  const videoRef = useRef<HTMLIFrameElement>(null);
+  const videoInView = useRef(false);
+  const [videoMounted, setVideoMounted] = useState(false);
+
+  // The +Beyond player mounts the first time it scrolls into view, so its own
+  // muted autoplay starts it there; after that it plays while at least half
+  // visible and pauses when scrolled away.
+  useEffect(() => {
+    const box = videoBoxRef.current;
+    if (!box) return;
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        videoInView.current = entry.isIntersecting;
+        if (entry.isIntersecting) setVideoMounted(true);
+        ytCommand(videoRef.current, entry.isIntersecting ? "playVideo" : "pauseVideo");
+      },
+      { threshold: 0.5 }
+    );
+    io.observe(box);
+    return () => io.disconnect();
+  }, []);
 
   return (
     <>
@@ -229,6 +262,99 @@ export default function BeyondPage() {
                 </motion.div>
               ))}
             </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* ══════════════════ +BEYOND VIDEO ══════════════════ */}
+      <section
+        className="section-padding relative overflow-hidden"
+        style={{ background: "linear-gradient(180deg,#eef6ff 0%,#f8faff 30%)" }}
+      >
+        {/* soft blue circles */}
+        <div
+          className="absolute -top-56 -right-48 w-[760px] h-[760px] rounded-full pointer-events-none"
+          style={{ background: "radial-gradient(circle at 65% 35%, #c9dbff 0%, #e3ecff 45%, rgba(238,244,255,0) 72%)" }}
+        />
+        <div
+          className="absolute -bottom-52 -left-52 w-[480px] h-[480px] rounded-full pointer-events-none"
+          style={{ background: "radial-gradient(circle, #e1eaff 0%, rgba(238,244,255,0) 70%)" }}
+        />
+
+        <div className="container-max relative z-10">
+          <div className="grid lg:grid-cols-[1fr_1.1fr] gap-12 items-center">
+            {/* ── left: copy + stats ── */}
+            <AnimateOnView direction="right">
+              <div className="flex items-center gap-5">
+                <span className="inline-flex items-center gap-2 rounded-full border border-line bg-white px-5 py-2.5 text-xs font-bold uppercase tracking-[0.16em] shadow-sm">
+                  <span className="text-royal-500">+Beyond</span>
+                  <span className="text-muted">•</span>
+                  <span className="text-muted">Soft Skills</span>
+                </span>
+                <span className="hidden sm:block flex-1 h-px bg-line" />
+              </div>
+
+              <h2 className="text-4xl md:text-5xl font-black text-ink leading-[1.05] tracking-tight mt-7">
+                Confidence that goes <span className="gradient-text">beyond language.</span>
+              </h2>
+              <p className="mt-5 text-base md:text-lg text-body leading-relaxed max-w-xl">
+                Build real-world communication, public speaking and interview confidence with ALB +Beyond.
+                Practical training, live sessions and expert guidance, all online.
+              </p>
+
+              <StaggerContainer className="mt-10 grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-2 xl:grid-cols-4 gap-y-8" staggerDelay={0.08}>
+                {VIDEO_STATS.map(({ Icon, title, sub }, i) => (
+                  <StaggerItem
+                    key={title}
+                    className={`text-center px-2 border-line ${i % 2 ? "border-l" : i ? "sm:border-l lg:border-l-0 xl:border-l" : ""}`}
+                  >
+                    <span className="mx-auto w-14 h-14 rounded-2xl bg-royal-50 flex items-center justify-center">
+                      <Icon size={24} className="text-royal-500" />
+                    </span>
+                    <div className="mt-4 font-black text-ink text-base leading-tight">{title}</div>
+                    <div className="mt-1.5 text-muted text-xs md:text-[13px] leading-snug">{sub}</div>
+                  </StaggerItem>
+                ))}
+              </StaggerContainer>
+            </AnimateOnView>
+
+            {/* ── right: video (autoplays muted in view, pauses out of view) ── */}
+            <AnimateOnView direction="left" delay={0.1}>
+              <div
+                ref={videoBoxRef}
+                className="relative aspect-video rounded-3xl overflow-hidden bg-ink"
+                style={{ boxShadow: "0 40px 80px -30px rgba(14,23,51,0.45)" }}
+              >
+                {/* poster, covered by the player once it loads */}
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={`https://i.ytimg.com/vi/${BEYOND_VIDEO_ID}/maxresdefault.jpg`}
+                  alt=""
+                  loading="lazy"
+                  className="absolute inset-0 w-full h-full object-cover"
+                />
+                {videoMounted && (
+                  <iframe
+                    ref={videoRef}
+                    src={`https://www.youtube-nocookie.com/embed/${BEYOND_VIDEO_ID}?enablejsapi=1&autoplay=1&mute=1&playsinline=1&rel=0&modestbranding=1`}
+                    title="See the ALB +Beyond experience"
+                    allow="autoplay; encrypted-media; picture-in-picture"
+                    allowFullScreen
+                    onLoad={() => { if (!videoInView.current) ytCommand(videoRef.current, "pauseVideo"); }}
+                    className="absolute inset-0 w-full h-full"
+                  />
+                )}
+              </div>
+
+              <div className="mt-6 flex flex-col items-center">
+                <span className="w-10 h-1 rounded-full bg-royal-500" />
+                <p className="mt-4 flex items-center gap-4 text-sm text-body">
+                  <span className="w-12 h-px bg-royal-300" />
+                  See the +Beyond experience
+                  <span className="w-12 h-px bg-royal-300" />
+                </p>
+              </div>
+            </AnimateOnView>
           </div>
         </div>
       </section>
