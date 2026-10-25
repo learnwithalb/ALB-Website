@@ -26,6 +26,34 @@ const SUBDOMAIN = "academyoflanguagesandbeyond";
 const EDMINGLE_ORIGIN = "https://login.learnwithalb.com";
 const IFRAME_SRC = `${EDMINGLE_ORIGIN}/js-sdks/signup-sdk/iframe.php?subdomain=${SUBDOMAIN}`;
 
+/**
+ * Origins the login iframe can have: its own, and the Edmingle host that
+ * domain is CNAMEd to. A message also has to come from that iframe's window:
+ * every Edmingle script inside it sends with window.parent.postMessage, and
+ * none use popups or window.opener.
+ */
+const TRUSTED_ORIGINS = new Set([EDMINGLE_ORIGIN, `https://${SUBDOMAIN}.edmingle.com`]);
+
+/**
+ * Message keys that make signup-sdk.js navigate the page, write the login
+ * session to localStorage, or rewrite links and HTML. The SDK's own message
+ * handler never checks event.origin, so without this filter any window holding
+ * a reference to this tab (e.g. a site that opened it with window.open) could
+ * send `{ redirectUrl: "javascript:…" }` or plant a forged `usermeta` session.
+ * UI-only keys (login, signup, close, showIframe…) are left alone.
+ */
+const PRIVILEGED_SDK_KEYS = [
+  "redirectUrl",
+  "usermeta",
+  "processLogout",
+  "initGoogleSignin",
+  "initFacebookSignin",
+  "removeoAuthCode",
+  "isEnrolled",
+  "isFreeEnrolled",
+  "isdisableFreePreview",
+];
+
 /** On-brand restyle for the Edmingle login/signup modal (injected into the iframe). */
 const MODAL_CSS = `
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
@@ -161,12 +189,25 @@ export function EdmingleProvider() {
   // supported `{ addStyles }` postMessage channel, once the iframe is ready.
   useEffect(() => {
     const applyStyles = () => {
-      iframeRef.current?.contentWindow?.postMessage({ addStyles: MODAL_CSS }, "*");
+      iframeRef.current?.contentWindow?.postMessage({ addStyles: MODAL_CSS }, EDMINGLE_ORIGIN);
     };
+
+    const isFromLoginIframe = (event: MessageEvent) =>
+      TRUSTED_ORIGINS.has(event.origin) &&
+      event.source !== null &&
+      event.source === iframeRef.current?.contentWindow;
 
     const onMessage = (event: MessageEvent) => {
       const data = event?.data;
+      // Strings and other primitives can't carry the keys the SDK reads.
+      // Arrays are still checked below: structured clone keeps named props.
       if (!data || typeof data !== "object") return;
+
+      // Forged SDK messages from any other window never reach the SDK.
+      if (!isFromLoginIframe(event)) {
+        if (PRIVILEGED_SDK_KEYS.some((key) => key in data)) event.stopImmediatePropagation();
+        return;
+      }
 
       // The iframe posts `{ iframeReady: 1 }` when its own listener is set up.
       if (data.iframeReady) applyStyles();
@@ -179,8 +220,6 @@ export function EdmingleProvider() {
       if (data.processLogout) {
         // Block the SDK's off-site redirect (to the Edmingle domain).
         event.stopImmediatePropagation();
-        // Ignore forged logout messages from any window other than the login iframe.
-        if (event.origin !== EDMINGLE_ORIGIN) return;
         ["apikey", "name", "role", "username", "curr_org_id"].forEach((k) =>
           localStorage.removeItem(k)
         );
@@ -205,16 +244,16 @@ export function EdmingleProvider() {
       }
     };
 
-    // Registered before signup-sdk.js runs, so stopImmediatePropagation above
-    // pre-empts the SDK's own message handler for the logout redirect.
-    window.addEventListener("message", onMessage);
+    // Capture phase: runs before the SDK's own (bubble-phase) message listener
+    // regardless of load order, so stopImmediatePropagation above pre-empts it.
+    window.addEventListener("message", onMessage, { capture: true });
     // Fallbacks in case the ready signal is missed (identical <style> re-injection
     // is harmless): retry a couple of times after mount.
     const t1 = window.setTimeout(applyStyles, 1200);
     const t2 = window.setTimeout(applyStyles, 2600);
 
     return () => {
-      window.removeEventListener("message", onMessage);
+      window.removeEventListener("message", onMessage, { capture: true });
       window.clearTimeout(t1);
       window.clearTimeout(t2);
     };
@@ -235,7 +274,7 @@ export function EdmingleProvider() {
         className="iframe"
         title="Student Login"
         src={IFRAME_SRC}
-        onLoad={() => iframeRef.current?.contentWindow?.postMessage({ addStyles: MODAL_CSS }, "*")}
+        onLoad={() => iframeRef.current?.contentWindow?.postMessage({ addStyles: MODAL_CSS }, EDMINGLE_ORIGIN)}
         style={{
           display: "none",
           position: "fixed",
@@ -259,7 +298,11 @@ export function EdmingleProvider() {
         onLoad={() => setJqueryLoaded(true)}
       />
 
-      {/* 2) Edmingle signup SDK — loaded once, only after jQuery is ready. */}
+      {/* 2) Edmingle signup SDK — loaded once, only after jQuery is ready.
+          No integrity hash: the server ignores ?v= and serves whatever the
+          current file is (no-store), so a pinned hash would break login on
+          Edmingle's next update. A versioned, immutable URL from Edmingle
+          would make SRI possible. */}
       {jqueryLoaded && (
         <Script
           id="edmingle-signup-sdk"

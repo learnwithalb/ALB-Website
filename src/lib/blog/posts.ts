@@ -116,7 +116,7 @@ export const POSTS: BlogPost[] = [
     publishedAt: "2026-02-18",
     updatedAt: "2026-07-26",
     readingMinutes: 11,
-    coverImage: "/images/blog-images/TEF Canada Speaking Test Format, Scoring, and Preparation Tips 2.png",
+    coverImage: "/images/blog-images/tef-canada-speaking-test-format-scoring-and-preparation-tips-2.png",
     complete: true,
     sections: [
       {
